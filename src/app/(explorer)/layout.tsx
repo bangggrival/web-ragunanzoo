@@ -189,11 +189,11 @@ export default function ExplorerLayout({
                 {/* Language */}
                 <LanguageSelector />
 
-                {/* Accessibility Toggle in Header */}
+                {/* Accessibility Toggle in Header - Visible on mobile only; desktop uses the floating widget */}
                 <button
                   type="button"
                   onClick={toggleMenu}
-                  className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all active:scale-95 shadow-2xs ${
+                  className={`md:hidden w-9 h-9 rounded-full border flex items-center justify-center transition-all active:scale-95 shadow-2xs ${
                     isMenuOpen 
                       ? 'bg-primary text-white border-primary shadow-sm ring-2 ring-primary/20' 
                       : 'bg-muted/60 hover:bg-muted border-border/60 text-foreground hover:text-primary'
