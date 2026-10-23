@@ -65,7 +65,9 @@ export const WeatherAmbientProvider: React.FC<{ children: React.ReactNode }> = (
     setThemeModeState(mode);
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, mode);
-    } catch {}
+    } catch {
+      // Ignore localStorage write failures in private/incognito browsing
+    }
   }, []);
 
   const fetchWeather = useCallback(async () => {

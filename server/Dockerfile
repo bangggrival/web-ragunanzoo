@@ -15,8 +15,11 @@ COPY . .
 # Remove dev files
 RUN rm -f .env.example
 
-# Create uploads directory
-RUN mkdir -p /app/uploads
+# Create uploads directory and enforce unprivileged user ownership
+RUN mkdir -p /app/uploads && chown -R node:node /app
+
+# Switch to unprivileged non-root user
+USER node
 
 ENV PORT=5005
 ENV NODE_ENV=production

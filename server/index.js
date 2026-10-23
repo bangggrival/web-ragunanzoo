@@ -78,7 +78,10 @@ const configuredOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000,ht
 
 const corsOriginCheck = (origin, callback) => {
   if (!origin) return callback(null, true);
-  if (!isProdEnv || configuredOrigins.includes(origin) || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+  if (configuredOrigins.includes(origin)) {
+    return callback(null, true);
+  }
+  if (!isProdEnv && (origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:'))) {
     return callback(null, true);
   }
   return callback(new Error('Origin tidak diizinkan oleh kebijakan CORS.'));

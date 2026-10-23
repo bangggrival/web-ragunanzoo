@@ -5,7 +5,7 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_SUPABASE_URL: process.env.VITE_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.VITE_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    JWT_SECRET: process.env.JWT_SECRET || 'ragunan_super_secret_production_key_2026_xYz987!@#',
+    JWT_SECRET: process.env.JWT_SECRET || (process.env.NODE_ENV === 'production' ? '' : 'ragunan_super_secret_production_key_2026_xYz987!@#'),
   },
   async headers() {
     return [

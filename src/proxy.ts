@@ -61,9 +61,17 @@ export default async function proxy(request: NextRequest) {
 
   // 1. ROUTE GUARDING: Cryptographically verify JWT and roles for /manager routes
   if (pathname.startsWith('/manager')) {
-    const token = request.cookies.get('sb-token')?.value;
-    const jwtSecret = process.env.JWT_SECRET || 'ragunan_super_secret_production_key_2026_xYz987!@#';
+    const isProd = process.env.NODE_ENV === 'production';
+    const defaultSecret = 'ragunan_super_secret_production_key_2026_xYz987!@#';
+    const jwtSecret = process.env.JWT_SECRET || (isProd ? '' : defaultSecret);
 
+    if (isProd && (!jwtSecret || jwtSecret === defaultSecret)) {
+      console.error('🚨 [SECURITY ALERT] Insecure or missing JWT_SECRET detected in production environment! Access to /manager blocked.');
+      const authUrl = new URL('/auth?error=security_misconfiguration', request.url);
+      return NextResponse.redirect(authUrl);
+    }
+
+    const token = request.cookies.get('sb-token')?.value;
     if (!token) {
       // Immediate server-side redirect to /auth without flashing the manager UI shell
       const authUrl = new URL('/auth', request.url);
