@@ -36,7 +36,11 @@ import {
   Maximize2,
   Move,
   Globe,
-  ShieldCheck
+  ShieldCheck,
+  Flame,
+  SlidersHorizontal,
+  Zap,
+  Radio
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -57,7 +61,11 @@ import {
   createTramPointAction,
   updateTramPointAction,
   deleteTramPointAction,
-  reorderTramRouteAction
+  reorderTramRouteAction,
+  getTrafficHeatmapAction,
+  simulateTrafficAction,
+  clearTrafficLogsAction,
+  HeatmapResponse
 } from './actions';
 
 import {
@@ -71,6 +79,7 @@ import { TramPointModal } from './components/TramPointModal';
 import { GpsClosureModal } from './components/GpsClosureModal';
 import { GpsAnnouncementModal } from './components/GpsAnnouncementModal';
 import { GpsAnalyticsTab } from './components/GpsAnalyticsTab';
+import { GpsHeatmapPanel } from './components/GpsHeatmapPanel';
 
 // Security Hardening: XSS Sanitizer for Leaflet HTML popups
 function escapeHtml(str: string | null | undefined): string {
@@ -102,7 +111,7 @@ export default function ManageGpsMapClient() {
   const { confirm, ConfirmComponent } = useConfirm();
 
   // State Tabs
-  const [activeTab, setActiveTab] = useState<'pois' | 'tram' | 'status' | 'analytics'>('pois');
+  const [activeTab, setActiveTab] = useState<'pois' | 'tram' | 'status' | 'analytics' | 'heatmap'>('pois');
 
   // Data States
   const [pois, setPois] = useState<GpsPoi[]>([]);
@@ -120,6 +129,15 @@ export default function ManageGpsMapClient() {
   const [showTramLayer, setShowTramLayer] = useState(true);
   const [showPerimeterLayer, setShowPerimeterLayer] = useState(true);
 
+  // FEATURE: Heatmap Kepadatan Pengunjung (Visitor Traffic Visualizer)
+  const [showHeatmapLayer, setShowHeatmapLayer] = useState(false);
+  const [heatmapRadius, setHeatmapRadius] = useState(28);
+  const [heatmapBlur, setHeatmapBlur] = useState(18);
+  const [heatmapTimeRange, setHeatmapTimeRange] = useState<'1h' | '24h' | '7d' | 'all'>('24h');
+  const [heatmapSource, setHeatmapSource] = useState<'all' | 'checkin' | 'facility_report' | 'route_search' | 'poi_crowd'>('all');
+  const [heatmapData, setHeatmapData] = useState<HeatmapResponse | null>(null);
+  const [isLoadingHeatmap, setIsLoadingHeatmap] = useState(false);
+
   // PRIORITY FEATURE 1: Basemap Switcher (Peta Jalan vs Satelit ESRI)
   const [basemap, setBasemap] = useState<'osm' | 'satellite'>('osm');
 
@@ -136,6 +154,7 @@ export default function ManageGpsMapClient() {
   const markersGroupRef = useRef<any>(null);
   const perimeterLayerRef = useRef<any>(null);
   const tramPolylineRef = useRef<any>(null);
+  const heatLayerRef = useRef<any>(null);
   const pickMarkerRef = useRef<any>(null);
   const markersMapRef = useRef<Record<string, any>>({});
   const tramMarkersMapRef = useRef<Record<number, any>>({});
@@ -211,20 +230,40 @@ export default function ManageGpsMapClient() {
     }
   };
 
+  // Fetch Heatmap Traffic Data
+  const fetchHeatmapData = useCallback(async () => {
+    try {
+      setIsLoadingHeatmap(true);
+      const res = await getTrafficHeatmapAction({
+        timeRange: heatmapTimeRange,
+        source: heatmapSource
+      });
+      if (res?.data) {
+        setHeatmapData(res.data);
+      }
+    } catch (err: any) {
+      console.error('Error fetching heatmap traffic data:', err);
+    } finally {
+      setIsLoadingHeatmap(false);
+    }
+  }, [heatmapTimeRange, heatmapSource]);
+
   useEffect(() => {
     fetchData();
+    fetchHeatmapData();
 
     // Listen for SSE updates from backend
     const handleRealtime = (e: any) => {
-      if (e.detail?.table === 'gps_pois' || e.detail?.table === 'tram_route_points') {
+      if (e.detail?.table === 'gps_pois' || e.detail?.table === 'tram_route_points' || e.detail?.table === 'visitor_traffic_logs') {
         fetchData();
+        fetchHeatmapData();
       }
     };
     window.addEventListener('supabase-db-change', handleRealtime);
     return () => {
       window.removeEventListener('supabase-db-change', handleRealtime);
     };
-  }, []);
+  }, [fetchHeatmapData]);
 
   // 2. Filter POIs for list & map display
   const filteredPois = useMemo(() => {
@@ -458,7 +497,7 @@ export default function ManageGpsMapClient() {
   useEffect(() => {
     let isCancelled = false;
 
-    if (activeTab !== 'pois' && activeTab !== 'tram') return;
+    if (activeTab !== 'pois' && activeTab !== 'tram' && activeTab !== 'heatmap') return;
 
     const loadLeaflet = async () => {
       // 1. Ensure Leaflet CSS is present (local vendor first, CDN fallback)
@@ -487,6 +526,23 @@ export default function ManageGpsMapClient() {
             document.head.appendChild(fallbackScript);
           };
           document.head.appendChild(script);
+        });
+      }
+
+      // 3. Ensure Leaflet.heat is loaded (local vendor first, CDN fallback)
+      if (!(window as any).L?.heatLayer) {
+        await new Promise<void>((resolve) => {
+          const heatScript = document.createElement('script');
+          heatScript.src = '/vendor/leaflet/leaflet-heat.js';
+          heatScript.onload = () => resolve();
+          heatScript.onerror = () => {
+            const fallback = document.createElement('script');
+            fallback.src = 'https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js';
+            fallback.onload = () => resolve();
+            fallback.onerror = () => resolve();
+            document.head.appendChild(fallback);
+          };
+          document.head.appendChild(heatScript);
         });
       }
 
@@ -600,6 +656,35 @@ export default function ManageGpsMapClient() {
       attribution: tileAttr
     }).addTo(map);
   }, [basemap]);
+
+  // FEATURE: Render Heatmap Layer (Visualizer Kepadatan Pengunjung)
+  useEffect(() => {
+    const map = leafletMapInstanceRef.current;
+    if (!map || !(window as any).L) return;
+    const L = (window as any).L;
+
+    if (heatLayerRef.current) {
+      map.removeLayer(heatLayerRef.current);
+      heatLayerRef.current = null;
+    }
+
+    if (showHeatmapLayer && L.heatLayer && heatmapData?.points && heatmapData.points.length > 0) {
+      heatLayerRef.current = L.heatLayer(heatmapData.points, {
+        radius: heatmapRadius,
+        blur: heatmapBlur,
+        maxZoom: 18,
+        max: 1.0,
+        minOpacity: 0.25,
+        gradient: {
+          0.2: '#0284c7', // Sky blue - sepi/rendah
+          0.4: '#10b981', // Emerald - normal
+          0.6: '#eab308', // Amber - ramai
+          0.8: '#f97316', // Orange - padat
+          1.0: '#ef4444'  // Red - penumpukan massa
+        }
+      }).addTo(map);
+    }
+  }, [showHeatmapLayer, heatmapData, heatmapRadius, heatmapBlur]);
 
   // Re-render markers when data, filters, or drag mode changes
   useEffect(() => {
@@ -868,6 +953,39 @@ export default function ManageGpsMapClient() {
     }
   };
 
+  // Heatmap Traffic Handlers
+  const handleSimulateTraffic = async () => {
+    try {
+      setIsLoadingHeatmap(true);
+      const res = await simulateTrafficAction();
+      toast.success(`⚡ Simulasi berhasil! ${res.data?.insertedCount || 0} titik sebaran pengunjung ditambahkan.`);
+      await fetchHeatmapData();
+    } catch (err: any) {
+      toast.error('Gagal menjalankan simulasi traffic: ' + err.message);
+    } finally {
+      setIsLoadingHeatmap(false);
+    }
+  };
+
+  const handleClearTraffic = async () => {
+    const isConfirmed = await confirm(
+      'Reset Seluruh Log Traffic Pengunjung?',
+      'Apakah Anda yakin ingin mengosongkan semua data sebaran traffic dan laporan penumpukan massa? Aksi ini akan dicatat ke audit log.'
+    );
+    if (!isConfirmed) return;
+
+    try {
+      setIsLoadingHeatmap(true);
+      await clearTrafficLogsAction();
+      toast.success('Log traffic pengunjung berhasil dibersihkan.');
+      await fetchHeatmapData();
+    } catch (err: any) {
+      toast.error('Gagal membersihkan log traffic: ' + err.message);
+    } finally {
+      setIsLoadingHeatmap(false);
+    }
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
       {ConfirmComponent}
@@ -998,10 +1116,26 @@ export default function ManageGpsMapClient() {
           <Sparkles className="w-4 h-4" />
           Statistik & Panduan Koordinat
         </button>
+
+        <button
+          onClick={() => {
+            setActiveTab('heatmap');
+            setShowHeatmapLayer(true);
+            fetchHeatmapData();
+          }}
+          className={`px-5 py-3 rounded-2xl font-medium text-sm flex items-center gap-2 transition-all whitespace-nowrap ${
+            activeTab === 'heatmap'
+              ? 'bg-gradient-to-r from-orange-500 to-rose-600 text-white shadow-sm'
+              : 'bg-white/60 text-gray-600 hover:bg-white/90'
+          }`}
+        >
+          <Flame className="w-4 h-4 text-orange-400" />
+          Heatmap Kepadatan ({heatmapData?.stats?.totalEvents ?? 0})
+        </button>
       </div>
 
-      {/* ─── SHARED INTERACTIVE MAP SECTION (AVAILABLE IN BOTH 'POIS' & 'TRAM' TABS) ─── */}
-      {(activeTab === 'pois' || activeTab === 'tram') && (
+      {/* ─── SHARED INTERACTIVE MAP SECTION (AVAILABLE IN 'POIS', 'TRAM', & 'HEATMAP' TABS) ─── */}
+      {(activeTab === 'pois' || activeTab === 'tram' || activeTab === 'heatmap') && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* LEAFLET MAP PREVIEW (7 COLUMNS) */}
           <div className="lg:col-span-7 bg-white/70 backdrop-blur-xl border border-white/80 p-5 rounded-[2rem] shadow-sm space-y-4">
@@ -1009,11 +1143,40 @@ export default function ManageGpsMapClient() {
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                 <h3 className="font-semibold text-gray-900 text-base">
-                  {activeTab === 'pois' ? 'Peta Interaktif Titik POI' : 'Peta Interaktif Jalur Kereta'}
+                  {activeTab === 'pois'
+                    ? 'Peta Interaktif Titik POI'
+                    : activeTab === 'tram'
+                    ? 'Peta Interaktif Jalur Kereta'
+                    : 'Peta Visualizer Heatmap Kepadatan Pengunjung'}
                 </h3>
               </div>
 
               <div className="flex items-center gap-2 flex-wrap">
+                {/* FEATURE: Heatmap Layer Toggle */}
+                <Button
+                  size="sm"
+                  variant={showHeatmapLayer ? 'default' : 'outline'}
+                  onClick={() => {
+                    const next = !showHeatmapLayer;
+                    setShowHeatmapLayer(next);
+                    if (next) {
+                      toast.info('🔥 Lapisan Heatmap Kepadatan Pengunjung Diaktifkan');
+                      fetchHeatmapData();
+                    } else {
+                      toast.info('Lapisan Heatmap Dinonaktifkan');
+                    }
+                  }}
+                  className={`text-xs rounded-xl h-8 transition-all ${
+                    showHeatmapLayer
+                      ? 'bg-gradient-to-r from-orange-500 to-rose-600 hover:from-orange-600 hover:to-rose-700 text-white shadow-sm ring-2 ring-rose-200'
+                      : 'border-gray-200 text-gray-700 hover:bg-gray-100'
+                  }`}
+                  title="Visualisasi lapisan panas kepadatan pengunjung"
+                >
+                  <Flame className="w-3.5 h-3.5 mr-1" />
+                  {showHeatmapLayer ? 'Heatmap Aktif' : 'Heatmap'}
+                </Button>
+
                 {/* PRIORITY FEATURE 1: Basemap Switcher */}
                 <div className="flex items-center bg-gray-100 p-1 rounded-xl border border-gray-200 text-xs">
                   <button
@@ -1118,6 +1281,28 @@ export default function ManageGpsMapClient() {
                 id="manager-leaflet-map"
                 className="w-full h-[520px] bg-slate-100 z-10"
               />
+
+              {/* Floating Heatmap Visual Legend */}
+              {showHeatmapLayer && (
+                <div className="absolute top-3 right-3 z-20 bg-white/95 backdrop-blur-md p-3 rounded-2xl border border-gray-200 text-xs text-gray-800 shadow-md space-y-1.5">
+                  <div className="flex items-center justify-between gap-3 font-semibold text-gray-900">
+                    <span className="flex items-center gap-1.5">
+                      <Flame className="w-4 h-4 text-orange-500 animate-pulse" />
+                      Kepadatan Pengunjung
+                    </span>
+                    <Badge variant="outline" className="text-[10px] bg-orange-50 text-orange-700 border-orange-200 px-1.5 py-0">
+                      Live
+                    </Badge>
+                  </div>
+                  <div className="w-36 h-2 rounded-full bg-gradient-to-r from-sky-500 via-emerald-400 via-yellow-400 via-orange-500 to-rose-600 shadow-inner" />
+                  <div className="flex justify-between text-[10px] text-gray-500 font-medium">
+                    <span>Sepi</span>
+                    <span>Ramai</span>
+                    <span className="text-rose-600 font-bold">Padat</span>
+                  </div>
+                </div>
+              )}
+
               <div className="absolute bottom-3 left-3 z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl border border-gray-200 text-xs text-gray-700 shadow-sm flex items-center gap-2">
                 <Info className="w-3.5 h-3.5 text-emerald-600" />
                 <span>
@@ -1437,6 +1622,39 @@ export default function ManageGpsMapClient() {
                   ))
                 )}
               </div>
+            </div>
+          )}
+
+          {/* RIGHT COLUMN: HEATMAP VISITOR TRAFFIC CONTROL PANEL (IF HEATMAP TAB) */}
+          {activeTab === 'heatmap' && (
+            <div className="lg:col-span-5">
+              <GpsHeatmapPanel
+                heatmapData={heatmapData}
+                isLoading={isLoadingHeatmap}
+                timeRange={heatmapTimeRange}
+                setTimeRange={(val) => {
+                  setHeatmapTimeRange(val);
+                }}
+                source={heatmapSource}
+                setSource={(val) => {
+                  setHeatmapSource(val);
+                }}
+                radius={heatmapRadius}
+                setRadius={setHeatmapRadius}
+                blur={heatmapBlur}
+                setBlur={setHeatmapBlur}
+                onRefresh={fetchHeatmapData}
+                onSimulate={handleSimulateTraffic}
+                onClear={handleClearTraffic}
+                onFlyToZone={(lat, lng, name) => {
+                  if (leafletMapInstanceRef.current) {
+                    leafletMapInstanceRef.current.flyTo([lat, lng], 18, { duration: 0.8 });
+                    toast.info(`Mengarahkan kamera ke: ${name}`);
+                  }
+                }}
+                showHeatmap={showHeatmapLayer}
+                setShowHeatmap={setShowHeatmapLayer}
+              />
             </div>
           )}
         </div>

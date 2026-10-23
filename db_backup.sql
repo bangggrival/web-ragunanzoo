@@ -2,15 +2,14 @@
 -- PostgreSQL database dump
 --
 
-\restrict KPJ0k4sswhYtNo6MUZJXnpDKt9akctj8h8eUiadJ5MtLrpdkIpUZrpL8MVuuX2S
+\restrict FS6Jmb6Dk5d2ssT4TabZfPOQH13LjMfL093GuWo69u12hPk0MeqsdRS8RShQZOd
 
 -- Dumped from database version 16.15
--- Dumped by pg_dump version 18.6
+-- Dumped by pg_dump version 16.15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -19,249 +18,255 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-DROP POLICY IF EXISTS "Validated page views insert" ON public.page_views;
-DROP POLICY IF EXISTS "System insert audit logs" ON public.audit_logs;
-DROP POLICY IF EXISTS "Public read access" ON public.feeding_schedules;
-DROP POLICY IF EXISTS "Enable read access for all users on trivia_questions" ON public.trivia_questions;
-DROP POLICY IF EXISTS "Enable read access for all users on system_configs" ON public.system_configs;
-DROP POLICY IF EXISTS "Enable all access for all users on trivia_questions" ON public.trivia_questions;
-DROP POLICY IF EXISTS "Enable all access for all users on system_configs" ON public.system_configs;
-DROP POLICY IF EXISTS "Anyone can view zone markers" ON public.zone_markers;
-DROP POLICY IF EXISTS "Anyone can view venues" ON public.venues;
-DROP POLICY IF EXISTS "Anyone can view ticket settings" ON public.ticket_settings;
-DROP POLICY IF EXISTS "Anyone can view service settings" ON public.service_settings;
-DROP POLICY IF EXISTS "Anyone can view service availability" ON public.service_availability;
-DROP POLICY IF EXISTS "Anyone can view registration by tracking code" ON public.service_registrations;
-DROP POLICY IF EXISTS "Anyone can view published news" ON public.news;
-DROP POLICY IF EXISTS "Anyone can view published history" ON public.zoo_history;
-DROP POLICY IF EXISTS "Anyone can view published custom pages" ON public.custom_pages;
-DROP POLICY IF EXISTS "Anyone can view published books" ON public.books;
-DROP POLICY IF EXISTS "Anyone can view published JDIH documents" ON public.jdih_documents;
-DROP POLICY IF EXISTS "Anyone can view plants" ON public.plants;
-DROP POLICY IF EXISTS "Anyone can view hero banners" ON public.hero_banner;
-DROP POLICY IF EXISTS "Anyone can view booking by code" ON public.tour_bookings;
-DROP POLICY IF EXISTS "Anyone can view available schedules" ON public.tour_guide_schedules;
-DROP POLICY IF EXISTS "Anyone can view active whats new items" ON public.whats_new_items;
-DROP POLICY IF EXISTS "Anyone can view active tour packages" ON public.tour_packages;
-DROP POLICY IF EXISTS "Anyone can view active tour guides" ON public.tour_guides;
-DROP POLICY IF EXISTS "Anyone can view active ticket content" ON public.ticket_content;
-DROP POLICY IF EXISTS "Anyone can view active templates" ON public.whatsapp_templates;
-DROP POLICY IF EXISTS "Anyone can view active service standards" ON public.service_standards;
-DROP POLICY IF EXISTS "Anyone can view active organization memberships" ON public.organization_memberships;
-DROP POLICY IF EXISTS "Anyone can view active navbar items" ON public.navbar_items;
-DROP POLICY IF EXISTS "Anyone can view active gallery" ON public.tour_gallery;
-DROP POLICY IF EXISTS "Anyone can view active chatbot FAQs" ON public.chatbot_faqs;
-DROP POLICY IF EXISTS "Anyone can view active categories" ON public.categories;
-DROP POLICY IF EXISTS "Anyone can view active announcements" ON public.announcements;
-DROP POLICY IF EXISTS "Anyone can view active FAQs" ON public.service_faqs;
-DROP POLICY IF EXISTS "Anyone can submit tour bookings" ON public.tour_bookings;
-DROP POLICY IF EXISTS "Anyone can submit service registrations" ON public.service_registrations;
-DROP POLICY IF EXISTS "Anyone can submit WBS reports" ON public.wbs_submissions;
-ALTER TABLE IF EXISTS ONLY public.venue_bookings DROP CONSTRAINT IF EXISTS venue_bookings_venue_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.user_roles DROP CONSTRAINT IF EXISTS user_roles_user_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.user_permissions DROP CONSTRAINT IF EXISTS user_permissions_user_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.tour_guide_schedules DROP CONSTRAINT IF EXISTS tour_guide_schedules_guide_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.tour_bookings DROP CONSTRAINT IF EXISTS tour_bookings_package_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.tour_bookings DROP CONSTRAINT IF EXISTS tour_bookings_guide_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.profiles DROP CONSTRAINT IF EXISTS profiles_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.plants DROP CONSTRAINT IF EXISTS plants_category_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.navbar_items DROP CONSTRAINT IF EXISTS navbar_items_parent_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.animals DROP CONSTRAINT IF EXISTS animals_category_id_fkey;
-DROP TRIGGER IF EXISTS update_zoo_history_updated_at ON public.zoo_history;
-DROP TRIGGER IF EXISTS update_zone_markers_updated_at ON public.zone_markers;
-DROP TRIGGER IF EXISTS update_whatsapp_templates_updated_at ON public.whatsapp_templates;
-DROP TRIGGER IF EXISTS update_whats_new_items_updated_at ON public.whats_new_items;
-DROP TRIGGER IF EXISTS update_wbs_submissions_updated_at ON public.wbs_submissions;
-DROP TRIGGER IF EXISTS update_visitor_data_updated_at ON public.visitor_data;
-DROP TRIGGER IF EXISTS update_venues_updated_at ON public.venues;
-DROP TRIGGER IF EXISTS update_tour_packages_updated_at ON public.tour_packages;
-DROP TRIGGER IF EXISTS update_tour_guides_updated_at ON public.tour_guides;
-DROP TRIGGER IF EXISTS update_tour_bookings_updated_at ON public.tour_bookings;
-DROP TRIGGER IF EXISTS update_service_standards_updated_at ON public.service_standards;
-DROP TRIGGER IF EXISTS update_service_registrations_updated_at ON public.service_registrations;
-DROP TRIGGER IF EXISTS update_service_availability_updated_at ON public.service_availability;
-DROP TRIGGER IF EXISTS update_news_updated_at ON public.news;
-DROP TRIGGER IF EXISTS update_jdih_documents_updated_at ON public.jdih_documents;
-DROP TRIGGER IF EXISTS update_custom_pages_updated_at ON public.custom_pages;
-DROP TRIGGER IF EXISTS update_chatbot_faqs_updated_at ON public.chatbot_faqs;
-DROP TRIGGER IF EXISTS update_categories_updated_at ON public.categories;
-DROP TRIGGER IF EXISTS update_books_updated_at ON public.books;
-DROP TRIGGER IF EXISTS update_availability_on_status_change ON public.service_registrations;
-DROP TRIGGER IF EXISTS update_announcements_updated_at ON public.announcements;
-DROP INDEX IF EXISTS public.idx_user_roles_user_id;
-DROP INDEX IF EXISTS public.idx_user_permissions_user_id;
-DROP INDEX IF EXISTS public.idx_tickets_user_id;
-DROP INDEX IF EXISTS public.idx_tickets_created_at;
-DROP INDEX IF EXISTS public.idx_service_reg_status;
-DROP INDEX IF EXISTS public.idx_service_reg_created;
-DROP INDEX IF EXISTS public.idx_plants_published;
-DROP INDEX IF EXISTS public.idx_plants_featured;
-DROP INDEX IF EXISTS public.idx_plants_category_id;
-DROP INDEX IF EXISTS public.idx_page_views_session_id;
-DROP INDEX IF EXISTS public.idx_page_views_page_path;
-DROP INDEX IF EXISTS public.idx_page_views_created_at;
-DROP INDEX IF EXISTS public.idx_news_published;
-DROP INDEX IF EXISTS public.idx_news_created_at;
-DROP INDEX IF EXISTS public.idx_news_category;
-DROP INDEX IF EXISTS public.idx_navbar_items_parent_id;
-DROP INDEX IF EXISTS public.idx_media_gallery_created;
-DROP INDEX IF EXISTS public.idx_media_gallery_category;
-DROP INDEX IF EXISTS public.idx_hero_banner_active;
-DROP INDEX IF EXISTS public.idx_facility_reports_status;
-DROP INDEX IF EXISTS public.idx_facility_reports_created;
-DROP INDEX IF EXISTS public.idx_events_type;
-DROP INDEX IF EXISTS public.idx_events_date;
-DROP INDEX IF EXISTS public.idx_custom_pages_slug;
-DROP INDEX IF EXISTS public.idx_custom_pages_published;
-DROP INDEX IF EXISTS public.idx_animals_zone;
-DROP INDEX IF EXISTS public.idx_animals_published;
-DROP INDEX IF EXISTS public.idx_animals_featured;
-DROP INDEX IF EXISTS public.idx_animals_category_id;
-DROP INDEX IF EXISTS public.idx_animals_category;
-DROP INDEX IF EXISTS auth.idx_auth_users_username;
-ALTER TABLE IF EXISTS ONLY public.zoo_history DROP CONSTRAINT IF EXISTS zoo_history_pkey;
-ALTER TABLE IF EXISTS ONLY public.zone_markers DROP CONSTRAINT IF EXISTS zone_markers_pkey;
-ALTER TABLE IF EXISTS ONLY public.whatsapp_templates DROP CONSTRAINT IF EXISTS whatsapp_templates_pkey;
-ALTER TABLE IF EXISTS ONLY public.whats_new_items DROP CONSTRAINT IF EXISTS whats_new_items_pkey;
-ALTER TABLE IF EXISTS ONLY public.wbs_submissions DROP CONSTRAINT IF EXISTS wbs_submissions_pkey;
-ALTER TABLE IF EXISTS ONLY public.visitor_data DROP CONSTRAINT IF EXISTS visitor_data_pkey;
-ALTER TABLE IF EXISTS ONLY public.visitor_data DROP CONSTRAINT IF EXISTS visitor_data_date_key;
-ALTER TABLE IF EXISTS ONLY public.venues DROP CONSTRAINT IF EXISTS venues_pkey;
-ALTER TABLE IF EXISTS ONLY public.venue_bookings DROP CONSTRAINT IF EXISTS venue_bookings_pkey;
-ALTER TABLE IF EXISTS ONLY public.user_roles DROP CONSTRAINT IF EXISTS user_roles_user_id_role_key;
-ALTER TABLE IF EXISTS ONLY public.user_roles DROP CONSTRAINT IF EXISTS user_roles_pkey;
-ALTER TABLE IF EXISTS ONLY public.user_permissions DROP CONSTRAINT IF EXISTS user_permissions_user_id_permission_key_key;
-ALTER TABLE IF EXISTS ONLY public.user_permissions DROP CONSTRAINT IF EXISTS user_permissions_pkey;
-ALTER TABLE IF EXISTS ONLY public.trivia_questions DROP CONSTRAINT IF EXISTS trivia_questions_pkey;
-ALTER TABLE IF EXISTS ONLY public.tram_route_points DROP CONSTRAINT IF EXISTS tram_route_points_pkey;
-ALTER TABLE IF EXISTS ONLY public.tour_packages DROP CONSTRAINT IF EXISTS tour_packages_pkey;
-ALTER TABLE IF EXISTS ONLY public.tour_guides DROP CONSTRAINT IF EXISTS tour_guides_pkey;
-ALTER TABLE IF EXISTS ONLY public.tour_guide_schedules DROP CONSTRAINT IF EXISTS tour_guide_schedules_pkey;
-ALTER TABLE IF EXISTS ONLY public.tour_guide_schedules DROP CONSTRAINT IF EXISTS tour_guide_schedules_guide_id_date_start_time_key;
-ALTER TABLE IF EXISTS ONLY public.tour_gallery DROP CONSTRAINT IF EXISTS tour_gallery_pkey;
-ALTER TABLE IF EXISTS ONLY public.tour_bookings DROP CONSTRAINT IF EXISTS tour_bookings_pkey;
-ALTER TABLE IF EXISTS ONLY public.tour_bookings DROP CONSTRAINT IF EXISTS tour_bookings_booking_code_key;
-ALTER TABLE IF EXISTS ONLY public.tickets DROP CONSTRAINT IF EXISTS tickets_pkey;
-ALTER TABLE IF EXISTS ONLY public.ticket_settings DROP CONSTRAINT IF EXISTS ticket_settings_pkey;
-ALTER TABLE IF EXISTS ONLY public.ticket_content DROP CONSTRAINT IF EXISTS ticket_content_pkey;
-ALTER TABLE IF EXISTS ONLY public.system_configs DROP CONSTRAINT IF EXISTS system_configs_pkey;
-ALTER TABLE IF EXISTS ONLY public.site_settings DROP CONSTRAINT IF EXISTS site_settings_pkey;
-ALTER TABLE IF EXISTS ONLY public.service_standards DROP CONSTRAINT IF EXISTS service_standards_pkey;
-ALTER TABLE IF EXISTS ONLY public.service_settings DROP CONSTRAINT IF EXISTS service_settings_pkey;
-ALTER TABLE IF EXISTS ONLY public.service_registrations DROP CONSTRAINT IF EXISTS service_registrations_tracking_code_key;
-ALTER TABLE IF EXISTS ONLY public.service_registrations DROP CONSTRAINT IF EXISTS service_registrations_pkey;
-ALTER TABLE IF EXISTS ONLY public.service_faqs DROP CONSTRAINT IF EXISTS service_faqs_pkey;
-ALTER TABLE IF EXISTS ONLY public.service_availability DROP CONSTRAINT IF EXISTS service_availability_pkey;
-ALTER TABLE IF EXISTS ONLY public.service_availability DROP CONSTRAINT IF EXISTS service_availability_date_program_type_key;
-ALTER TABLE IF EXISTS ONLY public.profiles DROP CONSTRAINT IF EXISTS profiles_pkey;
-ALTER TABLE IF EXISTS ONLY public.profiles DROP CONSTRAINT IF EXISTS profiles_email_key;
-ALTER TABLE IF EXISTS ONLY public.plants DROP CONSTRAINT IF EXISTS plants_pkey;
-ALTER TABLE IF EXISTS ONLY public.page_views DROP CONSTRAINT IF EXISTS page_views_pkey;
-ALTER TABLE IF EXISTS ONLY public.organization_memberships DROP CONSTRAINT IF EXISTS organization_memberships_pkey;
-ALTER TABLE IF EXISTS ONLY public.news DROP CONSTRAINT IF EXISTS news_pkey;
-ALTER TABLE IF EXISTS ONLY public.navbar_items DROP CONSTRAINT IF EXISTS navbar_items_pkey;
-ALTER TABLE IF EXISTS ONLY public.media_gallery DROP CONSTRAINT IF EXISTS media_gallery_pkey;
-ALTER TABLE IF EXISTS ONLY public.jdih_documents DROP CONSTRAINT IF EXISTS jdih_documents_pkey;
-ALTER TABLE IF EXISTS ONLY public.hero_banner DROP CONSTRAINT IF EXISTS hero_banner_pkey;
-ALTER TABLE IF EXISTS ONLY public.gps_pois DROP CONSTRAINT IF EXISTS gps_pois_pkey;
-ALTER TABLE IF EXISTS ONLY public.feeding_schedules DROP CONSTRAINT IF EXISTS feeding_schedules_pkey;
-ALTER TABLE IF EXISTS ONLY public.facility_reports DROP CONSTRAINT IF EXISTS facility_reports_ticket_number_key;
-ALTER TABLE IF EXISTS ONLY public.facility_reports DROP CONSTRAINT IF EXISTS facility_reports_pkey;
-ALTER TABLE IF EXISTS ONLY public.events DROP CONSTRAINT IF EXISTS events_pkey;
-ALTER TABLE IF EXISTS ONLY public.custom_pages DROP CONSTRAINT IF EXISTS custom_pages_slug_key;
-ALTER TABLE IF EXISTS ONLY public.custom_pages DROP CONSTRAINT IF EXISTS custom_pages_pkey;
-ALTER TABLE IF EXISTS ONLY public.chatbot_faqs DROP CONSTRAINT IF EXISTS chatbot_faqs_pkey;
-ALTER TABLE IF EXISTS ONLY public.categories DROP CONSTRAINT IF EXISTS categories_pkey;
-ALTER TABLE IF EXISTS ONLY public.books DROP CONSTRAINT IF EXISTS books_pkey;
-ALTER TABLE IF EXISTS ONLY public.audit_logs DROP CONSTRAINT IF EXISTS audit_logs_pkey;
-ALTER TABLE IF EXISTS ONLY public.announcements DROP CONSTRAINT IF EXISTS announcements_pkey;
-ALTER TABLE IF EXISTS ONLY public.animals DROP CONSTRAINT IF EXISTS animals_pkey;
-ALTER TABLE IF EXISTS ONLY public.analytics_daily DROP CONSTRAINT IF EXISTS analytics_daily_pkey;
-ALTER TABLE IF EXISTS ONLY public.analytics_daily DROP CONSTRAINT IF EXISTS analytics_daily_date_key;
-ALTER TABLE IF EXISTS ONLY auth.users DROP CONSTRAINT IF EXISTS users_pkey;
-ALTER TABLE IF EXISTS ONLY auth.users DROP CONSTRAINT IF EXISTS users_email_key;
-ALTER TABLE IF EXISTS public.visitor_data ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.venues ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.tram_route_points ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.plants ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.news ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.hero_banner ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.events ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.announcements ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.animals ALTER COLUMN id DROP DEFAULT;
-DROP TABLE IF EXISTS public.zoo_history;
-DROP TABLE IF EXISTS public.zone_markers;
-DROP TABLE IF EXISTS public.whatsapp_templates;
-DROP TABLE IF EXISTS public.whats_new_items;
-DROP TABLE IF EXISTS public.wbs_submissions;
-DROP SEQUENCE IF EXISTS public.visitor_data_id_seq;
-DROP TABLE IF EXISTS public.visitor_data;
-DROP SEQUENCE IF EXISTS public.venues_id_seq;
-DROP TABLE IF EXISTS public.venues;
-DROP TABLE IF EXISTS public.venue_bookings;
-DROP TABLE IF EXISTS public.user_roles;
-DROP TABLE IF EXISTS public.user_permissions;
-DROP TABLE IF EXISTS public.trivia_questions;
-DROP SEQUENCE IF EXISTS public.tram_route_points_id_seq;
-DROP TABLE IF EXISTS public.tram_route_points;
-DROP TABLE IF EXISTS public.tour_packages;
-DROP TABLE IF EXISTS public.tour_guides;
-DROP TABLE IF EXISTS public.tour_guide_schedules;
-DROP TABLE IF EXISTS public.tour_gallery;
-DROP TABLE IF EXISTS public.tour_bookings;
-DROP TABLE IF EXISTS public.tickets;
-DROP TABLE IF EXISTS public.ticket_settings;
-DROP TABLE IF EXISTS public.ticket_content;
-DROP TABLE IF EXISTS public.system_configs;
-DROP TABLE IF EXISTS public.site_settings;
-DROP TABLE IF EXISTS public.service_standards;
-DROP TABLE IF EXISTS public.service_settings;
-DROP TABLE IF EXISTS public.service_registrations;
-DROP TABLE IF EXISTS public.service_faqs;
-DROP TABLE IF EXISTS public.service_availability;
-DROP TABLE IF EXISTS public.profiles;
-DROP SEQUENCE IF EXISTS public.plants_id_seq;
-DROP TABLE IF EXISTS public.plants;
-DROP TABLE IF EXISTS public.page_views;
-DROP TABLE IF EXISTS public.organization_memberships;
-DROP SEQUENCE IF EXISTS public.news_id_seq;
-DROP TABLE IF EXISTS public.news;
-DROP TABLE IF EXISTS public.navbar_items;
-DROP TABLE IF EXISTS public.media_gallery;
-DROP TABLE IF EXISTS public.jdih_documents;
-DROP SEQUENCE IF EXISTS public.hero_banner_id_seq;
-DROP TABLE IF EXISTS public.hero_banner;
-DROP TABLE IF EXISTS public.gps_pois;
-DROP TABLE IF EXISTS public.feeding_schedules;
-DROP TABLE IF EXISTS public.facility_reports;
-DROP SEQUENCE IF EXISTS public.events_id_seq;
-DROP TABLE IF EXISTS public.events;
-DROP TABLE IF EXISTS public.custom_pages;
-DROP TABLE IF EXISTS public.chatbot_faqs;
-DROP TABLE IF EXISTS public.categories;
-DROP TABLE IF EXISTS public.books;
-DROP TABLE IF EXISTS public.audit_logs;
-DROP SEQUENCE IF EXISTS public.announcements_id_seq;
-DROP TABLE IF EXISTS public.announcements;
-DROP SEQUENCE IF EXISTS public.animals_id_seq;
-DROP TABLE IF EXISTS public.animals;
-DROP TABLE IF EXISTS public.analytics_daily;
-DROP TABLE IF EXISTS auth.users;
-DROP FUNCTION IF EXISTS public.update_updated_at_column();
-DROP FUNCTION IF EXISTS public.update_last_activity();
-DROP FUNCTION IF EXISTS public.update_availability_on_registration();
-DROP FUNCTION IF EXISTS public.simulate_payment_webhook(p_purchase_id uuid, p_amount integer);
-DROP FUNCTION IF EXISTS public.log_sensitive_action();
-DROP FUNCTION IF EXISTS public.increment_book_view_count(book_id uuid);
-DROP FUNCTION IF EXISTS public.increment_book_download_count(book_id uuid);
-DROP FUNCTION IF EXISTS public.handle_new_user();
-DROP FUNCTION IF EXISTS public.generate_ticket_code();
-DROP FUNCTION IF EXISTS public.cleanup_old_page_views();
-DROP FUNCTION IF EXISTS auth.uid();
-DROP TYPE IF EXISTS public.app_role;
-DROP EXTENSION IF EXISTS "uuid-ossp";
-DROP EXTENSION IF EXISTS pgcrypto;
-DROP SCHEMA IF EXISTS auth;
+DROP POLICY "Validated page views insert" ON public.page_views;
+DROP POLICY "System insert audit logs" ON public.audit_logs;
+DROP POLICY "Public read access" ON public.feeding_schedules;
+DROP POLICY "Enable read access for all users on trivia_questions" ON public.trivia_questions;
+DROP POLICY "Enable read access for all users on system_configs" ON public.system_configs;
+DROP POLICY "Enable all access for all users on trivia_questions" ON public.trivia_questions;
+DROP POLICY "Enable all access for all users on system_configs" ON public.system_configs;
+DROP POLICY "Anyone can view zone markers" ON public.zone_markers;
+DROP POLICY "Anyone can view venues" ON public.venues;
+DROP POLICY "Anyone can view ticket settings" ON public.ticket_settings;
+DROP POLICY "Anyone can view service settings" ON public.service_settings;
+DROP POLICY "Anyone can view service availability" ON public.service_availability;
+DROP POLICY "Anyone can view registration by tracking code" ON public.service_registrations;
+DROP POLICY "Anyone can view published news" ON public.news;
+DROP POLICY "Anyone can view published history" ON public.zoo_history;
+DROP POLICY "Anyone can view published custom pages" ON public.custom_pages;
+DROP POLICY "Anyone can view published books" ON public.books;
+DROP POLICY "Anyone can view published JDIH documents" ON public.jdih_documents;
+DROP POLICY "Anyone can view plants" ON public.plants;
+DROP POLICY "Anyone can view hero banners" ON public.hero_banner;
+DROP POLICY "Anyone can view booking by code" ON public.tour_bookings;
+DROP POLICY "Anyone can view available schedules" ON public.tour_guide_schedules;
+DROP POLICY "Anyone can view active whats new items" ON public.whats_new_items;
+DROP POLICY "Anyone can view active tour packages" ON public.tour_packages;
+DROP POLICY "Anyone can view active tour guides" ON public.tour_guides;
+DROP POLICY "Anyone can view active ticket content" ON public.ticket_content;
+DROP POLICY "Anyone can view active templates" ON public.whatsapp_templates;
+DROP POLICY "Anyone can view active service standards" ON public.service_standards;
+DROP POLICY "Anyone can view active organization memberships" ON public.organization_memberships;
+DROP POLICY "Anyone can view active navbar items" ON public.navbar_items;
+DROP POLICY "Anyone can view active gallery" ON public.tour_gallery;
+DROP POLICY "Anyone can view active chatbot FAQs" ON public.chatbot_faqs;
+DROP POLICY "Anyone can view active categories" ON public.categories;
+DROP POLICY "Anyone can view active announcements" ON public.announcements;
+DROP POLICY "Anyone can view active FAQs" ON public.service_faqs;
+DROP POLICY "Anyone can submit tour bookings" ON public.tour_bookings;
+DROP POLICY "Anyone can submit service registrations" ON public.service_registrations;
+DROP POLICY "Anyone can submit WBS reports" ON public.wbs_submissions;
+ALTER TABLE ONLY public.venue_bookings DROP CONSTRAINT venue_bookings_venue_id_fkey;
+ALTER TABLE ONLY public.user_roles DROP CONSTRAINT user_roles_user_id_fkey;
+ALTER TABLE ONLY public.user_permissions DROP CONSTRAINT user_permissions_user_id_fkey;
+ALTER TABLE ONLY public.tour_guide_schedules DROP CONSTRAINT tour_guide_schedules_guide_id_fkey;
+ALTER TABLE ONLY public.tour_bookings DROP CONSTRAINT tour_bookings_package_id_fkey;
+ALTER TABLE ONLY public.tour_bookings DROP CONSTRAINT tour_bookings_guide_id_fkey;
+ALTER TABLE ONLY public.profiles DROP CONSTRAINT profiles_id_fkey;
+ALTER TABLE ONLY public.plants DROP CONSTRAINT plants_category_id_fkey;
+ALTER TABLE ONLY public.navbar_items DROP CONSTRAINT navbar_items_parent_id_fkey;
+ALTER TABLE ONLY public.animals DROP CONSTRAINT animals_category_id_fkey;
+DROP TRIGGER update_zoo_history_updated_at ON public.zoo_history;
+DROP TRIGGER update_zone_markers_updated_at ON public.zone_markers;
+DROP TRIGGER update_whatsapp_templates_updated_at ON public.whatsapp_templates;
+DROP TRIGGER update_whats_new_items_updated_at ON public.whats_new_items;
+DROP TRIGGER update_wbs_submissions_updated_at ON public.wbs_submissions;
+DROP TRIGGER update_visitor_data_updated_at ON public.visitor_data;
+DROP TRIGGER update_venues_updated_at ON public.venues;
+DROP TRIGGER update_tour_packages_updated_at ON public.tour_packages;
+DROP TRIGGER update_tour_guides_updated_at ON public.tour_guides;
+DROP TRIGGER update_tour_bookings_updated_at ON public.tour_bookings;
+DROP TRIGGER update_service_standards_updated_at ON public.service_standards;
+DROP TRIGGER update_service_registrations_updated_at ON public.service_registrations;
+DROP TRIGGER update_service_availability_updated_at ON public.service_availability;
+DROP TRIGGER update_news_updated_at ON public.news;
+DROP TRIGGER update_jdih_documents_updated_at ON public.jdih_documents;
+DROP TRIGGER update_custom_pages_updated_at ON public.custom_pages;
+DROP TRIGGER update_chatbot_faqs_updated_at ON public.chatbot_faqs;
+DROP TRIGGER update_categories_updated_at ON public.categories;
+DROP TRIGGER update_books_updated_at ON public.books;
+DROP TRIGGER update_availability_on_status_change ON public.service_registrations;
+DROP TRIGGER update_announcements_updated_at ON public.announcements;
+DROP INDEX public.idx_visitor_traffic_created_at;
+DROP INDEX public.idx_visitor_traffic_coords;
+DROP INDEX public.idx_user_roles_user_id;
+DROP INDEX public.idx_user_permissions_user_id;
+DROP INDEX public.idx_tickets_user_id;
+DROP INDEX public.idx_tickets_created_at;
+DROP INDEX public.idx_service_reg_status;
+DROP INDEX public.idx_service_reg_created;
+DROP INDEX public.idx_plants_published;
+DROP INDEX public.idx_plants_featured;
+DROP INDEX public.idx_plants_category_id;
+DROP INDEX public.idx_page_views_session_id;
+DROP INDEX public.idx_page_views_page_path;
+DROP INDEX public.idx_page_views_created_at;
+DROP INDEX public.idx_news_published;
+DROP INDEX public.idx_news_created_at;
+DROP INDEX public.idx_news_category;
+DROP INDEX public.idx_navbar_items_parent_id;
+DROP INDEX public.idx_media_gallery_created;
+DROP INDEX public.idx_media_gallery_category;
+DROP INDEX public.idx_hero_banner_active;
+DROP INDEX public.idx_facility_reports_status;
+DROP INDEX public.idx_facility_reports_created;
+DROP INDEX public.idx_events_type;
+DROP INDEX public.idx_events_date;
+DROP INDEX public.idx_custom_pages_slug;
+DROP INDEX public.idx_custom_pages_published;
+DROP INDEX public.idx_animals_zone;
+DROP INDEX public.idx_animals_published;
+DROP INDEX public.idx_animals_featured;
+DROP INDEX public.idx_animals_category_id;
+DROP INDEX public.idx_animals_category;
+DROP INDEX auth.idx_auth_users_username;
+ALTER TABLE ONLY public.zoo_history DROP CONSTRAINT zoo_history_pkey;
+ALTER TABLE ONLY public.zone_markers DROP CONSTRAINT zone_markers_pkey;
+ALTER TABLE ONLY public.whatsapp_templates DROP CONSTRAINT whatsapp_templates_pkey;
+ALTER TABLE ONLY public.whats_new_items DROP CONSTRAINT whats_new_items_pkey;
+ALTER TABLE ONLY public.wbs_submissions DROP CONSTRAINT wbs_submissions_pkey;
+ALTER TABLE ONLY public.visitor_traffic_logs DROP CONSTRAINT visitor_traffic_logs_pkey;
+ALTER TABLE ONLY public.visitor_data DROP CONSTRAINT visitor_data_pkey;
+ALTER TABLE ONLY public.visitor_data DROP CONSTRAINT visitor_data_date_key;
+ALTER TABLE ONLY public.venues DROP CONSTRAINT venues_pkey;
+ALTER TABLE ONLY public.venue_bookings DROP CONSTRAINT venue_bookings_pkey;
+ALTER TABLE ONLY public.user_roles DROP CONSTRAINT user_roles_user_id_role_key;
+ALTER TABLE ONLY public.user_roles DROP CONSTRAINT user_roles_pkey;
+ALTER TABLE ONLY public.user_permissions DROP CONSTRAINT user_permissions_user_id_permission_key_key;
+ALTER TABLE ONLY public.user_permissions DROP CONSTRAINT user_permissions_pkey;
+ALTER TABLE ONLY public.trivia_questions DROP CONSTRAINT trivia_questions_pkey;
+ALTER TABLE ONLY public.tram_route_points DROP CONSTRAINT tram_route_points_pkey;
+ALTER TABLE ONLY public.tour_packages DROP CONSTRAINT tour_packages_pkey;
+ALTER TABLE ONLY public.tour_guides DROP CONSTRAINT tour_guides_pkey;
+ALTER TABLE ONLY public.tour_guide_schedules DROP CONSTRAINT tour_guide_schedules_pkey;
+ALTER TABLE ONLY public.tour_guide_schedules DROP CONSTRAINT tour_guide_schedules_guide_id_date_start_time_key;
+ALTER TABLE ONLY public.tour_gallery DROP CONSTRAINT tour_gallery_pkey;
+ALTER TABLE ONLY public.tour_bookings DROP CONSTRAINT tour_bookings_pkey;
+ALTER TABLE ONLY public.tour_bookings DROP CONSTRAINT tour_bookings_booking_code_key;
+ALTER TABLE ONLY public.tickets DROP CONSTRAINT tickets_pkey;
+ALTER TABLE ONLY public.ticket_settings DROP CONSTRAINT ticket_settings_pkey;
+ALTER TABLE ONLY public.ticket_content DROP CONSTRAINT ticket_content_pkey;
+ALTER TABLE ONLY public.system_configs DROP CONSTRAINT system_configs_pkey;
+ALTER TABLE ONLY public.site_settings DROP CONSTRAINT site_settings_pkey;
+ALTER TABLE ONLY public.service_standards DROP CONSTRAINT service_standards_pkey;
+ALTER TABLE ONLY public.service_settings DROP CONSTRAINT service_settings_pkey;
+ALTER TABLE ONLY public.service_registrations DROP CONSTRAINT service_registrations_tracking_code_key;
+ALTER TABLE ONLY public.service_registrations DROP CONSTRAINT service_registrations_pkey;
+ALTER TABLE ONLY public.service_faqs DROP CONSTRAINT service_faqs_pkey;
+ALTER TABLE ONLY public.service_availability DROP CONSTRAINT service_availability_pkey;
+ALTER TABLE ONLY public.service_availability DROP CONSTRAINT service_availability_date_program_type_key;
+ALTER TABLE ONLY public.profiles DROP CONSTRAINT profiles_pkey;
+ALTER TABLE ONLY public.profiles DROP CONSTRAINT profiles_email_key;
+ALTER TABLE ONLY public.plants DROP CONSTRAINT plants_pkey;
+ALTER TABLE ONLY public.page_views DROP CONSTRAINT page_views_pkey;
+ALTER TABLE ONLY public.organization_memberships DROP CONSTRAINT organization_memberships_pkey;
+ALTER TABLE ONLY public.news DROP CONSTRAINT news_pkey;
+ALTER TABLE ONLY public.navbar_items DROP CONSTRAINT navbar_items_pkey;
+ALTER TABLE ONLY public.media_gallery DROP CONSTRAINT media_gallery_pkey;
+ALTER TABLE ONLY public.jdih_documents DROP CONSTRAINT jdih_documents_pkey;
+ALTER TABLE ONLY public.hero_banner DROP CONSTRAINT hero_banner_pkey;
+ALTER TABLE ONLY public.gps_pois DROP CONSTRAINT gps_pois_pkey;
+ALTER TABLE ONLY public.feeding_schedules DROP CONSTRAINT feeding_schedules_pkey;
+ALTER TABLE ONLY public.facility_reports DROP CONSTRAINT facility_reports_ticket_number_key;
+ALTER TABLE ONLY public.facility_reports DROP CONSTRAINT facility_reports_pkey;
+ALTER TABLE ONLY public.events DROP CONSTRAINT events_pkey;
+ALTER TABLE ONLY public.custom_pages DROP CONSTRAINT custom_pages_slug_key;
+ALTER TABLE ONLY public.custom_pages DROP CONSTRAINT custom_pages_pkey;
+ALTER TABLE ONLY public.chatbot_faqs DROP CONSTRAINT chatbot_faqs_pkey;
+ALTER TABLE ONLY public.categories DROP CONSTRAINT categories_pkey;
+ALTER TABLE ONLY public.books DROP CONSTRAINT books_pkey;
+ALTER TABLE ONLY public.audit_logs DROP CONSTRAINT audit_logs_pkey;
+ALTER TABLE ONLY public.announcements DROP CONSTRAINT announcements_pkey;
+ALTER TABLE ONLY public.animals DROP CONSTRAINT animals_pkey;
+ALTER TABLE ONLY public.analytics_daily DROP CONSTRAINT analytics_daily_pkey;
+ALTER TABLE ONLY public.analytics_daily DROP CONSTRAINT analytics_daily_date_key;
+ALTER TABLE ONLY auth.users DROP CONSTRAINT users_pkey;
+ALTER TABLE ONLY auth.users DROP CONSTRAINT users_email_key;
+ALTER TABLE public.visitor_traffic_logs ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.visitor_data ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.venues ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.tram_route_points ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.plants ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.news ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.hero_banner ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.events ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.announcements ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.animals ALTER COLUMN id DROP DEFAULT;
+DROP TABLE public.zoo_history;
+DROP TABLE public.zone_markers;
+DROP TABLE public.whatsapp_templates;
+DROP TABLE public.whats_new_items;
+DROP TABLE public.wbs_submissions;
+DROP SEQUENCE public.visitor_traffic_logs_id_seq;
+DROP TABLE public.visitor_traffic_logs;
+DROP SEQUENCE public.visitor_data_id_seq;
+DROP TABLE public.visitor_data;
+DROP SEQUENCE public.venues_id_seq;
+DROP TABLE public.venues;
+DROP TABLE public.venue_bookings;
+DROP TABLE public.user_roles;
+DROP TABLE public.user_permissions;
+DROP TABLE public.trivia_questions;
+DROP SEQUENCE public.tram_route_points_id_seq;
+DROP TABLE public.tram_route_points;
+DROP TABLE public.tour_packages;
+DROP TABLE public.tour_guides;
+DROP TABLE public.tour_guide_schedules;
+DROP TABLE public.tour_gallery;
+DROP TABLE public.tour_bookings;
+DROP TABLE public.tickets;
+DROP TABLE public.ticket_settings;
+DROP TABLE public.ticket_content;
+DROP TABLE public.system_configs;
+DROP TABLE public.site_settings;
+DROP TABLE public.service_standards;
+DROP TABLE public.service_settings;
+DROP TABLE public.service_registrations;
+DROP TABLE public.service_faqs;
+DROP TABLE public.service_availability;
+DROP TABLE public.profiles;
+DROP SEQUENCE public.plants_id_seq;
+DROP TABLE public.plants;
+DROP TABLE public.page_views;
+DROP TABLE public.organization_memberships;
+DROP SEQUENCE public.news_id_seq;
+DROP TABLE public.news;
+DROP TABLE public.navbar_items;
+DROP TABLE public.media_gallery;
+DROP TABLE public.jdih_documents;
+DROP SEQUENCE public.hero_banner_id_seq;
+DROP TABLE public.hero_banner;
+DROP TABLE public.gps_pois;
+DROP TABLE public.feeding_schedules;
+DROP TABLE public.facility_reports;
+DROP SEQUENCE public.events_id_seq;
+DROP TABLE public.events;
+DROP TABLE public.custom_pages;
+DROP TABLE public.chatbot_faqs;
+DROP TABLE public.categories;
+DROP TABLE public.books;
+DROP TABLE public.audit_logs;
+DROP SEQUENCE public.announcements_id_seq;
+DROP TABLE public.announcements;
+DROP SEQUENCE public.animals_id_seq;
+DROP TABLE public.animals;
+DROP TABLE public.analytics_daily;
+DROP TABLE auth.users;
+DROP FUNCTION public.update_updated_at_column();
+DROP FUNCTION public.update_last_activity();
+DROP FUNCTION public.update_availability_on_registration();
+DROP FUNCTION public.simulate_payment_webhook(p_purchase_id uuid, p_amount integer);
+DROP FUNCTION public.log_sensitive_action();
+DROP FUNCTION public.increment_book_view_count(book_id uuid);
+DROP FUNCTION public.increment_book_download_count(book_id uuid);
+DROP FUNCTION public.handle_new_user();
+DROP FUNCTION public.generate_ticket_code();
+DROP FUNCTION public.cleanup_old_page_views();
+DROP FUNCTION auth.uid();
+DROP TYPE public.app_role;
+DROP EXTENSION "uuid-ossp";
+DROP EXTENSION pgcrypto;
+DROP SCHEMA auth;
 --
 -- Name: auth; Type: SCHEMA; Schema: -; Owner: postgres
 --
@@ -1965,6 +1970,48 @@ ALTER SEQUENCE public.visitor_data_id_seq OWNED BY public.visitor_data.id;
 
 
 --
+-- Name: visitor_traffic_logs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.visitor_traffic_logs (
+    id integer NOT NULL,
+    source_type character varying(50) NOT NULL,
+    poi_id character varying(100),
+    latitude double precision NOT NULL,
+    longitude double precision NOT NULL,
+    intensity double precision DEFAULT 0.8,
+    zone_name character varying(150),
+    device_fingerprint character varying(128),
+    ip_address character varying(45),
+    created_at timestamp with time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.visitor_traffic_logs OWNER TO postgres;
+
+--
+-- Name: visitor_traffic_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.visitor_traffic_logs_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.visitor_traffic_logs_id_seq OWNER TO postgres;
+
+--
+-- Name: visitor_traffic_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.visitor_traffic_logs_id_seq OWNED BY public.visitor_traffic_logs.id;
+
+
+--
 -- Name: wbs_submissions; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -2133,6 +2180,13 @@ ALTER TABLE ONLY public.venues ALTER COLUMN id SET DEFAULT nextval('public.venue
 --
 
 ALTER TABLE ONLY public.visitor_data ALTER COLUMN id SET DEFAULT nextval('public.visitor_data_id_seq'::regclass);
+
+
+--
+-- Name: visitor_traffic_logs id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visitor_traffic_logs ALTER COLUMN id SET DEFAULT nextval('public.visitor_traffic_logs_id_seq'::regclass);
 
 
 --
@@ -3034,6 +3088,284 @@ COPY public.visitor_data (id, date, jumlah_pengunjung, jumlah_kendaraan, pengunj
 
 
 --
+-- Data for Name: visitor_traffic_logs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.visitor_traffic_logs (id, source_type, poi_id, latitude, longitude, intensity, zone_name, device_fingerprint, ip_address, created_at) FROM stdin;
+1	checkin	schmutzer_primata	-6.313888	106.81769	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 11:39:01.296+07
+2	route_search	schmutzer_primata	-6.313714	106.817624	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 11:12:24.674+07
+3	facility_report	schmutzer_primata	-6.313856	106.817483	0.86	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:50:00.468+07
+4	checkin	schmutzer_primata	-6.314068	106.817724	0.92	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 13:51:56.924+07
+5	checkin	schmutzer_primata	-6.313742	106.817769	0.89	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:45:52.206+07
+6	route_search	schmutzer_primata	-6.314028	106.817567	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 13:41:48.783+07
+7	checkin	schmutzer_primata	-6.313714	106.817439	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:13:27.292+07
+8	route_search	schmutzer_primata	-6.31367	106.81727	0.88	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:59:58.777+07
+9	facility_report	schmutzer_primata	-6.313535	106.817206	0.99	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:57:07.357+07
+10	checkin	schmutzer_primata	-6.313646	106.817666	0.9	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 11:56:26.445+07
+11	checkin	schmutzer_primata	-6.313823	106.817368	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 11:37:47.525+07
+12	route_search	schmutzer_primata	-6.313789	106.81748	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:16:33.426+07
+13	facility_report	schmutzer_primata	-6.31382	106.817773	0.91	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 11:44:12.714+07
+14	route_search	schmutzer_primata	-6.313889	106.817608	0.95	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 14:17:10.456+07
+15	checkin	schmutzer_primata	-6.31354	106.817302	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 13:53:52.065+07
+16	checkin	schmutzer_primata	-6.313573	106.817502	0.83	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:51:10.521+07
+17	checkin	schmutzer_primata	-6.313937	106.817237	0.98	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:48:07.204+07
+18	route_search	schmutzer_primata	-6.313932	106.817682	0.92	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:27:30.554+07
+19	facility_report	schmutzer_primata	-6.313604	106.817364	0.99	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 11:01:23.054+07
+20	checkin	schmutzer_primata	-6.313679	106.81755	0.91	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 11:59:59.931+07
+21	facility_report	schmutzer_primata	-6.313952	106.817251	0.95	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:33:52.377+07
+22	checkin	schmutzer_primata	-6.314013	106.817439	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 13:06:16.591+07
+23	route_search	schmutzer_primata	-6.313941	106.817572	0.92	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 13:13:40.73+07
+24	checkin	schmutzer_primata	-6.313961	106.817466	0.99	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:06:43.004+07
+25	facility_report	schmutzer_primata	-6.313542	106.817713	0.89	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:02:14.821+07
+26	route_search	schmutzer_primata	-6.313704	106.817674	0.89	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 14:00:56.148+07
+27	facility_report	schmutzer_primata	-6.314055	106.81765	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 14:27:43.522+07
+28	checkin	schmutzer_primata	-6.314075	106.817346	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:14:41.624+07
+29	facility_report	schmutzer_primata	-6.314019	106.817735	0.98	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:04:59.997+07
+30	checkin	schmutzer_primata	-6.313812	106.817577	0.92	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:52:05.664+07
+31	facility_report	schmutzer_primata	-6.313522	106.81746	0.83	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 14:36:20.234+07
+32	checkin	schmutzer_primata	-6.31358	106.817703	0.87	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 14:42:01.353+07
+33	route_search	schmutzer_primata	-6.313628	106.817341	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 14:41:15.707+07
+34	facility_report	schmutzer_primata	-6.313723	106.817713	0.83	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 13:18:35.8+07
+35	checkin	schmutzer_primata	-6.313925	106.817509	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 13:46:07.542+07
+36	checkin	schmutzer_primata	-6.314061	106.817239	0.9	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:25:17.549+07
+37	facility_report	schmutzer_primata	-6.313626	106.817648	0.92	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 11:43:48.819+07
+38	checkin	schmutzer_primata	-6.313717	106.8175	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:02:05.358+07
+39	route_search	schmutzer_primata	-6.313519	106.817697	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:02:30.569+07
+40	checkin	schmutzer_primata	-6.314014	106.817466	0.96	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 14:16:20.98+07
+41	facility_report	schmutzer_primata	-6.313876	106.81775	1	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 10:53:35.832+07
+42	facility_report	schmutzer_primata	-6.313949	106.817235	0.88	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 13:14:06.666+07
+43	route_search	schmutzer_primata	-6.314056	106.817387	0.97	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 14:37:12.116+07
+44	checkin	schmutzer_primata	-6.31403	106.81729	0.94	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 13:00:08.206+07
+45	route_search	schmutzer_primata	-6.313579	106.817327	0.9	Pusat Primata Schmutzer	simulation_seed	127.0.0.1	2026-10-23 12:49:03.732+07
+46	checkin	gajah_sumatera	-6.312619	106.8235	0.95	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:20:46.681+07
+47	route_search	gajah_sumatera	-6.312777	106.823016	0.92	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 12:25:49.838+07
+48	checkin	gajah_sumatera	-6.312305	106.823371	0.83	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 11:38:57.836+07
+49	facility_report	gajah_sumatera	-6.312291	106.822938	0.93	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:20:14.466+07
+50	route_search	gajah_sumatera	-6.312684	106.823184	0.9	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 11:56:14.052+07
+51	facility_report	gajah_sumatera	-6.312245	106.823015	0.89	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 12:27:08.213+07
+52	route_search	gajah_sumatera	-6.312492	106.823326	0.97	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 10:49:19.844+07
+53	route_search	gajah_sumatera	-6.312571	106.823174	0.83	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 11:28:57.294+07
+54	checkin	gajah_sumatera	-6.312312	106.823415	0.73	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 12:34:19.357+07
+55	checkin	gajah_sumatera	-6.312304	106.823194	0.89	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 14:24:34.322+07
+56	checkin	gajah_sumatera	-6.31261	106.823048	0.75	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 11:08:45.972+07
+57	checkin	gajah_sumatera	-6.312707	106.823332	0.8	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 14:31:15.789+07
+58	checkin	gajah_sumatera	-6.312557	106.823404	0.8	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:29:22.28+07
+59	checkin	gajah_sumatera	-6.312377	106.823136	0.78	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 11:16:17.664+07
+60	checkin	gajah_sumatera	-6.312774	106.823433	0.78	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:48:10.678+07
+61	checkin	gajah_sumatera	-6.312267	106.82293	0.83	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:29:59.376+07
+62	checkin	gajah_sumatera	-6.312338	106.823113	0.87	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:00:57.354+07
+63	route_search	gajah_sumatera	-6.312694	106.822948	0.83	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 11:04:38.496+07
+64	facility_report	gajah_sumatera	-6.312722	106.823357	0.74	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 10:51:29.091+07
+65	facility_report	gajah_sumatera	-6.312409	106.823303	0.74	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 10:58:46.071+07
+66	checkin	gajah_sumatera	-6.312442	106.823181	0.88	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 14:21:07.155+07
+67	route_search	gajah_sumatera	-6.312746	106.823182	0.96	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:08:07.49+07
+68	route_search	gajah_sumatera	-6.312453	106.823119	0.89	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 11:52:20.872+07
+69	checkin	gajah_sumatera	-6.312459	106.82322	0.89	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 14:30:47.368+07
+70	facility_report	gajah_sumatera	-6.312608	106.823476	0.93	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 14:40:15.83+07
+71	checkin	gajah_sumatera	-6.312276	106.823298	0.73	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:06:46.472+07
+72	route_search	gajah_sumatera	-6.312552	106.822948	0.8	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 12:17:52.12+07
+73	checkin	gajah_sumatera	-6.312619	106.823447	0.73	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 14:36:53.956+07
+74	facility_report	gajah_sumatera	-6.312598	106.823471	0.75	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 11:00:57.329+07
+75	facility_report	gajah_sumatera	-6.312455	106.823181	0.97	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 11:31:15.444+07
+76	checkin	gajah_sumatera	-6.312675	106.823313	0.87	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 14:13:28.528+07
+77	checkin	gajah_sumatera	-6.312714	106.823273	0.83	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:52:48.716+07
+78	checkin	gajah_sumatera	-6.312462	106.823292	0.84	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 13:58:32.374+07
+79	facility_report	gajah_sumatera	-6.312274	106.822936	0.94	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 12:07:04.923+07
+80	route_search	gajah_sumatera	-6.31253	106.822976	0.81	Kandang Gajah Sumatera	simulation_seed	127.0.0.1	2026-10-23 14:19:15.485+07
+81	checkin	harimau_sumatera	-6.315701	106.82059	0.68	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 14:10:41.873+07
+82	facility_report	harimau_sumatera	-6.315326	106.820654	0.65	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 10:49:53.576+07
+83	checkin	harimau_sumatera	-6.315499	106.82099	0.65	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 13:37:42.43+07
+84	route_search	harimau_sumatera	-6.31535	106.82076	0.83	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 11:21:40.128+07
+85	checkin	harimau_sumatera	-6.315503	106.820727	0.78	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 12:13:04.287+07
+86	route_search	harimau_sumatera	-6.315537	106.821041	0.87	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 11:15:53.932+07
+87	route_search	harimau_sumatera	-6.315392	106.82078	0.69	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 11:27:31.319+07
+88	route_search	harimau_sumatera	-6.31526	106.820837	0.79	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 13:47:57.048+07
+89	checkin	harimau_sumatera	-6.315294	106.820578	0.85	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 12:52:02.491+07
+90	checkin	harimau_sumatera	-6.315797	106.820798	0.87	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 11:23:32.678+07
+91	facility_report	harimau_sumatera	-6.315283	106.820904	0.68	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 11:11:23.573+07
+92	route_search	harimau_sumatera	-6.315414	106.82093	0.83	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 10:57:30.635+07
+93	checkin	harimau_sumatera	-6.315362	106.820679	0.73	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 13:57:47.169+07
+94	facility_report	harimau_sumatera	-6.315576	106.820589	0.79	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 13:56:59.25+07
+95	route_search	harimau_sumatera	-6.315253	106.820788	0.76	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 14:20:01.18+07
+96	checkin	harimau_sumatera	-6.31567	106.820764	0.63	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 11:04:11.375+07
+97	facility_report	harimau_sumatera	-6.315797	106.820718	0.68	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 12:12:08.955+07
+98	checkin	harimau_sumatera	-6.315372	106.820755	0.75	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 12:18:36.473+07
+99	checkin	harimau_sumatera	-6.31531	106.820537	0.72	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 12:36:13.204+07
+100	route_search	harimau_sumatera	-6.315493	106.820668	0.81	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 12:14:32.843+07
+101	checkin	harimau_sumatera	-6.315757	106.820792	0.72	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 14:15:36.235+07
+102	checkin	harimau_sumatera	-6.315614	106.82096	0.79	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 14:23:59.833+07
+103	checkin	harimau_sumatera	-6.315793	106.820964	0.64	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 11:06:15.856+07
+104	checkin	harimau_sumatera	-6.315483	106.82077	0.86	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 11:14:34.005+07
+105	facility_report	harimau_sumatera	-6.315281	106.820753	0.7	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 14:39:19.767+07
+106	checkin	harimau_sumatera	-6.315491	106.820867	0.81	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 14:32:20.49+07
+107	checkin	harimau_sumatera	-6.315723	106.820815	0.73	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 12:46:46.117+07
+108	facility_report	harimau_sumatera	-6.315617	106.820712	0.7	Harimau & Singa	simulation_seed	127.0.0.1	2026-10-23 11:53:47.171+07
+109	checkin	pintu_barat	-6.308458	106.819105	0.8	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 10:57:07.081+07
+110	checkin	pintu_barat	-6.308351	106.818869	0.75	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:04:52.658+07
+111	checkin	pintu_barat	-6.3086	106.818877	0.81	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:11:28.27+07
+112	route_search	pintu_barat	-6.308546	106.819157	0.79	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 13:41:19.691+07
+113	facility_report	pintu_barat	-6.308742	106.819085	0.7	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 14:08:06.752+07
+114	checkin	pintu_barat	-6.30844	106.819044	0.8	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 13:07:43.126+07
+115	checkin	pintu_barat	-6.30863	106.81908	0.8	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:34:27.871+07
+116	route_search	pintu_barat	-6.308553	106.819128	0.92	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 14:43:09.109+07
+117	facility_report	pintu_barat	-6.308686	106.819047	0.69	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 14:10:26.296+07
+118	route_search	pintu_barat	-6.308269	106.819285	0.9	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 14:23:41.57+07
+119	checkin	pintu_barat	-6.308321	106.818743	0.71	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:29:59.576+07
+120	checkin	pintu_barat	-6.308306	106.818874	0.78	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:43:55.272+07
+121	checkin	pintu_barat	-6.308604	106.818709	0.9	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:23:04.383+07
+122	facility_report	pintu_barat	-6.308534	106.818983	0.75	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 13:43:26.773+07
+123	checkin	pintu_barat	-6.308247	106.81909	0.89	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:01:46.003+07
+124	checkin	pintu_barat	-6.308445	106.819194	0.92	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 14:16:47.416+07
+125	route_search	pintu_barat	-6.308681	106.818887	0.71	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:57:49.88+07
+126	checkin	pintu_barat	-6.308365	106.819037	0.72	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 10:57:57.242+07
+127	route_search	pintu_barat	-6.308259	106.819075	0.87	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:31:08.348+07
+128	facility_report	pintu_barat	-6.308617	106.819013	0.79	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 14:42:53.959+07
+129	checkin	pintu_barat	-6.308246	106.819161	0.7	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:48:37.775+07
+130	route_search	pintu_barat	-6.308637	106.819036	0.88	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:55:10.047+07
+131	checkin	pintu_barat	-6.308251	106.818927	0.68	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 13:49:46.841+07
+132	checkin	pintu_barat	-6.308785	106.818932	0.9	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:18:25.664+07
+133	checkin	pintu_barat	-6.308449	106.818741	0.74	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 13:48:14.415+07
+134	route_search	pintu_barat	-6.308247	106.819235	0.86	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 14:23:07.334+07
+135	facility_report	pintu_barat	-6.308482	106.819057	0.72	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:53:55.156+07
+136	route_search	pintu_barat	-6.308344	106.818876	0.79	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:00:57.775+07
+137	checkin	pintu_barat	-6.308728	106.81874	0.86	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 14:35:36.604+07
+138	checkin	pintu_barat	-6.308592	106.81896	0.91	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:31:43.628+07
+139	checkin	pintu_barat	-6.308369	106.818968	0.68	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 13:27:50.666+07
+140	checkin	pintu_barat	-6.308746	106.819015	0.87	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:56:57.181+07
+141	route_search	pintu_barat	-6.308215	106.818977	0.69	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:43:54.425+07
+142	facility_report	pintu_barat	-6.30871	106.818768	0.91	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:32:11.396+07
+143	facility_report	pintu_barat	-6.308609	106.819242	0.88	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 11:32:57.164+07
+144	facility_report	pintu_barat	-6.30852	106.818952	0.79	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:28:40.613+07
+145	checkin	pintu_barat	-6.308767	106.818863	0.7	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 14:07:27.294+07
+146	facility_report	pintu_barat	-6.308757	106.819287	0.73	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 13:22:52.628+07
+147	route_search	pintu_barat	-6.308561	106.818822	0.89	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 13:57:23.538+07
+148	checkin	pintu_barat	-6.308585	106.819089	0.85	Pintu Masuk Barat	simulation_seed	127.0.0.1	2026-10-23 12:45:48.415+07
+149	checkin	pintu_timur	-6.311814	106.827379	0.82	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:34:58.681+07
+150	route_search	pintu_timur	-6.31205	106.827313	0.58	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 12:27:12.472+07
+151	facility_report	pintu_timur	-6.311975	106.827477	0.74	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 12:23:58.1+07
+152	checkin	pintu_timur	-6.312102	106.82729	0.73	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 11:53:06.842+07
+153	checkin	pintu_timur	-6.311721	106.82757	0.75	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:38:06.737+07
+154	checkin	pintu_timur	-6.311833	106.827537	0.6	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 10:52:39.207+07
+155	checkin	pintu_timur	-6.311895	106.827328	0.62	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:44:33.31+07
+156	route_search	pintu_timur	-6.312127	106.827427	0.8	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 13:39:38.119+07
+157	route_search	pintu_timur	-6.312284	106.827352	0.71	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 13:54:07.199+07
+158	checkin	pintu_timur	-6.312189	106.827728	0.63	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 13:28:21.839+07
+159	checkin	pintu_timur	-6.31189	106.827284	0.59	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 13:16:25.671+07
+160	checkin	pintu_timur	-6.312004	106.827724	0.76	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:11:37.249+07
+161	checkin	pintu_timur	-6.311923	106.827297	0.77	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:15:59.664+07
+162	route_search	pintu_timur	-6.312259	106.827248	0.63	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:06:18.895+07
+163	checkin	pintu_timur	-6.311812	106.827283	0.79	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 11:42:52.972+07
+164	checkin	pintu_timur	-6.312255	106.82774	0.64	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 11:35:39.776+07
+165	checkin	pintu_timur	-6.31198	106.827665	0.58	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 12:39:13.582+07
+166	checkin	pintu_timur	-6.311877	106.827696	0.58	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 11:41:12.694+07
+167	checkin	pintu_timur	-6.311987	106.827272	0.67	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 13:53:57.918+07
+168	checkin	pintu_timur	-6.311889	106.827225	0.77	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:10:46.107+07
+169	facility_report	pintu_timur	-6.312244	106.827272	0.64	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 11:32:46.703+07
+170	route_search	pintu_timur	-6.311887	106.827389	0.61	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 11:44:16.997+07
+171	route_search	pintu_timur	-6.311811	106.827211	0.71	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 13:32:15.206+07
+172	checkin	pintu_timur	-6.312241	106.827572	0.77	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:20:06.93+07
+173	route_search	pintu_timur	-6.312254	106.827657	0.68	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 12:05:12.404+07
+174	route_search	pintu_timur	-6.312213	106.827619	0.61	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 12:54:33.959+07
+175	checkin	pintu_timur	-6.311867	106.827309	0.8	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:15:46.464+07
+176	checkin	pintu_timur	-6.311707	106.827746	0.63	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 11:11:26.78+07
+177	facility_report	pintu_timur	-6.31229	106.827789	0.58	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 13:04:46.755+07
+178	facility_report	pintu_timur	-6.311989	106.827679	0.72	Pintu Masuk Timur & Loket	simulation_seed	127.0.0.1	2026-10-23 14:45:15.225+07
+179	checkin	jerapah	-6.310067	106.822299	0.77	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 14:17:48.608+07
+180	checkin	jerapah	-6.310398	106.821936	0.76	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:07:22.237+07
+181	checkin	jerapah	-6.310436	106.822222	0.64	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 12:07:22.352+07
+182	checkin	jerapah	-6.31031	106.822257	0.59	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:46:23.565+07
+183	checkin	jerapah	-6.310167	106.822177	0.76	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 13:54:50.744+07
+184	checkin	jerapah	-6.310297	106.822159	0.6	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 13:47:31.776+07
+185	checkin	jerapah	-6.310098	106.822442	0.76	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:46:48.878+07
+186	checkin	jerapah	-6.309995	106.822241	0.64	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:55:25.868+07
+187	facility_report	jerapah	-6.310267	106.822278	0.54	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 12:53:29.899+07
+188	facility_report	jerapah	-6.310305	106.822355	0.71	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:24:05.706+07
+189	checkin	jerapah	-6.310398	106.821984	0.73	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 13:00:59.716+07
+190	checkin	jerapah	-6.310469	106.822386	0.56	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:47:54.714+07
+191	facility_report	jerapah	-6.310243	106.822453	0.65	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:50:56.394+07
+192	checkin	jerapah	-6.310455	106.822123	0.72	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 13:54:41.482+07
+193	checkin	jerapah	-6.310235	106.821948	0.6	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 14:23:03.73+07
+194	facility_report	jerapah	-6.310243	106.822217	0.56	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 13:05:14.839+07
+195	route_search	jerapah	-6.309919	106.822068	0.73	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:00:18.024+07
+196	facility_report	jerapah	-6.310013	106.821946	0.68	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 14:35:15.709+07
+197	route_search	jerapah	-6.310339	106.822444	0.59	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 12:10:10.991+07
+198	route_search	jerapah	-6.310382	106.822354	0.53	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 13:01:53.16+07
+199	checkin	jerapah	-6.310209	106.822071	0.74	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:54:06.484+07
+200	checkin	jerapah	-6.310057	106.822172	0.65	Jerapah & Savana	simulation_seed	127.0.0.1	2026-10-23 11:43:09.432+07
+201	checkin	foodcourt_schmutzer	-6.312524	106.817965	0.89	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:08:58.076+07
+202	checkin	foodcourt_schmutzer	-6.312466	106.817956	0.73	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 14:36:33.019+07
+203	checkin	foodcourt_schmutzer	-6.312694	106.817744	0.89	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 14:23:08.324+07
+204	facility_report	foodcourt_schmutzer	-6.312658	106.818212	0.76	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 12:16:03.275+07
+205	route_search	foodcourt_schmutzer	-6.312232	106.818216	0.85	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 14:43:10.66+07
+206	facility_report	foodcourt_schmutzer	-6.312635	106.818282	0.78	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:46:21.164+07
+207	route_search	foodcourt_schmutzer	-6.312676	106.817781	0.93	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 13:49:20.879+07
+208	checkin	foodcourt_schmutzer	-6.312703	106.817735	0.9	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 12:09:01.905+07
+209	facility_report	foodcourt_schmutzer	-6.312488	106.818087	0.86	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 14:22:25.138+07
+210	checkin	foodcourt_schmutzer	-6.312238	106.818286	0.89	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 12:13:42.367+07
+211	checkin	foodcourt_schmutzer	-6.312454	106.818131	0.83	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 12:46:47.175+07
+212	checkin	foodcourt_schmutzer	-6.312274	106.817727	0.84	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:10:56.182+07
+213	facility_report	foodcourt_schmutzer	-6.312538	106.818054	0.91	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:22:35.573+07
+214	checkin	foodcourt_schmutzer	-6.312368	106.818232	0.91	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:57:59.577+07
+215	checkin	foodcourt_schmutzer	-6.312407	106.817898	0.79	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 14:03:48.68+07
+216	checkin	foodcourt_schmutzer	-6.312251	106.818035	0.8	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:31:37.683+07
+217	checkin	foodcourt_schmutzer	-6.312218	106.817901	0.85	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:43:07.591+07
+218	route_search	foodcourt_schmutzer	-6.312655	106.818174	0.77	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:16:13.978+07
+219	checkin	foodcourt_schmutzer	-6.312422	106.818288	0.97	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 13:52:39.169+07
+220	checkin	foodcourt_schmutzer	-6.312396	106.817717	0.81	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 13:34:55.909+07
+221	checkin	foodcourt_schmutzer	-6.312436	106.817909	0.75	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 14:35:36.693+07
+222	facility_report	foodcourt_schmutzer	-6.312709	106.817869	0.79	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 12:49:35.654+07
+223	checkin	foodcourt_schmutzer	-6.312661	106.818137	0.89	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 14:05:16.673+07
+224	route_search	foodcourt_schmutzer	-6.312659	106.818207	0.96	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 13:20:37.903+07
+225	route_search	foodcourt_schmutzer	-6.312539	106.81815	0.84	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:46:25.373+07
+226	checkin	foodcourt_schmutzer	-6.312437	106.818251	0.96	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:35:27.02+07
+227	checkin	foodcourt_schmutzer	-6.312524	106.818272	0.85	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 14:17:40.43+07
+228	checkin	foodcourt_schmutzer	-6.312299	106.817968	0.79	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 12:55:38.27+07
+229	checkin	foodcourt_schmutzer	-6.312619	106.817954	0.96	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 13:25:46.867+07
+230	route_search	foodcourt_schmutzer	-6.312795	106.818226	0.86	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:38:28.266+07
+231	checkin	foodcourt_schmutzer	-6.312293	106.817953	0.91	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 12:17:04.427+07
+232	facility_report	foodcourt_schmutzer	-6.312226	106.818191	0.91	Area Pujasera & Kuliner	simulation_seed	127.0.0.1	2026-10-23 11:25:36.738+07
+233	checkin	danau	-6.31465	106.824753	0.46	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 12:45:09.499+07
+234	checkin	danau	-6.314562	106.824283	0.5	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 14:16:22.085+07
+235	facility_report	danau	-6.315054	106.824415	0.48	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 10:54:53.112+07
+236	checkin	danau	-6.314716	106.824329	0.54	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 12:41:30.293+07
+237	checkin	danau	-6.31505	106.824697	0.53	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 10:58:26.513+07
+238	route_search	danau	-6.314538	106.824594	0.51	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 14:08:09.493+07
+239	facility_report	danau	-6.314982	106.824516	0.44	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 13:37:23.016+07
+240	checkin	danau	-6.314716	106.824686	0.4	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 14:19:04.958+07
+241	checkin	danau	-6.31507	106.824759	0.49	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 14:23:16.925+07
+242	checkin	danau	-6.314726	106.824716	0.48	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 12:16:11.475+07
+243	route_search	danau	-6.315048	106.82442	0.52	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 12:04:22.906+07
+244	checkin	danau	-6.314631	106.824339	0.55	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 14:32:31.43+07
+245	checkin	danau	-6.314667	106.824765	0.47	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 10:49:40.183+07
+246	facility_report	danau	-6.314785	106.824484	0.45	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 13:04:54.517+07
+247	route_search	danau	-6.314838	106.824415	0.4	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 12:47:28.553+07
+248	checkin	danau	-6.314937	106.82442	0.57	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 11:02:31.677+07
+249	checkin	danau	-6.314874	106.824562	0.43	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 13:56:15.481+07
+250	checkin	danau	-6.314716	106.82477	0.45	Danau Buatan & Sepeda	simulation_seed	127.0.0.1	2026-10-23 12:47:28.783+07
+251	checkin	taman_satwa_anak	-6.307227	106.82332	0.5	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 12:30:41.708+07
+252	route_search	taman_satwa_anak	-6.30748	106.823309	0.58	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 14:28:43.184+07
+253	checkin	taman_satwa_anak	-6.307352	106.823457	0.69	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 11:01:45.833+07
+254	checkin	taman_satwa_anak	-6.307611	106.823583	0.63	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 13:39:46.372+07
+255	checkin	taman_satwa_anak	-6.307582	106.823293	0.63	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 13:28:55.775+07
+256	checkin	taman_satwa_anak	-6.307795	106.823412	0.7	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 11:49:25.959+07
+257	facility_report	taman_satwa_anak	-6.307796	106.82376	0.5	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 11:25:39.092+07
+258	route_search	taman_satwa_anak	-6.30744	106.823293	0.53	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 11:35:44.418+07
+259	route_search	taman_satwa_anak	-6.30727	106.823573	0.7	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 11:36:47.509+07
+260	checkin	taman_satwa_anak	-6.307407	106.823585	0.71	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 10:58:08.894+07
+261	facility_report	taman_satwa_anak	-6.307455	106.823722	0.57	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 14:46:42.679+07
+262	checkin	taman_satwa_anak	-6.307723	106.823581	0.64	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 13:18:40.854+07
+263	checkin	taman_satwa_anak	-6.307417	106.82377	0.69	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 11:24:41.036+07
+264	route_search	taman_satwa_anak	-6.307299	106.823408	0.7	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 11:43:40.309+07
+265	facility_report	taman_satwa_anak	-6.307652	106.823694	0.66	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 12:04:21.383+07
+266	route_search	taman_satwa_anak	-6.307674	106.823394	0.57	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 12:35:48.072+07
+267	checkin	taman_satwa_anak	-6.307344	106.823393	0.6	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 12:30:10.172+07
+268	route_search	taman_satwa_anak	-6.307797	106.823541	0.48	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 12:28:26.435+07
+269	checkin	taman_satwa_anak	-6.307436	106.823233	0.62	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 13:32:49.811+07
+270	route_search	taman_satwa_anak	-6.307209	106.823295	0.59	Taman Satwa Anak	simulation_seed	127.0.0.1	2026-10-23 11:43:38.272+07
+\.
+
+
+--
 -- Data for Name: wbs_submissions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -3142,6 +3474,13 @@ SELECT pg_catalog.setval('public.venues_id_seq', 1, true);
 --
 
 SELECT pg_catalog.setval('public.visitor_data_id_seq', 1, false);
+
+
+--
+-- Name: visitor_traffic_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.visitor_traffic_logs_id_seq', 270, true);
 
 
 --
@@ -3593,6 +3932,14 @@ ALTER TABLE ONLY public.visitor_data
 
 
 --
+-- Name: visitor_traffic_logs visitor_traffic_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visitor_traffic_logs
+    ADD CONSTRAINT visitor_traffic_logs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: wbs_submissions wbs_submissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3847,6 +4194,20 @@ CREATE INDEX idx_user_permissions_user_id ON public.user_permissions USING btree
 --
 
 CREATE INDEX idx_user_roles_user_id ON public.user_roles USING btree (user_id);
+
+
+--
+-- Name: idx_visitor_traffic_coords; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_visitor_traffic_coords ON public.visitor_traffic_logs USING btree (latitude, longitude);
+
+
+--
+-- Name: idx_visitor_traffic_created_at; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_visitor_traffic_created_at ON public.visitor_traffic_logs USING btree (created_at DESC);
 
 
 --
@@ -4574,5 +4935,5 @@ ALTER TABLE public.zoo_history ENABLE ROW LEVEL SECURITY;
 -- PostgreSQL database dump complete
 --
 
-\unrestrict KPJ0k4sswhYtNo6MUZJXnpDKt9akctj8h8eUiadJ5MtLrpdkIpUZrpL8MVuuX2S
+\unrestrict FS6Jmb6Dk5d2ssT4TabZfPOQH13LjMfL093GuWo69u12hPk0MeqsdRS8RShQZOd
 

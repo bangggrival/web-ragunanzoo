@@ -56,17 +56,20 @@ export function GpsAnalyticsTab({ pois }: GpsAnalyticsTabProps) {
       <div className="bg-white/70 backdrop-blur-xl border border-white/80 p-6 rounded-[2rem] shadow-sm space-y-4">
         <h3 className="font-semibold text-gray-900 text-lg flex items-center gap-2">
           <Info className="w-5 h-5 text-emerald-600" />
-          Panduan Sistem Koordinat GPS Peta Ragunan
+          Panduan Sistem Koordinat GPS Peta Ragunan & Crowd Heatmap
         </h3>
         <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
           <p>
             <b>1. Sistem Proyeksi:</b> Seluruh koordinat disimpan dalam format <b>WGS84 (EPSG:4326)</b> dengan Latitude dan Longitude standar GPS. Ragunan berada di kisaran Latitude <code>-6.3080</code> s.d. <code>-6.3180</code> dan Longitude <code>106.8140</code> s.d. <code>106.8280</code>.
           </p>
           <p>
-            <b>2. Integrasi Real-Time:</b> Perubahan yang Anda simpan di halaman ini akan langsung disiarkan melalui <i>Server-Sent Events (SSE)</i> dan diperbarui pada peta interaktif pengunjung secara otomatis tanpa perlu refresh halaman.
+            <b>2. Geo-Fence Guard:</b> Sistem secara otomatis menolak input koordinat yang berada di luar batas perimeter resmi kawasan Taman Margasatwa Ragunan untuk menjaga validitas data spasial dan mencegah serangan manipulasi data.
           </p>
           <p>
-            <b>3. Jadwal Makan Satwa:</b> Isi jam makan satwa untuk menampilkan notifikasi feeding show countdown di drawer satwa pada peta pengunjung.
+            <b>3. Visualizer Heatmap Kepadatan:</b> Lapisan warna panas (Heatmap) dihitung secara real-time dari akumulasi log check-in pengunjung, pencarian rute GPS aktif, laporan kerusakan fasilitas, dan satwa dengan status kapasitas padat.
+          </p>
+          <p>
+            <b>4. Deteksi Dini Penumpukan Massa:</b> Jika akumulasi intensitas di suatu zona melebihi ambang batas kritis, sistem akan memunculkan Crowd Alert otomatis agar tim operasional dapat mengurai antrean atau mengalihkan arus rute kereta wisata.
           </p>
         </div>
       </div>

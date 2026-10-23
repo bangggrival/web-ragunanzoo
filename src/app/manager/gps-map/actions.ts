@@ -88,3 +88,49 @@ export async function deleteTramPointAction(id: number) {
 export async function reorderTramRouteAction(order: Array<{ id: number; sequence_order: number }>) {
   return apiFetch('/api/tram-route/bulk/reorder', { method: 'PUT', body: JSON.stringify({ order }) });
 }
+
+// ── Visitor Traffic & Heatmap ─────────────────────────────────
+
+export interface HeatmapResponse {
+  points: Array<[number, number, number]>; // [lat, lng, intensity]
+  stats: {
+    totalEvents: number;
+    checkinCount: number;
+    facilityReportCount: number;
+    routeSearchCount: number;
+    crowdPoiCount: number;
+  };
+  congestedZones: Array<{
+    name: string;
+    lat: number;
+    lng: number;
+    count: number;
+    avgIntensity: number;
+    level: 'CRITICAL' | 'HIGH' | 'MODERATE';
+  }>;
+}
+
+export async function getTrafficHeatmapAction(params?: { timeRange?: string; source?: string }) {
+  const qs = new URLSearchParams(params as any).toString();
+  return apiFetch(`/api/gps-map/traffic/heatmap${qs ? '?' + qs : ''}`);
+}
+
+export async function simulateTrafficAction() {
+  return apiFetch('/api/gps-map/traffic/simulate', { method: 'POST' });
+}
+
+export async function clearTrafficLogsAction() {
+  return apiFetch('/api/gps-map/traffic/clear', { method: 'DELETE' });
+}
+
+export async function logVisitorTrafficAction(data: {
+  source_type: string;
+  latitude: number;
+  longitude: number;
+  intensity?: number;
+  zone_name?: string;
+  poi_id?: string;
+}) {
+  return apiFetch('/api/gps-map/traffic/log', { method: 'POST', body: JSON.stringify(data) });
+}
+

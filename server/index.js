@@ -1734,6 +1734,268 @@ app.put('/api/tram-route/bulk/reorder', async (req, res) => {
   }
 });
 
+// ==========================================
+// VISITOR TRAFFIC & HEATMAP VISUALIZER ENDPOINTS
+// ==========================================
+
+// GET aggregated heatmap traffic points (Public / Manager)
+app.get('/api/gps-map/traffic/heatmap', async (req, res) => {
+  const { timeRange = '24h', source = 'all' } = req.query;
+
+  try {
+    let timeClause = '';
+    if (timeRange === '1h') timeClause = "AND created_at >= NOW() - INTERVAL '1 hour'";
+    else if (timeRange === '24h') timeClause = "AND created_at >= NOW() - INTERVAL '24 hours'";
+    else if (timeRange === '7d') timeClause = "AND created_at >= NOW() - INTERVAL '7 days'";
+
+    let sourceClause = '';
+    const params = [];
+    if (source && source !== 'all') {
+      params.push(source);
+      sourceClause = `AND source_type = $${params.length}`;
+    }
+
+    // 1. Fetch traffic logs
+    const trafficRes = await pool.query(`
+      SELECT latitude, longitude, intensity, zone_name, source_type, created_at
+      FROM public.visitor_traffic_logs
+      WHERE 1=1 ${timeClause} ${sourceClause}
+      ORDER BY created_at DESC
+      LIMIT 1000
+    `, params);
+
+    // 2. Fetch facility reports (with valid coords) if source is 'all' or 'facility_report'
+    let facilityPoints = [];
+    if (source === 'all' || source === 'facility_report') {
+      try {
+        const facRes = await pool.query(`
+          SELECT latitude, longitude, location_name, status, created_at
+          FROM public.facility_reports
+          WHERE latitude IS NOT NULL AND longitude IS NOT NULL
+            AND latitude >= $1 AND latitude <= $2
+            AND longitude >= $3 AND longitude <= $4
+            ${timeRange === '1h' ? "AND created_at >= NOW() - INTERVAL '1 hour'" : timeRange === '24h' ? "AND created_at >= NOW() - INTERVAL '24 hours'" : timeRange === '7d' ? "AND created_at >= NOW() - INTERVAL '7 days'" : ''}
+          LIMIT 200
+        `, [RAGUNAN_GEO_BOUNDS.latMin, RAGUNAN_GEO_BOUNDS.latMax, RAGUNAN_GEO_BOUNDS.lngMin, RAGUNAN_GEO_BOUNDS.lngMax]);
+        
+        facilityPoints = facRes.rows.map(r => ({
+          latitude: parseFloat(r.latitude),
+          longitude: parseFloat(r.longitude),
+          intensity: 0.85,
+          zone_name: r.location_name || 'Laporan Fasilitas',
+          source_type: 'facility_report',
+          created_at: r.created_at
+        }));
+      } catch (err) {
+        console.warn('Could not query facility_reports for heatmap:', err.message);
+      }
+    }
+
+    // 3. Fetch POIs with capacity_status = 'padat'
+    let padatPoiPoints = [];
+    if (source === 'all' || source === 'poi_crowd') {
+      try {
+        const poiRes = await pool.query(`
+          SELECT lat AS latitude, lng AS longitude, name AS zone_name, capacity_status
+          FROM public.gps_pois
+          WHERE is_active = true AND capacity_status = 'padat'
+        `);
+        padatPoiPoints = poiRes.rows.map(p => ({
+          latitude: parseFloat(p.latitude),
+          longitude: parseFloat(p.longitude),
+          intensity: 1.0,
+          zone_name: p.zone_name + ' (Kapasitas Padat)',
+          source_type: 'poi_crowd',
+          created_at: new Date()
+        }));
+      } catch (err) {
+        console.warn('Could not query gps_pois for heatmap:', err.message);
+      }
+    }
+
+    // Combine all points
+    const allRecords = [...trafficRes.rows.map(r => ({
+      latitude: parseFloat(r.latitude),
+      longitude: parseFloat(r.longitude),
+      intensity: parseFloat(r.intensity || 0.7),
+      zone_name: r.zone_name,
+      source_type: r.source_type,
+      created_at: r.created_at
+    })), ...facilityPoints, ...padatPoiPoints];
+
+    // Format for Leaflet.heat: [lat, lng, intensity]
+    const heatmapPoints = allRecords.map(r => [
+      r.latitude,
+      r.longitude,
+      Math.min(1.0, Math.max(0.1, r.intensity))
+    ]);
+
+    // Calculate congested zones (clusters with high concentration of points or intensity)
+    const zoneClusters = {};
+    allRecords.forEach(r => {
+      const key = r.zone_name || 'Area Ragunan';
+      if (!zoneClusters[key]) {
+        zoneClusters[key] = {
+          name: key,
+          lat: r.latitude,
+          lng: r.longitude,
+          totalIntensity: 0,
+          count: 0
+        };
+      }
+      zoneClusters[key].totalIntensity += r.intensity;
+      zoneClusters[key].count++;
+    });
+
+    const congestedZones = Object.values(zoneClusters)
+      .map(z => ({
+        name: z.name,
+        lat: z.lat,
+        lng: z.lng,
+        count: z.count,
+        avgIntensity: Number((z.totalIntensity / z.count).toFixed(2)),
+        level: z.count >= 25 || z.totalIntensity >= 15 ? 'CRITICAL' : z.count >= 12 ? 'HIGH' : 'MODERATE'
+      }))
+      .filter(z => z.level === 'CRITICAL' || z.level === 'HIGH')
+      .sort((a, b) => b.count - a.count);
+
+    // Compute stats
+    const stats = {
+      totalEvents: allRecords.length,
+      checkinCount: allRecords.filter(r => r.source_type === 'checkin').length,
+      facilityReportCount: allRecords.filter(r => r.source_type === 'facility_report').length,
+      routeSearchCount: allRecords.filter(r => r.source_type === 'route_search').length,
+      crowdPoiCount: padatPoiPoints.length
+    };
+
+    res.json({
+      data: {
+        points: heatmapPoints,
+        stats,
+        congestedZones
+      },
+      error: null
+    });
+  } catch (err) {
+    res.status(500).json({ data: null, error: err.message });
+  }
+});
+
+// POST visitor log (Check-in, Route search, Facility report marker)
+// Hardened with rate limiting & perimeter guard
+const ipLogRateLimit = new Map();
+app.post('/api/gps-map/traffic/log', async (req, res) => {
+  const ip = req.ip || req.connection?.remoteAddress || 'unknown';
+  const now = Date.now();
+  const history = ipLogRateLimit.get(ip) || [];
+  const recent = history.filter(t => now - t < 60000); // 1 min window
+  if (recent.length >= 60) {
+    return res.status(429).json({ error: 'Terlalu banyak request. Silakan tunggu 1 menit.' });
+  }
+  recent.push(now);
+  ipLogRateLimit.set(ip, recent);
+
+  const { source_type, poi_id, latitude, longitude, intensity = 0.8, zone_name } = req.body;
+  const lat = parseFloat(latitude);
+  const lng = parseFloat(longitude);
+
+  if (isNaN(lat) || isNaN(lng)) {
+    return res.status(400).json({ error: 'Latitude dan longitude harus berupa angka valid' });
+  }
+
+  // Geo-Fence Bounding Guard
+  if (!isValidRagunanCoords(lat, lng)) {
+    return res.status(400).json({
+      error: `Koordinat (${lat}, ${lng}) berada di luar batas perimeter Ragunan Zoo`
+    });
+  }
+
+  const validSources = ['checkin', 'facility_report', 'route_search', 'poi_crowd'];
+  const safeSource = validSources.includes(source_type) ? source_type : 'checkin';
+  const safeIntensity = Math.min(1.0, Math.max(0.1, parseFloat(intensity) || 0.8));
+
+  try {
+    const result = await pool.query(`
+      INSERT INTO public.visitor_traffic_logs
+        (source_type, poi_id, latitude, longitude, intensity, zone_name, ip_address)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      RETURNING id, source_type, latitude, longitude, intensity, zone_name, created_at
+    `, [safeSource, poi_id || null, lat, lng, safeIntensity, zone_name || 'Area Ragunan', ip]);
+
+    broadcastChange('visitor_traffic_logs', 'INSERT', result.rows[0]);
+    res.status(201).json({ data: result.rows[0], error: null });
+  } catch (err) {
+    res.status(500).json({ data: null, error: err.message });
+  }
+});
+
+// POST simulate visitor crowd traffic (Admin/Staff only)
+app.post('/api/gps-map/traffic/simulate', async (req, res) => {
+  if (!isAuthorizedStaff(req)) {
+    return res.status(403).json({ error: 'Admin or staff required' });
+  }
+
+  const SAMPLE_SIMULATION_ZONES = [
+    { name: 'Pusat Primata Schmutzer', lat: -6.3138, lng: 106.8175, baseIntensity: 0.95, count: 40, poi_id: 'schmutzer_primata' },
+    { name: 'Kandang Gajah Sumatera', lat: -6.3125, lng: 106.8232, baseIntensity: 0.85, count: 30, poi_id: 'gajah_sumatera' },
+    { name: 'Harimau Sumatera', lat: -6.3155, lng: 106.8208, baseIntensity: 0.80, count: 25, poi_id: 'harimau_sumatera' },
+    { name: 'Pintu Masuk Barat & Parkir', lat: -6.3085, lng: 106.8190, baseIntensity: 0.85, count: 35, poi_id: 'pintu_barat' },
+    { name: 'Pintu Masuk Timur & Loket', lat: -6.3120, lng: 106.8275, baseIntensity: 0.75, count: 25, poi_id: 'pintu_timur' },
+    { name: 'Area Pujasera & Kuliner', lat: -6.3125, lng: 106.8180, baseIntensity: 0.90, count: 30, poi_id: 'foodcourt_schmutzer' },
+    { name: 'Danau Buatan & Sepeda Air', lat: -6.3148, lng: 106.8245, baseIntensity: 0.60, count: 18, poi_id: 'danau' }
+  ];
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    let inserted = 0;
+    for (const zone of SAMPLE_SIMULATION_ZONES) {
+      for (let i = 0; i < zone.count; i++) {
+        const latJitter = (Math.random() - 0.5) * 0.0006;
+        const lngJitter = (Math.random() - 0.5) * 0.0006;
+        const lat = Number((zone.lat + latJitter).toFixed(6));
+        const lng = Number((zone.lng + lngJitter).toFixed(6));
+        const intensity = Math.min(1.0, Math.max(0.3, Number((zone.baseIntensity + (Math.random() - 0.5) * 0.2).toFixed(2))));
+        const sources = ['checkin', 'checkin', 'route_search', 'facility_report'];
+        const sourceType = sources[Math.floor(Math.random() * sources.length)];
+
+        await client.query(`
+          INSERT INTO public.visitor_traffic_logs 
+            (source_type, poi_id, latitude, longitude, intensity, zone_name, device_fingerprint, ip_address, created_at)
+          VALUES ($1, $2, $3, $4, $5, $6, 'simulation_drill', $7, NOW() - (random() * interval '3 hours'))
+        `, [sourceType, zone.poi_id, lat, lng, intensity, zone.name, req.ip]);
+        inserted++;
+      }
+    }
+    await client.query('COMMIT');
+    await logAudit(req.user?.id, 'CREATE_TRAFFIC_SIMULATION', 'visitor_traffic_logs', null, null, { insertedCount: inserted }, req.ip);
+    broadcastChange('visitor_traffic_logs', 'SIMULATE', { count: inserted });
+    res.json({ data: { success: true, insertedCount: inserted }, error: null });
+  } catch (err) {
+    await client.query('ROLLBACK');
+    res.status(500).json({ data: null, error: err.message });
+  } finally {
+    client.release();
+  }
+});
+
+// DELETE clear visitor traffic logs (Admin only)
+app.delete('/api/gps-map/traffic/clear', async (req, res) => {
+  if (!isAuthorizedAdmin(req)) {
+    return res.status(403).json({ error: 'Admin required' });
+  }
+  try {
+    const countRes = await pool.query('SELECT count(*) FROM public.visitor_traffic_logs');
+    const prevCount = countRes.rows[0]?.count || 0;
+    await pool.query('TRUNCATE TABLE public.visitor_traffic_logs RESTART IDENTITY');
+    await logAudit(req.user?.id, 'CLEAR_TRAFFIC_LOGS', 'visitor_traffic_logs', null, { deletedCount: prevCount }, null, req.ip);
+    broadcastChange('visitor_traffic_logs', 'CLEAR', { deletedCount: prevCount });
+    res.json({ data: { success: true, cleared: prevCount }, error: null });
+  } catch (err) {
+    res.status(500).json({ data: null, error: err.message });
+  }
+});
+
 async function startServer() {
   try {
     const server = app.listen(PORT, () => {
