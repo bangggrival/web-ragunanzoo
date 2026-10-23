@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <circle cx="24" cy="24" r="22" fill="#0B4635" fill-opacity="0.12"/>
+  <circle cx="24" cy="24" r="21" stroke="#0B4635" stroke-opacity="0.25" stroke-width="1.5"/>
+  <!-- Snake / Lizard Coiled Body -->
+  <path d="M22 13C16 13 13 17 13 21C13 27 21 28 27 30C32 32 33 35 31 37C29 39 24 39 20 37L18 39C23 42 32 42 34 38C36 34 34 29 28 27C23 25 16 25 16 21C16 18 19 16 23 16C27 16 29 18 31 20L33 18C30 15 26 13 22 13Z" fill="#34D399" fill-opacity="0.35"/>
+  <!-- Reptile Head Profile -->
+  <path d="M25 11C28 11 34 13 36 16C37 17.5 36 19 33 19C29 19 25 16 25 11Z" fill="#0B4635"/>
+  <!-- Snake Eye & Forked Tongue -->
+  <circle cx="32" cy="14.5" r="1.2" fill="#34D399"/>
+  <path d="M36 17L41 17M41 17L43 15M41 17L43 19" stroke="#C27835" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Textured Back Dots -->
+  <circle cx="16" cy="24" r="1.2" fill="#0B4635"/>
+  <circle cx="22" cy="27" r="1.2" fill="#0B4635"/>
+  <circle cx="27" cy="30" r="1.2" fill="#0B4635"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <circle cx="24" cy="24" r="22" fill="#1D6B78" fill-opacity="0.12"/>
+  <circle cx="24" cy="24" r="21" stroke="#1D6B78" stroke-opacity="0.25" stroke-width="1.5"/>
+  <!-- Elephant Body & Head Silhouette -->
+  <path d="M25 12C18 12 14 16 14 23C14 29 17 36 21 37H27C27 33 29 27 33 26C37 25 38 20 37 16C35 13 30 12 25 12Z" fill="#1D6B78" fill-opacity="0.35"/>
+  <!-- Large Ear Layer -->
+  <path d="M25 13C20 13 16 17 16 23C16 29 20 33 24 33C25 28 26 19 25 13Z" fill="#0B4635"/>
+  <!-- Trunk Curve -->
+  <path d="M33 24C34 28 35 33 32 35C30 36 28 34 29 32" stroke="#0B4635" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Tusk -->
+  <path d="M29 29C32 30 34 29 34 28" stroke="#C27835" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="28" cy="19" r="1.5" fill="#FFFFFF"/>
+</svg>

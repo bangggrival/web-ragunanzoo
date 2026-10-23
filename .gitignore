@@ -1,0 +1,46 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables (JANGAN commit .env, tapi .env.example harus ikut)
+.env
+.env.*
+!.env.example
+
+# Next.js
+.next/
+
+# Build artifacts
+tsconfig.tsbuildinfo
+bun.lockb
+
+# Archives & Temporary files
+*.tar.gz
+*.deb
+token.txt
+psql_local/
+pgsql/
+sshpass_local/
+ragunan_zoo_backup.sql
+

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <circle cx="24" cy="24" r="22" fill="#0B4635" fill-opacity="0.12"/>
+  <circle cx="24" cy="24" r="21" stroke="#0B4635" stroke-opacity="0.25" stroke-width="1.5"/>
+  <!-- Tree Trunk -->
+  <path d="M22 28V38H26V28" fill="#C27835"/>
+  <path d="M20 38H28" stroke="#C27835" stroke-width="2" stroke-linecap="round"/>
+  <!-- Tree Canopy Layers (Duotone) -->
+  <path d="M24 10C18 10 13 14 13 19C13 21 14 23 15 24C13 26 13 29 15 30C17 32 20 32 24 32C28 32 31 32 33 30C35 29 35 26 33 24C34 23 35 21 35 19C35 14 30 10 24 10Z" fill="#34D399" fill-opacity="0.35"/>
+  <!-- Inner Canopy Texture -->
+  <path d="M24 13C20 13 16 16 16 20C16 22 17 24 19 25C21 26 23 27 24 27C27 27 30 25 31 23C32 21 32 18 30 16C28 14 26 13 24 13Z" fill="#0B4635"/>
+</svg>

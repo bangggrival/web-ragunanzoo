@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <circle cx="24" cy="24" r="22" fill="#C27835" fill-opacity="0.12"/>
+  <circle cx="24" cy="24" r="21" stroke="#C27835" stroke-opacity="0.25" stroke-width="1.5"/>
+  <!-- Main Trunk -->
+  <rect x="21" y="12" width="6" height="24" rx="3" fill="#0B4635"/>
+  <!-- Left Arm -->
+  <path d="M14 20V24C14 27 18 27 21 27" stroke="#0B4635" stroke-width="3" stroke-linecap="round"/>
+  <!-- Right Arm -->
+  <path d="M34 17V21C34 24 30 24 27 24" stroke="#0B4635" stroke-width="3" stroke-linecap="round"/>
+  <!-- Soil Base -->
+  <path d="M16 38H32" stroke="#C27835" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Two-tone Highlights -->
+  <line x1="24" y1="16" x2="24" y2="34" stroke="#34D399" stroke-width="1.5" stroke-dasharray="2 3"/>
+</svg>

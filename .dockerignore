@@ -1,0 +1,12 @@
+.next
+out
+.git
+node_modules
+server/node_modules
+server/uploads
+npm-debug.log
+*.md
+*.sh
+.gitignore
+bun.lockb
+tsconfig.tsbuildinfo

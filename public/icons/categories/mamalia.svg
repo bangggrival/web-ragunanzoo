@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <circle cx="24" cy="24" r="22" fill="#C27835" fill-opacity="0.12"/>
+  <circle cx="24" cy="24" r="21" stroke="#C27835" stroke-opacity="0.25" stroke-width="1.5"/>
+  <!-- Tiger/Mammal Head Base -->
+  <path d="M12 18C12 14.686 14.686 12 18 12L20 15L28 15L30 12C33.314 12 36 14.686 36 18C36 21 34.5 24 33 26C35 30 34 35 30 38C27 40 21 40 18 38C14 35 13 30 15 26C13.5 24 12 21 12 18Z" fill="#C27835" fill-opacity="0.35"/>
+  <!-- Ears and Outer Details -->
+  <path d="M13 17C12 14 14 11 17 12C16 14 15 17 13 17ZM35 17C36 14 34 11 31 12C32 14 33 17 35 17Z" fill="#C27835"/>
+  <!-- Tiger Face & Stripes Details -->
+  <path d="M24 15V22M21 17L18 19M27 17L30 19M16 26L21 27M32 26L27 27M21 32C21 33.657 22.343 35 24 35C25.657 35 27 33.657 27 32M24 28V33" stroke="#0B4635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Eyes -->
+  <circle cx="19.5" cy="23.5" r="2" fill="#0B4635"/>
+  <circle cx="28.5" cy="23.5" r="2" fill="#0B4635"/>
+</svg>

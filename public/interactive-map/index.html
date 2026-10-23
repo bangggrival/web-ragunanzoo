@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Peta Interaktif & Navigasi GPS Ragunan Zoo</title>
+  <meta name="description" content="Peta interaktif resmi Taman Margasatwa Ragunan Jakarta. Temukan kandang satwa, fasilitas, rute kanopi teduh dan panduan navigasi GPS turn-by-turn.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='22' fill='%23123326'/%3E%3Cpath d='M24 14c-2.8 0-5 2.2-5 5 0 3.5 5 9 5 9s5-5.5 5-9c0-2.8-2.2-5-5-5zm-7 7c-1.8 0-3.2 1.4-3.2 3.2 0 2.3 3.2 5.8 3.2 5.8s3.2-3.5 3.2-5.8c0-1.8-1.4-3.2-3.2-3.2zm14 0c-1.8 0-3.2 1.4-3.2 3.2 0 2.3 3.2 5.8 3.2 5.8s3.2-3.5 3.2-5.8c0-1.8-1.4-3.2-3.2-3.2z' fill='%23ffffff'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts: Fraunces (Editorial Nature Serif) & Plus Jakarta Sans (Precision UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+  <!-- Google Material Symbols Outlined -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+  <!-- Leaflet CSS (Local Vendor with CDN fallback) -->
+  <link rel="stylesheet" href="vendor/leaflet.css" onerror="this.onerror=null;this.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    // Deteksi cepat dan sinkron apakah peta dibuka di dalam iframe
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('is-embedded');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('is-embedded');
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <div id="app-container">
+    <!-- SIDEBAR BACKDROP FOR MOBILE -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- RESPONSIVE LEFT SIDEBAR -->
+    <aside id="app-sidebar" class="app-sidebar">
+      <div>
+        <div class="sidebar-brand">
+          <div class="sidebar-brand-left">
+            <div class="brand-logo-badge" title="Taman Margasatwa Ragunan">
+              <img src="/favicon.png" alt="Ragunan Zoo" class="brand-logo-img" />
+            </div>
+            <div class="brand-text">
+              <h1>Ragunan Zoo</h1>
+              <span>Taman Margasatwa</span>
+            </div>
+          </div>
+          <button id="btn-close-sidebar" class="btn-hud-round" style="color: #414940; background: none; display: flex;" title="Tutup Menu">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav-menu">
+          <a href="/" target="_top" class="sidebar-nav-item" style="text-decoration: none; color: inherit; margin-bottom: 6px; background: rgba(46, 125, 50, 0.08); border-radius: 12px;" title="Kembali ke Beranda Ragunan Zoo">
+            <div class="nav-left">
+              <span class="material-symbols-outlined" style="color: var(--primary);">arrow_back</span>
+              <span style="font-weight: 700; color: var(--primary);">Kembali ke Web Utama</span>
+            </div>
+          </a>
+
+          <div class="sidebar-nav-item active" id="nav-item-map">
+            <div class="nav-left">
+              <span class="material-symbols-outlined">explore</span>
+              <span>Peta Interaktif</span>
+            </div>
+          </div>
+
+          <div class="sidebar-nav-item" id="nav-item-route-planner">
+            <div class="nav-left">
+              <span class="material-symbols-outlined">alt_route</span>
+              <span>Rencana Rute A ke B</span>
+            </div>
+          </div>
+
+          <div class="sidebar-nav-item" id="nav-item-feeding">
+            <div class="nav-left">
+              <span class="material-symbols-outlined">restaurant</span>
+              <span>Jadwal Feeding Show</span>
+            </div>
+            <span class="sidebar-nav-badge">Hari Ini</span>
+          </div>
+
+          <div class="sidebar-nav-item" id="nav-item-footways">
+            <div class="nav-left">
+              <span class="material-symbols-outlined" style="color: #2e7d32;">directions_walk</span>
+              <span>Jalur Pejalan Kaki</span>
+            </div>
+            <span class="sidebar-nav-badge" style="background: #e8f5e9; color: #1b5e20;">256 Jalur</span>
+          </div>
+
+          <div class="sidebar-nav-item" id="nav-item-tram">
+            <div class="nav-left">
+              <span class="material-symbols-outlined">tram</span>
+              <span>Rute Kereta Keliling</span>
+            </div>
+          </div>
+
+          <div class="sidebar-nav-item" id="nav-item-parking">
+            <div class="nav-left">
+              <span class="material-symbols-outlined" style="color: var(--terracotta);">local_parking</span>
+              <span>Lokasi Parkir Saya</span>
+            </div>
+            <span class="sidebar-nav-badge" id="sidebar-parking-badge" style="display: none; background: var(--terracotta-light); color: var(--terracotta-dark);">Tersimpan</span>
+          </div>
+
+          <div class="sidebar-nav-item" id="nav-item-amenities">
+            <div class="nav-left">
+              <span class="material-symbols-outlined">wc</span>
+              <span>Toilet & Fasilitas</span>
+            </div>
+          </div>
+
+          <div class="sidebar-nav-item" id="nav-item-sos">
+            <div class="nav-left">
+              <span class="material-symbols-outlined" style="color: var(--error);">emergency</span>
+              <span style="color: var(--error);">Pos Bantuan Ranger</span>
+            </div>
+          </div>
+
+          <!-- PENGELOLA / KURATOR TITIK -->
+          <div style="height: 1px; background: var(--divider); margin: 8px 12px;"></div>
+
+          <div class="sidebar-nav-item" id="nav-item-curator">
+            <div class="nav-left">
+              <span class="material-symbols-outlined" style="color: var(--terracotta);">edit_location_alt</span>
+              <span style="font-weight: 600;">Mode Kurator (Tambah Titik)</span>
+            </div>
+            <span class="sidebar-nav-badge" style="background: var(--terracotta-light); color: var(--terracotta-dark);">Studio</span>
+          </div>
+
+          <div class="sidebar-nav-item" id="nav-item-poi-manager">
+            <div class="nav-left">
+              <span class="material-symbols-outlined" style="color: var(--sage);">tune</span>
+              <span>Kelola & Ekspor POI</span>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer-card">
+        <h4>Suaka Margasatwa Ragunan</h4>
+        <p>Lebih dari 2.000 satwa hidup di 147 hektar hutan lindung kota Jakarta Selatan.</p>
+        <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;">Buka: Selasa - Minggu • 07.00 - 16.00 WIB</div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <main class="main-content-wrapper">
+      <!-- APP HEADER -->
+      <header class="app-header">
+        <div class="header-left-group">
+          <!-- Hamburger Button on Mobile & Drawer Toggle -->
+          <button id="btn-toggle-sidebar" class="hamburger-btn" title="Buka Menu Navigasi">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+
+          <div class="brand-section">
+            <div class="brand-logo-badge" title="Taman Margasatwa Ragunan">
+              <img src="/favicon.png" alt="Ragunan Zoo" class="brand-logo-img" />
+            </div>
+            <div class="brand-text">
+              <h1>Ragunan Zoo</h1>
+              <span>Peta & Navigasi Rute</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <!-- Back to Main Website (Sleek pill visible on standalone tab, hidden when embedded) -->
+          <a href="/" id="btn-back-to-web" target="_top" class="btn-back-web" title="Kembali ke Web Ragunan Zoo">
+            <span class="material-symbols-outlined">arrow_back</span>
+            <span class="btn-label-desktop">Web Utama</span>
+          </a>
+
+          <!-- Layer Switcher Button -->
+          <button id="btn-open-layers" class="btn-layer-toggle" title="Pilihan Lapisan Peta">
+            <span class="material-symbols-outlined">layers</span>
+            <span class="btn-label-desktop">Lapisan</span>
+          </button>
+
+          <!-- Saved Parking Button -->
+          <button id="btn-parking-toggle" class="btn-parking-pill" title="Ingat & Pandu Arah ke Parkir Kendaraan">
+            <span class="material-symbols-outlined" id="parking-icon-symbol">local_parking</span>
+            <span class="btn-label-desktop" id="parking-btn-label">Parkir</span>
+          </button>
+
+          <!-- Curator Studio Toggle Button (Hanya jika ?curator=true) -->
+          <button id="btn-header-curator" class="btn-curator-pill" style="display: none;" title="Mode Kurator (Tambah & Edit Titik Peta)">
+            <span class="material-symbols-outlined" id="header-curator-icon">edit_location_alt</span>
+            <span class="btn-label-desktop">Studio</span>
+          </button>
+
+          <!-- GPS Indicator Pill -->
+          <button id="btn-gps-status" class="gps-status-pill" title="Status GPS (Klik untuk Info / Pelacakan)">
+            <span class="gps-dot"></span>
+            <span id="gps-status-text" class="gps-label-text">Mencari GPS...</span>
+          </button>
+
+          <!-- SOS Emergency Help -->
+          <button id="btn-open-sos" class="btn-sos" title="Bantuan Darurat Ranger & Pos P3K">
+            <span class="material-symbols-outlined">emergency</span>
+            <span class="btn-label-desktop">Bantuan</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- BANNER INDIKATOR MODE KURATOR (TAMBAH / EDIT TITIK) -->
+      <div id="curator-banner" class="curator-banner" style="display: none;">
+        <div class="curator-banner-left">
+          <span class="curator-pulse-dot"></span>
+          <div class="curator-banner-titles">
+            <strong>Mode Kurator Aktif</strong>
+            <span>Klik pada peta untuk menambah titik baru, atau klik pin untuk mengedit</span>
+          </div>
+        </div>
+        <div class="curator-banner-actions">
+          <button id="btn-curator-tag-my-gps" class="btn-curator-action btn-curator-tag-gps" title="Ambil titik koordinat langsung dari GPS smartphone Anda dengan kalibrasi presisi multi-sampel">
+            <span class="material-symbols-outlined" style="font-size: 15px; color: #ffab40;">my_location</span>
+            <span>Tag Posisi HP</span>
+          </button>
+          <button id="btn-curator-manager-banner" class="btn-curator-action" title="Buka Pengelola Data & Ekspor">
+            <span class="material-symbols-outlined" style="font-size: 15px;">table_view</span>
+            <span>Data POI</span>
+          </button>
+          <button id="btn-curator-exit-banner" class="btn-curator-action btn-curator-exit" title="Keluar dari Mode Kurator">
+            <span class="material-symbols-outlined" style="font-size: 15px;">close</span>
+            <span>Keluar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KARTU MENGAMBANG AKSI PIN KURATOR (SEBELUM BUKA FORM LENGKAP) -->
+      <div id="curator-floating-card" class="curator-floating-card" style="display: none;">
+        <div class="curator-floating-left">
+          <div class="curator-pin-indicator">
+            <span class="material-symbols-outlined" style="font-size: 18px;">pin_drop</span>
+          </div>
+          <div class="curator-floating-info">
+            <div class="curator-floating-coords" id="curator-mini-coords">-6.312400, 106.820200</div>
+            <div class="curator-floating-snap" id="curator-mini-snap"><span class="material-symbols-outlined" style="font-size: 13px; vertical-align: middle; color: var(--primary);">alt_route</span> Terhubung ke: Simpul pejalan kaki</div>
+          </div>
+        </div>
+        <div class="curator-floating-actions">
+          <button type="button" id="btn-open-curator-form" class="btn-curator-primary" title="Lengkapi Data Titik Ini">
+            <span class="material-symbols-outlined" style="font-size: 16px;">edit_note</span>
+            <span>Isi Data Titik</span>
+          </button>
+          <button type="button" id="btn-cancel-curator-draft" class="btn-curator-cancel" title="Batalkan Titik Ini">
+            <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- FLOATING SEARCH BAR -->
+      <div class="floating-search-bar" id="search-section">
+        <div class="search-input-wrapper">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" id="input-search" placeholder="Cari gajah, harimau, gorila, toilet, musholla..." autocomplete="off">
+          <button id="btn-clear-search" class="btn-clear-search" title="Hapus pencarian">
+            <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+          </button>
+        </div>
+
+        <!-- SEARCH AUTOCOMPLETE RESULTS -->
+        <div class="search-results-dropdown" id="search-results-dropdown">
+          <!-- Dinamis diisi oleh app.js -->
+        </div>
+      </div>
+
+      <!-- LIVE FEEDING SHOW ALERT BANNER -->
+      <div id="feeding-alert-banner" class="feeding-alert-banner">
+        <div class="feeding-alert-content" id="feeding-alert-content" title="Klik untuk lihat detail satwa & kandang">
+          <div class="feeding-alert-avatar-box">
+            <img id="feeding-alert-avatar" src="assets/gajah_sumatera.jpg" alt="Foto Satwa" onerror="this.src='assets/hero_bg.jpg'">
+            <div class="feeding-live-dot" title="Live Feeding Event"></div>
+          </div>
+          <div class="feeding-alert-text">
+            <div class="feeding-alert-badge-row">
+              <span class="feeding-alert-tag">
+                <span class="material-symbols-outlined" style="font-size: 13px;">restaurant</span>
+                ATRAKSI PAKAN SATWA
+              </span>
+              <span id="feeding-alert-countdown" class="feeding-alert-time-tag">14.00 WIB</span>
+            </div>
+            <div class="feeding-alert-title" id="feeding-alert-title">Gajah Sumatera & Atraksi Mandi</div>
+            <div class="feeding-alert-sub" id="feeding-alert-sub">Jadwal: 14.00 WIB • Panggung Kanopi Observasi</div>
+          </div>
+        </div>
+        <div class="feeding-alert-actions">
+          <button id="btn-feeding-navigate" class="btn-feeding-nav" title="Pandu Rute Jalan Kaki ke Lokasi Kandang">
+            <span class="material-symbols-outlined" style="font-size: 16px;">directions_walk</span>
+            <span class="feeding-nav-text-full">Pandu Rute</span>
+            <span class="feeding-nav-text-short">Pandu</span>
+          </button>
+          <button id="btn-feeding-dismiss" class="btn-feeding-close" title="Tutup Pemberitahuan Jadwal">
+            <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ROUTE PLANNER CARD (ORIGIN ⇄ DESTINATION) -->
+      <div id="route-planner-card" class="route-planner-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e0f2ea; padding-bottom: 6px;">
+          <span style="font-size: 12px; font-weight: 700; color: var(--primary);">Perencana Rute Jalan Kaki</span>
+          <button id="btn-close-planner" style="color: #666;"><span class="material-symbols-outlined" style="font-size: 18px;">close</span></button>
+        </div>
+
+        <div class="planner-row">
+          <div class="planner-select-box">
+            <label>Titik Asal (Mulai Dari)</label>
+            <select id="select-origin">
+              <option value="current">📍 Posisi GPS Saya Saat Ini</option>
+              <option value="pintu_utara">🎟️ Pintu Masuk Utama (Utara / TransJakarta)</option>
+              <option value="pintu_barat">🎟️ Pintu Masuk Barat (Kav Polri)</option>
+              <option value="pintu_timur">🎟️ Pintu Masuk Timur</option>
+              <option value="pintu_selatan">🎟️ Pintu Masuk Selatan (TB Simatupang)</option>
+              <option value="danau_pelikan">🦆 Plaza Danau Burung Pelikan</option>
+              <option value="schmutzer">🦍 Pusat Primata Schmutzer</option>
+            </select>
+          </div>
+
+          <button id="btn-swap-points" class="btn-swap-route" title="Tukar Asal dan Tujuan">
+            <span class="material-symbols-outlined" style="font-size: 18px;">swap_vert</span>
+          </button>
+        </div>
+
+        <div class="planner-row">
+          <div class="planner-select-box">
+            <label>Titik Tujuan (Destinasi)</label>
+            <select id="select-destination">
+              <!-- Dinamis diisi satwa & fasilitas -->
+            </select>
+          </div>
+        </div>
+
+        <button id="btn-execute-route" class="btn-primary-direct" style="height: 40px; font-size: 13px;">
+          <span class="material-symbols-outlined" style="font-size: 18px;">navigation</span>
+          <span>Mulai Navigasi Rute Ini</span>
+        </button>
+      </div>
+
+      <!-- LAYER SWITCHER CARD MENU (100% BEBAS API KEY) -->
+      <div id="layer-switcher-card" class="layer-switcher-card">
+        <div class="layer-switcher-title">Tampilan Peta & Lapisan</div>
+        <div class="layer-switch-item active" id="layer-opt-osm-hot">
+          <div class="layer-item-label">
+            <span class="material-symbols-outlined layer-item-icon">park</span>
+            <span>Peta Suaka Rindang (HOT)</span>
+          </div>
+          <span class="material-symbols-outlined" style="font-size: 16px;">check</span>
+        </div>
+        <div class="layer-switch-item" id="layer-opt-osm-std">
+          <div class="layer-item-label">
+            <span class="material-symbols-outlined layer-item-icon">map</span>
+            <span>Peta Kartografi Standar</span>
+          </div>
+        </div>
+        <div class="layer-switch-item" id="layer-opt-satellite">
+          <div class="layer-item-label">
+            <span class="material-symbols-outlined layer-item-icon">satellite_alt</span>
+            <span>Citra Satelit Resolusi Tinggi</span>
+          </div>
+        </div>
+        <div style="height: 1px; background: var(--divider); margin: 4px 0;"></div>
+        <div class="layer-switch-item" id="layer-opt-footways">
+          <div class="layer-item-label">
+            <span class="material-symbols-outlined layer-item-icon" style="color: var(--primary);">directions_walk</span>
+            <span>Jalur Pejalan Kaki (256 Koridor)</span>
+          </div>
+          <span class="material-symbols-outlined" id="footway-layer-icon" style="font-size: 16px; color: var(--primary);">toggle_on</span>
+        </div>
+        <div class="layer-switch-item" id="layer-opt-tram">
+          <div class="layer-item-label">
+            <span class="material-symbols-outlined layer-item-icon" style="color: var(--terracotta);">tram</span>
+            <span>Rute Kereta Keliling (Tram)</span>
+          </div>
+          <span class="material-symbols-outlined" id="tram-layer-icon" style="font-size: 16px; color: var(--text-tertiary);">toggle_off</span>
+        </div>
+      </div>
+
+      <!-- ACTIVE TURN-BY-TURN HUD (NAVIGASI AKTIF) -->
+      <div class="turn-by-turn-hud" id="navigation-hud">
+        <!-- Main Navigation Card -->
+        <div class="hud-main-card">
+          <div class="hud-header-strip">
+            <div class="turn-indicator-wrap">
+              <div class="turn-icon-box" id="hud-turn-icon">
+                <span class="material-symbols-outlined" id="hud-maneuver-icon">straight</span>
+              </div>
+              <div class="turn-text-group">
+                <span class="turn-distance-badge" id="hud-turn-distance">Lurus • 45m</span>
+                <h2 class="turn-road-name" id="hud-road-name">Koridor Beringin Rindang</h2>
+                <p class="turn-subtext" id="hud-subtext">Menuju Kandang Gajah Sumatera</p>
+              </div>
+            </div>
+
+            <div class="hud-action-icons">
+              <!-- Voice Audio Toggle -->
+              <button id="btn-voice-toggle" class="btn-hud-round active" title="Panduan Suara Navigasi">
+                <span class="material-symbols-outlined" id="voice-icon-symbol">volume_up</span>
+              </button>
+              <!-- Close / Stop Navigation -->
+              <button id="btn-exit-navigation" class="btn-hud-round" title="Hentikan Navigasi">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Metrics Strip -->
+          <div class="hud-metrics-strip">
+            <div class="metric-item">
+              <span class="material-symbols-outlined">directions_walk</span>
+              <span id="hud-total-dist">320 m</span>
+            </div>
+            <span class="metric-sep">•</span>
+            <div class="metric-item">
+              <span class="material-symbols-outlined">schedule</span>
+              <span id="hud-est-time">4 Menit</span>
+            </div>
+            <span class="metric-sep">•</span>
+            <div class="metric-item">
+              <span class="material-symbols-outlined">local_fire_department</span>
+              <span id="hud-calories">16 kcal</span>
+            </div>
+          </div>
+
+          <!-- Official Pedestrian Trail Badge -->
+          <div class="hud-tags-row">
+            <span class="trail-tag walker">
+              <span class="material-symbols-outlined" style="font-size: 13px;">directions_walk</span>
+              100% Jalur Pejalan Kaki
+            </span>
+          </div>
+        </div>
+
+        <!-- Step by Step Accordion -->
+        <div class="steps-accordion-card">
+          <button id="btn-toggle-steps" class="steps-toggle-header">
+            <span id="steps-header-count">Rincian Manuver Belokan (4 Langkah)</span>
+            <span class="material-symbols-outlined" id="steps-chevron" style="font-size: 18px;">expand_more</span>
+          </button>
+          <div class="steps-container" id="steps-container-list">
+            <!-- Step items dinamis -->
+          </div>
+        </div>
+      </div>
+
+      <!-- MAP CANVAS (LEAFLET) -->
+      <div id="map"></div>
+
+      <!-- REAL GPS LIVE BANNER NOTIFICATION -->
+      <div id="gps-live-banner" class="gps-live-banner">
+        <span class="material-symbols-outlined" id="gps-live-banner-icon" style="font-size: 16px;">near_me</span>
+        <span id="gps-live-banner-text">Sinyal GPS Real Aktif</span>
+      </div>
+
+      <!-- OUT OF BOUNDS SMART TELEPORT BANNER -->
+      <div id="out-of-bounds-banner" class="out-of-bounds-banner" style="display: none;">
+        <div class="oob-content">
+          <span class="material-symbols-outlined oob-icon">place</span>
+          <div class="oob-text">
+            <strong>Lokasi di Luar Kawasan (<span id="oob-distance">0</span> km)</strong>
+            <p>Mulai rute virtual dari Gerbang Utama Ragunan?</p>
+          </div>
+        </div>
+        <div class="oob-actions">
+          <button type="button" id="btn-oob-north-gate" class="btn-oob-action primary">Pintu Utama</button>
+          <button type="button" id="btn-oob-west-gate" class="btn-oob-action">Pintu Barat</button>
+          <button type="button" id="btn-oob-dismiss" class="btn-oob-dismiss" title="Tutup">✕</button>
+        </div>
+      </div>
+
+      <!-- FLOATING RIGHT CONTROLS -->
+      <div class="map-controls-stack">
+        <!-- Compass Widget -->
+        <button id="btn-compass" class="btn-map-control" title="Arah Mata Angin Kompas">
+          <span class="material-symbols-outlined" id="compass-needle" style="color: #c62828; transition: transform 0.3s ease-out;">explore</span>
+        </button>
+
+        <!-- Perspective 2D/3D Toggle -->
+        <button id="btn-toggle-3d" class="btn-map-control" title="Ubah Perspektif Sudut Pandang">
+          <span style="font-size: 12px; font-weight: 800; color: var(--primary);">3D</span>
+        </button>
+
+        <!-- Zoom In / Zoom Out Stack -->
+        <div class="zoom-button-group">
+          <button id="btn-zoom-in" title="Perbesar Peta">
+            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+          </button>
+          <div class="zoom-divider"></div>
+          <button id="btn-zoom-out" title="Perkecil Peta">
+            <span class="material-symbols-outlined" style="font-size: 20px;">remove</span>
+          </button>
+        </div>
+
+        <!-- Follow-Me Auto Center Toggle -->
+        <button id="btn-toggle-follow" class="btn-map-control active" title="Kunci Tampilan Mengikuti Posisi GPS Anda">
+          <span class="material-symbols-outlined" id="follow-icon" style="color: var(--primary);">navigation</span>
+        </button>
+
+        <!-- Locate User / Re-Center -->
+        <button id="btn-locate-user" class="btn-map-control primary" title="Pusatkan ke Lokasi GPS Saya">
+          <span class="material-symbols-outlined" style="font-size: 20px;">my_location</span>
+        </button>
+      </div>
+
+      <!-- QUICK NEARBY FACILITY BAR -->
+      <div id="nearby-facilities-strip" class="nearby-facilities-strip">
+        <div class="nearby-strip-inner">
+          <div class="nearby-strip-label">
+            <span class="material-symbols-outlined nearby-radar-icon">near_me</span>
+            <span class="nearby-label-desktop">Terdekat:</span>
+          </div>
+          <div class="nearby-pill-scroll">
+            <button class="btn-nearby-pill" data-facility-type="toilet" title="Cari Toilet & Laktasi Terdekat">
+              <span class="material-symbols-outlined icon-type">wc</span>
+              <span class="pill-name">Toilet</span>
+              <span class="nearby-distance-tag" id="nearby-tag-toilet">--</span>
+            </button>
+            <button class="btn-nearby-pill" data-facility-type="musholla" title="Cari Musholla Terdekat">
+              <span class="material-symbols-outlined icon-type">mosque</span>
+              <span class="pill-name">Musholla</span>
+              <span class="nearby-distance-tag" id="nearby-tag-musholla">--</span>
+            </button>
+            <button class="btn-nearby-pill" data-facility-type="tram" title="Cari Halte Kereta Wisata Terdekat">
+              <span class="material-symbols-outlined icon-type">tram</span>
+              <span class="pill-name pill-name-desktop">Halte Tram</span>
+              <span class="pill-name pill-name-mobile">Halte</span>
+              <span class="nearby-distance-tag" id="nearby-tag-tram">--</span>
+            </button>
+            <button class="btn-nearby-pill" data-facility-type="pintu" title="Cari Pintu Masuk & Loket Terdekat">
+              <span class="material-symbols-outlined icon-type">confirmation_number</span>
+              <span class="pill-name">Loket</span>
+              <span class="nearby-distance-tag" id="nearby-tag-pintu">--</span>
+            </button>
+            <button class="btn-nearby-pill" data-facility-type="kuliner" title="Cari Pujasera & Kuliner Terdekat">
+              <span class="material-symbols-outlined icon-type">restaurant</span>
+              <span class="pill-name">Kuliner</span>
+              <span class="nearby-distance-tag" id="nearby-tag-kuliner">--</span>
+            </button>
+            <button class="btn-nearby-pill" data-facility-type="parkir" title="Cari Area Parkir Terdekat">
+              <span class="material-symbols-outlined icon-type">local_parking</span>
+              <span class="pill-name">Parkir</span>
+              <span class="nearby-distance-tag" id="nearby-tag-parkir">--</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM FLOATING CATEGORY FILTER PILLS -->
+      <div class="bottom-filter-bar">
+        <div class="filter-pills-container">
+          <button class="btn-filter-pill active" data-category="all">
+            <span class="material-symbols-outlined">explore</span>
+            <span>Semua</span>
+          </button>
+          <button class="btn-filter-pill" data-category="satwa">
+            <span class="material-symbols-outlined">pets</span>
+            <span class="pill-label-desktop">Peta Satwa</span>
+            <span class="pill-label-mobile">Satwa</span>
+          </button>
+          <button class="btn-filter-pill" data-category="toilet">
+            <span class="material-symbols-outlined">wc</span>
+            <span class="pill-label-desktop">Toilet & Laktasi</span>
+            <span class="pill-label-mobile">Toilet</span>
+          </button>
+          <button class="btn-filter-pill" data-category="musholla">
+            <span class="material-symbols-outlined">mosque</span>
+            <span class="pill-label-desktop">Musholla</span>
+            <span class="pill-label-mobile">Musholla</span>
+          </button>
+          <button class="btn-filter-pill" data-category="transportasi">
+            <span class="material-symbols-outlined">tram</span>
+            <span class="pill-label-desktop">Halte Kereta</span>
+            <span class="pill-label-mobile">Kereta</span>
+          </button>
+          <button class="btn-filter-pill" data-category="pintu">
+            <span class="material-symbols-outlined">confirmation_number</span>
+            <span class="pill-label-desktop">Loket & Gerbang</span>
+            <span class="pill-label-mobile">Loket</span>
+          </button>
+          <button class="btn-filter-pill" data-category="kuliner">
+            <span class="material-symbols-outlined">restaurant</span>
+            <span class="pill-label-desktop">Pujasera & Kafe</span>
+            <span class="pill-label-mobile">Kuliner</span>
+          </button>
+          <button class="btn-filter-pill" data-category="medical">
+            <span class="material-symbols-outlined">medical_services</span>
+            <span class="pill-label-desktop">Pos Medis P3K</span>
+            <span class="pill-label-mobile">P3K</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- DETAIL DRAWER / BOTTOM SHEET (SATWA & FASILITAS) -->
+      <aside id="detail-drawer" class="detail-drawer">
+        <div class="drawer-drag-handle"></div>
+
+        <div class="drawer-header">
+          <img id="drawer-img" class="drawer-hero-img" src="assets/gajah_sumatera.jpg" alt="Foto Satwa">
+          <div class="drawer-hero-overlay"></div>
+          <button id="btn-close-drawer" class="btn-close-drawer" title="Tutup Detail">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+          <div class="drawer-title-box">
+            <span id="drawer-category-badge" class="drawer-badge">Mamalia Besar</span>
+            <h2 id="drawer-name">Gajah Sumatera</h2>
+            <p id="drawer-latin">Elephas maximus sumatranus</p>
+          </div>
+        </div>
+
+        <div class="drawer-content">
+          <!-- Status Tutup Sementara Alert -->
+          <div id="drawer-closure-alert" class="poi-drawer-alert-closed" style="display: none;">
+            <span class="material-symbols-outlined" style="font-size: 20px;">warning</span>
+            <div>
+              <strong id="drawer-closure-title">Tutup Sementara</strong>
+              <p id="drawer-closure-reason" style="margin: 2px 0 0; font-size: 12px;"></p>
+            </div>
+          </div>
+
+          <!-- Pengumuman Khusus Lokasi -->
+          <div id="drawer-announcement-card" class="poi-drawer-announcement" style="display: none;">
+            <span class="material-symbols-outlined" style="font-size: 20px;">campaign</span>
+            <div>
+              <strong>Pengumuman Pengunjung</strong>
+              <p id="drawer-announcement-text" style="margin: 2px 0 0; font-size: 12px;"></p>
+            </div>
+          </div>
+
+          <!-- Jam Operasional Fasilitas -->
+          <div id="drawer-hours-card" class="poi-drawer-hours" style="display: none;">
+            <span class="material-symbols-outlined" style="font-size: 18px;">schedule</span>
+            <span>Jam Operasional: <strong id="drawer-hours-text"></strong></span>
+          </div>
+
+          <!-- Feeding Show / Schedule Card (Khusus Satwa) -->
+          <div id="drawer-schedule-card" class="schedule-card">
+            <div class="schedule-info">
+              <span class="material-symbols-outlined">restaurant</span>
+              <div class="schedule-text">
+                <span>Jadwal Spesial Hari Ini</span>
+                <p id="drawer-feeding-note">Feeding & Mandi Gajah</p>
+              </div>
+            </div>
+            <span id="drawer-feeding-time" class="schedule-time-badge">14.00 WIB</span>
+          </div>
+
+          <!-- Quick Info Description -->
+          <div class="info-section">
+            <h3>Deskripsi Habitat</h3>
+            <p id="drawer-desc">Kandang gajah sumatera luas terbuka dengan panggung observasi kanopi teduh bertingkat.</p>
+          </div>
+
+          <!-- Fun Facts Section -->
+          <div id="drawer-facts-section" class="info-section">
+            <h3>Fakta Unik Ragunan</h3>
+            <div id="drawer-facts-list" class="fun-facts-list">
+              <!-- Dinamis -->
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="drawer-actions">
+            <!-- Audio Guide Button -->
+            <button id="btn-play-audio-guide" class="btn-audio-guide">
+              <span style="display: flex; align-items: center; gap: 8px;">
+                <span class="material-symbols-outlined" style="color: var(--secondary);">headphones</span>
+                <span id="audio-guide-title">Dengarkan Cerita Ranger</span>
+              </span>
+              <span style="font-size: 10px; background: #c8e6c9; padding: 2px 8px; border-radius: 99px; color: #1b5e20;">Audio Edukasi</span>
+            </button>
+
+            <!-- Primary Direction CTA Button -->
+            <button id="btn-direct-here" class="btn-primary-direct">
+              <span class="material-symbols-outlined">directions</span>
+              <span>Arahkan ke Sini (Mulai Navigasi)</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- DRAWER JADWAL FEEDING SHOW HARI INI -->
+      <div id="feeding-drawer" class="feeding-drawer">
+        <div class="drawer-drag-handle"></div>
+        <div class="feeding-header">
+          <div class="feeding-header-left">
+            <span class="material-symbols-outlined">restaurant</span>
+            <div>
+              <h3>Jadwal Feeding Show Hari Ini</h3>
+              <p style="font-size: 11px; color: #71796f;">Atraksi makan satwa resmi didampingi Ranger</p>
+            </div>
+          </div>
+          <button id="btn-close-feeding" style="color: #666;"><span class="material-symbols-outlined">close</span></button>
+        </div>
+
+        <div class="feeding-list-container" id="feeding-list-container">
+          <!-- Dinamis diisi kartu atraksi feeding -->
+        </div>
+      </div>
+
+      <!-- SOS / EMERGENCY MODAL -->
+      <div id="sos-modal" class="modal-overlay">
+        <div class="modal-card">
+          <div class="modal-header-sos">
+            <div class="sos-icon-box">
+              <span class="material-symbols-outlined">emergency</span>
+            </div>
+            <div>
+              <h2>Pusat Bantuan & Ranger</h2>
+              <p>Layanan darurat Taman Margasatwa Ragunan</p>
+            </div>
+          </div>
+
+          <div class="sos-contact-list">
+            <a href="tel:02178847114" class="sos-contact-btn">
+              <div class="sos-contact-left">
+                <span class="material-symbols-outlined" style="color: var(--primary);">call</span>
+                <div>
+                  <div style="font-size: 13px;">Posko Ranger & Keamanan</div>
+                  <div style="font-size: 11px; color: #666;">(021) 7884 7114 (Siaga 24 Jam)</div>
+                </div>
+              </div>
+              <span class="material-symbols-outlined">chevron_right</span>
+            </a>
+
+            <a href="tel:118" class="sos-contact-btn">
+              <div class="sos-contact-left">
+                <span class="material-symbols-outlined" style="color: var(--error);">medical_services</span>
+                <div>
+                  <div style="font-size: 13px;">Posko P3K & Medis Terdekat</div>
+                  <div style="font-size: 11px; color: #666;">Ambulans & Pertolongan Pertama</div>
+                </div>
+              </div>
+              <span class="material-symbols-outlined">chevron_right</span>
+            </a>
+
+            <button id="btn-navigate-medical" class="sos-contact-btn" style="text-align: left; width: 100%;">
+              <div class="sos-contact-left">
+                <span class="material-symbols-outlined" style="color: #0288d1;">near_me</span>
+                <div>
+                  <div style="font-size: 13px;">Navigasi ke Pos Medis Terdekat</div>
+                  <div style="font-size: 11px; color: #666;">Pandu rute langsung ke klinik P3K</div>
+                </div>
+              </div>
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+
+          <button id="btn-close-sos" class="modal-close-btn">Tutup</button>
+        </div>
+      </div>
+
+      <!-- PICK STARTING LOCATION MODAL -->
+      <div id="location-picker-modal" class="modal-overlay">
+        <div class="modal-card">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="material-symbols-outlined" style="color: var(--primary); font-size: 28px;">location_on</span>
+            <div>
+              <h2 style="font-size: 16px; font-weight: 700;">Tentukan Titik Awal Anda</h2>
+              <p style="font-size: 12px; color: #666;">Pilih lokasi Anda berada di Ragunan saat ini</p>
+            </div>
+          </div>
+
+          <div class="sos-contact-list">
+            <button class="sos-contact-btn btn-pick-location" data-preset="device_gps" style="border-color: var(--sage-border); background: var(--sage-light);">
+              <div class="sos-contact-left">
+                <span class="material-symbols-outlined" style="color: var(--primary); font-size: 22px;">my_location</span>
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: var(--primary);">Sensor GPS Real HP (Aktif & Berjalan)</div>
+                  <div style="font-size: 11px; color: var(--text-secondary);">Melacak posisi dan langkah fisik Anda secara live</div>
+                </div>
+              </div>
+              <span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span>
+            </button>
+
+            <div style="font-size: 11px; font-weight: 600; color: #888; margin: 4px 0 2px 4px;">Atau pilih gerbang awal Ragunan secara manual:</div>
+
+            <button class="sos-contact-btn btn-pick-location" data-preset="n_pintu_utara">
+              <div class="sos-contact-left">
+                <span class="material-symbols-outlined" style="color: var(--primary);">meeting_room</span>
+                <div>
+                  <div style="font-size: 13px; font-weight: 600;">Pintu Masuk Utama (Utara)</div>
+                  <div style="font-size: 11px; color: #666;">Dekat halte TransJakarta & loket</div>
+                </div>
+              </div>
+            </button>
+
+            <button class="sos-contact-btn btn-pick-location" data-preset="n_pintu_barat">
+              <div class="sos-contact-left">
+                <span class="material-symbols-outlined" style="color: var(--primary);">meeting_room</span>
+                <div>
+                  <div style="font-size: 13px; font-weight: 600;">Pintu Masuk Barat</div>
+                  <div style="font-size: 11px; color: #666;">Akses parkir motor Kav. Polri</div>
+                </div>
+              </div>
+            </button>
+
+            <button class="sos-contact-btn btn-pick-location" data-preset="n_danau_pusat">
+              <div class="sos-contact-left">
+                <span class="material-symbols-outlined" style="color: #0288d1;">water</span>
+                <div>
+                  <div style="font-size: 13px; font-weight: 600;">Danau Burung Pelikan</div>
+                  <div style="font-size: 11px; color: #666;">Tengah kawasan Ragunan</div>
+                </div>
+              </div>
+            </button>
+          </div>
+
+          <button id="btn-close-location-picker" class="modal-close-btn">Tutup</button>
+        </div>
+      </div>
+
+      <!-- SAVED PARKING MODAL (INGAT POSISI PARKIR) -->
+      <div id="parking-modal" class="modal-overlay">
+        <div class="modal-card">
+          <!-- Header Modal -->
+          <div class="modal-header-parking">
+            <div class="parking-icon-box">
+              <span class="material-symbols-outlined">local_parking</span>
+            </div>
+            <div>
+              <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--primary);">Lokasi Parkir Kendaraan</h2>
+              <p style="font-size: 11.5px; color: var(--text-secondary);">Ingat dan pandu jalan pulang ke kendaraan Anda</p>
+            </div>
+          </div>
+
+          <!-- KONDISI 1: BELUM ADA PARKIR TERSIMPAN -->
+          <div id="parking-view-empty">
+            <!-- Jenis Kendaraan -->
+            <div class="parking-form-group">
+              <label class="parking-label">Jenis Kendaraan</label>
+              <div class="vehicle-picker-group">
+                <button type="button" class="btn-vehicle active" data-vehicle="car">
+                  <span class="material-symbols-outlined">directions_car</span>
+                  <span>Mobil</span>
+                </button>
+                <button type="button" class="btn-vehicle" data-vehicle="motor">
+                  <span class="material-symbols-outlined">two_wheeler</span>
+                  <span>Motor</span>
+                </button>
+                <button type="button" class="btn-vehicle" data-vehicle="bike">
+                  <span class="material-symbols-outlined">pedal_bike</span>
+                  <span>Sepeda</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Cara Penentuan Lokasi -->
+            <div class="parking-form-group">
+              <label class="parking-label">Metode Penentuan Lokasi Parkir</label>
+              <button type="button" id="btn-method-gps" class="parking-method-card active">
+                <div class="parking-method-left">
+                  <span class="material-symbols-outlined" style="color: var(--primary);">my_location</span>
+                  <div>
+                    <div style="font-size: 12.5px; font-weight: 600; color: var(--text-primary);">Gunakan Posisi GPS Saya Saat Ini</div>
+                    <div style="font-size: 11px; color: var(--text-tertiary);">Rekomendasi saat Anda baru selesai parkir</div>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined method-radio" style="color: var(--primary);">radio_button_checked</span>
+              </button>
+
+              <button type="button" id="btn-method-gate" class="parking-method-card" style="margin-top: 6px;">
+                <div class="parking-method-left">
+                  <span class="material-symbols-outlined" style="color: var(--sage);">meeting_room</span>
+                  <div>
+                    <div style="font-size: 12.5px; font-weight: 600; color: var(--text-primary);">Pilih Area Parkir Resmi Ragunan</div>
+                    <div style="font-size: 11px; color: var(--text-tertiary);">Kantung parkir Utara, Barat, atau Timur</div>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined method-radio" style="color: var(--text-tertiary);">radio_button_unchecked</span>
+              </button>
+            </div>
+
+            <!-- Dropdown Pilihan Area Parkir Gerbang (Jika Opsi Gerbang Dipilih) -->
+            <div id="parking-gate-select-wrap" class="parking-form-group" style="display: none;">
+              <label class="parking-label">Kantung Parkir Gerbang</label>
+              <select id="select-parking-gate" class="parking-input-select">
+                <option value="pintu_utara">Area Parkir Pintu Masuk Utama (Utara)</option>
+                <option value="pintu_barat">Area Parkir Pintu Barat (Kav. Polri)</option>
+                <option value="pintu_timur">Area Parkir Pintu Timur (TB Simatupang)</option>
+              </select>
+            </div>
+
+            <!-- Catatan Tambahan (Blok/Plat) -->
+            <div class="parking-form-group">
+              <label class="parking-label">Catatan Posisi / Baris (Opsional)</label>
+              <input type="text" id="input-parking-notes" class="parking-input-text" placeholder="Contoh: Baris C4 dekat tiang lampu / Blok Motor B">
+            </div>
+
+            <button type="button" id="btn-confirm-save-parking" class="btn-primary-direct" style="height: 42px; margin-top: 6px;">
+              <span class="material-symbols-outlined" style="font-size: 18px;">bookmark_add</span>
+              <span>Simpan Titik Parkir Ini</span>
+            </button>
+          </div>
+
+          <!-- KONDISI 2: SUDAH ADA PARKIR TERSIMPAN -->
+          <div id="parking-view-saved" style="display: none;">
+            <div class="saved-parking-card">
+              <div class="saved-parking-badge-row">
+                <span id="saved-vehicle-badge" class="vehicle-badge-pill">
+                  <span class="material-symbols-outlined" id="saved-vehicle-icon" style="font-size: 16px;">directions_car</span>
+                  <span id="saved-vehicle-label">Mobil</span>
+                </span>
+                <span class="saved-time-pill" id="saved-parking-time">Tersimpan 10:15 WIB</span>
+              </div>
+
+              <h3 id="saved-parking-title" style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--primary); margin: 6px 0 2px;">Pintu Utama (Utara)</h3>
+              <p id="saved-parking-notes-display" style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Catatan: Baris C4</p>
+
+              <div class="parking-distance-box">
+                <span class="material-symbols-outlined" style="font-size: 17px; color: var(--primary);">near_me</span>
+                <span id="saved-parking-distance-text">Menghitung jarak dari posisi Anda...</span>
+              </div>
+            </div>
+
+            <!-- Tombol Navigasi Pulang ke Parkir -->
+            <button type="button" id="btn-navigate-to-parking" class="btn-primary-direct" style="height: 44px; margin-top: 10px; background: var(--terracotta);">
+              <span class="material-symbols-outlined" style="font-size: 20px;">directions_walk</span>
+              <span>Pandu Jalan Pulang ke Kendaraan</span>
+            </button>
+
+            <!-- Hapus / Ganti -->
+            <button type="button" id="btn-reset-parking" class="btn-delete-parking">
+              <span class="material-symbols-outlined" style="font-size: 16px;">delete_outline</span>
+              <span>Hapus / Ganti Posisi Parkir</span>
+            </button>
+          </div>
+
+          <button id="btn-close-parking-modal" class="modal-close-btn">Tutup</button>
+        </div>
+      </div>
+
+      <!-- MODAL STUDIO TITIK RAGUNAN (TAMBAH & EDIT POI) -->
+      <div id="curator-modal" class="modal-overlay">
+        <div class="modal-card curator-modal-card">
+          <!-- Header -->
+          <div class="modal-header-parking" style="border-color: rgba(184, 80, 50, 0.2);">
+            <div class="parking-icon-box" style="background: var(--terracotta-light); color: var(--terracotta);">
+              <span class="material-symbols-outlined">edit_location_alt</span>
+            </div>
+            <div style="flex: 1;">
+              <h2 id="curator-modal-title" style="font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--primary);">Studio Titik Ragunan</h2>
+              <p id="curator-modal-subtitle" style="font-size: 11.5px; color: var(--text-secondary);">Tambah & kurasi titik satwa atau fasilitas di peta</p>
+            </div>
+          </div>
+
+          <!-- Koordinat & Snap Pedestrian Node Box -->
+          <div class="curator-coords-strip">
+            <div class="coords-info-left">
+              <span class="material-symbols-outlined" style="font-size: 18px; color: var(--terracotta);">pin_drop</span>
+              <div>
+                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <div id="curator-coords-display" style="font-size: 11.5px; font-weight: 600; font-family: monospace; color: var(--primary);">-6.312400, 106.820200</div>
+                  <span id="curator-accuracy-badge" class="badge-accuracy-optimal" style="display: none;">±2.5m</span>
+                </div>
+                <div id="curator-snap-node-display" style="font-size: 10.5px; color: var(--text-tertiary); display: flex; align-items: center; gap: 4px;"><span class="material-symbols-outlined" style="font-size: 13px; color: var(--primary);">alt_route</span><span>Terhubung ke: Menghitung jalur terdekat...</span></div>
+              </div>
+            </div>
+            <button type="button" id="btn-curator-use-gps" class="btn-curator-gps" title="Kalibrasi sinyal satelit GPS langsung dari smartphone di lokasi ini">
+              <span class="material-symbols-outlined" style="font-size: 15px;">my_location</span>
+              <span>Kalibrasi GPS HP</span>
+            </button>
+          </div>
+
+          <!-- Petugas / Surveyor Info Strip -->
+          <div class="curator-surveyor-row">
+            <div class="parking-form-group" style="flex: 1; min-width: 0; margin-bottom: 0;">
+              <label class="parking-label" style="font-size: 10.5px; margin-bottom: 2px;">Petugas / Ranger Pendata</label>
+              <input type="text" id="input-surveyor-name" class="parking-input-text" placeholder="Nama Petugas Lapangan" style="height: 32px; font-size: 11.5px;">
+            </div>
+            <div class="parking-form-group" style="flex: 1; min-width: 0; margin-bottom: 0;">
+              <label class="parking-label" style="font-size: 10.5px; margin-bottom: 2px;">Metode Posisi</label>
+              <div class="survey-method-pill">
+                <span class="material-symbols-outlined" style="font-size: 14px; color: var(--primary);">satellite_alt</span>
+                <span id="survey-method-text" style="font-size: 11px; font-weight: 600; color: var(--text-primary);">GPS Smartphone</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Tipe Titik (Satwa vs Fasilitas) -->
+          <div class="curator-tab-row" style="margin-top: 8px;">
+            <button type="button" class="curator-tab-btn active" data-tab="animal">
+              <span class="material-symbols-outlined">pets</span>
+              <span>Kandang Satwa</span>
+            </button>
+            <button type="button" class="curator-tab-btn" data-tab="facility">
+              <span class="material-symbols-outlined">wc</span>
+              <span>Fasilitas Umum</span>
+            </button>
+          </div>
+
+          <!-- FORM TAB 1: SATWA -->
+          <form id="form-curator-animal" class="curator-form-content">
+            <div class="curator-form-grid">
+              <div class="parking-form-group">
+                <label class="parking-label">Nama Satwa / Wahana *</label>
+                <input type="text" id="input-animal-name" class="parking-input-text" placeholder="Contoh: Jerapah Afrika" required>
+              </div>
+
+              <div class="parking-form-group">
+                <label class="parking-label">Nama Latin / Ilmiah</label>
+                <input type="text" id="input-animal-latin" class="parking-input-text" placeholder="Contoh: Giraffa camelopardalis">
+              </div>
+            </div>
+
+            <div class="curator-form-grid">
+              <div class="parking-form-group">
+                <label class="parking-label">Kategori Satwa</label>
+                <select id="select-animal-category" class="parking-input-select">
+                  <option value="mamalia">Mamalia</option>
+                  <option value="karnivora">Karnivora</option>
+                  <option value="aves">Aves / Unggas</option>
+                  <option value="reptil">Reptil</option>
+                  <option value="primata">Primata</option>
+                  <option value="akuatik">Akuatik / Danau</option>
+                  <option value="edukasi">Wisata Edukasi</option>
+                </select>
+              </div>
+
+              <div class="parking-form-group">
+                <label class="parking-label">Status Konservasi IUCN</label>
+                <select id="select-animal-status" class="parking-input-select">
+                  <option value="Kritis Terancam Punah (CR)">CR - Kritis Terancam Punah</option>
+                  <option value="Genting (EN)">EN - Genting (Endangered)</option>
+                  <option value="Rentan (VU)" selected>VU - Rentan (Vulnerable)</option>
+                  <option value="Hampir Terancam (NT)">NT - Hampir Terancam</option>
+                  <option value="Risiko Rendah (LC)">LC - Risiko Rendah</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="curator-form-grid">
+              <div class="parking-form-group">
+                <label class="parking-label">Asal Wilayah / Habitat</label>
+                <input type="text" id="input-animal-origin" class="parking-input-text" placeholder="Contoh: Sabana Afrika Sub-Sahara">
+              </div>
+
+              <div class="parking-form-group">
+                <label class="parking-label">Jenis Pakan / Diet</label>
+                <input type="text" id="input-animal-diet" class="parking-input-text" placeholder="Contoh: Herbivora (Daun akasia, buah)">
+              </div>
+            </div>
+
+            <div class="curator-form-grid">
+              <div class="parking-form-group">
+                <label class="parking-label">Jadwal Feeding Show (Opsional)</label>
+                <input type="text" id="input-animal-feeding-time" class="parking-input-text" placeholder="Contoh: 14.00 WIB">
+              </div>
+
+              <div class="parking-form-group">
+                <label class="parking-label">Catatan Feeding / Atraksi</label>
+                <input type="text" id="input-animal-feeding-note" class="parking-input-text" placeholder="Contoh: Enrichment Buah di Dahan">
+              </div>
+            </div>
+
+            <div class="parking-form-group">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                <label class="parking-label" style="margin-bottom: 0;">Pilihan / Potret Foto Satwa</label>
+                <button type="button" id="btn-trigger-camera-animal" class="btn-camera-mini" title="Potret langsung satwa atau kandang dengan kamera smartphone">
+                  <span class="material-symbols-outlined" style="font-size: 14px;">photo_camera</span>
+                  <span>Kamera HP</span>
+                </button>
+                <input type="file" id="input-camera-animal" accept="image/*" capture="environment" style="display: none;">
+              </div>
+              <div class="curator-preview-row">
+                <img id="preview-animal-photo" src="assets/giraffe.jpg" alt="Preview Foto" class="animal-preview-thumb">
+                <div style="flex: 1; min-width: 0;">
+                  <select id="select-animal-photo" class="parking-input-select">
+                    <option value="assets/giraffe.jpg">Jerapah (assets/giraffe.jpg)</option>
+                    <option value="assets/lion.jpg">Singa (assets/lion.jpg)</option>
+                    <option value="assets/panda.jpg">Panda (assets/panda.jpg)</option>
+                    <option value="assets/gorilla.jpg">Gorila (assets/gorilla.jpg)</option>
+                    <option value="assets/elephant.jpg">Gajah (assets/elephant.jpg)</option>
+                    <option value="assets/harimau_sumatera.jpg">Harimau Sumatera</option>
+                    <option value="assets/komodo.jpg">Komodo Dragon</option>
+                    <option value="assets/cendrawasih.jpg">Burung Cendrawasih</option>
+                    <option value="assets/hippo.jpg">Kuda Nil</option>
+                    <option value="assets/beruang_madu.jpg">Beruang Madu</option>
+                    <option value="assets/macan_tutul.jpg">Macan Tutul Jawa</option>
+                    <option value="assets/kangguru_pohon.jpg">Kangguru Pohon</option>
+                    <option value="assets/siamang.jpg">Siamang</option>
+                    <option value="assets/anoa.jpg">Anoa</option>
+                    <option value="assets/tapir.jpg">Tapir Belang</option>
+                    <option value="assets/zebra.jpg">Zebra</option>
+                    <option value="camera_shot" style="display: none;">Hasil Jepretan Kamera HP (Tersimpan)</option>
+                    <option value="custom">URL Foto Lain / Kustom...</option>
+                  </select>
+                  <input type="text" id="input-animal-custom-photo" class="parking-input-text" placeholder="Masukkan path/URL gambar custom..." style="display: none; margin-top: 4px;">
+                </div>
+              </div>
+            </div>
+
+            <div class="parking-form-group">
+              <label class="parking-label">Deskripsi Edukasi Singkat</label>
+              <textarea id="textarea-animal-desc" class="curator-textarea" rows="2" placeholder="Tuliskan keterangan enclosure atau ciri khas satwa..."></textarea>
+            </div>
+
+            <div class="parking-form-group">
+              <label class="parking-label">Naskah Cerita Ranger (Untuk Audio Guide Otomatis)</label>
+              <textarea id="textarea-animal-audio" class="curator-textarea" rows="2" placeholder="Teks yang akan dibacakan oleh suara pemandu saat pengunjung tiba..."></textarea>
+            </div>
+          </form>
+
+          <!-- FORM TAB 2: FASILITAS -->
+          <form id="form-curator-facility" class="curator-form-content" style="display: none;">
+            <div class="parking-form-group">
+              <label class="parking-label">Nama Fasilitas *</label>
+              <input type="text" id="input-fac-name" class="parking-input-text" placeholder="Contoh: Toilet & Laktasi Plaza Barat" required>
+            </div>
+
+            <div class="curator-form-grid">
+              <div class="parking-form-group">
+                <label class="parking-label">Tipe / Kategori</label>
+                <select id="select-fac-type" class="parking-input-select">
+                  <option value="toilet">Toilet & Laktasi</option>
+                  <option value="musholla">Musholla / Ibadah</option>
+                  <option value="kuliner">Kantin & Kuliner</option>
+                  <option value="gate">Pintu Gerbang & Loket</option>
+                  <option value="medis">Pos Medis / P3K</option>
+                  <option value="halte">Halte Kereta Keliling</option>
+                  <option value="info">Pusat Informasi & Ranger</option>
+                  <option value="gazebo">Gazebo & Tempat Istirahat</option>
+                  <option value="sepeda">Penyewaan Sepeda</option>
+                </select>
+              </div>
+
+              <div class="parking-form-group">
+                <label class="parking-label">Ikon Simbol</label>
+                <div class="curator-preview-row">
+                  <div id="preview-fac-icon-box" class="facility-preview-box">
+                    <span class="material-symbols-outlined" id="preview-fac-icon-symbol" style="font-size: 20px;">wc</span>
+                  </div>
+                  <select id="select-fac-icon" class="parking-input-select" style="flex: 1;">
+                    <option value="wc">WC / Toilet (wc)</option>
+                    <option value="mosque">Masjid / Musholla (mosque)</option>
+                    <option value="restaurant">Resto / Kantin (restaurant)</option>
+                    <option value="meeting_room">Gerbang Pintu (meeting_room)</option>
+                    <option value="medical_services">Medis P3K (medical_services)</option>
+                    <option value="tram">Kereta Tram (tram)</option>
+                    <option value="info">Informasi (info)</option>
+                    <option value="chair">Gazebo / Bangku (chair)</option>
+                    <option value="pedal_bike">Sepeda (pedal_bike)</option>
+                    <option value="storefront">Cinderamata (storefront)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="parking-form-group">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                <label class="parking-label" style="margin-bottom: 0;">Foto Plang Fasilitas (Opsional)</label>
+                <button type="button" id="btn-trigger-camera-facility" class="btn-camera-mini" title="Potret plang atau fasilitas langsung dengan kamera HP">
+                  <span class="material-symbols-outlined" style="font-size: 14px;">photo_camera</span>
+                  <span>Kamera HP</span>
+                </button>
+                <input type="file" id="input-camera-facility" accept="image/*" capture="environment" style="display: none;">
+              </div>
+              <div class="curator-preview-row">
+                <img id="preview-facility-photo" src="" alt="Preview Foto Fasilitas" class="animal-preview-thumb" style="display: none;">
+                <span id="fac-photo-note" style="font-size: 11px; color: var(--text-tertiary);">Belum ada foto lapangan. Tekan tombol Kamera HP jika ingin memotret.</span>
+              </div>
+            </div>
+
+            <div class="parking-form-group">
+              <label class="parking-label">Deskripsi & Aksesibilitas</label>
+              <textarea id="textarea-fac-desc" class="curator-textarea" rows="2" placeholder="Contoh: Dilengkapi toilet disabilitas, wastafel air bersih, dan ruang menyusui."></textarea>
+            </div>
+          </form>
+
+          <!-- Aksi Modal -->
+          <div class="curator-actions-bar">
+            <div class="curator-save-btn-group">
+              <button type="button" id="btn-save-curator-poi" class="btn-primary-direct" style="height: 42px; flex: 1;">
+                <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
+                <span id="btn-save-curator-label">Simpan Titik</span>
+              </button>
+              <button type="button" id="btn-save-and-next-poi" class="btn-estafet-survey" title="Simpan titik ini dan langsung bersiap mengambil titik kandang berikutnya">
+                <span class="material-symbols-outlined" style="font-size: 18px;">playlist_add_check</span>
+                <span>Simpan & Lanjut</span>
+              </button>
+            </div>
+
+            <button type="button" id="btn-delete-curator-poi" class="btn-delete-curator" style="display: none;">
+              <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+              <span>Hapus Titik</span>
+            </button>
+
+            <button type="button" id="btn-close-curator-modal" class="modal-close-btn" style="margin-top: 6px;">Batal</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL KALIBRASI MULTI-SAMPEL GPS HP PETUGAS -->
+      <div id="gps-calibration-modal" class="modal-overlay">
+        <div class="modal-card gps-calibration-card">
+          <div class="calibration-header">
+            <div class="calibration-radar-box">
+              <div class="radar-circle radar-c1"></div>
+              <div class="radar-circle radar-c2"></div>
+              <div class="radar-circle radar-c3"></div>
+              <div class="radar-sweep-beam"></div>
+              <span class="material-symbols-outlined radar-center-icon">satellite_alt</span>
+            </div>
+            <h3 class="calibration-title">Mengalibrasi Sinyal GPS HP</h3>
+            <p class="calibration-subtitle">Mengambil sampel sinyal satelit berturut-turut untuk akurasi presisi tinggi bebas distorsi kanopi pohon</p>
+          </div>
+
+          <div class="calibration-body">
+            <!-- Progress Counter -->
+            <div class="calibration-stat-row">
+              <span class="cal-stat-label">Pengambilan Sampel Satelit:</span>
+              <span class="cal-stat-val" id="cal-sample-count">1 / 6 Sampel</span>
+            </div>
+
+            <div class="cal-progress-bar-wrap">
+              <div class="cal-progress-fill" id="cal-progress-fill" style="width: 16%;"></div>
+            </div>
+
+            <!-- Accuracy Meter -->
+            <div class="cal-meter-box">
+              <div class="cal-meter-labels">
+                <span class="cal-meter-title">Estimasi Akurasi Fisik:</span>
+                <span class="cal-accuracy-val" id="cal-accuracy-display">±... meter</span>
+              </div>
+              <div class="cal-meter-track">
+                <div class="cal-meter-indicator" id="cal-meter-indicator" style="left: 30%;"></div>
+              </div>
+              <div class="cal-meter-zones">
+                <span class="zone-tag" style="color: #2e7d32;"><span class="zone-dot-indicator" style="background: #2e7d32;"></span> Optimal (&lt;5m)</span>
+                <span class="zone-tag" style="color: #f57f17;"><span class="zone-dot-indicator" style="background: #f57f17;"></span> Cukup (5-10m)</span>
+                <span class="zone-tag" style="color: #c62828;"><span class="zone-dot-indicator" style="background: #c62828;"></span> Lemah (&gt;10m)</span>
+              </div>
+            </div>
+
+            <div class="cal-status-msg" id="cal-status-msg">
+              <span class="material-symbols-outlined" style="font-size: 16px; color: var(--primary);">info</span>
+              <span>Berdirilah tepat di depan kandang atau gerbang objek.</span>
+            </div>
+          </div>
+
+          <div class="calibration-footer">
+            <button type="button" id="btn-force-use-cal-gps" class="btn-primary-direct" style="height: 38px; display: none;">
+              <span class="material-symbols-outlined" style="font-size: 17px;">check_circle</span>
+              <span>Gunakan Hasil Sekarang</span>
+            </button>
+            <button type="button" id="btn-cancel-gps-calibration" class="modal-close-btn" style="margin-top: 4px;">Batalkan Kalibrasi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL POI MANAGER & EKSPOR DATA (POI STUDIO) -->
+      <div id="poi-manager-modal" class="modal-overlay">
+        <div class="modal-card poi-manager-card">
+          <div class="modal-header-parking">
+            <div class="parking-icon-box" style="background: var(--sage-light); color: var(--sage);">
+              <span class="material-symbols-outlined">dataset</span>
+            </div>
+            <div style="flex: 1;">
+              <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--primary);">Manajemen Data & Ekspor POI</h2>
+              <p style="font-size: 11.5px; color: var(--text-secondary);">Kelola, cari, dan unduh data titik Ragunan</p>
+            </div>
+            <button id="btn-close-poi-manager" class="btn-hud-round" style="color: #666; background: none;">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+
+          <!-- Statistik POI -->
+          <div class="poi-stats-grid">
+            <div class="poi-stat-box">
+              <span class="stat-number" id="stat-count-animals">0</span>
+              <span class="stat-label">Total Satwa</span>
+            </div>
+            <div class="poi-stat-box">
+              <span class="stat-number" id="stat-count-facilities">0</span>
+              <span class="stat-label">Total Fasilitas</span>
+            </div>
+            <div class="poi-stat-box" style="background: var(--terracotta-light); border-color: rgba(184, 80, 50, 0.2);">
+              <span class="stat-number" id="stat-count-custom" style="color: var(--terracotta);">0</span>
+              <span class="stat-label" style="color: var(--terracotta-dark);">Titik Baru (Custom)</span>
+            </div>
+          </div>
+
+          <!-- Toolbar Pencarian & Filter POI -->
+          <div class="poi-filter-toolbar">
+            <div class="search-input-wrapper" style="height: 36px;">
+              <span class="material-symbols-outlined" style="font-size: 17px;">search</span>
+              <input type="text" id="input-poi-manager-search" placeholder="Cari nama satwa / fasilitas..." style="font-size: 12px;">
+            </div>
+            <div class="poi-type-chips">
+              <button class="btn-poi-filter-chip active" data-type="all">Semua</button>
+              <button class="btn-poi-filter-chip" data-type="animal">Satwa</button>
+              <button class="btn-poi-filter-chip" data-type="facility">Fasilitas</button>
+              <button class="btn-poi-filter-chip" data-type="custom">Hanya Titik Kustom</button>
+            </div>
+          </div>
+
+          <!-- Scrollable Daftar POI -->
+          <div id="poi-manager-list" class="poi-items-scroll-list">
+            <!-- Diisi secara dinamis oleh app.js -->
+          </div>
+
+          <!-- Toolbar Ekspor & Impor -->
+          <div class="poi-export-toolbar">
+            <div style="font-size: 11px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 6px;">Ekspor & Integrasi Data:</div>
+            <div class="export-buttons-group">
+              <button type="button" id="btn-export-json" class="btn-export-opt" title="Unduh data JSON lengkap">
+                <span class="material-symbols-outlined">data_object</span>
+                <span>Export JSON</span>
+              </button>
+              <button type="button" id="btn-export-geojson" class="btn-export-opt" title="Unduh GeoJSON standar untuk QGIS / Google Maps">
+                <span class="material-symbols-outlined">public</span>
+                <span>Export GeoJSON</span>
+              </button>
+              <button type="button" id="btn-copy-js-code" class="btn-export-opt" title="Salin kode JavaScript untuk ragunan-data.js">
+                <span class="material-symbols-outlined">code</span>
+                <span>Salin Kode JS</span>
+              </button>
+              <button type="button" id="btn-trigger-import-file" class="btn-export-opt" title="Unggah file JSON atau GeoJSON">
+                <span class="material-symbols-outlined">upload_file</span>
+                <span>Impor File</span>
+              </button>
+              <input type="file" id="input-file-poi-import" accept=".json,.geojson" style="display: none;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL PREVIEW KODE JS -->
+      <div id="code-preview-modal" class="modal-overlay">
+        <div class="modal-card" style="max-width: 540px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <strong style="font-size: 14px; color: var(--primary);">Kode JavaScript (Siap Dipaste)</strong>
+            <button id="btn-close-code-preview" style="background: none; border: none; cursor: pointer;">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+          <p style="font-size: 11.5px; color: var(--text-secondary); margin-bottom: 8px;">Salin kode di bawah ini lalu paste ke dalam file <code>data/ragunan-data.js</code>:</p>
+          <textarea id="textarea-code-preview" class="curator-textarea" rows="12" style="font-family: monospace; font-size: 11px; white-space: pre;" readonly></textarea>
+          <button type="button" id="btn-copy-preview-clipboard" class="btn-primary-direct" style="height: 40px; margin-top: 10px;">
+            <span class="material-symbols-outlined" style="font-size: 18px;">content_copy</span>
+            <span>Salin ke Clipboard</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Leaflet JS (Local Vendor with CDN fallback) -->
+  <script src="vendor/leaflet.js"></script>
+  <script>
+    if (typeof L === 'undefined') {
+      document.write('<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\\/script>');
+    }
+  </script>
+
+  <!-- Application Logic -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

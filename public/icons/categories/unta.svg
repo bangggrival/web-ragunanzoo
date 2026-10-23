@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <circle cx="24" cy="24" r="22" fill="#C27835" fill-opacity="0.12"/>
+  <circle cx="24" cy="24" r="21" stroke="#C27835" stroke-opacity="0.25" stroke-width="1.5"/>
+  <!-- Camel Hump & Body -->
+  <path d="M12 30C12 25 15 20 20 20C23 20 24 23 26 23C28 23 30 18 34 18C37 18 39 22 39 27C39 33 34 35 25 35C16 35 12 34 12 30Z" fill="#C27835" fill-opacity="0.35"/>
+  <!-- Camel Head & Neck -->
+  <path d="M14 27L17 15C17 15 16 11 20 11C23 11 24 13 22 15L20 24" stroke="#0B4635" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Legs Base -->
+  <path d="M17 35V40M22 35V39M28 35V39M33 35V40" stroke="#0B4635" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <circle cx="24" cy="24" r="22" fill="#0B4635" fill-opacity="0.12"/>
+  <circle cx="24" cy="24" r="21" stroke="#0B4635" stroke-opacity="0.25" stroke-width="1.5"/>
+  <!-- Komodo Lizard Body Contour -->
+  <path d="M12 28C14 20 22 18 31 21L37 22C39 23 39 26 36 27L29 27C21 27 15 32 12 28Z" fill="#0B4635" fill-opacity="0.35"/>
+  <!-- Head & Jaws -->
+  <path d="M30 21L40 23C41 24 40 26 37 27L30 26Z" fill="#0B4635"/>
+  <!-- Yellow Forked Tongue -->
+  <path d="M40 24.5L44 24.5M44 24.5L46 23M44 24.5L46 26" stroke="#FDE68A" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Claws -->
+  <path d="M21 28L18 34M29 27L32 34" stroke="#0B4635" stroke-width="2" stroke-linecap="round"/>
+</svg>
