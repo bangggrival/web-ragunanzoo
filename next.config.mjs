@@ -28,8 +28,8 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self' http: https:",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: blob: http: https:",
               "media-src 'self' blob: http: https:",

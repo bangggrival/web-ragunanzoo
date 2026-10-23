@@ -31,7 +31,9 @@ import {
   Ticket,
   HeartPulse,
   Save,
-  X
+  X,
+  Copy,
+  Maximize2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -84,8 +86,11 @@ export default function ManageGpsMapClient() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'closed'>('all');
 
+  // Interactive Layer Toggles
+  const [showPoisLayer, setShowPoisLayer] = useState(true);
+  const [showTramLayer, setShowTramLayer] = useState(true);
+
   // Interactive Pin Picking Mode
-  const [isPickCoordsMode, setIsPickCoordsMode] = useState(false);
   const [pickedCoords, setPickedCoords] = useState<{ lat: number; lng: number } | null>(null);
 
   // Leaflet Map State
@@ -94,6 +99,8 @@ export default function ManageGpsMapClient() {
   const markersGroupRef = useRef<any>(null);
   const tramPolylineRef = useRef<any>(null);
   const pickMarkerRef = useRef<any>(null);
+  const markersMapRef = useRef<Record<string, any>>({});
+  const tramMarkersMapRef = useRef<Record<number, any>>({});
 
   // Dialog States
   const [isPoiDialogOpen, setIsPoiDialogOpen] = useState(false);
@@ -169,7 +176,7 @@ export default function ManageGpsMapClient() {
   useEffect(() => {
     fetchData();
 
-    // Listen for SSE updates
+    // Listen for SSE updates from backend
     const handleRealtime = (e: any) => {
       if (e.detail?.table === 'gps_pois' || e.detail?.table === 'tram_route_points') {
         fetchData();
@@ -181,27 +188,158 @@ export default function ManageGpsMapClient() {
     };
   }, []);
 
-  // 2. Initialize Leaflet Map
+  // 2. Filter POIs for list & map display
+  const filteredPois = useMemo(() => {
+    return pois.filter(poi => {
+      const matchesSearch =
+        poi.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (poi.name_en && poi.name_en.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        poi.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (poi.description && poi.description.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      const matchesCat = selectedCategory === 'all' || poi.category === selectedCategory;
+
+      const matchesStatus =
+        statusFilter === 'all' ? true :
+        statusFilter === 'active' ? (poi.is_active && !poi.is_temporarily_closed) :
+        poi.is_temporarily_closed;
+
+      return matchesSearch && matchesCat && matchesStatus;
+    });
+  }, [pois, searchQuery, selectedCategory, statusFilter]);
+
+  // 3. Render Leaflet Markers whenever pois, tramPoints, or filters change
+  const renderMapMarkers = useCallback(() => {
+    const map = leafletMapInstanceRef.current;
+    if (!map || !(window as any).L) return;
+    const L = (window as any).L;
+
+    if (markersGroupRef.current) {
+      markersGroupRef.current.clearLayers();
+    }
+    markersMapRef.current = {};
+    tramMarkersMapRef.current = {};
+
+    // A. Render Tram Polyline & Halte Markers
+    if (tramPolylineRef.current) {
+      map.removeLayer(tramPolylineRef.current);
+      tramPolylineRef.current = null;
+    }
+
+    if (showTramLayer && tramPoints && tramPoints.length > 1) {
+      const latLngs = tramPoints.map(pt => [pt.lat, pt.lng]);
+      tramPolylineRef.current = L.polyline(latLngs, {
+        color: '#d97706',
+        weight: 5,
+        opacity: 0.85,
+        dashArray: '6, 8',
+        lineJoin: 'round'
+      }).addTo(map);
+
+      // Render Halte markers
+      tramPoints.filter(pt => pt.is_halt).forEach(pt => {
+        const haltIcon = L.divIcon({
+          className: 'manager-tram-halt',
+          html: `<div style="background:#d97706; color:white; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2.5px solid white; box-shadow:0 2px 6px rgba(0,0,0,0.35); font-size:13px;">🚂</div>`,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14]
+        });
+        const m = L.marker([pt.lat, pt.lng], { icon: haltIcon });
+        m.bindPopup(`
+          <div style="font-family:inherit; min-width:180px;">
+            <div style="font-weight:700; font-size:13px; color:#d97706; margin-bottom:2px;">🚂 Halte Kereta Wisata</div>
+            <div style="font-weight:600; font-size:14px; color:#111;">${pt.halt_name || 'Halte #' + pt.sequence_order}</div>
+            <div style="font-size:11px; color:#666; margin-top:4px;">Urutan Rute: <b>#${pt.sequence_order}</b></div>
+            <div style="margin-top:6px; font-size:10px; color:#999; font-mono;">Lat: ${pt.lat.toFixed(5)}, Lng: ${pt.lng.toFixed(5)}</div>
+          </div>
+        `);
+        tramMarkersMapRef.current[pt.id] = m;
+        markersGroupRef.current.addLayer(m);
+      });
+    }
+
+    // B. Render POIs Markers
+    if (showPoisLayer) {
+      filteredPois.forEach(poi => {
+        const isClosed = poi.is_temporarily_closed;
+        const isPadat = poi.capacity_status === 'padat';
+        const bgColor = isClosed ? '#dc2626' : (poi.color || '#22c55e');
+
+        const markerHtml = `
+          <div style="position:relative; text-align:center;">
+            <div style="background:${bgColor}; color:white; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2.5px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.35); font-size:16px;">
+              ${poi.emoji || '📍'}
+            </div>
+            ${isClosed ? `<div style="position:absolute; top:-6px; right:-8px; background:#ef4444; color:white; font-size:8px; font-weight:bold; padding:1px 4px; border-radius:6px; border:1px solid white;">TUTUP</div>` : ''}
+            ${isPadat ? `<div style="position:absolute; bottom:-6px; right:-8px; background:#f97316; color:white; font-size:8px; font-weight:bold; padding:1px 4px; border-radius:6px; border:1px solid white;">PADAT</div>` : ''}
+          </div>
+        `;
+
+        const customIcon = L.divIcon({
+          className: 'manager-poi-marker',
+          html: markerHtml,
+          iconSize: [34, 34],
+          iconAnchor: [17, 17]
+        });
+
+        const marker = L.marker([poi.lat, poi.lng], { icon: customIcon });
+
+        const popupContent = `
+          <div style="font-family:inherit; min-width:200px;">
+            <div style="font-weight:700; font-size:14px; margin-bottom:2px; color:#111;">${poi.emoji || ''} ${poi.name}</div>
+            <div style="font-size:11px; color:#666; margin-bottom:6px;">Kategori: <b style="text-transform:capitalize; color:#047857;">${poi.category}</b></div>
+            ${poi.feeding_time ? `<div style="font-size:11px; color:#b45309; font-weight:600; margin-bottom:4px;">🍖 Feeding: ${poi.feeding_time}</div>` : ''}
+            ${poi.operating_hours_open ? `<div style="font-size:11px; color:#0284c7; margin-bottom:4px;">🕒 Buka: ${poi.operating_hours_open} - ${poi.operating_hours_close || ''}</div>` : ''}
+            ${isClosed ? `<div style="font-size:11px; color:#dc2626; font-weight:bold; background:#fee2e2; padding:3px 6px; border-radius:4px; margin-top:4px;">⚠️ Tutup: ${poi.closure_reason || 'Sedang renovasi'}</div>` : ''}
+            ${poi.local_announcement ? `<div style="font-size:11px; color:#b45309; background:#fef3c7; padding:3px 6px; border-radius:4px; margin-top:4px;">📢 ${poi.local_announcement}</div>` : ''}
+            <div style="margin-top:8px; font-size:10px; color:#888; font-family:monospace;">Lat: ${poi.lat.toFixed(5)}, Lng: ${poi.lng.toFixed(5)}</div>
+          </div>
+        `;
+
+        marker.bindPopup(popupContent);
+        marker.on('click', () => {
+          setPickedCoords({ lat: poi.lat, lng: poi.lng });
+        });
+
+        markersMapRef.current[poi.id] = marker;
+        markersGroupRef.current.addLayer(marker);
+      });
+    }
+  }, [filteredPois, tramPoints, showPoisLayer, showTramLayer]);
+
+  // 4. Initialize Leaflet Map
   useEffect(() => {
     let isCancelled = false;
 
+    // Only load when tab is 'pois' or 'tram' where the map container is rendered
+    if (activeTab !== 'pois' && activeTab !== 'tram') return;
+
     const loadLeaflet = async () => {
-      // Ensure Leaflet CSS is present
+      // 1. Ensure Leaflet CSS is present (local vendor first, CDN fallback)
       if (!document.getElementById('leaflet-css')) {
         const link = document.createElement('link');
         link.id = 'leaflet-css';
         link.rel = 'stylesheet';
-        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        link.href = '/vendor/leaflet/leaflet.css';
+        link.onerror = () => {
+          link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        };
         document.head.appendChild(link);
       }
 
-      // Ensure Leaflet JS is loaded
+      // 2. Ensure Leaflet JS is loaded (local vendor first, CDN fallback)
       if (!(window as any).L) {
         await new Promise<void>((resolve, reject) => {
           const script = document.createElement('script');
-          script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+          script.src = '/vendor/leaflet/leaflet.js';
           script.onload = () => resolve();
-          script.onerror = () => reject(new Error('Gagal memuat script Leaflet'));
+          script.onerror = () => {
+            const fallbackScript = document.createElement('script');
+            fallbackScript.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+            fallbackScript.onload = () => resolve();
+            fallbackScript.onerror = () => reject(new Error('Gagal memuat script Leaflet'));
+            document.head.appendChild(fallbackScript);
+          };
           document.head.appendChild(script);
         });
       }
@@ -210,10 +348,13 @@ export default function ManageGpsMapClient() {
 
       const L = (window as any).L;
 
-      // Clean up previous map if exists
+      // Safe clean up to avoid "Map container is already initialized"
       if (leafletMapInstanceRef.current) {
         leafletMapInstanceRef.current.remove();
         leafletMapInstanceRef.current = null;
+      }
+      if (mapContainerRef.current && (mapContainerRef.current as any)._leaflet_id) {
+        (mapContainerRef.current as any)._leaflet_id = null;
       }
 
       // Initialize map centered at Ragunan
@@ -225,10 +366,10 @@ export default function ManageGpsMapClient() {
         zoomControl: true
       });
 
-      // OSM HOT Basemap
-      L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      // Standard OpenStreetMap Tile Layer
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
       // Layer groups
@@ -252,12 +393,19 @@ export default function ManageGpsMapClient() {
           }).addTo(map);
         }
 
-        pickMarkerRef.current.bindPopup(`<b>Titik Terpilih</b><br>Lat: ${coords.lat}<br>Lng: ${coords.lng}`).openPopup();
+        pickMarkerRef.current.bindPopup(`
+          <div style="font-family:inherit; font-size:12px; line-height:1.4;">
+            <b style="color:#dc2626;">📍 Titik Dipilih</b><br/>
+            <b>Lat:</b> ${coords.lat}<br/>
+            <b>Lng:</b> ${coords.lng}<br/>
+            <div style="margin-top:6px; font-size:10px; color:#555;">Gunakan tombol di atas peta untuk menambahkan titik POI atau Waypoint kereta di sini.</div>
+          </div>
+        `).openPopup();
         toast.info(`Koordinat dipilih: ${coords.lat}, ${coords.lng}`);
       });
 
       leafletMapInstanceRef.current = map;
-      renderMapMarkers(map, pois, tramPoints);
+      renderMapMarkers();
     };
 
     loadLeaflet().catch(err => console.error('Error loading Leaflet map:', err));
@@ -268,132 +416,68 @@ export default function ManageGpsMapClient() {
         leafletMapInstanceRef.current.remove();
         leafletMapInstanceRef.current = null;
       }
+      if (mapContainerRef.current && (mapContainerRef.current as any)._leaflet_id) {
+        (mapContainerRef.current as any)._leaflet_id = null;
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab]);
 
-  // 3. Render Leaflet Markers whenever pois or tramPoints change
-  const renderMapMarkers = useCallback((mapInstance?: any, currentPois?: GpsPoi[], currentTram?: TramRoutePoint[]) => {
-    const map = mapInstance || leafletMapInstanceRef.current;
-    if (!map || !(window as any).L) return;
-    const L = (window as any).L;
-
-    if (markersGroupRef.current) {
-      markersGroupRef.current.clearLayers();
-    }
-
-    const poisToDisplay = currentPois || pois;
-    const tramToDisplay = currentTram || tramPoints;
-
-    // A. Render Tram Polyline
-    if (tramPolylineRef.current) {
-      map.removeLayer(tramPolylineRef.current);
-      tramPolylineRef.current = null;
-    }
-
-    if (tramToDisplay && tramToDisplay.length > 1) {
-      const latLngs = tramToDisplay.map(pt => [pt.lat, pt.lng]);
-      tramPolylineRef.current = L.polyline(latLngs, {
-        color: '#d97706',
-        weight: 4,
-        opacity: 0.8,
-        dashArray: '6, 8',
-        lineJoin: 'round'
-      }).addTo(map);
-
-      // Render Halte markers
-      tramToDisplay.filter(pt => pt.is_halt).forEach(pt => {
-        const haltIcon = L.divIcon({
-          className: 'manager-tram-halt',
-          html: `<div style="background:#d97706; color:white; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid white; box-shadow:0 2px 5px rgba(0,0,0,0.3); font-size:12px;">🚂</div>`,
-          iconSize: [26, 26],
-          iconAnchor: [13, 13]
-        });
-        const m = L.marker([pt.lat, pt.lng], { icon: haltIcon });
-        m.bindPopup(`<b>Halte: ${pt.halt_name || 'Halte Kereta'}</b><br>Urutan #${pt.sequence_order}`);
-        markersGroupRef.current.addLayer(m);
-      });
-    }
-
-    // B. Render POIs Markers
-    poisToDisplay.forEach(poi => {
-      const isClosed = poi.is_temporarily_closed;
-      const isPadat = poi.capacity_status === 'padat';
-      const bgColor = isClosed ? '#dc2626' : (poi.color || '#22c55e');
-
-      const markerHtml = `
-        <div style="position:relative; text-align:center;">
-          <div style="background:${bgColor}; color:white; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2.5px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.35); font-size:16px;">
-            ${poi.emoji || '📍'}
-          </div>
-          ${isClosed ? `<div style="position:absolute; top:-6px; right:-8px; background:#ef4444; color:white; font-size:8px; font-weight:bold; padding:1px 4px; border-radius:6px; border:1px solid white;">TUTUP</div>` : ''}
-          ${isPadat ? `<div style="position:absolute; bottom:-6px; right:-8px; background:#f97316; color:white; font-size:8px; font-weight:bold; padding:1px 4px; border-radius:6px; border:1px solid white;">PADAT</div>` : ''}
-        </div>
-      `;
-
-      const customIcon = L.divIcon({
-        className: 'manager-poi-marker',
-        html: markerHtml,
-        iconSize: [34, 34],
-        iconAnchor: [17, 17]
-      });
-
-      const marker = L.marker([poi.lat, poi.lng], { icon: customIcon });
-
-      const popupContent = `
-        <div style="font-family:inherit; min-width:180px;">
-          <div style="font-weight:700; font-size:14px; margin-bottom:2px; color:#111;">${poi.emoji || ''} ${poi.name}</div>
-          <div style="font-size:11px; color:#666; margin-bottom:6px;">Kategori: <b>${poi.category}</b></div>
-          ${poi.feeding_time ? `<div style="font-size:11px; color:#15803d; font-weight:600; margin-bottom:4px;">🍖 Feeding: ${poi.feeding_time}</div>` : ''}
-          ${poi.operating_hours_open ? `<div style="font-size:11px; color:#0284c7; margin-bottom:4px;">🕒 Buka: ${poi.operating_hours_open} - ${poi.operating_hours_close || ''}</div>` : ''}
-          ${isClosed ? `<div style="font-size:11px; color:#dc2626; font-weight:bold; background:#fee2e2; padding:3px 6px; border-radius:4px; margin-top:4px;">⚠️ Tutup: ${poi.closure_reason || 'Sedang renovasi'}</div>` : ''}
-          ${poi.local_announcement ? `<div style="font-size:11px; color:#b45309; background:#fef3c7; padding:3px 6px; border-radius:4px; margin-top:4px;">📢 ${poi.local_announcement}</div>` : ''}
-          <div style="margin-top:8px; font-size:10px; color:#999;">Lat: ${poi.lat}, Lng: ${poi.lng}</div>
-        </div>
-      `;
-
-      marker.bindPopup(popupContent);
-      marker.on('click', () => {
-        setPickedCoords({ lat: poi.lat, lng: poi.lng });
-      });
-
-      markersGroupRef.current.addLayer(marker);
-    });
-  }, [pois, tramPoints]);
-
+  // Update map markers when data or filters change
   useEffect(() => {
     if (leafletMapInstanceRef.current) {
       renderMapMarkers();
     }
   }, [renderMapMarkers]);
 
-  // Center map to POI
+  // Center map to POI and trigger popup
   const flyToPoi = (poi: GpsPoi) => {
     if (leafletMapInstanceRef.current) {
-      leafletMapInstanceRef.current.flyTo([poi.lat, poi.lng], 18, { duration: 1 });
+      leafletMapInstanceRef.current.flyTo([poi.lat, poi.lng], 18, { duration: 0.8 });
       setPickedCoords({ lat: poi.lat, lng: poi.lng });
+      setTimeout(() => {
+        const marker = markersMapRef.current[poi.id];
+        if (marker) {
+          marker.openPopup();
+        }
+      }, 500);
     }
   };
 
-  // 4. Filtering POIs for list
-  const filteredPois = useMemo(() => {
-    return pois.filter(poi => {
-      const matchesSearch =
-        poi.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (poi.name_en && poi.name_en.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        poi.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (poi.description && poi.description.toLowerCase().includes(searchQuery.toLowerCase()));
+  // Center map to Tram Waypoint and trigger popup
+  const flyToTramPoint = (point: TramRoutePoint) => {
+    if (leafletMapInstanceRef.current) {
+      leafletMapInstanceRef.current.flyTo([point.lat, point.lng], 18, { duration: 0.8 });
+      setPickedCoords({ lat: point.lat, lng: point.lng });
+      setTimeout(() => {
+        const marker = tramMarkersMapRef.current[point.id];
+        if (marker) {
+          marker.openPopup();
+        }
+      }, 500);
+    }
+  };
 
-      const matchesCat = selectedCategory === 'all' || poi.category === selectedCategory;
+  // Fit all markers in view
+  const handleFitAllMarkers = () => {
+    if (leafletMapInstanceRef.current && markersGroupRef.current) {
+      const layers = markersGroupRef.current.getLayers();
+      if (layers.length > 0) {
+        const L = (window as any).L;
+        const fg = L.featureGroup(layers);
+        leafletMapInstanceRef.current.fitBounds(fg.getBounds(), { padding: [40, 40], maxZoom: 17 });
+        toast.info('Peta difokuskan ke seluruh titik lokasi.');
+      } else {
+        leafletMapInstanceRef.current.flyTo([-6.3125, 106.8232], 16);
+      }
+    }
+  };
 
-      const matchesStatus =
-        statusFilter === 'all' ? true :
-        statusFilter === 'active' ? (poi.is_active && !poi.is_temporarily_closed) :
-        poi.is_temporarily_closed;
-
-      return matchesSearch && matchesCat && matchesStatus;
-    });
-  }, [pois, searchQuery, selectedCategory, statusFilter]);
+  // Copy coordinate to clipboard
+  const handleCopyCoords = (coords: { lat: number; lng: number }) => {
+    navigator.clipboard.writeText(`${coords.lat}, ${coords.lng}`);
+    toast.success(`Koordinat disalin: ${coords.lat}, ${coords.lng}`);
+  };
 
   // Handle Create / Edit POI Form Submit
   const handleSavePoi = async (e: React.FormEvent) => {
@@ -440,12 +524,10 @@ export default function ManageGpsMapClient() {
   // Quick Toggle Closure
   const handleToggleClosureQuick = async (poi: GpsPoi) => {
     if (!poi.is_temporarily_closed) {
-      // Open dialog to provide reason
       setClosureModalPoi(poi);
       setClosureReason(poi.closure_reason || 'Perawatan berkala & renovasi fasilitas');
       setClosureUntil(poi.closure_until || '');
     } else {
-      // Directly re-open
       try {
         await updatePoiClosureAction(poi.id, { is_temporarily_closed: false });
         toast.success(`Status "${poi.name}" dibuka kembali untuk pengunjung.`);
@@ -610,7 +692,7 @@ export default function ManageGpsMapClient() {
               Manajemen Peta GPS Interaktif
             </h1>
             <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
-              Leaflet Engine
+              Leaflet Engine (Local Vendor)
             </Badge>
           </div>
           <p className="text-sm text-gray-600">
@@ -723,22 +805,52 @@ export default function ManageGpsMapClient() {
         </button>
       </div>
 
-      {/* ─── TAB 1: POI MANAGER (SPLIT SCREEN MAP + LIST) ─── */}
-      {activeTab === 'pois' && (
+      {/* ─── SHARED INTERACTIVE MAP SECTION (AVAILABLE IN BOTH 'POIS' & 'TRAM' TABS) ─── */}
+      {(activeTab === 'pois' || activeTab === 'tram') && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* LEAFLET MAP PREVIEW (7 COLUMNS) */}
           <div className="lg:col-span-7 bg-white/70 backdrop-blur-xl border border-white/80 p-5 rounded-[2rem] shadow-sm space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <h3 className="font-semibold text-gray-900 text-base">Live Preview Peta Leaflet</h3>
+                <h3 className="font-semibold text-gray-900 text-base">
+                  {activeTab === 'pois' ? 'Peta Interaktif Titik POI' : 'Peta Interaktif Jalur Kereta'}
+                </h3>
               </div>
-              <div className="flex items-center gap-2">
-                {pickedCoords && (
-                  <span className="text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-lg font-mono">
-                    Lat: {pickedCoords.lat}, Lng: {pickedCoords.lng}
-                  </span>
-                )}
+
+              <div className="flex items-center gap-2 flex-wrap">
+                {/* Layer Toggles */}
+                <Button
+                  size="sm"
+                  variant={showPoisLayer ? 'default' : 'outline'}
+                  onClick={() => setShowPoisLayer(!showPoisLayer)}
+                  className={`text-xs rounded-xl h-8 ${showPoisLayer ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'text-gray-600'}`}
+                >
+                  <MapPin className="w-3.5 h-3.5 mr-1" />
+                  POI
+                </Button>
+
+                <Button
+                  size="sm"
+                  variant={showTramLayer ? 'default' : 'outline'}
+                  onClick={() => setShowTramLayer(!showTramLayer)}
+                  className={`text-xs rounded-xl h-8 ${showTramLayer ? 'bg-amber-600 hover:bg-amber-700 text-white' : 'text-gray-600'}`}
+                >
+                  <Train className="w-3.5 h-3.5 mr-1" />
+                  Rute Kereta
+                </Button>
+
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleFitAllMarkers}
+                  className="text-xs rounded-xl h-8 text-gray-700"
+                  title="Fokuskan ke seluruh titik"
+                >
+                  <Maximize2 className="w-3.5 h-3.5 mr-1" />
+                  Fit All
+                </Button>
+
                 <Button
                   size="sm"
                   variant="outline"
@@ -747,10 +859,10 @@ export default function ManageGpsMapClient() {
                       leafletMapInstanceRef.current.flyTo([-6.3125, 106.8232], 16);
                     }
                   }}
-                  className="text-xs rounded-xl h-8"
+                  className="text-xs rounded-xl h-8 text-gray-700"
                 >
                   <Crosshair className="w-3.5 h-3.5 mr-1" />
-                  Pusat Ragunan
+                  Pusat
                 </Button>
               </div>
             </div>
@@ -762,158 +874,213 @@ export default function ManageGpsMapClient() {
                 id="manager-leaflet-map"
                 className="w-full h-[520px] bg-slate-100 z-10"
               />
-              <div className="absolute bottom-3 left-3 z-20 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-gray-200 text-xs text-gray-700 shadow-sm flex items-center gap-2">
+              <div className="absolute bottom-3 left-3 z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl border border-gray-200 text-xs text-gray-700 shadow-sm flex items-center gap-2">
                 <Info className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Klik di mana saja pada peta untuk mengambil koordinat Lat/Lng.</span>
               </div>
             </div>
 
+            {/* Picked Coordinates Action Pill */}
+            {pickedCoords && (
+              <div className="p-3 bg-emerald-50/90 border border-emerald-200 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-emerald-900 flex items-center gap-1">
+                    <Crosshair className="w-4 h-4 text-emerald-600" />
+                    Titik Terpilih:
+                  </span>
+                  <span className="font-mono bg-white px-2 py-0.5 rounded border border-emerald-200 text-emerald-800 font-bold">
+                    {pickedCoords.lat.toFixed(6)}, {pickedCoords.lng.toFixed(6)}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleCopyCoords(pickedCoords)}
+                    className="h-7 text-xs bg-white text-gray-700 rounded-lg hover:bg-emerald-50"
+                  >
+                    <Copy className="w-3 h-3 mr-1" />
+                    Salin
+                  </Button>
+
+                  {activeTab === 'pois' && (
+                    <Button
+                      size="sm"
+                      onClick={handleOpenCreatePoi}
+                      className="h-7 text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg"
+                    >
+                      <Plus className="w-3 h-3 mr-1" />
+                      Buat POI di Sini
+                    </Button>
+                  )}
+
+                  {activeTab === 'tram' && (
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        setEditingTramPoint(null);
+                        setTramFormData({
+                          lat: pickedCoords.lat,
+                          lng: pickedCoords.lng,
+                          halt_name: '',
+                          is_halt: false
+                        });
+                        setIsTramDialogOpen(true);
+                      }}
+                      className="h-7 text-xs bg-amber-600 hover:bg-amber-700 text-white rounded-lg"
+                    >
+                      <Train className="w-3 h-3 mr-1" />
+                      Tambah Waypoint
+                    </Button>
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className="flex items-center justify-between text-xs text-gray-500 px-1">
-              <div>Total Titik Ditampilkan: <b className="text-gray-800">{pois.length}</b> titik</div>
+              <div>Total Titik Ditampilkan: <b className="text-gray-800">{filteredPois.length}</b> POI / <b className="text-gray-800">{tramPoints.length}</b> Waypoints</div>
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Aktif</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500" /> Tutup Sementara</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500" /> Jalur Kereta</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500" /> Tutup</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500" /> Rute Kereta</span>
               </div>
             </div>
           </div>
 
-          {/* LIST & FILTER POI (5 COLUMNS) */}
-          <div className="lg:col-span-5 bg-white/70 backdrop-blur-xl border border-white/80 p-5 rounded-[2rem] shadow-sm space-y-4">
-            {/* Search & Category Filter */}
-            <div className="space-y-3">
-              <div className="relative">
-                <Search className="w-4 h-4 absolute left-3.5 top-3 text-gray-400" />
-                <Input
-                  placeholder="Cari satwa, fasilitas, atau ID..."
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
-                  className="pl-10 rounded-xl bg-white/80 border-gray-200 text-sm"
-                />
-              </div>
-
-              <div className="flex items-center gap-2">
-                <select
-                  value={selectedCategory}
-                  onChange={e => setSelectedCategory(e.target.value)}
-                  className="flex-1 px-3 py-2 bg-white/80 border border-gray-200 rounded-xl text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
-                >
-                  {CATEGORY_OPTIONS.map(opt => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
-                  ))}
-                </select>
-
-                <select
-                  value={statusFilter}
-                  onChange={e => setStatusFilter(e.target.value as any)}
-                  className="px-3 py-2 bg-white/80 border border-gray-200 rounded-xl text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
-                >
-                  <option value="all">Semua Status</option>
-                  <option value="active">Hanya Aktif</option>
-                  <option value="closed">Tutup Saja</option>
-                </select>
-              </div>
-            </div>
-
-            {/* POI Scrollable List */}
-            <div className="space-y-2.5 max-h-[460px] overflow-y-auto pr-1">
-              {filteredPois.length === 0 ? (
-                <div className="text-center py-12 text-gray-400 space-y-2">
-                  <MapPin className="w-8 h-8 mx-auto stroke-1" />
-                  <p className="text-sm">Tidak ada titik lokasi yang cocok.</p>
+          {/* RIGHT COLUMN: POIs LIST (IF POIS TAB) */}
+          {activeTab === 'pois' && (
+            <div className="lg:col-span-5 bg-white/70 backdrop-blur-xl border border-white/80 p-5 rounded-[2rem] shadow-sm space-y-4">
+              {/* Search & Category Filter */}
+              <div className="space-y-3">
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-3.5 top-3 text-gray-400" />
+                  <Input
+                    placeholder="Cari satwa, fasilitas, atau ID..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    className="pl-10 rounded-xl bg-white/80 border-gray-200 text-sm"
+                  />
                 </div>
-              ) : (
-                filteredPois.map(poi => (
-                  <div
-                    key={poi.id}
-                    onClick={() => flyToPoi(poi)}
-                    className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
-                      poi.is_temporarily_closed
-                        ? 'bg-red-50/70 border-red-200/80 hover:bg-red-50'
-                        : 'bg-white/80 border-gray-200/70 hover:border-emerald-300 hover:shadow-sm'
-                    }`}
+
+                <div className="flex items-center gap-2">
+                  <select
+                    value={selectedCategory}
+                    onChange={e => setSelectedCategory(e.target.value)}
+                    className="flex-1 px-3 py-2 bg-white/80 border border-gray-200 rounded-xl text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div
-                        className="w-10 h-10 rounded-2xl flex items-center justify-center text-lg flex-shrink-0 shadow-sm border border-white"
-                        style={{ backgroundColor: poi.color || '#22c55e' }}
-                      >
-                        {poi.emoji || '📍'}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="font-semibold text-gray-900 text-sm truncate">{poi.name}</span>
-                          {poi.is_temporarily_closed && (
-                            <Badge variant="destructive" className="text-[10px] px-1.5 py-0">Tutup</Badge>
-                          )}
-                          {poi.capacity_status === 'padat' && (
-                            <Badge className="bg-amber-500 text-white text-[10px] px-1.5 py-0">Padat</Badge>
-                          )}
-                        </div>
-                        <div className="text-xs text-gray-500 truncate flex items-center gap-2 mt-0.5">
-                          <span className="capitalize font-medium text-emerald-700">{poi.category}</span>
-                          <span>•</span>
-                          <span className="font-mono text-[11px]">{poi.lat.toFixed(4)}, {poi.lng.toFixed(4)}</span>
-                        </div>
-                        {poi.feeding_time && (
-                          <div className="text-[11px] text-amber-700 font-medium mt-0.5 flex items-center gap-1">
-                            <Utensils className="w-3 h-3" />
-                            <span>Makan: {poi.feeding_time}</span>
-                          </div>
-                        )}
-                        {poi.operating_hours_open && (
-                          <div className="text-[11px] text-blue-700 font-medium mt-0.5 flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            <span>Buka: {poi.operating_hours_open} - {poi.operating_hours_close || ''}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                    {CATEGORY_OPTIONS.map(opt => (
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                  </select>
 
-                    <div className="flex items-center gap-1 flex-shrink-0" onClick={e => e.stopPropagation()}>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() => handleOpenEditPoi(poi)}
-                        className="w-8 h-8 rounded-lg hover:bg-gray-100 text-gray-600"
-                        title="Edit POI"
-                      >
-                        <Edit2 className="w-3.5 h-3.5" />
-                      </Button>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() => handleDeletePoi(poi)}
-                        className="w-8 h-8 rounded-lg hover:bg-red-50 text-red-600"
-                        title="Hapus POI"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </Button>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ─── TAB 2: TRAM ROUTE EDITOR ─── */}
-      {activeTab === 'tram' && (
-        <div className="space-y-6">
-          <div className="bg-white/70 backdrop-blur-xl border border-white/80 p-6 rounded-[2rem] shadow-sm space-y-4">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <h3 className="font-semibold text-gray-900 text-lg flex items-center gap-2">
-                  <Train className="w-5 h-5 text-amber-600" />
-                  Editor Titik Jalur Kereta Wisata (Tram Route)
-                </h3>
-                <p className="text-sm text-gray-500">
-                  Kereta wisata keliling mengikuti titik koordinat berikut secara berurutan. Titik dengan status Halte akan memunculkan penanda halte di peta publik.
-                </p>
+                  <select
+                    value={statusFilter}
+                    onChange={e => setStatusFilter(e.target.value as any)}
+                    className="px-3 py-2 bg-white/80 border border-gray-200 rounded-xl text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
+                  >
+                    <option value="all">Semua Status</option>
+                    <option value="active">Hanya Aktif</option>
+                    <option value="closed">Tutup Saja</option>
+                  </select>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
+
+              {/* POI Scrollable List */}
+              <div className="space-y-2.5 max-h-[460px] overflow-y-auto pr-1">
+                {filteredPois.length === 0 ? (
+                  <div className="text-center py-12 text-gray-400 space-y-2">
+                    <MapPin className="w-8 h-8 mx-auto stroke-1" />
+                    <p className="text-sm">Tidak ada titik lokasi yang cocok.</p>
+                  </div>
+                ) : (
+                  filteredPois.map(poi => (
+                    <div
+                      key={poi.id}
+                      onClick={() => flyToPoi(poi)}
+                      className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                        poi.is_temporarily_closed
+                          ? 'bg-red-50/70 border-red-200/80 hover:bg-red-50'
+                          : 'bg-white/80 border-gray-200/70 hover:border-emerald-300 hover:shadow-sm'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div
+                          className="w-10 h-10 rounded-2xl flex items-center justify-center text-lg flex-shrink-0 shadow-sm border border-white"
+                          style={{ backgroundColor: poi.color || '#22c55e' }}
+                        >
+                          {poi.emoji || '📍'}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="font-semibold text-gray-900 text-sm truncate">{poi.name}</span>
+                            {poi.is_temporarily_closed && (
+                              <Badge variant="destructive" className="text-[10px] px-1.5 py-0">Tutup</Badge>
+                            )}
+                            {poi.capacity_status === 'padat' && (
+                              <Badge className="bg-amber-500 text-white text-[10px] px-1.5 py-0">Padat</Badge>
+                            )}
+                          </div>
+                          <div className="text-xs text-gray-500 truncate flex items-center gap-2 mt-0.5">
+                            <span className="capitalize font-medium text-emerald-700">{poi.category}</span>
+                            <span>•</span>
+                            <span className="font-mono text-[11px]">{poi.lat.toFixed(4)}, {poi.lng.toFixed(4)}</span>
+                          </div>
+                          {poi.feeding_time && (
+                            <div className="text-[11px] text-amber-700 font-medium mt-0.5 flex items-center gap-1">
+                              <Utensils className="w-3 h-3" />
+                              <span>Makan: {poi.feeding_time}</span>
+                            </div>
+                          )}
+                          {poi.operating_hours_open && (
+                            <div className="text-[11px] text-blue-700 font-medium mt-0.5 flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              <span>Buka: {poi.operating_hours_open} - {poi.operating_hours_close || ''}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1 flex-shrink-0" onClick={e => e.stopPropagation()}>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => handleOpenEditPoi(poi)}
+                          className="w-8 h-8 rounded-lg hover:bg-gray-100 text-gray-600"
+                          title="Edit POI"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => handleDeletePoi(poi)}
+                          className="w-8 h-8 rounded-lg hover:bg-red-50 text-red-600"
+                          title="Hapus POI"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* RIGHT COLUMN: TRAM ROUTE WAYPOINTS LIST (IF TRAM TAB) */}
+          {activeTab === 'tram' && (
+            <div className="lg:col-span-5 bg-white/70 backdrop-blur-xl border border-white/80 p-5 rounded-[2rem] shadow-sm space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="font-bold text-gray-900 text-base flex items-center gap-1.5">
+                    <Train className="w-4 h-4 text-amber-600" />
+                    Daftar Waypoint Rute ({tramPoints.length})
+                  </h4>
+                  <p className="text-xs text-gray-500">Klik titik untuk melihat di peta.</p>
+                </div>
                 <Button
+                  size="sm"
                   onClick={() => {
                     setEditingTramPoint(null);
                     setTramFormData({
@@ -924,112 +1091,105 @@ export default function ManageGpsMapClient() {
                     });
                     setIsTramDialogOpen(true);
                   }}
-                  className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white"
+                  className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs h-8"
                 >
-                  <Plus className="w-4 h-4 mr-1.5" />
-                  Tambah Titik Koordinat
+                  <Plus className="w-3.5 h-3.5 mr-1" />
+                  Tambah
                 </Button>
               </div>
-            </div>
 
-            {/* Table of Tram Waypoints */}
-            <div className="overflow-x-auto rounded-2xl border border-gray-200/80">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-gray-50/80 text-gray-700 border-b border-gray-200">
-                  <tr>
-                    <th className="py-3.5 px-4 font-semibold w-16">Urutan</th>
-                    <th className="py-3.5 px-4 font-semibold">Koordinat (Lat, Lng)</th>
-                    <th className="py-3.5 px-4 font-semibold">Tipe Titik</th>
-                    <th className="py-3.5 px-4 font-semibold">Nama Halte</th>
-                    <th className="py-3.5 px-4 font-semibold text-right">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white/70">
-                  {tramPoints.length === 0 ? (
-                    <tr>
-                      <td colSpan={5} className="py-8 text-center text-gray-400">
-                        Belum ada titik jalur kereta yang tersimpan.
-                      </td>
-                    </tr>
-                  ) : (
-                    tramPoints.map((point, idx) => (
-                      <tr key={point.id} className="hover:bg-amber-50/30 transition-colors">
-                        <td className="py-3 px-4 font-mono font-bold text-gray-600">
+              <div className="space-y-2 max-h-[470px] overflow-y-auto pr-1">
+                {tramPoints.length === 0 ? (
+                  <div className="text-center py-12 text-gray-400 space-y-2">
+                    <Train className="w-8 h-8 mx-auto stroke-1" />
+                    <p className="text-sm">Belum ada titik jalur kereta.</p>
+                  </div>
+                ) : (
+                  tramPoints.map((point, idx) => (
+                    <div
+                      key={point.id}
+                      onClick={() => flyToTramPoint(point)}
+                      className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-2.5 ${
+                        point.is_halt
+                          ? 'bg-amber-50/70 border-amber-200 hover:bg-amber-50'
+                          : 'bg-white/80 border-gray-200 hover:border-amber-300 hover:shadow-sm'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className="w-7 h-7 rounded-lg bg-gray-100 text-gray-700 text-xs font-mono font-bold flex items-center justify-center flex-shrink-0">
                           #{point.sequence_order}
-                        </td>
-                        <td className="py-3 px-4 font-mono text-xs text-gray-800">
-                          {point.lat.toFixed(5)}, {point.lng.toFixed(5)}
-                        </td>
-                        <td className="py-3 px-4">
-                          {point.is_halt ? (
-                            <Badge className="bg-amber-100 text-amber-800 border-amber-300">
-                              🚂 Halte Resmi
-                            </Badge>
-                          ) : (
-                            <Badge variant="outline" className="text-gray-500">
-                              Waypoint Jalur
-                            </Badge>
-                          )}
-                        </td>
-                        <td className="py-3 px-4 font-medium text-gray-900">
-                          {point.halt_name || '-'}
-                        </td>
-                        <td className="py-3 px-4 text-right space-x-1">
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            disabled={idx === 0}
-                            onClick={() => handleMoveTramPoint(idx, 'up')}
-                            className="w-7 h-7 rounded-lg text-gray-500"
-                            title="Pindah ke Atas"
-                          >
-                            <ArrowUp className="w-3.5 h-3.5" />
-                          </Button>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            disabled={idx === tramPoints.length - 1}
-                            onClick={() => handleMoveTramPoint(idx, 'down')}
-                            className="w-7 h-7 rounded-lg text-gray-500"
-                            title="Pindah ke Bawah"
-                          >
-                            <ArrowDown className="w-3.5 h-3.5" />
-                          </Button>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            onClick={() => {
-                              setEditingTramPoint(point);
-                              setTramFormData({
-                                lat: point.lat,
-                                lng: point.lng,
-                                halt_name: point.halt_name || '',
-                                is_halt: point.is_halt
-                              });
-                              setIsTramDialogOpen(true);
-                            }}
-                            className="w-7 h-7 rounded-lg text-gray-600"
-                            title="Edit"
-                          >
-                            <Edit2 className="w-3.5 h-3.5" />
-                          </Button>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            onClick={() => handleDeleteTramPoint(point)}
-                            className="w-7 h-7 rounded-lg text-red-600 hover:bg-red-50"
-                            title="Hapus"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </Button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+                        </span>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            {point.is_halt ? (
+                              <Badge className="bg-amber-100 text-amber-900 border-amber-300 text-[10px] px-1.5 py-0">
+                                🚂 Halte: {point.halt_name || 'Resmi'}
+                              </Badge>
+                            ) : (
+                              <span className="text-xs font-semibold text-gray-700">Waypoint Jalur</span>
+                            )}
+                          </div>
+                          <div className="text-[11px] font-mono text-gray-500 mt-0.5">
+                            {point.lat.toFixed(5)}, {point.lng.toFixed(5)}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1 flex-shrink-0" onClick={e => e.stopPropagation()}>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          disabled={idx === 0}
+                          onClick={() => handleMoveTramPoint(idx, 'up')}
+                          className="w-7 h-7 rounded-lg text-gray-500 disabled:opacity-30"
+                          title="Naik"
+                        >
+                          <ArrowUp className="w-3.5 h-3.5" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          disabled={idx === tramPoints.length - 1}
+                          onClick={() => handleMoveTramPoint(idx, 'down')}
+                          className="w-7 h-7 rounded-lg text-gray-500 disabled:opacity-30"
+                          title="Turun"
+                        >
+                          <ArrowDown className="w-3.5 h-3.5" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => {
+                            setEditingTramPoint(point);
+                            setTramFormData({
+                              lat: point.lat,
+                              lng: point.lng,
+                              halt_name: point.halt_name || '',
+                              is_halt: point.is_halt
+                            });
+                            setIsTramDialogOpen(true);
+                          }}
+                          className="w-7 h-7 rounded-lg text-gray-600 hover:bg-gray-100"
+                          title="Edit"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => handleDeleteTramPoint(point)}
+                          className="w-7 h-7 rounded-lg text-red-600 hover:bg-red-50"
+                          title="Hapus"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
 
