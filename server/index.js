@@ -1380,6 +1380,39 @@ const isAuthorizedAdmin = (req) => {
   return !!(req.user && ['admin', 'superadmin', 'manager'].includes(req.user.role));
 };
 
+// Security Hardening: Geo-Fence Boundary Guard (Taman Margasatwa Ragunan Perimeter)
+const RAGUNAN_GEO_BOUNDS = {
+  minLat: -6.3250,
+  maxLat: -6.3000,
+  minLng: 106.8100,
+  maxLng: 106.8350
+};
+
+const isValidRagunanCoords = (lat, lng) => {
+  const numLat = Number(lat);
+  const numLng = Number(lng);
+  if (isNaN(numLat) || isNaN(numLng)) return false;
+  return (
+    numLat >= RAGUNAN_GEO_BOUNDS.minLat &&
+    numLat <= RAGUNAN_GEO_BOUNDS.maxLat &&
+    numLng >= RAGUNAN_GEO_BOUNDS.minLng &&
+    numLng <= RAGUNAN_GEO_BOUNDS.maxLng
+  );
+};
+
+// Security Hardening: Geodata Audit Logger
+const logAudit = async (userId, action, tableName, recordId, oldData, newData, ip) => {
+  try {
+    await pool.query(
+      `INSERT INTO public.audit_logs (id, user_id, action, table_name, record_id, old_data, new_data, ip_address, created_at)
+       VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7, NOW())`,
+      [userId || null, action, tableName, String(recordId), oldData ? JSON.stringify(oldData) : null, newData ? JSON.stringify(newData) : null, ip || null]
+    );
+  } catch (err) {
+    console.error('[AUDIT LOG ERROR]', err.message);
+  }
+};
+
 // GET all GPS POIs (public)
 app.get('/api/gps-pois', async (req, res) => {
   try {
@@ -1426,6 +1459,11 @@ app.post('/api/gps-pois', async (req, res) => {
   if (!id || !name || !category || lat == null || lng == null) {
     return res.status(400).json({ error: 'id, name, category, lat, lng wajib diisi' });
   }
+  if (!isValidRagunanCoords(lat, lng)) {
+    return res.status(400).json({
+      error: `Koordinat (${lat}, ${lng}) berada di luar batas kawasan Taman Margasatwa Ragunan (Lat: ${RAGUNAN_GEO_BOUNDS.minLat} s/d ${RAGUNAN_GEO_BOUNDS.maxLat}, Lng: ${RAGUNAN_GEO_BOUNDS.minLng} s/d ${RAGUNAN_GEO_BOUNDS.maxLng})`
+    });
+  }
   try {
     const result = await pool.query(
       `INSERT INTO public.gps_pois (id, name, name_en, category, lat, lng, color, emoji,
@@ -1441,6 +1479,7 @@ app.post('/api/gps-pois', async (req, res) => {
        conservation_status||null, origin||null, diet||null, sort_order||0]
     );
     broadcastChange('gps_pois', 'INSERT', result.rows[0]);
+    await logAudit(req.user?.id, 'CREATE_POI', 'gps_pois', result.rows[0].id, null, result.rows[0], req.ip);
     res.status(201).json({ data: result.rows[0], error: null });
   } catch (err) {
     res.status(400).json({ data: null, error: err.message });
@@ -1454,6 +1493,20 @@ app.put('/api/gps-pois/:id', async (req, res) => {
   }
   const { id } = req.params;
   const fields = req.body;
+
+  // Validate coordinates if provided
+  if ('lat' in fields || 'lng' in fields) {
+    const cur = await pool.query('SELECT lat, lng FROM public.gps_pois WHERE id = $1', [id]);
+    if (!cur.rows.length) return res.status(404).json({ error: 'POI not found' });
+    const checkLat = 'lat' in fields ? fields.lat : cur.rows[0].lat;
+    const checkLng = 'lng' in fields ? fields.lng : cur.rows[0].lng;
+    if (!isValidRagunanCoords(checkLat, checkLng)) {
+      return res.status(400).json({
+        error: `Koordinat (${checkLat}, ${checkLng}) berada di luar batas kawasan Taman Margasatwa Ragunan`
+      });
+    }
+  }
+
   const allowed = ['name','name_en','category','lat','lng','color','emoji','description',
     'description_en','is_active','feeding_time','feeding_time_hour','feeding_time_minute',
     'feeding_note','operating_hours_open','operating_hours_close','latin_name',
@@ -1469,12 +1522,16 @@ app.put('/api/gps-pois/:id', async (req, res) => {
   if (!setClauses.length) return res.status(400).json({ error: 'No valid fields to update' });
   params.push(id);
   try {
+    const oldRes = await pool.query('SELECT * FROM public.gps_pois WHERE id = $1', [id]);
+    const oldData = oldRes.rows[0] || null;
+
     const result = await pool.query(
       `UPDATE public.gps_pois SET ${setClauses.join(', ')}, updated_at = NOW() WHERE id = $${params.length} RETURNING *`,
       params
     );
     if (!result.rows.length) return res.status(404).json({ error: 'POI not found' });
     broadcastChange('gps_pois', 'UPDATE', result.rows[0]);
+    await logAudit(req.user?.id, 'UPDATE_POI', 'gps_pois', id, oldData, result.rows[0], req.ip);
     res.json({ data: result.rows[0], error: null });
   } catch (err) {
     res.status(500).json({ data: null, error: err.message });
@@ -1487,9 +1544,13 @@ app.delete('/api/gps-pois/:id', async (req, res) => {
     return res.status(403).json({ error: 'Admin required' });
   }
   try {
+    const oldRes = await pool.query('SELECT * FROM public.gps_pois WHERE id = $1', [req.params.id]);
+    const oldData = oldRes.rows[0] || null;
+
     const result = await pool.query('DELETE FROM public.gps_pois WHERE id = $1 RETURNING id', [req.params.id]);
     if (!result.rows.length) return res.status(404).json({ error: 'POI not found' });
     broadcastChange('gps_pois', 'DELETE', { id: req.params.id });
+    await logAudit(req.user?.id, 'DELETE_POI', 'gps_pois', req.params.id, oldData, null, req.ip);
     res.json({ data: { success: true }, error: null });
   } catch (err) {
     res.status(500).json({ data: null, error: err.message });
@@ -1503,6 +1564,9 @@ app.patch('/api/gps-pois/:id/closure', async (req, res) => {
   }
   const { is_temporarily_closed, closure_reason, closure_until } = req.body;
   try {
+    const oldRes = await pool.query('SELECT * FROM public.gps_pois WHERE id = $1', [req.params.id]);
+    const oldData = oldRes.rows[0] || null;
+
     const result = await pool.query(
       `UPDATE public.gps_pois SET is_temporarily_closed = $1, closure_reason = $2, closure_until = $3, updated_at = NOW()
        WHERE id = $4 RETURNING *`,
@@ -1510,6 +1574,7 @@ app.patch('/api/gps-pois/:id/closure', async (req, res) => {
     );
     if (!result.rows.length) return res.status(404).json({ error: 'POI not found' });
     broadcastChange('gps_pois', 'UPDATE', result.rows[0]);
+    await logAudit(req.user?.id, 'UPDATE_CLOSURE', 'gps_pois', req.params.id, oldData, result.rows[0], req.ip);
     res.json({ data: result.rows[0], error: null });
   } catch (err) {
     res.status(500).json({ data: null, error: err.message });
@@ -1580,6 +1645,11 @@ app.post('/api/tram-route', async (req, res) => {
   }
   const { sequence_order, lat, lng, halt_name, is_halt } = req.body;
   if (lat == null || lng == null) return res.status(400).json({ error: 'lat and lng required' });
+  if (!isValidRagunanCoords(lat, lng)) {
+    return res.status(400).json({
+      error: `Koordinat waypoint (${lat}, ${lng}) berada di luar batas kawasan Ragunan`
+    });
+  }
   try {
     const maxSeq = await pool.query('SELECT COALESCE(MAX(sequence_order),0)+1 AS next FROM public.tram_route_points');
     const result = await pool.query(
@@ -1587,6 +1657,7 @@ app.post('/api/tram-route', async (req, res) => {
       [sequence_order || maxSeq.rows[0].next, lat, lng, halt_name||null, !!is_halt]
     );
     broadcastChange('tram_route_points', 'INSERT', result.rows[0]);
+    await logAudit(req.user?.id, 'CREATE_TRAM_WAYPOINT', 'tram_route_points', result.rows[0].id, null, result.rows[0], req.ip);
     res.status(201).json({ data: result.rows[0], error: null });
   } catch (err) {
     res.status(500).json({ data: null, error: err.message });
@@ -1599,7 +1670,15 @@ app.put('/api/tram-route/:id', async (req, res) => {
     return res.status(403).json({ error: 'Admin or staff required' });
   }
   const { lat, lng, halt_name, is_halt, sequence_order, is_active } = req.body;
+  if (lat != null && lng != null && !isValidRagunanCoords(lat, lng)) {
+    return res.status(400).json({
+      error: `Koordinat waypoint (${lat}, ${lng}) berada di luar batas kawasan Ragunan`
+    });
+  }
   try {
+    const oldRes = await pool.query('SELECT * FROM public.tram_route_points WHERE id = $1', [req.params.id]);
+    const oldData = oldRes.rows[0] || null;
+
     const result = await pool.query(
       `UPDATE public.tram_route_points SET lat=$1, lng=$2, halt_name=$3, is_halt=$4, sequence_order=$5, is_active=$6
        WHERE id=$7 RETURNING *`,
@@ -1607,6 +1686,7 @@ app.put('/api/tram-route/:id', async (req, res) => {
     );
     if (!result.rows.length) return res.status(404).json({ error: 'Waypoint not found' });
     broadcastChange('tram_route_points', 'UPDATE', result.rows[0]);
+    await logAudit(req.user?.id, 'UPDATE_TRAM_WAYPOINT', 'tram_route_points', req.params.id, oldData, result.rows[0], req.ip);
     res.json({ data: result.rows[0], error: null });
   } catch (err) {
     res.status(500).json({ data: null, error: err.message });
@@ -1619,8 +1699,12 @@ app.delete('/api/tram-route/:id', async (req, res) => {
     return res.status(403).json({ error: 'Admin required' });
   }
   try {
+    const oldRes = await pool.query('SELECT * FROM public.tram_route_points WHERE id = $1', [req.params.id]);
+    const oldData = oldRes.rows[0] || null;
+
     await pool.query('DELETE FROM public.tram_route_points WHERE id = $1', [req.params.id]);
     broadcastChange('tram_route_points', 'DELETE', { id: req.params.id });
+    await logAudit(req.user?.id, 'DELETE_TRAM_WAYPOINT', 'tram_route_points', req.params.id, oldData, null, req.ip);
     res.json({ data: { success: true }, error: null });
   } catch (err) {
     res.status(500).json({ data: null, error: err.message });

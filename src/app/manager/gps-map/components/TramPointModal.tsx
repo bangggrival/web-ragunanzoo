@@ -1,5 +1,4 @@
-import React from 'react';
-import { Train } from 'lucide-react';
+import { Train, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -76,6 +75,22 @@ export function TramPointModal({
               />
             </div>
           </div>
+
+          {formData.lat != null && formData.lng != null && !isNaN(formData.lat) && !isNaN(formData.lng) && (
+            <div className="flex items-center gap-1.5 text-[11px] font-medium px-1">
+              {formData.lat >= -6.3250 && formData.lat <= -6.3000 && formData.lng >= 106.8100 && formData.lng <= 106.8350 ? (
+                <span className="text-emerald-700 flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  Koordinat berada di dalam kawasan Ragunan
+                </span>
+              ) : (
+                <span className="text-red-600 flex items-center gap-1 font-semibold">
+                  <AlertTriangle className="w-3.5 h-3.5 text-red-600" />
+                  Peringatan: Koordinat berada di luar kawasan resmi Ragunan!
+                </span>
+              )}
+            </div>
+          )}
 
           <div className="flex items-center justify-between p-3 bg-amber-50/60 rounded-xl border border-amber-200">
             <span className="text-xs font-semibold text-amber-900">Titik Ini Adalah Halte Resmi?</span>

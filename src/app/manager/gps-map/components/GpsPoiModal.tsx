@@ -3,7 +3,9 @@ import {
   MapPin,
   Crosshair,
   Utensils,
-  Save
+  Save,
+  ShieldCheck,
+  AlertTriangle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -164,6 +166,22 @@ export function GpsPoiModal({
                 />
               </div>
             </div>
+
+            {formData.lat != null && formData.lng != null && !isNaN(formData.lat) && !isNaN(formData.lng) && (
+              <div className="flex items-center gap-1.5 text-[11px] font-medium pt-1">
+                {formData.lat >= -6.3250 && formData.lat <= -6.3000 && formData.lng >= 106.8100 && formData.lng <= 106.8350 ? (
+                  <span className="text-emerald-700 flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    Koordinat valid di dalam kawasan Ragunan Zoo
+                  </span>
+                ) : (
+                  <span className="text-red-600 flex items-center gap-1 font-semibold">
+                    <AlertTriangle className="w-3.5 h-3.5 text-red-600" />
+                    Peringatan: Koordinat berada di luar kawasan resmi Ragunan!
+                  </span>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Emoji & Pin Color */}

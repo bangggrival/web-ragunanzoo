@@ -33,7 +33,10 @@ import {
   Save,
   X,
   Copy,
-  Maximize2
+  Maximize2,
+  Move,
+  Globe,
+  ShieldCheck
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -69,6 +72,32 @@ import { GpsClosureModal } from './components/GpsClosureModal';
 import { GpsAnnouncementModal } from './components/GpsAnnouncementModal';
 import { GpsAnalyticsTab } from './components/GpsAnalyticsTab';
 
+// Security Hardening: XSS Sanitizer for Leaflet HTML popups
+function escapeHtml(str: string | null | undefined): string {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// Ragunan Geo-Fence Bounds (EPSG:4326 / WGS84)
+const RAGUNAN_BOUNDS = {
+  minLat: -6.3250,
+  maxLat: -6.3000,
+  minLng: 106.8100,
+  maxLng: 106.8350
+};
+
+const RAGUNAN_PERIMETER_POLYGON = [
+  [-6.3035, 106.8140],
+  [-6.3035, 106.8280],
+  [-6.3210, 106.8280],
+  [-6.3210, 106.8140]
+];
+
 export default function ManageGpsMapClient() {
   const { confirm, ConfirmComponent } = useConfirm();
 
@@ -89,14 +118,23 @@ export default function ManageGpsMapClient() {
   // Interactive Layer Toggles
   const [showPoisLayer, setShowPoisLayer] = useState(true);
   const [showTramLayer, setShowTramLayer] = useState(true);
+  const [showPerimeterLayer, setShowPerimeterLayer] = useState(true);
+
+  // PRIORITY FEATURE 1: Basemap Switcher (Peta Jalan vs Satelit ESRI)
+  const [basemap, setBasemap] = useState<'osm' | 'satellite'>('osm');
+
+  // PRIORITY FEATURE 2: Drag-and-Drop Marker Mode
+  const [isDragMode, setIsDragMode] = useState(false);
 
   // Interactive Pin Picking Mode
   const [pickedCoords, setPickedCoords] = useState<{ lat: number; lng: number } | null>(null);
 
-  // Leaflet Map State
+  // Leaflet Map State & Refs
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const leafletMapInstanceRef = useRef<any>(null);
+  const tileLayerRef = useRef<any>(null);
   const markersGroupRef = useRef<any>(null);
+  const perimeterLayerRef = useRef<any>(null);
   const tramPolylineRef = useRef<any>(null);
   const pickMarkerRef = useRef<any>(null);
   const markersMapRef = useRef<Record<string, any>>({});
@@ -208,7 +246,7 @@ export default function ManageGpsMapClient() {
     });
   }, [pois, searchQuery, selectedCategory, statusFilter]);
 
-  // 3. Render Leaflet Markers whenever pois, tramPoints, or filters change
+  // 3. Render Leaflet Markers & Layers
   const renderMapMarkers = useCallback(() => {
     const map = leafletMapInstanceRef.current;
     if (!map || !(window as any).L) return;
@@ -220,7 +258,28 @@ export default function ManageGpsMapClient() {
     markersMapRef.current = {};
     tramMarkersMapRef.current = {};
 
-    // A. Render Tram Polyline & Halte Markers
+    // A. Render Ragunan Perimeter Boundary (Geo-Fence visualizer)
+    if (perimeterLayerRef.current) {
+      map.removeLayer(perimeterLayerRef.current);
+      perimeterLayerRef.current = null;
+    }
+
+    if (showPerimeterLayer) {
+      perimeterLayerRef.current = L.polygon(RAGUNAN_PERIMETER_POLYGON, {
+        color: '#10b981',
+        weight: 2,
+        dashArray: '5, 8',
+        fillColor: '#10b981',
+        fillOpacity: 0.04
+      }).addTo(map);
+      perimeterLayerRef.current.bindTooltip('Batas Kawasan Ragunan Zoo (Geo-Fence)', {
+        permanent: false,
+        direction: 'center',
+        className: 'bg-emerald-900/90 text-white text-xs px-2 py-1 rounded-md'
+      });
+    }
+
+    // B. Render Tram Polyline & Halte Markers
     if (tramPolylineRef.current) {
       map.removeLayer(tramPolylineRef.current);
       tramPolylineRef.current = null;
@@ -240,25 +299,66 @@ export default function ManageGpsMapClient() {
       tramPoints.filter(pt => pt.is_halt).forEach(pt => {
         const haltIcon = L.divIcon({
           className: 'manager-tram-halt',
-          html: `<div style="background:#d97706; color:white; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2.5px solid white; box-shadow:0 2px 6px rgba(0,0,0,0.35); font-size:13px;">🚂</div>`,
+          html: `<div style="background:#d97706; color:white; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2.5px solid white; box-shadow:0 2px 6px rgba(0,0,0,0.35); font-size:13px; cursor:${isDragMode ? 'grab' : 'pointer'};">🚂</div>`,
           iconSize: [28, 28],
           iconAnchor: [14, 14]
         });
-        const m = L.marker([pt.lat, pt.lng], { icon: haltIcon });
+
+        const m = L.marker([pt.lat, pt.lng], {
+          icon: haltIcon,
+          draggable: isDragMode
+        });
+
+        // Dragend handler for tram waypoints
+        m.on('dragend', async (e: any) => {
+          const newLatLng = e.target.getLatLng();
+          const newLat = Number(newLatLng.lat.toFixed(6));
+          const newLng = Number(newLatLng.lng.toFixed(6));
+
+          // Geo-Fence boundary guard
+          if (newLat < RAGUNAN_BOUNDS.minLat || newLat > RAGUNAN_BOUNDS.maxLat || newLng < RAGUNAN_BOUNDS.minLng || newLng > RAGUNAN_BOUNDS.maxLng) {
+            toast.error(`Koordinat (${newLat}, ${newLng}) berada di luar batas kawasan Ragunan!`);
+            m.setLatLng([pt.lat, pt.lng]);
+            return;
+          }
+
+          const confirmed = await confirm(
+            `Pindahkan Halte "${pt.halt_name || 'Kereta'}"?`,
+            `Ubah posisi halte ke koordinat baru:\nLat: ${newLat}, Lng: ${newLng}`
+          );
+
+          if (!confirmed) {
+            m.setLatLng([pt.lat, pt.lng]);
+            return;
+          }
+
+          try {
+            await updateTramPointAction(pt.id, { lat: newLat, lng: newLng });
+            toast.success(`Posisi Halte "${pt.halt_name || 'Kereta'}" berhasil diperbarui!`);
+            fetchData();
+          } catch (err: any) {
+            toast.error('Gagal memindahkan posisi: ' + err.message);
+            m.setLatLng([pt.lat, pt.lng]);
+          }
+        });
+
+        const safeHaltName = escapeHtml(pt.halt_name || 'Halte #' + pt.sequence_order);
         m.bindPopup(`
           <div style="font-family:inherit; min-width:180px;">
             <div style="font-weight:700; font-size:13px; color:#d97706; margin-bottom:2px;">🚂 Halte Kereta Wisata</div>
-            <div style="font-weight:600; font-size:14px; color:#111;">${pt.halt_name || 'Halte #' + pt.sequence_order}</div>
+            <div style="font-weight:600; font-size:14px; color:#111;">${safeHaltName}</div>
             <div style="font-size:11px; color:#666; margin-top:4px;">Urutan Rute: <b>#${pt.sequence_order}</b></div>
+            ${isDragMode ? `<div style="margin-top:6px; font-size:11px; color:#b45309; background:#fef3c7; padding:3px 6px; border-radius:4px; font-weight:600;">✋ Mode Geser Aktif</div>` : ''}
             <div style="margin-top:6px; font-size:10px; color:#999; font-mono;">Lat: ${pt.lat.toFixed(5)}, Lng: ${pt.lng.toFixed(5)}</div>
           </div>
         `);
+
         tramMarkersMapRef.current[pt.id] = m;
         markersGroupRef.current.addLayer(m);
       });
     }
 
-    // B. Render POIs Markers
+    // C. Render POIs Markers
     if (showPoisLayer) {
       filteredPois.forEach(poi => {
         const isClosed = poi.is_temporarily_closed;
@@ -266,12 +366,13 @@ export default function ManageGpsMapClient() {
         const bgColor = isClosed ? '#dc2626' : (poi.color || '#22c55e');
 
         const markerHtml = `
-          <div style="position:relative; text-align:center;">
+          <div style="position:relative; text-align:center; cursor:${isDragMode ? 'grab' : 'pointer'};">
             <div style="background:${bgColor}; color:white; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2.5px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.35); font-size:16px;">
               ${poi.emoji || '📍'}
             </div>
             ${isClosed ? `<div style="position:absolute; top:-6px; right:-8px; background:#ef4444; color:white; font-size:8px; font-weight:bold; padding:1px 4px; border-radius:6px; border:1px solid white;">TUTUP</div>` : ''}
             ${isPadat ? `<div style="position:absolute; bottom:-6px; right:-8px; background:#f97316; color:white; font-size:8px; font-weight:bold; padding:1px 4px; border-radius:6px; border:1px solid white;">PADAT</div>` : ''}
+            ${isDragMode ? `<div style="position:absolute; top:-6px; left:-8px; background:#0284c7; color:white; font-size:8px; font-weight:bold; padding:1px 4px; border-radius:6px; border:1px solid white;">GESER</div>` : ''}
           </div>
         `;
 
@@ -282,16 +383,62 @@ export default function ManageGpsMapClient() {
           iconAnchor: [17, 17]
         });
 
-        const marker = L.marker([poi.lat, poi.lng], { icon: customIcon });
+        const marker = L.marker([poi.lat, poi.lng], {
+          icon: customIcon,
+          draggable: isDragMode
+        });
+
+        // PRIORITY FEATURE 2: Handle Drag-and-Drop marker repositioning
+        marker.on('dragend', async (e: any) => {
+          const newLatLng = e.target.getLatLng();
+          const newLat = Number(newLatLng.lat.toFixed(6));
+          const newLng = Number(newLatLng.lng.toFixed(6));
+
+          // Geo-Fence boundary guard (Input Boundary Guard)
+          if (newLat < RAGUNAN_BOUNDS.minLat || newLat > RAGUNAN_BOUNDS.maxLat || newLng < RAGUNAN_BOUNDS.minLng || newLng > RAGUNAN_BOUNDS.maxLng) {
+            toast.error(`Koordinat (${newLat}, ${newLng}) berada di luar batas kawasan Ragunan Zoo!`);
+            marker.setLatLng([poi.lat, poi.lng]);
+            return;
+          }
+
+          const confirmed = await confirm(
+            `Pindahkan Lokasi "${poi.name}"?`,
+            `Ubah koordinat lokasi satwa/fasilitas menjadi:\nLatitude: ${newLat}\nLongitude: ${newLng}`
+          );
+
+          if (!confirmed) {
+            marker.setLatLng([poi.lat, poi.lng]);
+            return;
+          }
+
+          try {
+            await updateGpsPoiAction(poi.id, { lat: newLat, lng: newLng });
+            toast.success(`Lokasi "${poi.name}" berhasil dipindahkan ke (${newLat}, ${newLng})!`);
+            fetchData();
+          } catch (err: any) {
+            toast.error('Gagal memindahkan lokasi: ' + err.message);
+            marker.setLatLng([poi.lat, poi.lng]);
+          }
+        });
+
+        // XSS-Safe popup content
+        const safeName = escapeHtml(poi.name);
+        const safeCat = escapeHtml(poi.category);
+        const safeFeeding = escapeHtml(poi.feeding_time);
+        const safeOpen = escapeHtml(poi.operating_hours_open);
+        const safeClose = escapeHtml(poi.operating_hours_close);
+        const safeReason = escapeHtml(poi.closure_reason);
+        const safeAnnounce = escapeHtml(poi.local_announcement);
 
         const popupContent = `
           <div style="font-family:inherit; min-width:200px;">
-            <div style="font-weight:700; font-size:14px; margin-bottom:2px; color:#111;">${poi.emoji || ''} ${poi.name}</div>
-            <div style="font-size:11px; color:#666; margin-bottom:6px;">Kategori: <b style="text-transform:capitalize; color:#047857;">${poi.category}</b></div>
-            ${poi.feeding_time ? `<div style="font-size:11px; color:#b45309; font-weight:600; margin-bottom:4px;">🍖 Feeding: ${poi.feeding_time}</div>` : ''}
-            ${poi.operating_hours_open ? `<div style="font-size:11px; color:#0284c7; margin-bottom:4px;">🕒 Buka: ${poi.operating_hours_open} - ${poi.operating_hours_close || ''}</div>` : ''}
-            ${isClosed ? `<div style="font-size:11px; color:#dc2626; font-weight:bold; background:#fee2e2; padding:3px 6px; border-radius:4px; margin-top:4px;">⚠️ Tutup: ${poi.closure_reason || 'Sedang renovasi'}</div>` : ''}
-            ${poi.local_announcement ? `<div style="font-size:11px; color:#b45309; background:#fef3c7; padding:3px 6px; border-radius:4px; margin-top:4px;">📢 ${poi.local_announcement}</div>` : ''}
+            <div style="font-weight:700; font-size:14px; margin-bottom:2px; color:#111;">${poi.emoji || ''} ${safeName}</div>
+            <div style="font-size:11px; color:#666; margin-bottom:6px;">Kategori: <b style="text-transform:capitalize; color:#047857;">${safeCat}</b></div>
+            ${safeFeeding ? `<div style="font-size:11px; color:#b45309; font-weight:600; margin-bottom:4px;">🍖 Feeding: ${safeFeeding}</div>` : ''}
+            ${safeOpen ? `<div style="font-size:11px; color:#0284c7; margin-bottom:4px;">🕒 Buka: ${safeOpen} - ${safeClose}</div>` : ''}
+            ${isClosed ? `<div style="font-size:11px; color:#dc2626; font-weight:bold; background:#fee2e2; padding:3px 6px; border-radius:4px; margin-top:4px;">⚠️ Tutup: ${safeReason || 'Sedang renovasi'}</div>` : ''}
+            ${safeAnnounce ? `<div style="font-size:11px; color:#b45309; background:#fef3c7; padding:3px 6px; border-radius:4px; margin-top:4px;">📢 ${safeAnnounce}</div>` : ''}
+            ${isDragMode ? `<div style="margin-top:6px; font-size:11px; color:#0284c7; background:#e0f2fe; padding:3px 6px; border-radius:4px; font-weight:600;">✋ Mode Geser Aktif (Drag untuk pindahkan)</div>` : ''}
             <div style="margin-top:8px; font-size:10px; color:#888; font-family:monospace;">Lat: ${poi.lat.toFixed(5)}, Lng: ${poi.lng.toFixed(5)}</div>
           </div>
         `;
@@ -305,13 +452,12 @@ export default function ManageGpsMapClient() {
         markersGroupRef.current.addLayer(marker);
       });
     }
-  }, [filteredPois, tramPoints, showPoisLayer, showTramLayer]);
+  }, [filteredPois, tramPoints, showPoisLayer, showTramLayer, showPerimeterLayer, isDragMode, confirm]);
 
   // 4. Initialize Leaflet Map
   useEffect(() => {
     let isCancelled = false;
 
-    // Only load when tab is 'pois' or 'tram' where the map container is rendered
     if (activeTab !== 'pois' && activeTab !== 'tram') return;
 
     const loadLeaflet = async () => {
@@ -366,10 +512,18 @@ export default function ManageGpsMapClient() {
         zoomControl: true
       });
 
-      // Standard OpenStreetMap Tile Layer
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      // PRIORITY FEATURE 1: Basemap Setup (OSM vs ESRI Satellite)
+      const tileUrl = basemap === 'satellite'
+        ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+        : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+      const tileAttr = basemap === 'satellite'
+        ? 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics'
+        : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+      tileLayerRef.current = L.tileLayer(tileUrl, {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: tileAttr
       }).addTo(map);
 
       // Layer groups
@@ -423,7 +577,31 @@ export default function ManageGpsMapClient() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab]);
 
-  // Update map markers when data or filters change
+  // PRIORITY FEATURE 1: Switch Basemap dynamically
+  useEffect(() => {
+    const map = leafletMapInstanceRef.current;
+    if (!map || !(window as any).L) return;
+    const L = (window as any).L;
+
+    if (tileLayerRef.current) {
+      map.removeLayer(tileLayerRef.current);
+    }
+
+    const tileUrl = basemap === 'satellite'
+      ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+      : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+    const tileAttr = basemap === 'satellite'
+      ? 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics'
+      : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+    tileLayerRef.current = L.tileLayer(tileUrl, {
+      maxZoom: 19,
+      attribution: tileAttr
+    }).addTo(map);
+  }, [basemap]);
+
+  // Re-render markers when data, filters, or drag mode changes
   useEffect(() => {
     if (leafletMapInstanceRef.current) {
       renderMapMarkers();
@@ -479,11 +657,18 @@ export default function ManageGpsMapClient() {
     toast.success(`Koordinat disalin: ${coords.lat}, ${coords.lng}`);
   };
 
-  // Handle Create / Edit POI Form Submit
+  // Handle Create / Edit POI Form Submit (with Geo-Fence Guard)
   const handleSavePoi = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!poiFormData.id || !poiFormData.name || !poiFormData.category || poiFormData.lat == null || poiFormData.lng == null) {
       toast.error('ID, Nama, Kategori, Latitude, dan Longitude wajib diisi.');
+      return;
+    }
+
+    // PRIORITY FEATURE 3: Geo-Fence validation before submit
+    if (poiFormData.lat < RAGUNAN_BOUNDS.minLat || poiFormData.lat > RAGUNAN_BOUNDS.maxLat ||
+        poiFormData.lng < RAGUNAN_BOUNDS.minLng || poiFormData.lng > RAGUNAN_BOUNDS.maxLng) {
+      toast.error(`Koordinat (${poiFormData.lat}, ${poiFormData.lng}) berada di luar kawasan Ragunan Zoo!`);
       return;
     }
 
@@ -621,6 +806,12 @@ export default function ManageGpsMapClient() {
   // Tram Route Handlers
   const handleAddTramPoint = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (tramFormData.lat < RAGUNAN_BOUNDS.minLat || tramFormData.lat > RAGUNAN_BOUNDS.maxLat ||
+        tramFormData.lng < RAGUNAN_BOUNDS.minLng || tramFormData.lng > RAGUNAN_BOUNDS.maxLng) {
+      toast.error(`Koordinat (${tramFormData.lat}, ${tramFormData.lng}) berada di luar kawasan Ragunan!`);
+      return;
+    }
+
     try {
       if (editingTramPoint) {
         await updateTramPointAction(editingTramPoint.id, tramFormData);
@@ -684,7 +875,7 @@ export default function ManageGpsMapClient() {
       {/* HEADER SECTION */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white/70 backdrop-blur-xl border border-white/80 p-6 rounded-[2rem] shadow-sm">
         <div className="space-y-1">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="p-2 bg-emerald-100 text-emerald-700 rounded-xl">
               <Compass className="w-6 h-6" />
             </span>
@@ -692,7 +883,11 @@ export default function ManageGpsMapClient() {
               Manajemen Peta GPS Interaktif
             </h1>
             <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
-              Leaflet Engine (Local Vendor)
+              Leaflet Engine
+            </Badge>
+            <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-blue-600" />
+              Geo-Fence Guard Aktif
             </Badge>
           </div>
           <p className="text-sm text-gray-600">
@@ -819,25 +1014,54 @@ export default function ManageGpsMapClient() {
               </div>
 
               <div className="flex items-center gap-2 flex-wrap">
-                {/* Layer Toggles */}
-                <Button
-                  size="sm"
-                  variant={showPoisLayer ? 'default' : 'outline'}
-                  onClick={() => setShowPoisLayer(!showPoisLayer)}
-                  className={`text-xs rounded-xl h-8 ${showPoisLayer ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'text-gray-600'}`}
-                >
-                  <MapPin className="w-3.5 h-3.5 mr-1" />
-                  POI
-                </Button>
+                {/* PRIORITY FEATURE 1: Basemap Switcher */}
+                <div className="flex items-center bg-gray-100 p-1 rounded-xl border border-gray-200 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setBasemap('osm')}
+                    className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+                      basemap === 'osm'
+                        ? 'bg-white text-emerald-800 shadow-xs font-semibold'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    🗺️ Jalan
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setBasemap('satellite')}
+                    className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+                      basemap === 'satellite'
+                        ? 'bg-white text-emerald-800 shadow-xs font-semibold'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    🛰️ Satelit
+                  </button>
+                </div>
 
+                {/* PRIORITY FEATURE 2: Toggle Drag-and-Drop Mode */}
                 <Button
                   size="sm"
-                  variant={showTramLayer ? 'default' : 'outline'}
-                  onClick={() => setShowTramLayer(!showTramLayer)}
-                  className={`text-xs rounded-xl h-8 ${showTramLayer ? 'bg-amber-600 hover:bg-amber-700 text-white' : 'text-gray-600'}`}
+                  variant={isDragMode ? 'default' : 'outline'}
+                  onClick={() => {
+                    const next = !isDragMode;
+                    setIsDragMode(next);
+                    if (next) {
+                      toast.info('Mode Geser Marker Aktif: Seret ikon lokasi di peta untuk memindahkannya.');
+                    } else {
+                      toast.info('Mode Geser Marker Dinonaktifkan.');
+                    }
+                  }}
+                  className={`text-xs rounded-xl h-8 transition-all ${
+                    isDragMode
+                      ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-sm ring-2 ring-amber-300'
+                      : 'border-gray-200 text-gray-700 hover:bg-gray-100'
+                  }`}
+                  title="Aktifkan geser marker langsung di peta"
                 >
-                  <Train className="w-3.5 h-3.5 mr-1" />
-                  Rute Kereta
+                  <Move className="w-3.5 h-3.5 mr-1" />
+                  {isDragMode ? 'Selesai Geser' : 'Geser Marker'}
                 </Button>
 
                 <Button
@@ -867,6 +1091,26 @@ export default function ManageGpsMapClient() {
               </div>
             </div>
 
+            {/* Drag Mode Banner Alert */}
+            {isDragMode && (
+              <div className="p-3 bg-amber-500/10 border border-amber-300/80 rounded-xl flex items-center justify-between gap-2 text-xs text-amber-900 animate-pulse">
+                <div className="flex items-center gap-2">
+                  <Move className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                  <span>
+                    <b>Mode Geser Marker Aktif</b>: Klik & seret ikon satwa atau halte di peta. Anda akan diminta konfirmasi sebelum posisi baru disimpan.
+                  </span>
+                </div>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setIsDragMode(false)}
+                  className="h-6 text-xs text-amber-800 hover:bg-amber-100"
+                >
+                  Tutup
+                </Button>
+              </div>
+            )}
+
             {/* Map Container */}
             <div className="relative rounded-2xl overflow-hidden border border-gray-200 shadow-inner">
               <div
@@ -876,7 +1120,9 @@ export default function ManageGpsMapClient() {
               />
               <div className="absolute bottom-3 left-3 z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl border border-gray-200 text-xs text-gray-700 shadow-sm flex items-center gap-2">
                 <Info className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Klik di mana saja pada peta untuk mengambil koordinat Lat/Lng.</span>
+                <span>
+                  {isDragMode ? 'Seret marker ke titik baru.' : 'Klik di mana saja pada peta untuk mengambil koordinat Lat/Lng.'}
+                </span>
               </div>
             </div>
 
@@ -938,12 +1184,15 @@ export default function ManageGpsMapClient() {
               </div>
             )}
 
-            <div className="flex items-center justify-between text-xs text-gray-500 px-1">
-              <div>Total Titik Ditampilkan: <b className="text-gray-800">{filteredPois.length}</b> POI / <b className="text-gray-800">{tramPoints.length}</b> Waypoints</div>
+            <div className="flex items-center justify-between text-xs text-gray-500 px-1 flex-wrap gap-2">
+              <div>
+                Total: <b className="text-gray-800">{filteredPois.length}</b> POI / <b className="text-gray-800">{tramPoints.length}</b> Waypoints
+              </div>
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Aktif</span>
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500" /> Tutup</span>
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500" /> Rute Kereta</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500" /> Geo-Fence</span>
               </div>
             </div>
           </div>
