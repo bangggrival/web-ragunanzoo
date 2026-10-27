@@ -3,9 +3,8 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronUp, ChevronRight, Link as LinkIcon, ExternalLink, X } from 'lucide-react';
 import { type NavbarItem } from '@/hooks/useNavbarItems';
-import { allIcons } from '@/components/ui/IconPicker';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 
 interface BottomNavProps {
@@ -88,7 +87,7 @@ export default function BottomNav({
               <div className="flex items-center justify-between pb-2.5 mb-2 border-b border-border/70">
                 <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                    {React.createElement(allIcons[activeSheetItem.icon] || LinkIcon, { className: "w-4.5 h-4.5" })}
+                    <AppIcon icon={activeSheetItem.icon} className="w-4.5 h-4.5" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-4.5 h-4.5" />} />
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-bold text-base text-foreground leading-tight truncate">
@@ -102,7 +101,7 @@ export default function BottomNav({
                   className="w-8 h-8 rounded-full bg-muted/80 hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors active:scale-95 flex-shrink-0 ml-2"
                   aria-label="Tutup menu"
                 >
-                  <X className="w-4 h-4" />
+                  <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
                 </button>
               </div>
 
@@ -112,7 +111,6 @@ export default function BottomNav({
                   .filter((item) => item.is_dropdown && item.children && item.children.length > 0)
                   .map((tab) => {
                     const isCurrent = activeSheetItem.id === tab.id;
-                    const TabIcon = allIcons[tab.icon] || LinkIcon;
                     return (
                       <button
                         key={tab.id}
@@ -124,7 +122,7 @@ export default function BottomNav({
                             : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
                         }`}
                       >
-                        <TabIcon className="w-3.5 h-3.5" />
+                        <AppIcon icon={tab.icon} className="w-3.5 h-3.5" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-3.5 h-3.5" />} />
                         <span>{getShortLabel(tab)}</span>
                         <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-medium ${
                           isCurrent ? 'bg-white/20 text-white' : 'bg-muted-foreground/15 text-muted-foreground'
@@ -147,7 +145,6 @@ export default function BottomNav({
             >
               {activeSheetItem.children?.map((child) => {
                 const childExternalUrl = getExternalUrl(child);
-                const ChildIcon = allIcons[child.icon] || LinkIcon;
                 const childActive = isActive(child.path) && !childExternalUrl;
                 const childLabel = getLabel(child);
 
@@ -173,11 +170,11 @@ export default function BottomNav({
                             ? 'bg-white/20 text-white border-white/20'
                             : 'bg-background text-primary border-border/60 shadow-2xs'
                         }`}>
-                          <ChildIcon className="w-4 h-4" />
+                          <AppIcon icon={child.icon} className="w-4 h-4" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-4 h-4" />} />
                         </div>
                         <span className="text-sm font-semibold truncate">{childLabel}</span>
                       </div>
-                      <ExternalLink className={`w-4 h-4 shrink-0 ml-2 ${childActive ? 'text-white' : 'text-muted-foreground'}`} />
+                      <AppIcon name="solar:arrow-right-up-linear" className={`w-4 h-4 shrink-0 ml-2 ${childActive ? 'text-white' : 'text-muted-foreground'}`} />
                     </a>
                   );
                 }
@@ -195,11 +192,11 @@ export default function BottomNav({
                           ? 'bg-white/20 text-white border-white/20'
                           : 'bg-background text-primary border-border/60 shadow-2xs'
                       }`}>
-                        <ChildIcon className="w-4 h-4" />
+                        <AppIcon icon={child.icon} className="w-4 h-4" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-4 h-4" />} />
                       </div>
                       <span className="text-sm font-semibold truncate">{childLabel}</span>
                     </div>
-                    <ChevronRight className={`w-4 h-4 shrink-0 ml-2 ${childActive ? 'text-white' : 'text-muted-foreground'}`} />
+                    <AppIcon name="solar:alt-arrow-right-linear" className={`w-4 h-4 shrink-0 ml-2 ${childActive ? 'text-white' : 'text-muted-foreground'}`} />
                   </Link>
                 );
               })}
@@ -217,7 +214,6 @@ export default function BottomNav({
         <nav className="relative bg-[#94be2d]/80 backdrop-blur-xl border border-white/25 rounded-full shadow-lg">
           <div className="flex items-center justify-around h-16 px-1">
             {displayItems.map((item, index) => {
-              const Icon = allIcons[item.icon] || LinkIcon;
               const externalUrl = getExternalUrl(item);
               const active = isActive(item.path) && !externalUrl;
               const isDropdown = !!(item.is_dropdown && item.children && item.children.length > 0);
@@ -232,7 +228,7 @@ export default function BottomNav({
               if (isCenter) {
                 const centerCircle = (
                   <div className="w-12 h-12 rounded-full bg-white text-[#94be2d] flex items-center justify-center shadow-md ring-4 ring-[#94be2d] transition-transform active:scale-95">
-                    <Icon className="w-5 h-5 text-[#94be2d]" />
+                    <AppIcon icon={item.icon} className="w-5 h-5 text-[#94be2d]" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-5 h-5 text-[#94be2d]" />} />
                   </div>
                 );
                 const centerLabel = (
@@ -284,8 +280,8 @@ export default function BottomNav({
                     }`}
                   >
                     <div className="relative flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-white" />
-                      <ChevronUp className={`w-3 h-3 absolute -top-1.5 -right-2 text-white/90 transition-transform ${isSheetOpen ? 'rotate-180' : ''}`} />
+                      <AppIcon icon={item.icon} className="w-5 h-5 text-white" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-5 h-5 text-white" />} />
+                      <AppIcon name="solar:alt-arrow-up-linear" className={`w-3 h-3 absolute -top-1.5 -right-2 text-white/90 transition-transform ${isSheetOpen ? 'rotate-180' : ''}`} />
                     </div>
                     <span className="text-[10px] tracking-tight leading-none text-center truncate max-w-[58px]">
                       {shortLabel}
@@ -304,7 +300,7 @@ export default function BottomNav({
                     rel="noopener noreferrer"
                     className="flex flex-col items-center justify-center gap-0.5 px-2 py-1.5 rounded-full transition-colors min-w-[54px] text-white/85 hover:text-white active:scale-95"
                   >
-                    <Icon className="w-5 h-5 text-white" />
+                    <AppIcon icon={item.icon} className="w-5 h-5 text-white" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-5 h-5 text-white" />} />
                     <span className="text-[10px] tracking-tight leading-none text-center truncate max-w-[58px]">
                       {shortLabel}
                     </span>
@@ -323,7 +319,7 @@ export default function BottomNav({
                       : 'text-white/85 hover:text-white'
                   }`}
                 >
-                  <Icon className="w-5 h-5 text-white" />
+                  <AppIcon icon={item.icon} className="w-5 h-5 text-white" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-5 h-5 text-white" />} />
                   <span className="text-[10px] tracking-tight leading-none text-center truncate max-w-[58px]">
                     {shortLabel}
                   </span>

@@ -91,11 +91,6 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'http', hostname: 'localhost' },
       { protocol: 'http', hostname: '127.0.0.1' },
-      { protocol: 'http', hostname: '10.41.20.245' },
-      { protocol: 'https', hostname: '10.41.20.245' },
-      { protocol: 'https', hostname: 'yaninfo.tail14acf1.ts.net' },
-      { protocol: 'http', hostname: 'yaninfo.tail14acf1.ts.net' },
-      { protocol: 'https', hostname: '*.ts.net' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'ragunanzoo.jakarta.go.id' },
       { protocol: 'https', hostname: 'ragunanzoo.agathis.fun' },

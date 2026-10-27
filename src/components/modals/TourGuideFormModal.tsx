@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, User, Phone, Star, FileText, Upload, Loader2, MapPin } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -148,7 +148,7 @@ export function TourGuideFormModal({
         <div className="manager-modal-header shrink-0">
           <div className="manager-modal-title">
             <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-              <MapPin className="w-4 h-4 text-primary" />
+              <AppIcon name="solar:user-id-bold-duotone" className="w-4 h-4 text-primary" />
             </div>
             <span>{isEditing ? 'Edit Pemandu' : 'Tambah Pemandu Baru'}</span>
           </div>
@@ -156,7 +156,7 @@ export function TourGuideFormModal({
             onClick={() => onOpenChange(false)} 
             className="p-2 hover:bg-muted rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-muted-foreground" />
+            <AppIcon name="solar:close-circle-bold" className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 
@@ -165,7 +165,7 @@ export function TourGuideFormModal({
           {/* Informasi Dasar */}
           <div className="manager-form-section">
             <p className="manager-form-section-title">
-              <User className="w-4 h-4" />
+              <AppIcon name="solar:user-circle-bold-duotone" className="w-4 h-4" />
               Informasi Dasar
             </p>
 
@@ -199,9 +199,9 @@ export function TourGuideFormModal({
                     <Button type="button" variant="outline" disabled={uploading} asChild>
                       <span className="flex items-center gap-1.5 h-11">
                         {uploading ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
                         ) : (
-                          <Upload className="w-4 h-4" />
+                          <AppIcon name="solar:upload-track-2-bold-duotone" className="w-4 h-4" />
                         )}
                       </span>
                     </Button>
@@ -231,7 +231,7 @@ export function TourGuideFormModal({
                 <div>
                   <label className="manager-input-label">No. Telepon</label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <AppIcon name="solar:phone-bold-duotone" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
@@ -260,7 +260,7 @@ export function TourGuideFormModal({
           {/* Keahlian */}
           <div className="manager-form-section">
             <p className="manager-form-section-title">
-              <Star className="w-4 h-4" />
+              <AppIcon name="solar:star-bold-duotone" className="w-4 h-4" />
               Keahlian
             </p>
 
@@ -304,7 +304,7 @@ export function TourGuideFormModal({
           {/* Biografi */}
           <div className="manager-form-section">
             <p className="manager-form-section-title">
-              <FileText className="w-4 h-4" />
+              <AppIcon name="solar:document-text-bold-duotone" className="w-4 h-4" />
               Biografi
             </p>
 
@@ -362,7 +362,7 @@ export function TourGuideFormModal({
           >
             {isPending ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
                 Menyimpan...
               </>
             ) : (

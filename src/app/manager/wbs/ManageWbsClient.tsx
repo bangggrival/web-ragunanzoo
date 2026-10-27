@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from 'react';
-import { ShieldAlert, Download, Eye, Trash2, Search, Filter, MessageSquare, Calendar, MapPin, User, Mail, Phone, Paperclip, FileText, UserX } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -217,7 +217,7 @@ export default function ManageWbsClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-rose-50 rounded-xl flex items-center justify-center border border-rose-100">
-              <ShieldAlert className="w-5 h-5 text-rose-500" />
+              <AppIcon icon="ShieldAlert" className="w-5 h-5 text-rose-500" />
             </div>
             Whistleblowing System
           </h1>
@@ -230,11 +230,11 @@ export default function ManageWbsClient() {
             onClick={() => setExportDialogOpen(true)}
             disabled={submissions.length === 0}
           >
-            <FileText className="w-4 h-4 mr-2 text-green-500" />
+            <AppIcon icon="FileText" className="w-4 h-4 mr-2 text-green-500" />
             Export PDF
           </Button>
           <Button onClick={exportToCSV} className="rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-600/20">
-            <Download className="w-4 h-4 mr-2" />
+            <AppIcon icon="Download" className="w-4 h-4 mr-2" />
             Export CSV
           </Button>
         </div>
@@ -269,12 +269,12 @@ export default function ManageWbsClient() {
       {/* Filters */}
       <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm">
         <h3 className="font-bold text-sm text-slate-800 uppercase tracking-wider flex items-center gap-2 mb-4">
-          <Filter className="w-4 h-4 text-green-500" />
+          <AppIcon icon="Filter" className="w-4 h-4 text-green-500" />
           Filter & Pencarian
         </h3>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <AppIcon icon="Search" className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input
               placeholder="Cari deskripsi, nama pelapor, lokasi..."
               value={searchQuery}
@@ -314,7 +314,7 @@ export default function ManageWbsClient() {
                     !dateFilter && "text-muted-foreground"
                   )}
                 >
-                  <Calendar className="mr-2 h-4 w-4" />
+                  <AppIcon icon="Calendar" className="mr-2 h-4 w-4" />
                   {dateFilter ? format(new Date(dateFilter), "PPP", { locale: localeId }) : <span>Filter Tanggal</span>}
                 </Button>
               </PopoverTrigger>
@@ -365,7 +365,7 @@ export default function ManageWbsClient() {
               {filteredSubmissions.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="manager-table-td text-center py-12">
-                    <ShieldAlert className="w-12 h-12 mx-auto mb-3 text-slate-300" />
+                    <AppIcon icon="ShieldAlert" className="w-12 h-12 mx-auto mb-3 text-slate-300" />
                     <p className="text-slate-500 font-medium">Tidak ada laporan ditemukan.</p>
                   </td>
                 </tr>
@@ -380,7 +380,7 @@ export default function ManageWbsClient() {
                     </td>
                     <td className="manager-table-td whitespace-nowrap">
                       {submission.is_anonymous ? (
-                        <span className="text-rose-500 font-bold flex items-center gap-1.5"><ShieldAlert className="w-3.5 h-3.5" /> Anonim</span>
+                        <span className="text-rose-500 font-bold flex items-center gap-1.5"><AppIcon icon="ShieldAlert" className="w-3.5 h-3.5" /> Anonim</span>
                       ) : (
                         <span className="font-bold text-slate-800">{submission.reporter_name || '-'}</span>
                       )}
@@ -406,12 +406,12 @@ export default function ManageWbsClient() {
                     <td className="manager-table-td manager-table-td-right whitespace-nowrap">
                       <div className="manager-table-actions">
                         <Button variant="ghost" size="icon" className="w-8 h-8 rounded-lg text-green-500 hover:text-green-600 hover:bg-green-50" onClick={() => handleView(submission)}>
-                          <Eye className="w-4 h-4" />
+                          <AppIcon icon="Eye" className="w-4 h-4" />
                         </Button>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <Button variant="ghost" size="icon" className="w-8 h-8 rounded-lg text-rose-500 hover:text-rose-600 hover:bg-rose-50">
-                              <Trash2 className="w-4 h-4" />
+                              <AppIcon icon="Trash2" className="w-4 h-4" />
                             </Button>
                           </AlertDialogTrigger>
                           <AlertDialogContent className="rounded-[2rem]">
@@ -440,7 +440,7 @@ export default function ManageWbsClient() {
         <div className="md:hidden divide-y divide-slate-100">
           {filteredSubmissions.length === 0 ? (
             <div className="text-center py-12">
-              <ShieldAlert className="w-12 h-12 mx-auto mb-3 text-slate-300" />
+              <AppIcon icon="ShieldAlert" className="w-12 h-12 mx-auto mb-3 text-slate-300" />
               <p className="text-slate-500 font-medium">Tidak ada laporan ditemukan.</p>
             </div>
           ) : (
@@ -448,7 +448,7 @@ export default function ManageWbsClient() {
               <div key={submission.id} className="p-4 hover:bg-slate-50/50 transition-colors">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-green-500" />
+                    <AppIcon icon="Calendar" className="w-4 h-4 text-green-500" />
                     <span className="font-bold text-slate-800 text-sm">{format(new Date(submission.created_at), 'dd MMM yyyy', { locale: localeId })}</span>
                   </div>
                   {getStatusBadge(submission.status)}
@@ -459,7 +459,7 @@ export default function ManageWbsClient() {
                     <div>
                       <p className="text-[10px] font-bold text-slate-500 uppercase">Pelapor</p>
                       {submission.is_anonymous ? (
-                        <p className="text-rose-500 font-bold text-sm flex items-center gap-1 mt-0.5"><ShieldAlert className="w-3 h-3" /> Anonim</p>
+                        <p className="text-rose-500 font-bold text-sm flex items-center gap-1 mt-0.5"><AppIcon icon="ShieldAlert" className="w-3 h-3" /> Anonim</p>
                       ) : (
                         <p className="font-bold text-slate-800 text-sm mt-0.5">{submission.reporter_name || '-'}</p>
                       )}
@@ -478,12 +478,12 @@ export default function ManageWbsClient() {
                 
                 <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100/80">
                   <Button variant="outline" size="sm" className="h-8 rounded-lg text-green-600 border-green-200 hover:bg-green-50" onClick={() => handleView(submission)}>
-                    <Eye className="w-3.5 h-3.5 mr-1.5" /> Lihat
+                    <AppIcon icon="Eye" className="w-3.5 h-3.5 mr-1.5" /> Lihat
                   </Button>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button variant="outline" size="sm" className="h-8 rounded-lg text-rose-500 border-rose-200 hover:bg-rose-50">
-                        <Trash2 className="w-3.5 h-3.5 mr-1.5" /> Hapus
+                        <AppIcon icon="Trash2" className="w-3.5 h-3.5 mr-1.5" /> Hapus
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="rounded-[2rem]">
@@ -512,7 +512,7 @@ export default function ManageWbsClient() {
           <DialogHeader className="px-6 py-5 border-b border-slate-100 bg-white/50 flex-shrink-0">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-rose-50 rounded-xl flex items-center justify-center border border-rose-100">
-                <ShieldAlert className="w-5 h-5 text-rose-500" />
+                <AppIcon icon="ShieldAlert" className="w-5 h-5 text-rose-500" />
               </div>
               Detail Laporan WBS
             </DialogTitle>
@@ -526,12 +526,12 @@ export default function ManageWbsClient() {
               {/* Reporter Info */}
               <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
                 <h4 className="font-bold text-sm text-slate-800 uppercase tracking-wider flex items-center gap-2 mb-4">
-                  <User className="w-4 h-4 text-green-500" />
+                  <AppIcon icon="User" className="w-4 h-4 text-green-500" />
                   Informasi Pelapor
                 </h4>
                 {selectedSubmission.is_anonymous ? (
                   <div className="flex items-center gap-2 p-3 bg-rose-50 text-rose-700 rounded-xl border border-rose-100 font-bold">
-                    <ShieldAlert className="w-5 h-5" />
+                    <AppIcon icon="ShieldAlert" className="w-5 h-5" />
                     Laporan Anonim (Identitas Dirahasiakan)
                   </div>
                 ) : (
@@ -555,7 +555,7 @@ export default function ManageWbsClient() {
               {/* Reported Person Info */}
               <div className="bg-rose-50/50 border border-rose-100 rounded-2xl p-5">
                 <h4 className="font-bold text-sm text-rose-900 uppercase tracking-wider flex items-center gap-2 mb-4">
-                  <UserX className="w-4 h-4 text-rose-500" />
+                  <AppIcon icon="UserX" className="w-4 h-4 text-rose-500" />
                   Identitas Yang Dilaporkan
                 </h4>
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -580,7 +580,7 @@ export default function ManageWbsClient() {
                   </div>
                   <div className="space-y-1">
                     <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
-                      <Calendar className="w-3 h-3" /> Tanggal Kejadian
+                      <AppIcon icon="Calendar" className="w-3 h-3" /> Tanggal Kejadian
                     </Label>
                     <p className="font-bold text-slate-800">
                       {selectedSubmission.incident_date 
@@ -590,7 +590,7 @@ export default function ManageWbsClient() {
                   </div>
                   <div className="sm:col-span-2 space-y-1 pt-2 border-t border-slate-200">
                     <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
-                      <MapPin className="w-3 h-3" /> Lokasi Kejadian
+                      <AppIcon icon="MapPin" className="w-3 h-3" /> Lokasi Kejadian
                     </Label>
                     <p className="font-bold text-slate-800">{selectedSubmission.incident_location || '-'}</p>
                   </div>
@@ -608,7 +608,7 @@ export default function ManageWbsClient() {
               {/* Evidence */}
               <div className="space-y-2">
                 <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                  <Paperclip className="w-4 h-4 text-green-500" />
+                  <AppIcon icon="Paperclip" className="w-4 h-4 text-green-500" />
                   Bukti Pendukung
                 </Label>
                 <div className="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -619,7 +619,7 @@ export default function ManageWbsClient() {
               {/* Status & Admin Notes */}
               <div className="bg-green-50/50 rounded-2xl p-5 border border-green-100 space-y-5">
                 <h4 className="font-bold text-sm text-green-900 uppercase tracking-wider flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4 text-green-500" />
+                  <AppIcon icon="MessageSquare" className="w-4 h-4 text-green-500" />
                   Tindak Lanjut & Status
                 </h4>
                 
@@ -664,7 +664,7 @@ export default function ManageWbsClient() {
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 text-sm transition-all flex-1 sm:flex-none"
               >
-                <MessageSquare className="w-4 h-4" />
+                <AppIcon icon="MessageSquare" className="w-4 h-4" />
                 <span>Hubungi via WA</span>
               </a>
             )}

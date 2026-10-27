@@ -4,7 +4,7 @@ import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html, Center, Float, useGLTF } from '@react-three/drei';
-import { X, RotateCcw, Smartphone, Loader2, Move3D, Box, Sun, Moon, Sunset, Volume2 } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import * as THREE from 'three';
 import { wildlifeAudio } from '@/utils/WildlifeAudioSynthesizer';
 
@@ -134,8 +134,8 @@ function LoadingFallback() {
     <Html center>
       <div className="flex flex-col items-center gap-3 text-white">
         <div className="relative">
-          <Loader2 className="w-12 h-12 animate-spin text-primary" />
-          <Box className="w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white" />
+          <AppIcon icon="solar:spinner-linear" className="w-12 h-12 animate-spin text-primary" />
+          <AppIcon icon="solar:box-bold-duotone" className="w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white" />
         </div>
         <div className="text-center">
           <p className="font-medium">Memuat Model 3D...</p>
@@ -317,7 +317,7 @@ export default function ARViewer({ animalName, modelUrl, onClose }: ARViewerProp
         <div>
           <h2 className="text-white font-bold text-lg">{animalName}</h2>
           <p className="text-white/70 text-sm flex items-center gap-1">
-            <Move3D className="w-4 h-4 text-emerald-400" />
+            <AppIcon icon="solar:box-minimalistic-bold-duotone" className="w-4 h-4 text-emerald-400" />
             Studio 3D & AR Explorer
           </p>
         </div>
@@ -326,7 +326,7 @@ export default function ARViewer({ animalName, modelUrl, onClose }: ARViewerProp
           className="w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-xl border border-white/20 rounded-full flex items-center justify-center text-white transition-all shadow-xl active:scale-95"
           aria-label="Tutup AR Viewer"
         >
-          <X className="w-6 h-6" />
+          <AppIcon icon="solar:close-circle-bold" className="w-6 h-6" />
         </button>
       </div>
 
@@ -352,7 +352,7 @@ export default function ARViewer({ animalName, modelUrl, onClose }: ARViewerProp
         {/* Interaction hints */}
         <div className="absolute top-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
           <div className="bg-black/70 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2 text-white/90 text-xs sm:text-sm flex items-center gap-2 shadow-lg">
-            <Move3D className="w-4 h-4 text-emerald-400" />
+            <AppIcon icon="solar:box-minimalistic-bold-duotone" className="w-4 h-4 text-emerald-400" />
             <span>Sentuh & geser untuk memutar 360°</span>
           </div>
         </div>
@@ -370,7 +370,7 @@ export default function ARViewer({ animalName, modelUrl, onClose }: ARViewerProp
                 lightingMode === 'day' ? 'bg-amber-400 text-slate-950 shadow-xs' : 'text-white/80 hover:text-white'
               }`}
             >
-              <Sun className="w-3.5 h-3.5" />
+              <AppIcon icon="solar:sun-bold-duotone" className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Siang</span>
             </button>
             <button
@@ -379,7 +379,7 @@ export default function ARViewer({ animalName, modelUrl, onClose }: ARViewerProp
                 lightingMode === 'sunset' ? 'bg-orange-500 text-white shadow-xs' : 'text-white/80 hover:text-white'
               }`}
             >
-              <Sunset className="w-3.5 h-3.5" />
+              <AppIcon icon="solar:sunset-bold-duotone" className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Senja</span>
             </button>
             <button
@@ -388,7 +388,7 @@ export default function ARViewer({ animalName, modelUrl, onClose }: ARViewerProp
                 lightingMode === 'night' ? 'bg-indigo-600 text-white shadow-xs' : 'text-white/80 hover:text-white'
               }`}
             >
-              <Moon className="w-3.5 h-3.5" />
+              <AppIcon icon="solar:moon-bold-duotone" className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Malam</span>
             </button>
           </div>
@@ -402,7 +402,7 @@ export default function ARViewer({ animalName, modelUrl, onClose }: ARViewerProp
                 : 'bg-white/15 hover:bg-white/25 text-white border-white/20'
             }`}
           >
-            <Volume2 className={`w-4 h-4 ${isPlayingSound ? 'animate-pulse' : ''}`} />
+            <AppIcon icon="solar:volume-loud-bold-duotone" className={`w-4 h-4 ${isPlayingSound ? 'animate-pulse' : ''}`} />
             <span>{isPlayingSound ? 'Bersuara...' : 'Suara Satwa'}</span>
           </button>
 
@@ -415,7 +415,7 @@ export default function ARViewer({ animalName, modelUrl, onClose }: ARViewerProp
                 : 'bg-white/15 hover:bg-white/25 text-white border-white/20'
             }`}
           >
-            <RotateCcw className="w-4 h-4" />
+            <AppIcon icon="solar:restart-bold" className="w-4 h-4" />
             <span>{autoRotate ? 'Auto Putar: ON' : 'Auto Putar: OFF'}</span>
           </button>
         </div>
@@ -423,13 +423,13 @@ export default function ARViewer({ animalName, modelUrl, onClose }: ARViewerProp
         {/* AR Status */}
         {isARSupported === true ? (
           <div className="bg-primary/90 rounded-2xl p-4 text-center">
-            <Smartphone className="w-6 h-6 text-white mx-auto mb-2" />
+            <AppIcon icon="solar:smartphone-bold-duotone" className="w-6 h-6 text-white mx-auto mb-2" />
             <p className="text-white font-semibold text-sm">AR tersedia di perangkat Anda!</p>
             <p className="text-white/70 text-xs mt-1">Fitur AR penuh akan segera hadir</p>
           </div>
         ) : (
           <div className="bg-muted/20 border border-white/20 rounded-2xl p-4 text-center">
-            <Box className="w-6 h-6 text-secondary mx-auto mb-2" />
+            <AppIcon icon="solar:box-bold-duotone" className="w-6 h-6 text-secondary mx-auto mb-2" />
             <p className="text-white font-medium text-sm">Mode 3D Interaktif</p>
             <p className="text-white/60 text-xs mt-1">Model 3D dengan interaksi sentuh</p>
           </div>

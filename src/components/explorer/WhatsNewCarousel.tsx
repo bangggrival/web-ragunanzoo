@@ -2,20 +2,18 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { Sparkles, Calendar, Newspaper, PawPrint, Building2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useWhatsNewItems } from '@/hooks/useWhatsNewItems';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { formatDistanceToNow } from 'date-fns';
 import { id as idLocale, enUS } from 'date-fns/locale';
 import ModernMediaCard from '@/components/ui/ModernMediaCard';
 
-
-
 const typeConfig = {
-  animal: { icon: PawPrint, label: { id: 'Satwa Baru', en: 'New Animal' }, color: 'bg-primary' },
-  event: { icon: Calendar, label: { id: 'Event', en: 'Event' }, color: 'bg-accent' },
-  news: { icon: Newspaper, label: { id: 'Berita', en: 'News' }, color: 'bg-secondary' },
-  venue: { icon: Building2, label: { id: 'Venue', en: 'Venue' }, color: 'bg-muted-foreground' },
+  animal: { icon: 'fluent-emoji-flat:paw-prints', label: { id: 'Satwa Baru', en: 'New Animal' }, color: 'bg-primary' },
+  event: { icon: 'solar:calendar-bold-duotone', label: { id: 'Event', en: 'Event' }, color: 'bg-accent' },
+  news: { icon: 'solar:newspaper-bold-duotone', label: { id: 'Berita', en: 'News' }, color: 'bg-secondary' },
+  venue: { icon: 'solar:buildings-2-bold-duotone', label: { id: 'Venue', en: 'Venue' }, color: 'bg-muted-foreground' },
 };
 
 export default function WhatsNewCarousel() {
@@ -46,7 +44,7 @@ export default function WhatsNewCarousel() {
       <section className="py-4 px-4">
         <div className="container mx-auto">
           <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-5 h-5 text-secondary" />
+            <AppIcon name="solar:stars-bold" className="w-5 h-5 text-secondary" />
             <div className="h-5 w-24 bg-muted rounded animate-pulse" />
           </div>
           <div className="flex gap-4 overflow-hidden">
@@ -68,7 +66,7 @@ export default function WhatsNewCarousel() {
       <div className="container mx-auto">
         {/* Section Header */}
         <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-5 h-5 text-secondary" />
+          <AppIcon name="solar:stars-bold" className="w-5 h-5 text-secondary" />
           <h3 className="text-lg font-bold text-secondary">
             {language === 'en' ? "What's New" : 'Yang Terbaru'}
           </h3>
@@ -79,7 +77,6 @@ export default function WhatsNewCarousel() {
           <div className="flex">
             {activeItems.map((item) => {
               const config = typeConfig[item.item_type];
-              const Icon = config.icon;
               const timeAgo = formatDistanceToNow(new Date(item.created_at), { 
                 addSuffix: true, 
                 locale: language === 'en' ? enUS : idLocale 
@@ -101,12 +98,12 @@ export default function WhatsNewCarousel() {
                     aspectRatio="video"
                     badgeTopLeft={
                       <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide backdrop-blur-md border border-white/20 shadow-sm ${config.color} text-white`}>
-                        <Icon className="w-3 h-3" />
+                        <AppIcon name={config.icon} className="w-3.5 h-3.5" />
                         <span>{config.label[language]}</span>
                       </div>
                     }
                     metaLabel={timeAgo}
-                    metaIcon={<Sparkles className="w-3 h-3 text-amber-400" />}
+                    metaIcon={<AppIcon name="solar:stars-bold" className="w-3 h-3 text-amber-400" />}
                     actionText={language === 'en' ? 'Explore' : 'Jelajahi'}
                     className="h-full"
                   />

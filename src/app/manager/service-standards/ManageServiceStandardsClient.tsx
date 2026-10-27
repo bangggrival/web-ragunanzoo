@@ -23,7 +23,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Plus, Pencil, Trash2, GripVertical, FileText, Clock, Banknote, ShieldCheck } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { toast } from 'sonner';
 import { IconPicker, allIcons } from '@/components/ui/IconPicker';
 import { ServiceStandard, MOCK_SERVICE_STANDARDS } from '@/hooks/useServiceStandards';
@@ -182,7 +182,7 @@ export default function ManageServiceStandardsClient() {
   };
 
   const getIcon = (iconName: string) => {
-    return allIcons[iconName as keyof typeof allIcons] || FileText;
+    return allIcons[iconName as keyof typeof allIcons] || allIcons['FileText'];
   };
 
   if (isLoading) {
@@ -221,7 +221,7 @@ export default function ManageServiceStandardsClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <ShieldCheck className="w-5 h-5 text-green-500" />
+              <AppIcon icon="ShieldCheck" className="w-5 h-5 text-green-500" />
             </div>
             Standar Pelayanan
           </h1>
@@ -230,7 +230,7 @@ export default function ManageServiceStandardsClient() {
           </p>
         </div>
         <Button onClick={handleOpenCreate} className="rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-600/20 px-6">
-          <Plus className="w-4 h-4 mr-2" />
+          <AppIcon icon="Plus" className="w-4 h-4 mr-2" />
           Tambah Standar
         </Button>
       </div>
@@ -274,13 +274,13 @@ export default function ManageServiceStandardsClient() {
                         </td>
                         <td className="manager-table-td">
                           <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                            <Clock className="w-4 h-4 text-slate-400" />
+                            <AppIcon icon="Clock" className="w-4 h-4 text-slate-400" />
                             {standard.duration || '-'}
                           </div>
                         </td>
                         <td className="manager-table-td">
                           <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                            <Banknote className="w-4 h-4 text-green-400" />
+                            <AppIcon icon="Banknote" className="w-4 h-4 text-green-400" />
                             {standard.cost || '-'}
                           </div>
                         </td>
@@ -303,7 +303,7 @@ export default function ManageServiceStandardsClient() {
                               onClick={() => handleOpenEdit(standard)}
                               className="w-8 h-8 rounded-lg border-slate-200 text-slate-500 hover:text-green-600 hover:bg-green-50"
                             >
-                              <Pencil className="w-3.5 h-3.5" />
+                              <AppIcon icon="Pencil" className="w-3.5 h-3.5" />
                             </Button>
                             <Button
                               variant="outline"
@@ -314,7 +314,7 @@ export default function ManageServiceStandardsClient() {
                               }}
                               className="w-8 h-8 rounded-lg border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50"
                             >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              <AppIcon icon="Trash2" className="w-3.5 h-3.5" />
                             </Button>
                           </div>
                         </td>
@@ -361,11 +361,11 @@ export default function ManageServiceStandardsClient() {
                       
                       <div className="flex items-center gap-4 mt-3 text-xs font-medium text-slate-600 bg-slate-50 rounded-xl p-3 border border-slate-100">
                         <div className="flex items-center gap-1.5 flex-1">
-                          <Clock className="w-3.5 h-3.5 text-slate-400" />
+                          <AppIcon icon="Clock" className="w-3.5 h-3.5 text-slate-400" />
                           <span className="truncate">{standard.duration || '-'}</span>
                         </div>
                         <div className="flex items-center gap-1.5 flex-1">
-                          <Banknote className="w-3.5 h-3.5 text-green-400" />
+                          <AppIcon icon="Banknote" className="w-3.5 h-3.5 text-green-400" />
                           <span className="truncate">{standard.cost || '-'}</span>
                         </div>
                       </div>
@@ -377,7 +377,7 @@ export default function ManageServiceStandardsClient() {
                           onClick={() => handleOpenEdit(standard)}
                           className="rounded-xl font-bold border-slate-200 text-slate-600 hover:text-green-600"
                         >
-                          <Pencil className="w-3.5 h-3.5 mr-1.5" />
+                          <AppIcon icon="Pencil" className="w-3.5 h-3.5 mr-1.5" />
                           Edit
                         </Button>
                         <Button
@@ -389,7 +389,7 @@ export default function ManageServiceStandardsClient() {
                           }}
                           className="rounded-xl font-bold border-slate-200 text-slate-600 hover:text-rose-600"
                         >
-                          <Trash2 className="w-3.5 h-3.5 mr-1.5" />
+                          <AppIcon icon="Trash2" className="w-3.5 h-3.5 mr-1.5" />
                           Hapus
                         </Button>
                       </div>
@@ -403,14 +403,14 @@ export default function ManageServiceStandardsClient() {
       ) : (
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-12 text-center rounded-[1.5rem] shadow-sm">
           <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-100">
-            <ShieldCheck className="w-8 h-8 text-slate-300" />
+            <AppIcon icon="ShieldCheck" className="w-8 h-8 text-slate-300" />
           </div>
           <h3 className="text-lg font-bold text-slate-800 mb-2">Belum ada standar pelayanan</h3>
           <p className="text-slate-500 font-medium mb-6">
             Mulai dengan menambahkan standar pelayanan pertama
           </p>
           <Button onClick={handleOpenCreate} className="rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold px-6">
-            <Plus className="w-4 h-4 mr-2" />
+            <AppIcon icon="Plus" className="w-4 h-4 mr-2" />
             Tambah Standar
           </Button>
         </div>
@@ -422,7 +422,7 @@ export default function ManageServiceStandardsClient() {
           <DialogHeader className="px-6 py-5 border-b border-slate-100 bg-white/50 flex-shrink-0">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                <ShieldCheck className="w-5 h-5 text-green-500" />
+                <AppIcon icon="ShieldCheck" className="w-5 h-5 text-green-500" />
               </div>
               {editingId ? 'Edit Standar Pelayanan' : 'Tambah Standar Pelayanan'}
             </DialogTitle>
@@ -434,7 +434,7 @@ export default function ManageServiceStandardsClient() {
                 {/* Basic Info Section */}
                 <div className="space-y-5">
                   <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-                    <FileText className="w-5 h-5 text-green-500" />
+                    <AppIcon icon="FileText" className="w-5 h-5 text-green-500" />
                     <h4 className="font-bold text-slate-800">Informasi Dasar</h4>
                   </div>
                   
@@ -511,7 +511,7 @@ export default function ManageServiceStandardsClient() {
                 {/* Requirements Section */}
                 <div className="space-y-5">
                   <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-                    <ShieldCheck className="w-5 h-5 text-green-500" />
+                    <AppIcon icon="ShieldCheck" className="w-5 h-5 text-green-500" />
                     <h4 className="font-bold text-slate-800">Persyaratan</h4>
                   </div>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -543,7 +543,7 @@ export default function ManageServiceStandardsClient() {
                 {/* Procedure Section */}
                 <div className="space-y-5">
                   <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-                    <GripVertical className="w-5 h-5 text-green-500" />
+                    <AppIcon icon="GripVertical" className="w-5 h-5 text-green-500" />
                     <h4 className="font-bold text-slate-800">Prosedur / SOP</h4>
                   </div>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -575,7 +575,7 @@ export default function ManageServiceStandardsClient() {
                 {/* Complaint Mechanism Section */}
                 <div className="space-y-5">
                   <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-                    <ShieldCheck className="w-5 h-5 text-green-500" />
+                    <AppIcon icon="ShieldCheck" className="w-5 h-5 text-green-500" />
                     <h4 className="font-bold text-slate-800">Mekanisme Pengaduan</h4>
                   </div>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">

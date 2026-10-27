@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Loader2, ExternalLink, MapPin, Search, QrCode, Printer } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import QRCodeBulkGenerator from '@/components/qr/QRCodeBulkGenerator';
 import { Input } from '@/components/ui/input';
 import AnimatedSection from '@/components/ui/AnimatedSection';
@@ -132,7 +132,7 @@ function ManageFacilityReportsClient() {
             onClick={() => setShowQRGenerator(true)}
             className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-xs"
           >
-            <QrCode className="w-4 h-4" />
+            <AppIcon icon="QrCode" className="w-4 h-4" />
             <span>Cetak Label QR Fasilitas</span>
           </Button>
         </div>
@@ -142,7 +142,7 @@ function ManageFacilityReportsClient() {
         <CardContent className="p-4 flex flex-col sm:flex-row gap-4">
           <div className="flex flex-col sm:flex-row gap-4 w-full">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <AppIcon icon="Search" className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input 
                 placeholder="Cari nomor tiket..." 
                 className="pl-9"
@@ -163,7 +163,7 @@ function ManageFacilityReportsClient() {
                       !dateFilter && "text-muted-foreground"
                     )}
                   >
-                    <Search className="mr-2 h-4 w-4 opacity-0" /> 
+                    <AppIcon icon="Search" className="mr-2 h-4 w-4 opacity-0" /> 
                     {/* Just using a placeholder icon space if needed, or import CalendarIcon. Wait, I didn't import Calendar from lucide. Let's just use text or add it */}
                     {dateFilter ? format(new Date(dateFilter), "PPP", { locale: localeId }) : <span>Filter Tanggal</span>}
                   </Button>
@@ -206,7 +206,7 @@ function ManageFacilityReportsClient() {
         </CardHeader>
         <CardContent>
           {loading ? (
-            <div className="flex justify-center p-12"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>
+            <div className="flex justify-center p-12"><AppIcon icon="Loader2" className="w-8 h-8 animate-spin text-primary" /></div>
           ) : reports.length === 0 ? (
             <div className="text-center p-12 text-muted-foreground">Tidak ada tiket laporan.</div>
           ) : (
@@ -287,7 +287,7 @@ function ManageFacilityReportsClient() {
                   <strong>{selectedReport.location_name || '-'}</strong>
                   {selectedReport.latitude && (
                     <a href={`https://www.google.com/maps/search/?api=1&query=${selectedReport.latitude},${selectedReport.longitude}`} target="_blank" rel="noreferrer" className="text-primary flex items-center mt-1 hover:underline">
-                      <MapPin className="w-4 h-4 mr-1" /> Buka Peta
+                      <AppIcon icon="MapPin" className="w-4 h-4 mr-1" /> Buka Peta
                     </a>
                   )}
                 </div>
@@ -347,7 +347,7 @@ function ManageFacilityReportsClient() {
           <DialogFooter>
             <Button variant="outline" onClick={() => setSelectedReport(null)}>Tutup</Button>
             <Button onClick={handleUpdate} disabled={isUpdating}>
-              {isUpdating && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              {isUpdating && <AppIcon icon="Loader2" className="w-4 h-4 mr-2 animate-spin" />}
               Simpan Perubahan
             </Button>
           </DialogFooter>

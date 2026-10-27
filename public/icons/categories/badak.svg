@@ -1,14 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Outer brand halo -->
   <circle cx="24" cy="24" r="22" fill="#0B4635" fill-opacity="0.12"/>
   <circle cx="24" cy="24" r="21" stroke="#0B4635" stroke-opacity="0.25" stroke-width="1.5"/>
-  <!-- Rhino Heavy Body -->
-  <path d="M13 25C13 19 18 16 26 16C33 16 37 19 37 25C37 32 32 35 25 35C17 35 13 32 13 25Z" fill="#0B4635" fill-opacity="0.3"/>
-  <!-- Rhino Head & Horn -->
-  <path d="M26 17L36 21L38 29L33 32L26 27" fill="#0B4635"/>
-  <!-- Large Horn -->
-  <path d="M37 21L41 14C41 14 39 20 37 24Z" fill="#C27835"/>
-  <!-- Small Horn -->
-  <path d="M34 20L36 16C36 16 35 19 34 21Z" fill="#C27835"/>
-  <!-- Eye -->
-  <circle cx="31" cy="22" r="1.2" fill="#FFFFFF"/>
+
+  <!-- Rhinoceros Heavy Torso & Shoulder Armor Hump -->
+  <path d="M11 26C11 21 14 17 21 16C26 15 31 16 35 19L39 23L40 28L34 32L32 31C29 32 23 32 18 31L13 32C11 30 11 28 11 26Z" fill="#0B4635" fill-opacity="0.35"/>
+
+  <!-- Thick Armor Skin Plate Folds (Distinctive Javan Rhino Feature) -->
+  <path d="M22 16C21 21 21 26 23 31" stroke="#0B4635" stroke-width="2" stroke-linecap="round"/>
+  <path d="M28 17C29 22 28 27 30 31" stroke="#0B4635" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Powerful Columnar Legs with Solid Hooves -->
+  <!-- Front Left Leg -->
+  <path d="M30 30V38H34V29" fill="#0B4635"/>
+  <!-- Front Right Leg (Background) -->
+  <path d="M34 28V36H37V27" fill="#0B4635" fill-opacity="0.6"/>
+  <!-- Back Left Leg -->
+  <path d="M15 29V38H19V28" fill="#0B4635"/>
+  <!-- Back Right Leg (Background) -->
+  <path d="M19 28V36H22V27" fill="#0B4635" fill-opacity="0.6"/>
+
+  <!-- Head, Muzzle & Alert Ear -->
+  <path d="M32 19L38 21L42 27L38 30L33 28L31 22Z" fill="#0B4635"/>
+  <path d="M33 18L35 14L37 17Z" fill="#C27835"/> <!-- Alert Ear -->
+  <circle cx="36" cy="23" r="1.2" fill="#FFFFFF"/>
+  <circle cx="36" cy="23" r="0.6" fill="#0B4635"/>
+
+  <!-- Primary Curved Horn (Cula) -->
+  <path d="M41 23C43 18 45 13 46 11C43 15 40 21 40 25Z" fill="#C27835"/>
+  <!-- Secondary Small Horn -->
+  <path d="M37 20L38 17C38 18 37 19 36 20Z" fill="#C27835"/>
+
+  <!-- Small Tail with Tuft -->
+  <path d="M12 25L9 30" stroke="#0B4635" stroke-width="1.6" stroke-linecap="round"/>
 </svg>

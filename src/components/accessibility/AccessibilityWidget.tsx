@@ -1,24 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { 
-  Accessibility, 
-  X, 
-  Type, 
-  Eye, 
-  Zap, 
-  BookOpen, 
-  AlignJustify, 
-  MousePointer2, 
-  Link2, 
-  Volume2,
-  RotateCcw,
-  Palette,
-  SunMoon,
-  Space,
-  ImageOff,
-  Focus,
-  Ruler
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { useAccessibility, AccessibilitySettings } from '@/contexts/AccessibilityContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useFooterInView } from '@/hooks/useFooterInView';
@@ -164,7 +146,7 @@ export default function AccessibilityWidget() {
           aria-controls="accessibility-menu"
           className="hidden md:flex w-14 h-14 bg-primary text-white rounded-full shadow-lg md:shadow-xl items-center justify-center hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/50 transition-all duration-200 active:scale-95 hover:scale-105"
         >
-          <Accessibility className="w-7 h-7" />
+          <AppIcon icon="solar:accessibility-bold" className="w-7 h-7" />
         </button>
       </div>
 
@@ -198,7 +180,7 @@ export default function AccessibilityWidget() {
             <div className="bg-primary text-primary-foreground px-4 py-3.5 sm:px-5 flex items-center justify-between flex-shrink-0 shadow-xs">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center">
-                  <Accessibility className="w-5 h-5 text-white" />
+                  <AppIcon icon="solar:accessibility-bold" className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <h2 id="a11y-title" className="font-bold text-base sm:text-lg leading-tight text-white">{t.title}</h2>
@@ -210,7 +192,7 @@ export default function AccessibilityWidget() {
                 aria-label={t.close}
                 className="w-8 h-8 flex items-center justify-center hover:bg-white/20 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white active:scale-95"
               >
-                <X className="w-5 h-5 text-white" />
+                <AppIcon icon="solar:close-circle-bold" className="w-5 h-5 text-white" />
               </button>
             </div>
 
@@ -219,14 +201,14 @@ export default function AccessibilityWidget() {
               {/* === READING SECTION === */}
               <div>
                 <p className="text-xs font-bold text-primary uppercase tracking-wide mb-3 flex items-center gap-2">
-                  <BookOpen className="w-4 h-4" />
+                  <AppIcon icon="solar:book-bookmark-bold-duotone" className="w-4 h-4" />
                   {t.reading}
                 </p>
                 
                 {/* Font Size */}
                 <div className="space-y-2 mb-3">
                   <label className="flex items-center gap-2 text-sm font-medium text-foreground">
-                    <Type className="w-4 h-4 text-primary" />
+                    <AppIcon icon="solar:text-bold-duotone" className="w-4 h-4 text-primary" />
                     {t.fontSize}
                   </label>
                   <div className="flex gap-2">
@@ -250,7 +232,7 @@ export default function AccessibilityWidget() {
                 {/* Line Height */}
                 <div className="space-y-2 mb-3">
                   <label className="flex items-center gap-2 text-sm font-medium text-foreground">
-                    <AlignJustify className="w-4 h-4 text-primary" />
+                    <AppIcon icon="solar:align-left-bold-duotone" className="w-4 h-4 text-primary" />
                     {t.lineHeight}
                   </label>
                   <div className="flex gap-2">
@@ -274,7 +256,7 @@ export default function AccessibilityWidget() {
                 {/* Letter Spacing */}
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 text-sm font-medium text-foreground">
-                    <Space className="w-4 h-4 text-primary" />
+                    <AppIcon icon="solar:text-cross-bold-duotone" className="w-4 h-4 text-primary" />
                     {t.letterSpacing}
                   </label>
                   <div className="flex gap-2">
@@ -299,14 +281,14 @@ export default function AccessibilityWidget() {
               {/* === VISUAL SECTION === */}
               <div>
                 <p className="text-xs font-bold text-primary uppercase tracking-wide mb-3 flex items-center gap-2">
-                  <Eye className="w-4 h-4" />
+                  <AppIcon icon="solar:eye-bold-duotone" className="w-4 h-4" />
                   {t.visual}
                 </p>
 
                 {/* Saturation */}
                 <div className="space-y-2 mb-3">
                   <label className="flex items-center gap-2 text-sm font-medium text-foreground">
-                    <Palette className="w-4 h-4 text-primary" />
+                    <AppIcon icon="solar:pallete-2-bold-duotone" className="w-4 h-4 text-primary" />
                     {t.saturation}
                   </label>
                   <div className="flex gap-2">
@@ -330,19 +312,19 @@ export default function AccessibilityWidget() {
                 {/* Visual Toggles */}
                 <div className="space-y-2">
                   <ToggleOption
-                    icon={Eye}
+                    icon="solar:eye-bold-duotone"
                     label={t.highContrast}
                     checked={settings.highContrast}
                     onChange={(v) => handleSettingChange('highContrast', v, t.highContrast)}
                   />
                   <ToggleOption
-                    icon={SunMoon}
+                    icon="solar:sun-2-bold-duotone"
                     label={t.invertColors}
                     checked={settings.invertColors}
                     onChange={(v) => handleSettingChange('invertColors', v, t.invertColors)}
                   />
                   <ToggleOption
-                    icon={ImageOff}
+                    icon="solar:gallery-cross-bold-duotone"
                     label={t.hideImages}
                     checked={settings.hideImages}
                     onChange={(v) => handleSettingChange('hideImages', v, t.hideImages)}
@@ -353,49 +335,49 @@ export default function AccessibilityWidget() {
               {/* === TOOLS SECTION === */}
               <div>
                 <p className="text-xs font-bold text-primary uppercase tracking-wide mb-3 flex items-center gap-2">
-                  <Zap className="w-4 h-4" />
+                  <AppIcon icon="solar:bolt-bold-duotone" className="w-4 h-4" />
                   {t.tools}
                 </p>
 
                 <div className="space-y-2">
                   <ToggleOption
-                    icon={Zap}
+                    icon="solar:bolt-bold-duotone"
                     label={t.reducedMotion}
                     checked={settings.reducedMotion}
                     onChange={(v) => handleSettingChange('reducedMotion', v, t.reducedMotion)}
                   />
                   <ToggleOption
-                    icon={BookOpen}
+                    icon="solar:book-bookmark-bold-duotone"
                     label={t.dyslexiaFont}
                     checked={settings.dyslexiaFont}
                     onChange={(v) => handleSettingChange('dyslexiaFont', v, t.dyslexiaFont)}
                   />
                   <ToggleOption
-                    icon={MousePointer2}
+                    icon="solar:cursor-bold-duotone"
                     label={t.cursorSize}
                     checked={settings.cursorSize === 'large'}
                     onChange={(v) => handleSettingChange('cursorSize', v ? 'large' : 'normal', t.cursorSize)}
                   />
                   <ToggleOption
-                    icon={Link2}
+                    icon="solar:link-bold-duotone"
                     label={t.highlightLinks}
                     checked={settings.highlightLinks}
                     onChange={(v) => handleSettingChange('highlightLinks', v, t.highlightLinks)}
                   />
                   <ToggleOption
-                    icon={Volume2}
+                    icon="solar:volume-loud-bold-duotone"
                     label={t.textToSpeech}
                     checked={settings.textToSpeech}
                     onChange={(v) => handleSettingChange('textToSpeech', v, t.textToSpeech)}
                   />
                   <ToggleOption
-                    icon={Ruler}
+                    icon="solar:ruler-bold-duotone"
                     label={t.readingGuide}
                     checked={settings.readingGuide}
                     onChange={(v) => handleSettingChange('readingGuide', v, t.readingGuide)}
                   />
                   <ToggleOption
-                    icon={Focus}
+                    icon="solar:target-bold-duotone"
                     label={t.focusMode}
                     checked={settings.focusMode}
                     onChange={(v) => handleSettingChange('focusMode', v, t.focusMode)}
@@ -410,7 +392,7 @@ export default function AccessibilityWidget() {
                 onClick={handleReset}
                 className="flex-1 py-2.5 px-4 bg-destructive/10 border border-destructive/20 rounded-xl text-xs sm:text-sm font-semibold text-destructive hover:bg-destructive/20 flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-destructive active:scale-98"
               >
-                <RotateCcw className="w-4 h-4" />
+                <AppIcon icon="solar:restart-bold" className="w-4 h-4" />
                 {t.reset}
               </button>
               <button
@@ -430,12 +412,12 @@ export default function AccessibilityWidget() {
 
 // Toggle Option Component
 function ToggleOption({
-  icon: Icon,
+  icon,
   label,
   checked,
   onChange,
 }: {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: string;
   label: string;
   checked: boolean;
   onChange: (value: boolean) => void;
@@ -450,7 +432,7 @@ function ToggleOption({
       }`}
     >
       <span className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-foreground">
-        <Icon className={`w-4 h-4 ${checked ? 'text-primary' : 'text-muted-foreground'}`} />
+        <AppIcon icon={icon} className={`w-4 h-4 ${checked ? 'text-primary' : 'text-muted-foreground'}`} />
         {label}
       </span>
       <div

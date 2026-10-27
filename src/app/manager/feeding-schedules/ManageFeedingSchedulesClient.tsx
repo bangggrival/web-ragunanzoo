@@ -3,24 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
 import { useFeedingSchedules, FeedingSchedule } from '@/hooks/useFeedingSchedules';
-import { 
-  Plus, 
-  Edit2, 
-  Trash2, 
-  Clock, 
-  Image as ImageIcon, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Calendar, 
-  Layers, 
-  List, 
-  Sparkles, 
-  Download,
-  FileSpreadsheet,
-  FileText,
-  Eye,
-  EyeOff
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { toast } from 'sonner';
 import FeedingScheduleFormModal from '@/components/modals/FeedingScheduleFormModal';
 import { exportToExcel, exportToPdf } from '@/utils/exportManagerReports';
@@ -210,7 +193,7 @@ export default function ManageFeedingSchedulesClient() {
               <button 
                 className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all font-semibold shadow-2xs btn-interactive text-xs sm:text-sm"
               >
-                <Download className="w-4 h-4 text-emerald-600" />
+                <AppIcon icon="Download" className="w-4 h-4 text-emerald-600" />
                 <span>Ekspor Jadwal</span>
               </button>
             </DropdownMenuTrigger>
@@ -219,14 +202,14 @@ export default function ManageFeedingSchedulesClient() {
                 onClick={() => handleExport('excel')}
                 className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl cursor-pointer"
               >
-                <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+                <AppIcon icon="FileSpreadsheet" className="w-4 h-4 text-emerald-600" />
                 <span>Ekspor ke Excel (.xlsx)</span>
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => handleExport('pdf')}
                 className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl cursor-pointer"
               >
-                <FileText className="w-4 h-4 text-rose-600" />
+                <AppIcon icon="FileText" className="w-4 h-4 text-rose-600" />
                 <span>Cetak Dokumen PDF (.pdf)</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -242,7 +225,7 @@ export default function ManageFeedingSchedulesClient() {
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <List className="w-3.5 h-3.5" />
+              <AppIcon icon="List" className="w-3.5 h-3.5" />
               <span>Tabel</span>
             </button>
             <button
@@ -253,7 +236,7 @@ export default function ManageFeedingSchedulesClient() {
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Clock className="w-3.5 h-3.5" />
+              <AppIcon icon="Clock" className="w-3.5 h-3.5" />
               <span>Timeline</span>
             </button>
           </div>
@@ -262,7 +245,7 @@ export default function ManageFeedingSchedulesClient() {
             onClick={handleAdd}
             className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl hover:opacity-90 transition-all font-semibold shadow-md shadow-emerald-500/20 btn-interactive text-xs sm:text-sm"
           >
-            <Plus className="w-4 h-4" />
+            <AppIcon icon="Plus" className="w-4 h-4" />
             <span>Tambah Jadwal</span>
           </button>
         </div>
@@ -271,7 +254,7 @@ export default function ManageFeedingSchedulesClient() {
       {/* Conflict Detector Banner */}
       {conflicts.length > 0 ? (
         <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 flex items-start gap-3.5 animate-slide-in-up">
-          <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+          <AppIcon icon="AlertTriangle" className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
             <h4 className="font-bold text-sm text-amber-800 dark:text-amber-300">
               Peringatan Deteksi Konflik Jam Makan ({conflicts.length} Slot Bersamaan)
@@ -285,7 +268,7 @@ export default function ManageFeedingSchedulesClient() {
                   key={time}
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-xs font-bold text-amber-900 dark:text-amber-100"
                 >
-                  <Clock className="w-3 h-3 text-amber-600" />
+                  <AppIcon icon="Clock" className="w-3 h-3 text-amber-600" />
                   <span>Jam {time} WIB:</span>
                   <span className="font-normal">{items.map(i => i.name_id).join(' & ')}</span>
                 </span>
@@ -295,7 +278,7 @@ export default function ManageFeedingSchedulesClient() {
         </div>
       ) : (
         <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 dark:text-emerald-300 flex items-center gap-2.5 text-xs font-semibold">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+          <AppIcon icon="CheckCircle2" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
           <span>Distribusi jadwal optimal • Tidak ada jam feeding show yang bertubrukan hari ini.</span>
         </div>
       )}
@@ -305,7 +288,7 @@ export default function ManageFeedingSchedulesClient() {
         <div className="bg-card border rounded-3xl p-6 shadow-sm space-y-6">
           <div className="flex items-center justify-between pb-4 border-b border-border">
             <h3 className="font-bold text-base text-foreground flex items-center gap-2">
-              <Clock className="w-5 h-5 text-emerald-600" />
+              <AppIcon icon="Clock" className="w-5 h-5 text-emerald-600" />
               <span>Timeline Urutan Jam Makan Harian (09:00 - 16:00 WIB)</span>
             </h3>
             <span className="text-xs font-medium text-muted-foreground">
@@ -332,7 +315,7 @@ export default function ManageFeedingSchedulesClient() {
                           <img src={item.schedule.image_url} alt={item.schedule.name_id} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                            <ImageIcon className="w-5 h-5" />
+                            <AppIcon icon="Image" className="w-5 h-5" />
                           </div>
                         )}
                       </div>
@@ -346,7 +329,7 @@ export default function ManageFeedingSchedulesClient() {
                           </span>
                           {isConflict && (
                             <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                              <AlertTriangle className="w-3 h-3" />
+                              <AppIcon icon="AlertTriangle" className="w-3 h-3" />
                               Bersamaan
                             </span>
                           )}
@@ -361,7 +344,7 @@ export default function ManageFeedingSchedulesClient() {
                         onClick={() => handleEdit(item.schedule)}
                         className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-border text-xs font-semibold hover:bg-muted transition-colors flex items-center gap-1"
                       >
-                        <Edit2 className="w-3.5 h-3.5" />
+                        <AppIcon icon="Edit2" className="w-3.5 h-3.5" />
                         <span>Edit</span>
                       </button>
                     </div>
@@ -403,7 +386,7 @@ export default function ManageFeedingSchedulesClient() {
                             </div>
                           ) : (
                             <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center flex-shrink-0">
-                              <ImageIcon className="w-5 h-5" />
+                              <AppIcon icon="Image" className="w-5 h-5" />
                             </div>
                           )}
                           <div>
@@ -429,9 +412,9 @@ export default function ManageFeedingSchedulesClient() {
                                     : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
                                 }`}
                               >
-                                <Clock className="w-3 h-3" />
+                                <AppIcon icon="Clock" className="w-3 h-3" />
                                 <span>{t} WIB</span>
-                                {isConflict && <AlertTriangle className="w-3 h-3 text-amber-600 dark:text-amber-400 shrink-0" />}
+                                {isConflict && <AppIcon icon="AlertTriangle" className="w-3 h-3 text-amber-600 dark:text-amber-400 shrink-0" />}
                               </span>
                             );
                           })}
@@ -448,12 +431,12 @@ export default function ManageFeedingSchedulesClient() {
                         >
                           {schedule.is_published ? (
                             <>
-                              <Eye className="w-3.5 h-3.5 text-emerald-600" />
+                              <AppIcon icon="Eye" className="w-3.5 h-3.5 text-emerald-600" />
                               <span>Aktif</span>
                             </>
                           ) : (
                             <>
-                              <EyeOff className="w-3.5 h-3.5 text-slate-400" />
+                              <AppIcon icon="EyeOff" className="w-3.5 h-3.5 text-slate-400" />
                               <span>Disembunyikan</span>
                             </>
                           )}
@@ -466,14 +449,14 @@ export default function ManageFeedingSchedulesClient() {
                             className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors"
                             title="Edit Jadwal"
                           >
-                            <Edit2 className="w-4 h-4" />
+                            <AppIcon icon="Edit2" className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(schedule.id)}
                             className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
                             title="Hapus Jadwal"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <AppIcon icon="Trash2" className="w-4 h-4" />
                           </button>
                         </div>
                       </td>

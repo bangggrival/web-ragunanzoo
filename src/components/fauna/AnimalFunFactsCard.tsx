@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sparkles, Utensils, Compass, Award, Shield, ChevronRight, Zap } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export interface AnimalFunFactsCardProps {
@@ -230,25 +230,25 @@ export default function AnimalFunFactsCard({
       id: 'diet',
       labelId: 'Pola Makan',
       labelEn: 'Diet & Nutrition',
-      icon: <Utensils className="w-3.5 h-3.5" />,
+      icon: <AppIcon name="solar:dish-bold-duotone" className="w-3.5 h-3.5" />,
     },
     {
       id: 'habitat',
       labelId: 'Habitat Alam',
       labelEn: 'Biome & Range',
-      icon: <Compass className="w-3.5 h-3.5" />,
+      icon: <AppIcon name="solar:compass-bold-duotone" className="w-3.5 h-3.5" />,
     },
     {
       id: 'traits',
       labelId: 'Ciri Unik',
       labelEn: 'Unique Traits',
-      icon: <Zap className="w-3.5 h-3.5" />,
+      icon: <AppIcon name="solar:bolt-bold-duotone" className="w-3.5 h-3.5" />,
     },
     {
       id: 'conservation',
       labelId: 'Konservasi',
       labelEn: 'Conservation',
-      icon: <Shield className="w-3.5 h-3.5" />,
+      icon: <AppIcon name="solar:shield-check-bold-duotone" className="w-3.5 h-3.5" />,
     },
   ];
 
@@ -260,7 +260,7 @@ export default function AnimalFunFactsCard({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0 shadow-2xs">
-            <Sparkles className="w-4 h-4" />
+            <AppIcon name="solar:stars-minimalistic-bold-duotone" className="w-4 h-4" />
           </div>
           <div>
             <h3 className="text-base font-bold text-foreground flex items-center gap-1.5">
@@ -277,9 +277,9 @@ export default function AnimalFunFactsCard({
             onClick={onOpenQuiz}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground border border-primary/25 transition-all self-start sm:self-auto hover:scale-105 active:scale-95"
           >
-            <Award className="w-3.5 h-3.5" />
+            <AppIcon name="solar:cup-star-bold-duotone" className="w-3.5 h-3.5" />
             <span>{isEn ? 'Test Your Knowledge' : 'Uji Kuis Satwa Ini'}</span>
-            <ChevronRight className="w-3 h-3" />
+            <AppIcon name="solar:alt-arrow-right-linear" className="w-3 h-3" />
           </button>
         )}
       </div>
@@ -316,7 +316,7 @@ export default function AnimalFunFactsCard({
 
         {/* Fun Highlight Badge */}
         <div className="inline-flex items-center gap-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-900 dark:text-amber-200 text-xs font-medium w-full">
-          <Zap className="w-4 h-4 text-amber-500 flex-shrink-0 animate-bounce" />
+          <AppIcon name="solar:bolt-bold-duotone" className="w-4 h-4 text-amber-500 flex-shrink-0 animate-bounce" />
           <span className="leading-snug">
             <strong>{isEn ? 'Key Fact: ' : 'Fakta Kunci: '}</strong>
             {isEn ? currentFact.highlightEn : currentFact.highlightId}

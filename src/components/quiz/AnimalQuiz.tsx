@@ -3,29 +3,7 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { 
-  CheckCircle2, 
-  XCircle, 
-  Trophy, 
-  RotateCcw, 
-  Sparkles, 
-  ChevronRight, 
-  X, 
-  Flame, 
-  Clock, 
-  HelpCircle, 
-  Scissors, 
-  Lightbulb, 
-  Award, 
-  Download, 
-  Printer, 
-  Share2, 
-  Check, 
-  BookOpen, 
-  GraduationCap, 
-  Smile, 
-  Layers 
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import confetti from 'canvas-confetti';
 import { 
   GeneratedQuestion, 
@@ -535,7 +513,7 @@ export default function AnimalQuiz({
               className="p-1.5 hover:bg-white/20 rounded-xl transition-colors text-white/80 hover:text-white flex-shrink-0"
               title="Tutup Kuis"
             >
-              <X className="w-5 h-5" />
+              <AppIcon name="solar:close-circle-bold" className="w-5 h-5" />
             </button>
           </div>
 
@@ -556,13 +534,17 @@ export default function AnimalQuiz({
                   }`}
                   title="Klik untuk mengubah mode peserta"
                 >
-                  {difficulty === 'junior' ? <Smile className="w-3.5 h-3.5" /> : <GraduationCap className="w-3.5 h-3.5" />}
+                  {difficulty === 'junior' ? (
+                    <AppIcon name="fluent-emoji-flat:grinning-face" className="w-3.5 h-3.5" />
+                  ) : (
+                    <AppIcon name="solar:diploma-bold-duotone" className="w-3.5 h-3.5" />
+                  )}
                   <span>{difficulty === 'junior' ? 'Penjelajah Cilik (SD)' : 'Ranger Pelajar (SMP/SMA)'}</span>
                 </button>
 
                 {currentStreak >= 2 && (
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-orange-500 text-white text-[10px] font-extrabold animate-pulse">
-                    <Flame className="w-3 h-3" />
+                    <AppIcon name="solar:fire-bold" className="w-3 h-3 text-amber-300" />
                     <span>Streak x{getStreakMultiplier(currentStreak).toFixed(1)}</span>
                   </span>
                 )}
@@ -573,7 +555,7 @@ export default function AnimalQuiz({
                   <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-bold ${
                     timeLeft <= 5 ? 'bg-red-500 text-white animate-ping' : 'bg-white/20 text-white'
                   }`}>
-                    <Clock className="w-3 h-3" />
+                    <AppIcon name="solar:clock-circle-bold" className="w-3 h-3" />
                     <span>{timeLeft}s</span>
                   </span>
                 )}
@@ -682,7 +664,11 @@ export default function AnimalQuiz({
                         : 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300'
                     }`}
                   >
-                    {isCorrect ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
+                    {isCorrect ? (
+                      <AppIcon name="solar:check-circle-bold" className="w-4 h-4" />
+                    ) : (
+                      <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
+                    )}
                   </div>
                 ))}
               </div>
@@ -690,7 +676,7 @@ export default function AnimalQuiz({
               {/* Digital Certificate Section */}
               <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-amber-50 to-emerald-50 dark:from-slate-900 dark:to-emerald-950/40 border border-amber-300/50 dark:border-emerald-800 space-y-3 text-left">
                 <div className="flex items-center gap-2">
-                  <Award className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                  <AppIcon name="solar:medal-star-circle-bold" className="w-5 h-5 text-amber-600 dark:text-amber-400" />
                   <div>
                     <h4 className="font-extrabold text-xs sm:text-sm text-foreground">
                       {isEN ? 'Official Wildlife Ranger Certificate' : 'Klaim Sertifikat Penghargaan Penjelajah'}
@@ -728,14 +714,14 @@ export default function AnimalQuiz({
                       onClick={handleDownloadCertificate}
                       className="w-full sm:w-auto flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-primary text-primary-foreground font-bold text-xs shadow-sm active:scale-95 transition-all"
                     >
-                      <Download className="w-4 h-4" />
+                      <AppIcon name="solar:download-bold" className="w-4 h-4" />
                       <span>Unduh Sertifikat (PNG)</span>
                     </button>
                     <button
                       onClick={handlePrintCertificate}
                       className="w-full sm:w-auto flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-muted hover:bg-muted/80 text-foreground border border-border font-bold text-xs active:scale-95 transition-all"
                     >
-                      <Printer className="w-4 h-4" />
+                      <AppIcon name="solar:printer-bold-duotone" className="w-4 h-4" />
                       <span>Cetak Sertifikat</span>
                     </button>
                   </div>
@@ -748,7 +734,7 @@ export default function AnimalQuiz({
                   onClick={() => setShowReview(!showReview)}
                   className="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline"
                 >
-                  <BookOpen className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:book-bookmark-bold-duotone" className="w-3.5 h-3.5" />
                   <span>{showReview ? 'Sembunyikan Pembahasan Soal' : 'Lihat Pembahasan Seluruh Soal'}</span>
                 </button>
 
@@ -786,7 +772,7 @@ export default function AnimalQuiz({
                   onClick={() => reloadQuestions(activeCategory, difficulty)}
                   className="w-full flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl bg-primary text-primary-foreground font-extrabold text-xs shadow-sm hover:scale-[1.01] active:scale-[0.98] transition-all"
                 >
-                  <RotateCcw className="w-4 h-4" />
+                  <AppIcon name="solar:restart-bold" className="w-4 h-4" />
                   <span>Main Lagi (Kategori Ini)</span>
                 </button>
                 <button
@@ -814,7 +800,7 @@ export default function AnimalQuiz({
                     className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-muted border border-border/80 text-[11px] font-bold text-foreground hover:bg-primary/10 hover:border-primary/40 disabled:opacity-40 transition-all"
                     title="Hilangkan 2 pilihan salah (1x per kuis)"
                   >
-                    <Scissors className="w-3 h-3 text-amber-500" />
+                    <AppIcon name="solar:scissors-bold" className="w-3 h-3 text-amber-500" />
                     <span>50:50</span>
                   </button>
 
@@ -825,7 +811,7 @@ export default function AnimalQuiz({
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-muted border border-border/80 text-[11px] font-bold text-foreground hover:bg-amber-500/10 hover:border-amber-500/40 disabled:opacity-40 transition-all"
                       title="Lihat petunjuk fakta unik"
                     >
-                      <Lightbulb className="w-3 h-3 text-amber-500" />
+                      <AppIcon name="solar:lightbulb-bolt-bold-duotone" className="w-3 h-3 text-amber-500" />
                       <span>Petunjuk</span>
                     </button>
                   )}
@@ -835,7 +821,7 @@ export default function AnimalQuiz({
               {/* Hint Box (if opened) */}
               {showHint && currentQ.hint_id && (
                 <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-200 flex items-start gap-2 animate-fade-in">
-                  <Lightbulb className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <AppIcon name="solar:lightbulb-bolt-bold-duotone" className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-bold">Petunjuk Edukasi:</p>
                     <p className="text-[11px] mt-0.5">{isEN ? currentQ.hint_en : currentQ.hint_id}</p>
@@ -887,8 +873,8 @@ export default function AnimalQuiz({
                         <span className="text-foreground leading-normal">{option}</span>
                       </div>
 
-                      {showResult && isCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />}
-                      {showResult && isSelected && !isCorrect && <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />}
+                      {showResult && isCorrect && <AppIcon name="solar:check-circle-bold" className="w-5 h-5 text-emerald-600 flex-shrink-0" />}
+                      {showResult && isSelected && !isCorrect && <AppIcon name="solar:close-circle-bold" className="w-5 h-5 text-red-600 flex-shrink-0" />}
                     </button>
                   );
                 })}
@@ -904,12 +890,12 @@ export default function AnimalQuiz({
                   <div className="flex items-center gap-1.5 font-extrabold text-sm">
                     {selectedAnswer === currentQ.correctIndex ? (
                       <>
-                        <Sparkles className="w-4 h-4 text-emerald-600" />
+                        <AppIcon name="solar:stars-minimalistic-bold" className="w-4 h-4 text-emerald-600" />
                         <span>Jawaban Anda Tepat!</span>
                       </>
                     ) : (
                       <>
-                        <HelpCircle className="w-4 h-4 text-amber-600" />
+                        <AppIcon name="solar:question-circle-bold" className="w-4 h-4 text-amber-600" />
                         <span>Pembahasan Fakta:</span>
                       </>
                     )}
@@ -927,7 +913,7 @@ export default function AnimalQuiz({
                   className="w-full py-3.5 rounded-2xl bg-primary text-primary-foreground font-extrabold text-sm flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-[0.98] transition-all"
                 >
                   <span>{currentQuestion < questions.length - 1 ? 'Pertanyaan Berikutnya' : 'Lihat Hasil Akhir'}</span>
-                  <ChevronRight className="w-4 h-4" />
+                  <AppIcon name="solar:alt-arrow-right-linear" className="w-4 h-4" />
                 </button>
               )}
             </div>

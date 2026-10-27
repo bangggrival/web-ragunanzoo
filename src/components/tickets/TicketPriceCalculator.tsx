@@ -1,32 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { 
-  Users, 
-  Baby, 
-  Car, 
-  Bike, 
-  Bus, 
-  Footprints, 
-  Sparkles, 
-  Calculator, 
-  CreditCard, 
-  RotateCcw, 
-  CheckCircle2, 
-  Info, 
-  AlertCircle,
-  ShieldCheck,
-  Zap,
-  ArrowRight,
-  ChevronDown,
-  Ticket,
-  Ship,
-  Train,
-  Smile,
-  Compass,
-  Calendar,
-  ExternalLink
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTicketContent } from '@/hooks/useTicketContent';
 import InstantTicketPreview from '@/components/tickets/InstantTicketPreview';
@@ -76,11 +51,11 @@ export default function TicketPriceCalculator({
   }), [settings]);
 
   const vehicleRates: Record<VehicleType, { labelId: string; labelEn: string; price: number; icon: React.ReactNode }> = useMemo(() => ({
-    none: { labelId: 'Tanpa Kendaraan', labelEn: 'No Vehicle (Walk)', price: 0, icon: <Footprints className="w-4 h-4" /> },
-    bike: { labelId: 'Sepeda', labelEn: 'Bicycle', price: settings?.parking_bike ?? 1000, icon: <Bike className="w-4 h-4" /> },
-    motor: { labelId: 'Motor', labelEn: 'Motorcycle', price: settings?.parking_motor ?? 5000, icon: <Bike className="w-4 h-4" /> },
-    car: { labelId: 'Mobil', labelEn: 'Car / SUV', price: settings?.parking_car ?? 10000, icon: <Car className="w-4 h-4" /> },
-    bus: { labelId: 'Bus Wisata', labelEn: 'Tour Bus', price: settings?.parking_bus ?? 15000, icon: <Bus className="w-4 h-4" /> },
+    none: { labelId: 'Tanpa Kendaraan', labelEn: 'No Vehicle (Walk)', price: 0, icon: <AppIcon name="fluent-emoji-flat:footprints" className="w-4 h-4" /> },
+    bike: { labelId: 'Sepeda', labelEn: 'Bicycle', price: settings?.parking_bike ?? 1000, icon: <AppIcon name="fluent-emoji-flat:bicycle" className="w-4 h-4" /> },
+    motor: { labelId: 'Motor', labelEn: 'Motorcycle', price: settings?.parking_motor ?? 5000, icon: <AppIcon name="fluent-emoji-flat:motorcycle" className="w-4 h-4" /> },
+    car: { labelId: 'Mobil', labelEn: 'Car / SUV', price: settings?.parking_car ?? 10000, icon: <AppIcon name="fluent-emoji-flat:automobile" className="w-4 h-4" /> },
+    bus: { labelId: 'Bus Wisata', labelEn: 'Tour Bus', price: settings?.parking_bus ?? 15000, icon: <AppIcon name="fluent-emoji-flat:bus" className="w-4 h-4" /> },
   }), [settings]);
 
   const formatRupiah = (val: number) => {
@@ -257,7 +232,7 @@ export default function TicketPriceCalculator({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-amber-300 shadow-inner">
-              <Calculator className="w-5 h-5" />
+              <AppIcon name="solar:calculator-minimalistic-bold-duotone" className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-lg md:text-xl font-bold tracking-tight text-white flex items-center gap-2">
@@ -279,7 +254,7 @@ export default function TicketPriceCalculator({
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white/90 border border-white/15 transition-all self-start sm:self-auto hover:scale-105 active:scale-95"
             title="Reset simulasi"
           >
-            <RotateCcw className="w-3 h-3" />
+            <AppIcon name="solar:restart-bold" className="w-3 h-3" />
             <span>Reset</span>
           </button>
         </div>
@@ -330,7 +305,7 @@ export default function TicketPriceCalculator({
               <div className="flex items-center justify-between p-3 rounded-2xl bg-muted/40 border border-border/80">
                 <div className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                    <Users className="w-4 h-4" />
+                    <AppIcon name="solar:users-group-two-rounded-bold-duotone" className="w-4 h-4" />
                   </div>
                   <div>
                     <p className="font-bold text-sm text-foreground">{isEn ? 'Adult' : 'Dewasa'}</p>
@@ -359,7 +334,7 @@ export default function TicketPriceCalculator({
               <div className="flex items-center justify-between p-3 rounded-2xl bg-muted/40 border border-border/80">
                 <div className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-                    <Baby className="w-4 h-4" />
+                    <AppIcon name="fluent-emoji-flat:baby" className="w-4 h-4" />
                   </div>
                   <div>
                     <p className="font-bold text-sm text-foreground">{isEn ? 'Children' : 'Anak-anak'}</p>
@@ -431,7 +406,7 @@ export default function TicketPriceCalculator({
                 {isEn ? '3. Attractions & Leisure Rides' : '3. Wahana & Atraksi Satwa Rekreasi'}
               </label>
               <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
-                <Calendar className="w-3 h-3 text-primary" />
+                <AppIcon name="solar:calendar-bold-duotone" className="w-3 h-3 text-primary" />
                 <span className="font-semibold">{dayType === 'weekend' ? 'Tarif Libur' : 'Tarif Hari Kerja'}</span>
               </div>
             </div>
@@ -620,7 +595,7 @@ export default function TicketPriceCalculator({
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <CreditCard className="w-3.5 h-3.5 text-primary" />
+              <AppIcon name="solar:card-bold-duotone" className="w-3.5 h-3.5 text-primary" />
               <span>{isEn ? 'JakCard Balance' : 'Simulasi Saldo JakCard'}</span>
             </button>
 
@@ -632,7 +607,7 @@ export default function TicketPriceCalculator({
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Ticket className="w-3.5 h-3.5 text-amber-500" />
+              <AppIcon name="solar:ticket-bold-duotone" className="w-3.5 h-3.5 text-amber-500" />
               <span>{isEn ? 'Digital Pass Preview' : 'Tiket Digital Instan'}</span>
             </button>
           </div>
@@ -653,7 +628,7 @@ export default function TicketPriceCalculator({
                     </span>
                   </div>
                   <div className="flex items-center gap-1 opacity-80">
-                    <Zap className="w-4 h-4" />
+                    <AppIcon name="solar:bolt-bold-duotone" className="w-4 h-4" />
                     <span className="text-[10px] font-bold">NFC TAP</span>
                   </div>
                 </div>
@@ -719,7 +694,7 @@ export default function TicketPriceCalculator({
                 </div>
 
                 <p className="text-[11px] text-muted-foreground leading-relaxed flex items-start gap-1.5 pt-1">
-                  <Info className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
+                  <AppIcon name="solar:info-circle-bold-duotone" className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
                   <span>
                     {isEn
                       ? 'One JakCard can be tapped multiple times for your whole group at gate turnstiles!'
@@ -755,14 +730,14 @@ export default function TicketPriceCalculator({
                 className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-sky-600/20 hover:-translate-y-0.5 active:scale-[0.98] transition-all group"
               >
                 <div className="flex items-center gap-2 min-w-0">
-                  <Sparkles className="w-4 h-4 text-sky-200 shrink-0" />
+                  <AppIcon name="solar:stars-minimalistic-bold" className="w-4 h-4 text-sky-200 shrink-0" />
                   <span className="truncate">{isEn ? 'Try Online Simulation Flow' : 'Coba Simulasi Alur E-Tiket'}</span>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   <span className="text-[11px] font-semibold bg-white/20 px-2 py-0.5 rounded-full">
                     {adultCount + childCount} {isEn ? 'Tickets' : 'Tiket'}
                   </span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <AppIcon name="solar:arrow-right-linear" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
             )}
@@ -775,10 +750,10 @@ export default function TicketPriceCalculator({
               className="w-full flex items-center justify-between p-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs active:scale-[0.98] transition-all group gap-2"
             >
               <div className="flex items-center gap-2 min-w-0">
-                <Ticket className="w-3.5 h-3.5 text-emerald-200 shrink-0" />
+                <AppIcon name="solar:ticket-bold-duotone" className="w-3.5 h-3.5 text-emerald-200 shrink-0" />
                 <span className="truncate">{isEn ? 'Purchase Authentic Ticket (Official Portal) ↗' : 'Beli Tiket Resmi di Portal Eksternal ↗'}</span>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-emerald-200 group-hover:translate-x-0.5 transition-transform shrink-0" />
+              <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5 text-emerald-200 group-hover:translate-x-0.5 transition-transform shrink-0" />
             </a>
 
             {onProceedToJakCardGuide && (
@@ -787,10 +762,10 @@ export default function TicketPriceCalculator({
                 className="w-full flex items-center justify-between p-3 rounded-2xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-800 dark:text-emerald-300 font-bold text-xs border border-emerald-600/20 active:scale-[0.98] transition-all gap-2"
               >
                 <div className="flex items-center gap-2 min-w-0">
-                  <CreditCard className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <AppIcon name="solar:card-bold-duotone" className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   <span className="truncate">{isEn ? 'JakCard Entry & Top-up Guide' : 'Panduan Kartu JakCard & Top Up'}</span>
                 </div>
-                <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+                <AppIcon name="solar:arrow-right-linear" className="w-3.5 h-3.5 shrink-0" />
               </button>
             )}
           </div>
@@ -803,7 +778,7 @@ export default function TicketPriceCalculator({
       <div className="border-t border-border/80 bg-muted/20 px-5 md:px-6 py-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+            <AppIcon name="solar:shield-check-bold-duotone" className="w-4 h-4 text-emerald-600 flex-shrink-0" />
             <span className="italic">
               {settings?.legal_basis_text || 'Peraturan Daerah Provinsi DKI Jakarta No. 1 Tahun 2024 tentang Pajak Daerah dan Retribusi Daerah'}
             </span>
@@ -815,7 +790,7 @@ export default function TicketPriceCalculator({
               className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline self-start sm:self-auto"
             >
               <span>{isEn ? 'Other Tariffs & Facilities' : 'Tarif Wahana & Sewa Lainnya'}</span>
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showAdditionalRides ? 'rotate-180' : ''}`} />
+              <AppIcon name="solar:alt-arrow-down-linear" className={`w-3.5 h-3.5 transition-transform duration-200 ${showAdditionalRides ? 'rotate-180' : ''}`} />
             </button>
           )}
         </div>

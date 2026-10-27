@@ -2,24 +2,7 @@
 
 import React from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { 
-  GraduationCap, 
-  FlaskConical, 
-  Stethoscope, 
-  Mic, 
-  Calendar, 
-  Clock, 
-  CheckCircle2, 
-  Copy, 
-  Printer, 
-  Share2, 
-  Sparkles, 
-  Building2, 
-  User, 
-  ShieldCheck,
-  Search,
-  RotateCcw
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -54,28 +37,28 @@ export default function DigitalSubmissionPass({
   const programConfig = {
     pkl: {
       label: isEn ? 'Internship & Field Practice (PKL)' : 'Praktik Kerja Lapangan (PKL) / Magang',
-      icon: GraduationCap,
+      icon: 'solar:diploma-bold-duotone',
       color: 'emerald',
       badgeClass: 'bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border-emerald-500/30',
       headerBg: 'from-emerald-700 to-emerald-900',
     },
     research: {
       label: isEn ? 'Academic Research (Thesis/Dissertation)' : 'Penelitian & Riset Akademik',
-      icon: FlaskConical,
+      icon: 'solar:test-tube-minimalistic-bold-duotone',
       color: 'blue',
       badgeClass: 'bg-blue-500/10 text-blue-800 dark:text-blue-300 border-blue-500/30',
       headerBg: 'from-blue-700 to-blue-900',
     },
     koas: {
       label: isEn ? 'Veterinary Clinical Rotation (Koas)' : 'Kepaniteraan Klinik (Koas Dokter Hewan)',
-      icon: Stethoscope,
+      icon: 'solar:stethoscope-bold-duotone',
       color: 'teal',
       badgeClass: 'bg-teal-500/10 text-teal-800 dark:text-teal-300 border-teal-500/30',
       headerBg: 'from-teal-700 to-teal-900',
     },
     interview: {
       label: isEn ? 'Media Interview & News Coverage' : 'Wawancara & Liputan Media',
-      icon: Mic,
+      icon: 'solar:microphone-3-bold-duotone',
       color: 'amber',
       badgeClass: 'bg-amber-500/10 text-amber-800 dark:text-amber-300 border-amber-500/30',
       headerBg: 'from-amber-700 to-amber-900',
@@ -133,7 +116,7 @@ export default function DigitalSubmissionPass({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-inner border border-white/25">
-                <ProgIcon className="w-6 h-6 text-white" />
+                <AppIcon name={currentProg.icon} className="w-6 h-6 text-white" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -180,7 +163,7 @@ export default function DigitalSubmissionPass({
                     className="p-1.5 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors text-muted-foreground"
                     title={isEn ? 'Copy tracking code' : 'Salin kode pelacakan'}
                   >
-                    <Copy className="w-4 h-4" />
+                    <AppIcon name="solar:copy-bold" className="w-4 h-4" />
                   </button>
                 </div>
                 <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -191,7 +174,7 @@ export default function DigitalSubmissionPass({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 <div className="p-3 rounded-2xl bg-muted/40 border border-border/60">
                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1">
-                    <User className="w-3.5 h-3.5 text-primary" />
+                    <AppIcon name="solar:user-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                     <span className="font-semibold">{isEn ? 'Applicant Name' : 'Nama Pemohon'}</span>
                   </div>
                   <p className="font-bold text-sm text-foreground truncate">{applicantName || '-'}</p>
@@ -199,7 +182,7 @@ export default function DigitalSubmissionPass({
 
                 <div className="p-3 rounded-2xl bg-muted/40 border border-border/60">
                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1">
-                    <Building2 className="w-3.5 h-3.5 text-primary" />
+                    <AppIcon name="solar:buildings-2-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                     <span className="font-semibold">{isEn ? 'Institution' : 'Asal Sekolah / Kampus'}</span>
                   </div>
                   <p className="font-bold text-sm text-foreground truncate">{institutionName || '-'}</p>
@@ -208,7 +191,7 @@ export default function DigitalSubmissionPass({
 
               <div className="p-3 rounded-2xl bg-muted/40 border border-border/60">
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1">
-                  <Calendar className="w-3.5 h-3.5 text-primary" />
+                  <AppIcon name="solar:calendar-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                   <span className="font-semibold">{isEn ? 'Program & Duration' : 'Program & Periode'}</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
@@ -237,7 +220,7 @@ export default function DigitalSubmissionPass({
                 Scan Live Status
               </span>
               <div className="flex items-center gap-1 text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold mt-1">
-                <ShieldCheck className="w-3.5 h-3.5" />
+                <AppIcon name="solar:shield-check-bold" className="w-3.5 h-3.5" />
                 <span>Terverifikasi Sistem</span>
               </div>
             </div>
@@ -255,7 +238,7 @@ export default function DigitalSubmissionPass({
           <div className="bg-primary/5 rounded-2xl p-4 border border-primary/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                <Clock className="w-4 h-4" />
+                <AppIcon name="solar:clock-circle-bold-duotone" className="w-4 h-4" />
               </div>
               <div>
                 <p className="font-bold text-foreground">
@@ -269,7 +252,7 @@ export default function DigitalSubmissionPass({
               </div>
             </div>
             <div className="flex items-center gap-1.5 text-muted-foreground shrink-0 text-[11px]">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <AppIcon name="solar:stars-minimalistic-bold" className="w-3.5 h-3.5 text-amber-500" />
               <span>{dateNow}</span>
             </div>
           </div>
@@ -283,7 +266,7 @@ export default function DigitalSubmissionPass({
           onClick={handlePrint}
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card hover:bg-muted border border-border text-foreground font-bold text-xs sm:text-sm shadow-xs transition-all hover:scale-[1.02]"
         >
-          <Printer className="w-4 h-4 text-primary" />
+          <AppIcon name="solar:printer-bold-duotone" className="w-4 h-4 text-primary" />
           <span>{isEn ? 'Print / Save PDF' : 'Cetak / Simpan Slip'}</span>
         </button>
 
@@ -291,7 +274,7 @@ export default function DigitalSubmissionPass({
           onClick={handleShareWhatsApp}
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow-sm transition-all hover:scale-[1.02]"
         >
-          <Share2 className="w-4 h-4" />
+          <AppIcon name="solar:share-bold" className="w-4 h-4" />
           <span>{isEn ? 'Share to WhatsApp' : 'Kirim Ringkasan ke WhatsApp'}</span>
         </button>
 
@@ -300,7 +283,7 @@ export default function DigitalSubmissionPass({
             onClick={onTrackStatus}
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground font-bold text-xs sm:text-sm shadow-sm transition-all hover:scale-[1.02]"
           >
-            <Search className="w-4 h-4" />
+            <AppIcon name="solar:magnifer-linear" className="w-4 h-4" />
             <span>{isEn ? 'Track Status Now' : 'Lacak Status Langsung'}</span>
           </button>
         )}
@@ -310,7 +293,7 @@ export default function DigitalSubmissionPass({
             onClick={onNewRegistration}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-muted-foreground hover:text-foreground font-semibold text-xs transition-colors"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
+            <AppIcon name="solar:restart-bold" className="w-3.5 h-3.5" />
             <span>{isEn ? 'New Application' : 'Daftar Baru'}</span>
           </button>
         )}

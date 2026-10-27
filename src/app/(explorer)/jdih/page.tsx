@@ -1,23 +1,23 @@
 "use client";
 
 import { useState } from 'react';
-import { FileText, Search, Download, ExternalLink, Calendar, Scale, ChevronDown, ChevronUp, Scroll, ClipboardCheck, Pin, Mail, BookOpen } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useJdihDocuments, JDIH_TYPES, JDIH_STATUSES } from '@/hooks/useJdihDocuments';
 
 function renderJdihTypeIcon(type: string, className: string = "w-5 h-5") {
   switch (type) {
     case 'peraturan':
-      return <Scroll className={className} />;
+      return <AppIcon icon="Scroll" className={className} />;
     case 'keputusan':
-      return <ClipboardCheck className={className} />;
+      return <AppIcon icon="ClipboardCheck" className={className} />;
     case 'instruksi':
-      return <Pin className={className} />;
+      return <AppIcon icon="Pin" className={className} />;
     case 'surat_edaran':
-      return <Mail className={className} />;
+      return <AppIcon icon="Mail" className={className} />;
     case 'pedoman':
-      return <BookOpen className={className} />;
+      return <AppIcon icon="BookOpen" className={className} />;
     default:
-      return <FileText className={className} />;
+      return <AppIcon icon="FileText" className={className} />;
   }
 }
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -65,7 +65,7 @@ export default function JDIH() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <Scale className="w-6 h-6" />
+              <AppIcon icon="Scale" className="w-6 h-6" />
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold">JDIH</h1>
@@ -78,7 +78,7 @@ export default function JDIH() {
           </div>
 
           <div className="relative max-w-xl">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
+            <AppIcon icon="Search" className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
             <input
               type="text"
               placeholder={language === 'en' ? 'Search documents...' : 'Cari dokumen...'}
@@ -134,7 +134,7 @@ export default function JDIH() {
         {/* Stats */}
         <div className="flex items-center gap-4 mb-6 text-sm text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <FileText className="w-4 h-4" />
+            <AppIcon icon="FileText" className="w-4 h-4" />
             {filtered.length} {language === 'en' ? 'documents' : 'dokumen'}
           </span>
         </div>
@@ -153,7 +153,7 @@ export default function JDIH() {
         ) : filtered.length === 0 ? (
           <div className="text-center py-16">
             <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-10 h-10 text-muted-foreground/40" />
+              <AppIcon icon="FileText" className="w-10 h-10 text-muted-foreground/40" />
             </div>
             <h3 className="text-lg font-semibold text-muted-foreground">
               {language === 'en' ? 'No documents found' : 'Tidak ada dokumen ditemukan'}
@@ -206,7 +206,7 @@ export default function JDIH() {
 
                     {/* Expand icon */}
                     <div className="flex-shrink-0 mt-1 text-muted-foreground">
-                      {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                      {isExpanded ? <AppIcon icon="ChevronUp" className="w-5 h-5" /> : <AppIcon icon="ChevronDown" className="w-5 h-5" />}
                     </div>
                   </button>
 
@@ -222,14 +222,14 @@ export default function JDIH() {
                       <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
                         {doc.date_enacted && (
                           <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5" />
+                            <AppIcon icon="Calendar" className="w-3.5 h-3.5" />
                             {language === 'en' ? 'Enacted: ' : 'Ditetapkan: '}
                             {new Date(doc.date_enacted).toLocaleDateString(language === 'en' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
                           </div>
                         )}
                         {doc.date_promulgated && (
                           <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5" />
+                            <AppIcon icon="Calendar" className="w-3.5 h-3.5" />
                             {language === 'en' ? 'Promulgated: ' : 'Diundangkan: '}
                             {new Date(doc.date_promulgated).toLocaleDateString(language === 'en' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
                           </div>
@@ -245,12 +245,12 @@ export default function JDIH() {
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 h-10 px-5 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
                           >
-                            <Download className="w-4 h-4" />
+                            <AppIcon icon="Download" className="w-4 h-4" />
                             {language === 'en' ? 'Download Document' : 'Unduh Dokumen'}
                           </a>
                         ) : (
                           <span className="inline-flex items-center gap-2 h-10 px-5 text-sm font-medium rounded-lg bg-muted text-muted-foreground cursor-not-allowed">
-                            <FileText className="w-4 h-4" />
+                            <AppIcon icon="FileText" className="w-4 h-4" />
                             {language === 'en' ? 'File not available' : 'File belum tersedia'}
                           </span>
                         )}
@@ -261,7 +261,7 @@ export default function JDIH() {
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 h-10 px-5 text-sm font-medium rounded-lg border border-border hover:bg-muted transition-colors"
                           >
-                            <ExternalLink className="w-4 h-4" />
+                            <AppIcon icon="ExternalLink" className="w-4 h-4" />
                             {language === 'en' ? 'View Source' : 'Lihat Sumber'}
                           </a>
                         )}

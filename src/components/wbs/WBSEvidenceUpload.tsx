@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Upload, X, FileImage, FileText, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -95,9 +95,9 @@ export function WBSEvidenceUpload({
 
   const getFileIcon = (url: string) => {
     if (url.match(/\.(jpg|jpeg|png|webp)$/i)) {
-      return <FileImage className="w-4 h-4" />;
+      return <AppIcon icon="solar:gallery-bold-duotone" className="w-4 h-4" />;
     }
-    return <FileText className="w-4 h-4" />;
+    return <AppIcon icon="solar:document-text-bold-duotone" className="w-4 h-4" />;
   };
 
   const isImage = (url: string) => {
@@ -126,12 +126,12 @@ export function WBSEvidenceUpload({
         >
           {isUploading ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
               Mengunggah...
             </>
           ) : (
             <>
-              <Upload className="w-4 h-4" />
+              <AppIcon name="solar:upload-linear" className="w-4 h-4" />
               Unggah Bukti
             </>
           )}
@@ -157,7 +157,7 @@ export function WBSEvidenceUpload({
                 />
               ) : (
                 <div className="w-full h-24 flex flex-col items-center justify-center gap-2">
-                  <FileText className="w-8 h-8 text-muted-foreground" />
+                  <AppIcon name="solar:document-text-bold-duotone" className="w-8 h-8 text-muted-foreground" />
                   <span className="text-xs text-muted-foreground">PDF</span>
                 </div>
               )}
@@ -167,7 +167,7 @@ export function WBSEvidenceUpload({
                   onClick={() => handleRemove(index)}
                   className="absolute top-1 right-1 p-1 bg-destructive/90 text-destructive-foreground rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                 >
-                  <X className="w-3 h-3" />
+                  <AppIcon name="solar:close-circle-bold" className="w-3 h-3" />
                 </button>
               )}
             </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FileImage, FileText, ExternalLink, X } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 interface WBSEvidenceViewerProps {
@@ -47,10 +47,10 @@ export function WBSEvidenceViewer({ evidenceUrls }: WBSEvidenceViewerProps) {
               </>
             ) : (
               <div className="w-full h-24 flex flex-col items-center justify-center gap-2 group-hover:bg-muted/50 transition-colors">
-                <FileText className="w-8 h-8 text-muted-foreground" />
+                <AppIcon name="solar:document-text-bold-duotone" className="w-8 h-8 text-muted-foreground" />
                 <div className="flex items-center gap-1 text-xs text-muted-foreground">
                   <span>PDF</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <AppIcon name="solar:arrow-right-up-linear" className="w-3 h-3" />
                 </div>
               </div>
             )}
@@ -66,7 +66,7 @@ export function WBSEvidenceViewer({ evidenceUrls }: WBSEvidenceViewerProps) {
               onClick={() => setSelectedImage(null)}
               className="absolute -top-10 right-0 p-2 text-white hover:text-white/80"
             >
-              <X className="w-6 h-6" />
+              <AppIcon name="solar:close-circle-bold" className="w-6 h-6" />
             </button>
             {selectedImage && (
               <img

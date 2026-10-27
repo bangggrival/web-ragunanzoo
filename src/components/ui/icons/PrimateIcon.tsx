@@ -1,7 +1,12 @@
 import React, { forwardRef } from 'react';
-import type { LucideProps, LucideIcon } from 'lucide-react';
 
-export const PrimateIcon: LucideIcon = forwardRef<SVGSVGElement, LucideProps>(
+export interface SvgIconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string;
+  size?: number | string;
+  strokeWidth?: number | string;
+}
+
+export const PrimateIcon = forwardRef<SVGSVGElement, SvgIconProps>(
   ({ color = 'currentColor', size = 24, strokeWidth = 2, className, ...props }, ref) => {
     return (
       <svg
@@ -18,19 +23,18 @@ export const PrimateIcon: LucideIcon = forwardRef<SVGSVGElement, LucideProps>(
         className={className}
         {...props}
       >
-        {/* Head outline */}
-        <circle cx="12" cy="12" r="7" />
-        {/* Characteristic rounded primate ears */}
-        <path d="M5 9.5a2.5 2.5 0 0 0 0 5" />
-        <path d="M19 9.5a2.5 2.5 0 0 1 0 5" />
-        {/* Brow ridge / Schmutzer ape eyebrow arch */}
-        <path d="M8.5 10c.8-.8 2.2-.8 3.5.8 1.3-1.6 2.7-1.6 3.5-.8" />
-        {/* Eyes */}
-        <circle cx="10" cy="11.5" r=".5" fill="currentColor" />
-        <circle cx="14" cy="11.5" r=".5" fill="currentColor" />
-        {/* Muzzle / nose and mouth */}
-        <path d="M11 14h2" />
-        <path d="M9.5 16c1 1 4 1 5 0" />
+        {/* Natural Primate/Orangutan Crown & Cheek Flanges */}
+        <path d="M12 4C7.5 4 4.5 7.5 4.5 12c0 3.5 1.5 6.5 3.5 8.5C10 22 12 22 12 22s2 0 4-1.5c2-2 3.5-5 3.5-8.5C19.5 7.5 16.5 4 12 4z" />
+        {/* Prominent Ape Brow Arch */}
+        <path d="M8 10.5c1.2-1 2.8-.5 4 .5 1.2-1 2.8-1.5 4-.5" />
+        {/* Intelligent Deep Eyes */}
+        <circle cx="9.5" cy="12" r=".75" fill="currentColor" />
+        <circle cx="14.5" cy="12" r=".75" fill="currentColor" />
+        {/* Primate Muzzle & Nostrils */}
+        <ellipse cx="12" cy="16" rx="3" ry="2" />
+        <circle cx="11" cy="15.5" r=".4" fill="currentColor" />
+        <circle cx="13" cy="15.5" r=".4" fill="currentColor" />
+        <path d="M10.5 17.2c.8.5 2.2.5 3 0" />
       </svg>
     );
   }

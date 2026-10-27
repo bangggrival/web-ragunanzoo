@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { X, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/contexts/LanguageContext';
 import {
@@ -160,7 +160,7 @@ export default function AnnouncementPopup() {
           className="absolute top-2 right-2 sm:-top-5 sm:-right-5 z-30 w-9 h-9 sm:w-10 sm:h-10 bg-white hover:bg-gray-100 text-black rounded-full flex items-center justify-center shadow-xl transition-transform hover:scale-110 border border-gray-200"
           aria-label="Close"
         >
-          <X className="w-5 h-5" />
+          <AppIcon name="solar:close-circle-bold" className="w-5 h-5" />
         </button>
 
         {/* Carousel */}
@@ -189,14 +189,14 @@ export default function AnnouncementPopup() {
               className="absolute -left-2 sm:-left-6 md:-left-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110"
               aria-label="Previous"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <AppIcon name="solar:alt-arrow-left-linear" className="w-5 h-5" />
             </button>
             <button
               onClick={scrollNext}
               className="absolute -right-2 sm:-right-6 md:-right-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110"
               aria-label="Next"
             >
-              <ChevronRight className="w-5 h-5" />
+              <AppIcon name="solar:alt-arrow-right-linear" className="w-5 h-5" />
             </button>
           </div>
         )}
@@ -210,9 +210,9 @@ export default function AnnouncementPopup() {
               aria-label={isPlaying ? "Pause autoplay" : "Play autoplay"}
             >
               {isPlaying ? (
-                <Pause className="w-4 h-4 text-white" />
+                <AppIcon name="solar:pause-bold" className="w-4 h-4 text-white" />
               ) : (
-                <Play className="w-4 h-4 text-white ml-0.5" />
+                <AppIcon name="solar:play-bold" className="w-4 h-4 text-white ml-0.5" />
               )}
             </button>
             

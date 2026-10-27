@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
-import { Bell, Plus, Edit2, Trash2, X, ToggleLeft, ToggleRight, Upload, Globe, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Announcement } from '@/hooks/useAnnouncements';
 import { toast } from 'sonner';
 import { Switch } from '@/components/ui/switch';
@@ -219,7 +219,7 @@ export default function ManageAnnouncementsClient() {
           onClick={handleAdd}
           className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-teal-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-semibold shadow-[0_2px_15px_-3px_rgba(16,185,129,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(16,185,129,0.5)] hover:-translate-y-0.5"
         >
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           Tambah Pengumuman
         </button>
       </div>
@@ -227,7 +227,7 @@ export default function ManageAnnouncementsClient() {
       {activeAnnouncement && (
         <div className="bg-gradient-to-r from-blue-500/10 to-green-500/10 border border-blue-500/20 p-5 rounded-[1.5rem] backdrop-blur-xl">
           <div className="flex items-center gap-2 mb-3">
-            <Bell className="w-5 h-5 text-blue-500" />
+            <AppIcon icon="Bell" className="w-5 h-5 text-blue-500" />
             <span className="text-sm font-bold text-blue-600">Pengumuman Aktif Saat Ini</span>
           </div>
           <div className="flex gap-4 items-center">
@@ -245,7 +245,7 @@ export default function ManageAnnouncementsClient() {
       {announcements.length === 0 ? (
         <div className="text-center py-16 px-4 bg-white/60 backdrop-blur-xl border border-slate-200/60 rounded-[2rem]">
           <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100">
-            <Bell className="w-8 h-8 text-slate-300" />
+            <AppIcon icon="Bell" className="w-8 h-8 text-slate-300" />
           </div>
           <h3 className="text-lg font-bold text-slate-800">Belum ada pengumuman</h3>
           <p className="text-slate-500 mt-1 mb-6">Mulai tambahkan pengumuman baru.</p>
@@ -271,7 +271,7 @@ export default function ManageAnnouncementsClient() {
                           <img src={item.image_url} alt="" className="w-14 h-14 object-cover rounded-xl shadow-sm border border-slate-200/60 flex-shrink-0" />
                         ) : (
                           <div className="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <Bell className="w-6 h-6 text-slate-300" />
+                            <AppIcon icon="Bell" className="w-6 h-6 text-slate-300" />
                           </div>
                         )}
                         <div>
@@ -298,19 +298,19 @@ export default function ManageAnnouncementsClient() {
                           onClick={() => handleToggleActive(item)}
                           className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors"
                         >
-                          {item.is_active ? <ToggleRight className="w-6 h-6 text-blue-500" /> : <ToggleLeft className="w-6 h-6 text-slate-300 hover:text-slate-400" />}
+                          {item.is_active ? <AppIcon icon="ToggleRight" className="w-6 h-6 text-blue-500" /> : <AppIcon icon="ToggleLeft" className="w-6 h-6 text-slate-300 hover:text-slate-400" />}
                         </button>
                         <button 
                           onClick={() => handleEdit(item)}
                           className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
                         >
-                          <Edit2 className="w-4 h-4" />
+                          <AppIcon icon="Edit2" className="w-4 h-4" />
                         </button>
                         <button 
                           onClick={() => handleDelete(item.id)}
                           className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <AppIcon icon="Trash2" className="w-4 h-4" />
                         </button>
                       </div>
                     </td>
@@ -329,7 +329,7 @@ export default function ManageAnnouncementsClient() {
                       <img src={item.image_url} alt="" className="w-14 h-14 object-cover rounded-xl shadow-sm border border-slate-200/60 flex-shrink-0" />
                     ) : (
                       <div className="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <Bell className="w-6 h-6 text-slate-300" />
+                        <AppIcon icon="Bell" className="w-6 h-6 text-slate-300" />
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
@@ -344,14 +344,14 @@ export default function ManageAnnouncementsClient() {
                   </div>
                   <div className="flex flex-col items-end gap-2 flex-shrink-0">
                     <button onClick={() => handleToggleActive(item)}>
-                      {item.is_active ? <ToggleRight className="w-6 h-6 text-blue-500" /> : <ToggleLeft className="w-6 h-6 text-slate-300" />}
+                      {item.is_active ? <AppIcon icon="ToggleRight" className="w-6 h-6 text-blue-500" /> : <AppIcon icon="ToggleLeft" className="w-6 h-6 text-slate-300" />}
                     </button>
                     <div className="flex gap-1">
                       <button onClick={() => handleEdit(item)} className="p-1 text-slate-400 hover:text-blue-500">
-                        <Edit2 className="w-4 h-4" />
+                        <AppIcon icon="Edit2" className="w-4 h-4" />
                       </button>
                       <button onClick={() => handleDelete(item.id)} className="p-1 text-slate-400 hover:text-rose-500">
-                        <Trash2 className="w-4 h-4" />
+                        <AppIcon icon="Trash2" className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
@@ -379,12 +379,12 @@ export default function ManageAnnouncementsClient() {
             <div className="manager-modal-header shrink-0 bg-transparent border-b border-slate-100 p-4 sm:p-5 flex items-center justify-between">
               <div className="manager-modal-title flex items-center gap-3">
                 <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center border border-blue-100 flex-shrink-0">
-                  <Bell className="w-5 h-5 text-blue-500" />
+                  <AppIcon icon="Bell" className="w-5 h-5 text-blue-500" />
                 </div>
                 <span className="font-bold text-slate-800 text-base sm:text-lg">{selectedAnnouncement ? 'Edit Pengumuman' : 'Tambah Pengumuman'}</span>
               </div>
               <button onClick={() => setShowModal(false)} className="w-8 h-8 flex items-center justify-center bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-500 rounded-lg transition-colors flex-shrink-0">
-                <X className="w-5 h-5" />
+                <AppIcon icon="X" className="w-5 h-5" />
               </button>
             </div>
             
@@ -400,7 +400,7 @@ export default function ManageAnnouncementsClient() {
                         onClick={() => setFormData(prev => ({ ...prev, image_url: '' }))}
                         className="absolute -top-2 -right-2 p-1 bg-rose-500 text-white rounded-full shadow-md hover:bg-rose-600 transition-colors"
                       >
-                        <X className="w-3 h-3" />
+                        <AppIcon icon="X" className="w-3 h-3" />
                       </button>
                     </div>
                   ) : (
@@ -411,10 +411,10 @@ export default function ManageAnnouncementsClient() {
                       className="w-24 h-16 border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center hover:border-green-500 hover:bg-green-50 hover:text-green-600 transition-all disabled:opacity-50 text-slate-400 group"
                     >
                       {uploading ? (
-                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <AppIcon icon="Loader2" className="w-5 h-5 animate-spin" />
                       ) : (
                         <>
-                          <Upload className="w-5 h-5 mb-1 group-hover:scale-110 transition-transform" />
+                          <AppIcon icon="Upload" className="w-5 h-5 mb-1 group-hover:scale-110 transition-transform" />
                           <span className="text-[10px] font-bold uppercase tracking-wider">Upload</span>
                         </>
                       )}
@@ -426,7 +426,7 @@ export default function ManageAnnouncementsClient() {
 
               <div className="bg-transparent border-none p-0 shadow-none">
                 <p className="flex items-center gap-2 border-none pb-3 text-sm font-bold text-slate-700">
-                  <Globe className="w-4 h-4" />
+                  <AppIcon icon="Globe" className="w-4 h-4" />
                   Konten Multibahasa
                 </p>
                 
@@ -491,7 +491,7 @@ export default function ManageAnnouncementsClient() {
               <div className="bg-slate-50 border border-slate-200 rounded-[1.25rem] p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${formData.is_active ? 'bg-blue-100 text-blue-600' : 'bg-slate-200 text-slate-500'}`}>
-                    <Bell className="w-5 h-5" />
+                    <AppIcon icon="Bell" className="w-5 h-5" />
                   </div>
                   <div>
                     <p className="text-sm font-bold text-slate-800">Aktifkan Pengumuman</p>
@@ -522,7 +522,7 @@ export default function ManageAnnouncementsClient() {
               >
                 {saving ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" />
                     Menyimpan...
                   </>
                 ) : (

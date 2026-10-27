@@ -11,7 +11,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Camera, MapPin, Loader2, FileWarning, Search } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 
 export default function ReportFacilityPage() {
@@ -119,14 +119,14 @@ export default function ReportFacilityPage() {
       <AnimatedSection>
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center p-4 bg-primary/10 rounded-full mb-4">
-            <FileWarning className="w-8 h-8 text-primary" />
+            <AppIcon icon="FileWarning" className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-3xl font-bold mb-2">Lapor Kerusakan Fasilitas</h1>
           <p className="text-muted-foreground mb-4">
             Bantu kami menjaga kenyamanan Taman Margasatwa Ragunan. Laporkan fasilitas yang rusak atau perlu perbaikan.
           </p>
           <Button variant="outline" onClick={() => router.push('/track-report')} className="mx-auto rounded-full">
-            <Search className="w-4 h-4 mr-2" />
+            <AppIcon icon="Search" className="w-4 h-4 mr-2" />
             Lacak Status Laporan Saya
           </Button>
         </div>
@@ -195,7 +195,7 @@ export default function ReportFacilityPage() {
                     onChange={(e) => setFormData({...formData, location_name: e.target.value})}
                   />
                   <Button type="button" variant="outline" onClick={handleGetLocation} className="shrink-0" title="Dapatkan Lokasi GPS">
-                    <MapPin className="w-4 h-4 mr-2" />
+                    <AppIcon icon="MapPin" className="w-4 h-4 mr-2" />
                     GPS
                   </Button>
                 </div>
@@ -210,7 +210,7 @@ export default function ReportFacilityPage() {
                 <Label htmlFor="photo">Bukti Foto</Label>
                 <div className="flex items-center gap-4">
                   <Button type="button" variant="outline" className="w-full relative" onClick={() => document.getElementById('photo-upload')?.click()}>
-                    <Camera className="w-4 h-4 mr-2" />
+                    <AppIcon icon="Camera" className="w-4 h-4 mr-2" />
                     {file ? file.name : 'Ambil / Pilih Foto'}
                     <input 
                       type="file" 
@@ -231,7 +231,7 @@ export default function ReportFacilityPage() {
             </CardContent>
             <CardFooter className="bg-muted/30 pt-6">
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                {loading ? <AppIcon icon="Loader2" className="w-4 h-4 mr-2 animate-spin" /> : null}
                 {loading ? 'Mengirim Laporan...' : 'Kirim Laporan'}
               </Button>
             </CardFooter>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, User, Lock, Shield, Eye, EyeOff } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { toast } from 'sonner';
 import { MANAGER_PAGES } from '@/hooks/useUserPermissions';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -344,7 +344,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
         <div className="manager-modal-header shrink-0">
           <div className="manager-modal-title">
             <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-              <User className="w-4 h-4 text-primary" />
+              <AppIcon name="solar:user-bold-duotone" className="w-4 h-4 text-primary" />
             </div>
             <div>
               <p className="font-semibold text-foreground text-sm leading-tight">
@@ -358,7 +358,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
             </div>
           </div>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground/60 hover:bg-muted hover:text-foreground transition-all">
-            <X className="w-4 h-4" />
+            <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
           </button>
         </div>
 
@@ -368,7 +368,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
           {/* Card: Informasi Dasar */}
           <div className="manager-form-section">
             <p className="manager-form-section-title">
-              <User className="w-3 h-3" />
+              <AppIcon name="solar:user-circle-bold-duotone" className="w-3 h-3" />
               Informasi Dasar
             </p>
 
@@ -377,7 +377,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
               <div>
                 <label className="manager-input-label">Nama Lengkap</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60 pointer-events-none" />
+                  <AppIcon name="solar:user-circle-bold-duotone" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60 pointer-events-none" />
                   <input
                     type="text"
                     value={name}
@@ -418,7 +418,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
                   Password <span className="text-destructive">*</span>
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60 pointer-events-none" />
+                  <AppIcon name="solar:lock-password-bold-duotone" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60 pointer-events-none" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
@@ -432,7 +432,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground transition-colors"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? <AppIcon name="solar:eye-closed-bold-duotone" className="w-4 h-4" /> : <AppIcon name="solar:eye-bold-duotone" className="w-4 h-4" />}
                   </button>
                 </div>
                 <p className="manager-input-hint">Gunakan kombinasi huruf, angka, dan simbol agar lebih aman.</p>
@@ -445,7 +445,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
                 <label className="manager-input-label">Ubah Password</label>
                 <div className="flex gap-2">
                   <div className="relative flex-1">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60 pointer-events-none" />
+                    <AppIcon name="solar:lock-password-bold-duotone" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60 pointer-events-none" />
                     <input
                       type={showNewPassword ? 'text' : 'password'}
                       value={newPassword}
@@ -458,7 +458,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
                       onClick={() => setShowNewPassword(!showNewPassword)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground transition-colors"
                     >
-                      {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      {showNewPassword ? <AppIcon name="solar:eye-closed-bold-duotone" className="w-4 h-4" /> : <AppIcon name="solar:eye-bold-duotone" className="w-4 h-4" />}
                     </button>
                   </div>
                   <button
@@ -478,7 +478,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
           {/* Card: Role */}
           <div className="manager-form-section">
             <p className="manager-form-section-title">
-              <Shield className="w-3 h-3" />
+              <AppIcon name="solar:shield-check-bold-duotone" className="w-3 h-3" />
               Hak Akses
             </p>
 
@@ -502,7 +502,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
             {/* Admin info banner */}
             {role === 'admin' && (
               <div className="flex items-start gap-3 p-3 bg-secondary/8 border border-secondary/25 rounded-xl mt-1">
-                <Shield className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
+                <AppIcon name="solar:shield-check-bold-duotone" className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
                 <p className="text-xs text-secondary-foreground leading-relaxed">
                   Admin memiliki akses penuh ke seluruh fitur dashboard secara otomatis.
                 </p>
@@ -515,7 +515,7 @@ export default function UserFormModal({ isOpen, onClose, onSuccess, editUser }: 
             <div className="manager-form-section">
               <div className="flex items-center justify-between">
                 <p className="manager-form-section-title mb-0">
-                  <Shield className="w-3 h-3" />
+                  <AppIcon name="solar:shield-check-bold-duotone" className="w-3 h-3" />
                   Akses Halaman
                 </p>
                 <div className="flex gap-3 pb-2.5">

@@ -2,56 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { 
-  LayoutDashboard, 
-  PawPrint, 
-  Ticket, 
-  DollarSign,
-  Calendar, 
-  Users, 
-  FileText, 
-  Settings, 
-  Bell, 
-  ChevronDown, 
-  ChevronRight, 
-  Menu, 
-  X, 
-  LogOut, 
-  Leaf, 
-  FolderTree, 
-  Building2, 
-  Palette, 
-  Newspaper, 
-  Map, 
-  MapPin, 
-  BarChart3, 
-  Image, 
-  MousePointer2, 
-  ExternalLink, 
-  Navigation, 
-  Megaphone, 
-  History, 
-  Activity, 
-  MessageCircle, 
-  Sparkles, 
-  FolderOpen, 
-  GraduationCap, 
-  Cog, 
-  Compass, 
-  BookOpen, 
-  ClipboardCheck, 
-  CalendarDays, 
-  Bot, 
-  Award, 
-  AlertCircle, 
-  Utensils, 
-  Wrench,
-  Search,
-  Clock,
-  CheckCheck,
-  CheckCircle2,
-  QrCode
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
@@ -112,83 +63,83 @@ const navGroups = [
   {
     label: 'Utama',
     items: [
-      { label: 'Dashboard', path: '/manager', icon: LayoutDashboard, permKey: 'dashboard' },
-      { label: 'Analytics Website', path: '/manager/website-analytics', icon: Activity, permKey: 'website-analytics' },
+      { label: 'Dashboard', path: '/manager', icon: 'solar:widget-5-bold-duotone', permKey: 'dashboard' },
+      { label: 'Analytics Website', path: '/manager/website-analytics', icon: 'solar:chart-2-bold-duotone', permKey: 'website-analytics' },
     ]
   },
   {
     label: 'Konten',
     items: [
-      { label: 'Kategori', path: '/manager/categories', icon: FolderTree, permKey: 'categories' },
-      { label: 'Data Satwa', path: '/manager/animals', icon: PawPrint, permKey: 'animals' },
-      { label: 'Data Tumbuhan', path: '/manager/plants', icon: Leaf, permKey: 'plants' },
-      { label: 'Jadwal Makan Satwa', path: '/manager/feeding-schedules', icon: Utensils, permKey: 'feeding-schedules' },
-      { label: 'Jadwal & Acara', path: '/manager/events', icon: Calendar, permKey: 'events' },
-      { label: 'Kuis Edukasi', path: '/manager/trivia', icon: AlertCircle, permKey: 'trivia' },
-      { label: 'Berita', path: '/manager/news', icon: Newspaper, permKey: 'news' },
-      { label: 'Sewa Tempat', path: '/manager/venues', icon: Building2, permKey: 'venues' },
-      { label: 'Perpustakaan Digital', path: '/manager/library', icon: BookOpen, permKey: 'library' },
-      { label: 'JDIH', path: '/manager/jdih', icon: FileText, permKey: 'jdih' },
-      { label: 'Atur Tarif & Tiket', path: '/manager/tariffs', icon: DollarSign, permKey: 'ticket-content' },
-      { label: 'Halaman Tiket', path: '/manager/ticket-content', icon: Ticket, permKey: 'ticket-content' },
-      { label: 'Halaman Kustom', path: '/manager/custom-pages', icon: FileText, permKey: 'custom-pages' },
-      { label: 'Sejarah', path: '/manager/history', icon: History, permKey: 'history' },
+      { label: 'Kategori', path: '/manager/categories', icon: 'solar:folder-with-files-bold-duotone', permKey: 'categories' },
+      { label: 'Data Satwa', path: '/manager/animals', icon: 'fluent-emoji-flat:paw-prints', permKey: 'animals' },
+      { label: 'Data Tumbuhan', path: '/manager/plants', icon: 'fluent-emoji-flat:herb', permKey: 'plants' },
+      { label: 'Jadwal Makan Satwa', path: '/manager/feeding-schedules', icon: 'solar:chef-hat-bold-duotone', permKey: 'feeding-schedules' },
+      { label: 'Jadwal & Acara', path: '/manager/events', icon: 'solar:calendar-bold-duotone', permKey: 'events' },
+      { label: 'Kuis Edukasi', path: '/manager/trivia', icon: 'solar:question-circle-bold-duotone', permKey: 'trivia' },
+      { label: 'Berita', path: '/manager/news', icon: 'solar:document-text-bold-duotone', permKey: 'news' },
+      { label: 'Sewa Tempat', path: '/manager/venues', icon: 'solar:buildings-bold-duotone', permKey: 'venues' },
+      { label: 'Perpustakaan Digital', path: '/manager/library', icon: 'solar:book-bookmark-bold-duotone', permKey: 'library' },
+      { label: 'JDIH', path: '/manager/jdih', icon: 'solar:scale-bold-duotone', permKey: 'jdih' },
+      { label: 'Atur Tarif & Tiket', path: '/manager/tariffs', icon: 'solar:tag-price-bold-duotone', permKey: 'ticket-content' },
+      { label: 'Halaman Tiket', path: '/manager/ticket-content', icon: 'solar:ticket-bold-duotone', permKey: 'ticket-content' },
+      { label: 'Halaman Kustom', path: '/manager/custom-pages', icon: 'solar:document-bold-duotone', permKey: 'custom-pages' },
+      { label: 'Sejarah', path: '/manager/history', icon: 'solar:history-bold-duotone', permKey: 'history' },
     ]
   },
   {
     label: 'Komunikasi',
     items: [
-      { label: 'FAQ Chatbot', path: '/manager/chatbot-faqs', icon: Bot, permKey: 'chatbot-faqs' },
-      { label: 'Pengumuman', path: '/manager/announcements', icon: Megaphone, permKey: 'announcements' },
-      { label: 'Template WhatsApp', path: '/manager/whatsapp-templates', icon: MessageCircle, permKey: 'whatsapp-templates' },
+      { label: 'FAQ Chatbot', path: '/manager/chatbot-faqs', icon: 'solar:chat-round-dots-bold-duotone', permKey: 'chatbot-faqs' },
+      { label: 'Pengumuman', path: '/manager/announcements', icon: 'solar:megaphone-bold-duotone', permKey: 'announcements' },
+      { label: 'Template WhatsApp', path: '/manager/whatsapp-templates', icon: 'fa6-brands:whatsapp', permKey: 'whatsapp-templates' },
     ]
   },
   {
     label: 'Peta & Navigasi',
     items: [
-      { label: 'Peta Kebun Binatang', path: '/manager/map', icon: Map, permKey: 'map' },
-      { label: 'Marker Zona', path: '/manager/map-markers', icon: MapPin, permKey: 'map-markers' },
-      { label: 'Peta GPS Interaktif', path: '/manager/gps-map', icon: Compass, permKey: 'map' },
-      { label: 'Cetak Label QR', path: '/manager/qr-generator', icon: QrCode, permKey: 'animals' },
+      { label: 'Peta Kebun Binatang', path: '/manager/map', icon: 'solar:map-bold-duotone', permKey: 'map' },
+      { label: 'Marker Zona', path: '/manager/map-markers', icon: 'solar:map-point-bold-duotone', permKey: 'map-markers' },
+      { label: 'Peta GPS Interaktif', path: '/manager/gps-map', icon: 'solar:compass-bold-duotone', permKey: 'map' },
+      { label: 'Cetak Label QR', path: '/manager/qr-generator', icon: 'solar:qr-code-bold-duotone', permKey: 'animals' },
     ]
   },
   {
     label: 'Tampilan',
     items: [
-      { label: 'Hero Banner', path: '/manager/hero-banner', icon: Image, permKey: 'hero-banner' },
-      { label: 'Yang Terbaru', path: '/manager/whats-new', icon: Sparkles, permKey: 'whats-new' },
-      { label: 'Galeri Media', path: '/manager/gallery', icon: FolderOpen, permKey: 'gallery' },
-      { label: 'Branding & Logo', path: '/manager/branding', icon: Palette, permKey: 'branding' },
-      { label: 'Keanggotaan Organisasi', path: '/manager/organizations', icon: Award, permKey: 'organizations' },
-      { label: 'Tombol Floating', path: '/manager/floating-button', icon: MousePointer2, permKey: 'floating-button' },
-      { label: 'Menu Navigasi', path: '/manager/explorer-navbar', icon: Navigation, permKey: 'explorer-navbar' },
+      { label: 'Hero Banner', path: '/manager/hero-banner', icon: 'solar:gallery-bold-duotone', permKey: 'hero-banner' },
+      { label: 'Yang Terbaru', path: '/manager/whats-new', icon: 'solar:magic-stick-3-bold-duotone', permKey: 'whats-new' },
+      { label: 'Galeri Media', path: '/manager/gallery', icon: 'solar:gallery-wide-bold-duotone', permKey: 'gallery' },
+      { label: 'Branding & Logo', path: '/manager/branding', icon: 'solar:pallete-2-bold-duotone', permKey: 'branding' },
+      { label: 'Keanggotaan Organisasi', path: '/manager/organizations', icon: 'solar:diploma-bold-duotone', permKey: 'organizations' },
+      { label: 'Tombol Floating', path: '/manager/floating-button', icon: 'solar:cursor-bold-duotone', permKey: 'floating-button' },
+      { label: 'Menu Navigasi', path: '/manager/explorer-navbar', icon: 'solar:menu-dots-circle-bold-duotone', permKey: 'explorer-navbar' },
     ]
   },
   {
     label: 'Sistem',
     items: [
-      { label: 'Tiket (Transaksi)', path: '/manager/tickets', icon: Ticket, permKey: 'tickets' },
-      { label: 'Kelola Tarif & Harga', path: '/manager/tariffs', icon: DollarSign, permKey: 'ticket-content' },
-      { label: 'Pemandu Wisata', path: '/manager/tour-guides', icon: Compass, permKey: 'tour-guides' },
-      { label: 'Pendaftaran Layanan', path: '/manager/service-registrations', icon: GraduationCap, permKey: 'service-registrations' },
-      { label: 'Ketersediaan Jadwal', path: '/manager/service-availability', icon: CalendarDays, permKey: 'service-availability' },
-      { label: 'Standar Pelayanan', path: '/manager/service-standards', icon: ClipboardCheck, permKey: 'service-standards' },
-      { label: 'Pengaturan Layanan', path: '/manager/service-settings', icon: Cog, permKey: 'service-settings' },
-      { label: 'WBS', path: '/manager/wbs', icon: Megaphone, permKey: 'wbs' },
-      { label: 'Lapor Fasilitas', path: '/manager/facility-reports', icon: AlertCircle, permKey: 'facility-reports' },
-      { label: 'Manajemen Pengguna', path: '/manager/users', icon: Users, permKey: 'users' },
-      { label: 'Pengaturan Sistem', path: '/manager/system-configs', icon: Cog, permKey: 'system-configs' },
-      { label: 'Mode Maintenance', path: '/manager/maintenance', icon: Wrench, permKey: 'system-configs' },
+      { label: 'Tiket (Transaksi)', path: '/manager/tickets', icon: 'solar:ticket-bold-duotone', permKey: 'tickets' },
+      { label: 'Kelola Tarif & Harga', path: '/manager/tariffs', icon: 'solar:tag-price-bold-duotone', permKey: 'ticket-content' },
+      { label: 'Pemandu Wisata', path: '/manager/tour-guides', icon: 'solar:compass-bold-duotone', permKey: 'tour-guides' },
+      { label: 'Pendaftaran Layanan', path: '/manager/service-registrations', icon: 'solar:user-plus-bold-duotone', permKey: 'service-registrations' },
+      { label: 'Ketersediaan Jadwal', path: '/manager/service-availability', icon: 'solar:calendar-date-bold-duotone', permKey: 'service-availability' },
+      { label: 'Standar Pelayanan', path: '/manager/service-standards', icon: 'solar:check-read-bold-duotone', permKey: 'service-standards' },
+      { label: 'Pengaturan Layanan', path: '/manager/service-settings', icon: 'solar:settings-bold-duotone', permKey: 'service-settings' },
+      { label: 'WBS', path: '/manager/wbs', icon: 'solar:shield-warning-bold-duotone', permKey: 'wbs' },
+      { label: 'Lapor Fasilitas', path: '/manager/facility-reports', icon: 'solar:danger-triangle-bold-duotone', permKey: 'facility-reports' },
+      { label: 'Manajemen Pengguna', path: '/manager/users', icon: 'solar:users-group-two-rounded-bold-duotone', permKey: 'users' },
+      { label: 'Pengaturan Sistem', path: '/manager/system-configs', icon: 'solar:settings-bold-duotone', permKey: 'system-configs' },
+      { label: 'Mode Maintenance', path: '/manager/maintenance', icon: 'solar:tuning-bold-duotone', permKey: 'system-configs' },
     ]
   },
 ];
 
 // Flat nav for mobile bottom bar
 const bottomNav = [
-  { label: 'Home', path: '/manager', icon: LayoutDashboard, permKey: 'dashboard' },
-  { label: 'Satwa', path: '/manager/animals', icon: PawPrint, permKey: 'animals' },
-  { label: 'Berita', path: '/manager/news', icon: Newspaper, permKey: 'news' },
-  { label: 'Menu', path: '', icon: Menu, isMenuTrigger: true },
+  { label: 'Home', path: '/manager', icon: 'solar:widget-5-bold-duotone', permKey: 'dashboard' },
+  { label: 'Satwa', path: '/manager/animals', icon: 'fluent-emoji-flat:paw-prints', permKey: 'animals' },
+  { label: 'Berita', path: '/manager/news', icon: 'solar:document-text-bold-duotone', permKey: 'news' },
+  { label: 'Menu', path: '', icon: 'solar:hamburger-menu-linear', isMenuTrigger: true },
 ];
 
 export default function ManagerLayout({ children }: { children: React.ReactNode }) {
@@ -401,7 +352,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center space-y-4">
           <div className="w-16 h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center mx-auto">
-            <PawPrint className="w-8 h-8 text-emerald-600 animate-pulse" />
+            <AppIcon icon="fluent-emoji-flat:paw-prints" className="w-8 h-8 text-emerald-600 animate-pulse" />
           </div>
           <div>
             <p className="font-semibold text-slate-800">
@@ -442,7 +393,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                 <img src={settings.logo_url} alt="Logo" className="w-full h-full object-contain drop-shadow-sm" />
               ) : (
                 <div className="w-9 h-9 bg-primary/10 group-hover:bg-primary/15 transition-colors rounded-xl flex items-center justify-center shadow-sm ring-1 ring-primary/20">
-                  <Leaf className="w-5 h-5 text-primary" />
+                  <AppIcon icon="solar:leaf-bold-duotone" className="w-5 h-5 text-primary" />
                 </div>
               )}
             </div>
@@ -465,7 +416,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
             )}
             title={sidebarCollapsed ? "Perluas" : "Ciutkan"}
           >
-            <ChevronRight className={cn("w-4 h-4 transition-transform duration-300", !sidebarCollapsed && "rotate-180")} />
+            <AppIcon icon="solar:alt-arrow-right-linear" className={cn("w-4 h-4 transition-transform duration-300", !sidebarCollapsed && "rotate-180")} />
           </button>
         </div>
 
@@ -477,7 +428,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
               className="w-full px-3 py-2 rounded-xl bg-slate-100/80 dark:bg-slate-800/60 hover:bg-slate-200/70 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 group transition-all"
             >
               <div className="flex items-center gap-2">
-                <Search className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <AppIcon icon="solar:magnifer-linear" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span className="font-medium">Cari Modul...</span>
               </div>
               <kbd className="px-1.5 py-0.5 rounded-md bg-white dark:bg-slate-900 text-[10px] font-mono border border-slate-200 dark:border-slate-700 shadow-2xs">
@@ -490,7 +441,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
               className="w-11 h-10 mx-auto rounded-xl bg-slate-100/80 dark:bg-slate-800/60 hover:bg-slate-200/70 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 flex items-center justify-center text-slate-500 hover:text-emerald-600 transition-all"
               title="Pencarian Cepat (Ctrl+K)"
             >
-              <Search className="w-4 h-4" />
+              <AppIcon icon="solar:magnifer-linear" className="w-4 h-4" />
             </button>
           )}
         </div>
@@ -511,7 +462,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                   <span className="text-[0.65rem] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
                     {group.label}
                   </span>
-                  <ChevronDown className={cn(
+                  <AppIcon icon="solar:alt-arrow-down-linear" className={cn(
                     "w-3 h-3 text-slate-400/60 transition-all duration-200 group-hover:text-slate-600 dark:group-hover:text-slate-300",
                     !expandedGroups.includes(group.label) && "-rotate-90"
                   )} />
@@ -524,7 +475,6 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
               {(sidebarCollapsed || expandedGroups.includes(group.label)) && (
                 <div className="space-y-0.5">
                   {group.items.map((item) => {
-                    const Icon = item.icon;
                     const active = isActive(item.path);
                     return (
                       <Link
@@ -541,7 +491,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                             : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white"
                         )}
                       >
-                        <Icon className={cn(
+                        <AppIcon icon={item.icon} className={cn(
                           "flex-shrink-0 transition-colors",
                           sidebarCollapsed ? "w-[18px] h-[18px]" : "w-4 h-4",
                           active ? "text-white" : "text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-200"
@@ -593,7 +543,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
             )}
             title={sidebarCollapsed ? "Lihat Explorer" : undefined}
           >
-            <ExternalLink className={cn("flex-shrink-0", sidebarCollapsed ? "w-[18px] h-[18px]" : "w-4 h-4 text-emerald-600 dark:text-emerald-400")} />
+            <AppIcon icon="solar:link-circle-bold-duotone" className={cn("flex-shrink-0", sidebarCollapsed ? "w-[18px] h-[18px]" : "w-4 h-4 text-emerald-600 dark:text-emerald-400")} />
             {!sidebarCollapsed && <span>Lihat Explorer</span>}
           </Link>
         </div>
@@ -621,7 +571,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                     <img src={settings.logo_url} alt="Logo" className="w-full h-full object-contain" />
                   ) : (
                     <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <Leaf className="w-4 h-4 text-primary" />
+                      <AppIcon icon="solar:leaf-bold-duotone" className="w-4 h-4 text-primary" />
                     </div>
                   )}
                 </div>
@@ -633,7 +583,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                 {currentGroupLabel && (
                   <>
                     <span className="text-muted-foreground/60 font-medium truncate max-w-[120px]">{currentGroupLabel}</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/30 flex-shrink-0" />
+                    <AppIcon icon="solar:alt-arrow-right-linear" className="w-3.5 h-3.5 text-muted-foreground/30 flex-shrink-0" />
                   </>
                 )}
                 <span className="font-semibold text-foreground truncate">{currentPageLabel}</span>
@@ -643,7 +593,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
               {currentTime && (
                 <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-700 dark:text-emerald-300 font-medium">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 badge-live-pulse" />
-                  <Clock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <AppIcon icon="solar:clock-circle-bold-duotone" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>{currentTime}</span>
                 </div>
               )}
@@ -657,7 +607,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                 className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-muted/60 hover:bg-muted border border-border/50 text-xs text-muted-foreground hover:text-foreground transition-all btn-interactive"
                 title="Pencarian Cepat Modul (Ctrl+K)"
               >
-                <Search className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <AppIcon icon="solar:magnifer-linear" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span className="font-medium hidden md:inline">Pencarian</span>
                 <kbd className="px-1.5 py-0.5 rounded bg-background text-[10px] font-mono border border-border/60 shadow-2xs">
                   ⌘K
@@ -676,7 +626,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                   )}
                   title="Pusat Notifikasi"
                 >
-                  <Bell className="w-4 h-4" />
+                  <AppIcon icon="solar:bell-bold-duotone" className="w-4 h-4" />
                   {(pendingRegistrations > 0 || pendingBookings > 0) && (
                     <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center shadow-sm">
                       {pendingRegistrations + pendingBookings}
@@ -689,7 +639,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                   <div className="absolute right-0 top-full mt-2 w-80 sm:w-88 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-border/60 overflow-hidden z-50 animate-slide-in-up">
                     <div className="p-4 border-b border-border/40 flex items-center justify-between bg-slate-50/70 dark:bg-slate-800/40">
                       <div className="flex items-center gap-2">
-                        <Bell className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                        <AppIcon icon="solar:bell-bold-duotone" className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                         <h4 className="font-bold text-sm text-foreground">Notifikasi & Tugas</h4>
                       </div>
                       <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
@@ -740,7 +690,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
 
                       {pendingRegistrations === 0 && pendingBookings === 0 && (
                         <div className="py-8 text-center text-muted-foreground space-y-1">
-                          <CheckCircle2 className="w-8 h-8 mx-auto text-emerald-500 opacity-60" />
+                          <AppIcon icon="solar:check-circle-bold-duotone" className="w-8 h-8 mx-auto text-emerald-500 opacity-60" />
                           <p className="text-xs font-bold text-foreground">Semua Tugas Selesai</p>
                           <p className="text-[11px]">Tidak ada permohonan tertunda saat ini.</p>
                         </div>
@@ -781,7 +731,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                     <span className="text-[0.8rem] font-semibold text-slate-900 dark:text-white">{displayName}</span>
                     <span className="text-[0.68rem] text-slate-500 dark:text-slate-400 capitalize mt-0.5">{userRole}</span>
                   </div>
-                  <ChevronDown className={cn(
+                  <AppIcon icon="solar:alt-arrow-down-linear" className={cn(
                     "w-3.5 h-3.5 text-slate-400 transition-transform hidden sm:block",
                     profileDropdownOpen && "rotate-180"
                   )} />
@@ -809,7 +759,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                         className="flex items-center gap-3 px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors"
                       >
                         <div className="w-7 h-7 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Users className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                          <AppIcon icon="solar:users-group-two-rounded-bold-duotone" className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                         </div>
                         Kelola Pengguna
                       </Link>
@@ -817,7 +767,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                         className="flex items-center gap-3 px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors"
                       >
                         <div className="w-7 h-7 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Settings className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                          <AppIcon icon="solar:settings-bold-duotone" className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                         </div>
                         Pengaturan
                       </Link>
@@ -825,7 +775,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                         className="flex items-center gap-3 px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors"
                       >
                         <div className="w-7 h-7 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <ExternalLink className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                          <AppIcon icon="solar:link-circle-bold-duotone" className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                         </div>
                         Lihat Website
                       </Link>
@@ -836,7 +786,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                         className="flex items-center gap-3 px-3 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition-colors w-full font-medium"
                       >
                         <div className="w-7 h-7 bg-rose-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <LogOut className="w-3.5 h-3.5 text-rose-500" />
+                          <AppIcon icon="solar:logout-2-bold-duotone" className="w-3.5 h-3.5 text-rose-500" />
                         </div>
                         Keluar
                       </button>
@@ -851,7 +801,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                 onClick={() => setCommandPaletteOpen(true)}
                 title="Cari Modul"
               >
-                <Search className="w-4 h-4 text-muted-foreground" />
+                <AppIcon icon="solar:magnifer-linear" className="w-4 h-4 text-muted-foreground" />
               </button>
 
               {/* Mobile hamburger */}
@@ -859,7 +809,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                 className="md:hidden w-9 h-9 flex items-center justify-center hover:bg-muted rounded-xl transition-colors"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? <AppIcon icon="solar:close-circle-bold" className="w-5 h-5" /> : <AppIcon icon="solar:hamburger-menu-linear" className="w-5 h-5" />}
               </button>
             </div>
           </div>
@@ -881,7 +831,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                       <img src={settings.logo_url} alt="Logo" className="w-full h-full object-contain drop-shadow-sm" />
                     ) : (
                       <div className="w-9 h-9 bg-emerald-500/10 rounded-xl flex items-center justify-center shadow-sm ring-1 ring-emerald-500/20">
-                        <Leaf className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                        <AppIcon icon="solar:leaf-bold-duotone" className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                       </div>
                     )}
                   </div>
@@ -894,7 +844,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 border border-slate-200/60 dark:border-slate-700"
                 >
-                  <X className="w-4 h-4" />
+                  <AppIcon icon="solar:close-circle-bold" className="w-4 h-4" />
                 </button>
               </div>
 
@@ -909,7 +859,6 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                     </p>
                     <div className="space-y-0.5">
                       {group.items.map((item) => {
-                        const Icon = item.icon;
                         const active = isActive(item.path);
                         return (
                           <Link
@@ -923,7 +872,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                                 : "text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80"
                             )}
                           >
-                            <Icon className={cn(
+                            <AppIcon icon={item.icon} className={cn(
                               "w-4 h-4 flex-shrink-0 transition-colors",
                               active ? "text-white" : "text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-200"
                             )} />
@@ -955,14 +904,14 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                 <Link href="/" target="_blank" onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
                 >
-                  <ExternalLink className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <AppIcon icon="solar:link-circle-bold-duotone" className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>Lihat Explorer</span>
                 </Link>
                 <button
                   onClick={() => { setMobileMenuOpen(false); handleSignOut(); }}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 w-full transition-colors"
                 >
-                  <LogOut className="w-4 h-4 text-rose-500 dark:text-rose-400" />
+                  <AppIcon icon="solar:logout-2-bold-duotone" className="w-4 h-4 text-rose-500 dark:text-rose-400" />
                   <span>Keluar</span>
                 </button>
               </div>
@@ -980,8 +929,6 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200/70 dark:border-slate-800 shadow-[0_-2px_20px_rgba(0,0,0,0.06)]">
         <div className="flex items-center justify-around h-[60px] px-1">
           {filteredBottomNav.map((item, index) => {
-            const Icon = item.icon;
-
             if (item.isMenuTrigger) {
               return (
                 <button
@@ -990,7 +937,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                   className="flex flex-col items-center justify-center gap-1 py-1 px-3 text-emerald-600 dark:text-emerald-400 active:scale-90 transition-transform"
                 >
                   <div className="w-10 h-10 rounded-xl bg-emerald-600 dark:bg-emerald-500 text-white flex items-center justify-center shadow-sm shadow-emerald-600/30">
-                    <Icon className="w-5 h-5" />
+                    <AppIcon icon={item.icon} className="w-5 h-5" />
                   </div>
                   <span className="text-[0.6rem] font-bold">{item.label}</span>
                 </button>
@@ -1011,7 +958,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                   "w-10 h-10 rounded-xl flex items-center justify-center transition-all",
                   active ? "bg-emerald-500/10 dark:bg-emerald-500/20" : "bg-transparent"
                 )}>
-                  <Icon className={cn("w-5 h-5", active && "stroke-[2.2px]")} />
+                  <AppIcon icon={item.icon} className={cn("w-5 h-5", active && "scale-105")} />
                 </div>
                 <span className={cn("text-[0.6rem]", active ? "font-bold" : "font-medium")}>
                   {item.label}

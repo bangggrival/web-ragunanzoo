@@ -57,7 +57,7 @@ services:
       - "${WEB_PORT:-3002}:3002"
     environment:
       - PORT=3002
-      - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL:-http://10.41.20.245:5005}
+      - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL:-http://localhost:5005}
       - INTERNAL_BACKEND_URL=http://ragunan-api:5005
 
 networks:

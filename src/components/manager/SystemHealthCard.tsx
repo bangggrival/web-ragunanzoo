@@ -2,16 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { 
-  ShieldCheck, 
-  Database, 
-  Server, 
-  HardDrive, 
-  CheckCircle, 
-  RefreshCw, 
-  Cpu,
-  Zap
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { cn } from '@/lib/utils';
 
 export default function SystemHealthCard() {
@@ -33,7 +24,7 @@ export default function SystemHealthCard() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
-            <ShieldCheck className="w-4 h-4" />
+            <AppIcon name="solar:shield-check-bold-duotone" className="w-4 h-4" />
           </div>
           <div>
             <h3 className="font-bold text-base text-foreground leading-none">Status & Keamanan Sistem</h3>
@@ -53,11 +44,11 @@ export default function SystemHealthCard() {
         <div className="p-3 rounded-2xl bg-muted/40 border border-border/50 space-y-1">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-semibold">Database</span>
-            <Database className="w-3.5 h-3.5 text-emerald-500" />
+            <AppIcon name="solar:database-bold-duotone" className="w-3.5 h-3.5 text-emerald-500" />
           </div>
           <p className="text-xs font-bold text-foreground">PostgreSQL</p>
           <span className="text-[10px] text-emerald-500 font-medium flex items-center gap-1">
-            <CheckCircle className="w-2.5 h-2.5" /> Terhubung
+            <AppIcon name="solar:check-circle-bold" className="w-2.5 h-2.5" /> Terhubung
           </span>
         </div>
 
@@ -65,11 +56,11 @@ export default function SystemHealthCard() {
         <div className="p-3 rounded-2xl bg-muted/40 border border-border/50 space-y-1">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-semibold">API Gateway</span>
-            <Server className="w-3.5 h-3.5 text-blue-500" />
+            <AppIcon name="solar:server-bold-duotone" className="w-3.5 h-3.5 text-blue-500" />
           </div>
           <p className="text-xs font-bold text-foreground">Node / Express</p>
           <span className="text-[10px] text-blue-500 font-medium flex items-center gap-1">
-            <Zap className="w-2.5 h-2.5" /> Latensi 24ms
+            <AppIcon name="solar:bolt-bold-duotone" className="w-2.5 h-2.5" /> Latensi 24ms
           </span>
         </div>
 
@@ -77,7 +68,7 @@ export default function SystemHealthCard() {
         <div className="p-3 rounded-2xl bg-muted/40 border border-border/50 space-y-1">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-semibold">Storage Media</span>
-            <HardDrive className="w-3.5 h-3.5 text-amber-500" />
+            <AppIcon name="solar:hard-drive-bold-duotone" className="w-3.5 h-3.5 text-amber-500" />
           </div>
           <p className="text-xs font-bold text-foreground">5 Buckets</p>
           <span className="text-[10px] text-amber-500 font-medium">Aktif & Sinkron</span>
@@ -87,7 +78,7 @@ export default function SystemHealthCard() {
         <div className="p-3 rounded-2xl bg-muted/40 border border-border/50 space-y-1">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-semibold">Keamanan</span>
-            <Cpu className="w-3.5 h-3.5 text-purple-500" />
+            <AppIcon name="solar:cpu-bolt-bold-duotone" className="w-3.5 h-3.5 text-purple-500" />
           </div>
           <p className="text-xs font-bold text-foreground">JWT & RLS</p>
           <span className="text-[10px] text-purple-500 font-medium">Terproteksi</span>
@@ -101,7 +92,7 @@ export default function SystemHealthCard() {
           disabled={clearing}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-muted hover:bg-muted/80 text-foreground text-xs font-semibold transition-all btn-interactive"
         >
-          <RefreshCw className={cn("w-3.5 h-3.5", clearing && "animate-spin text-primary")} />
+          <AppIcon name="solar:restart-bold" className={cn("w-3.5 h-3.5", clearing && "animate-spin text-primary")} />
           {clearedSuccess ? 'Cache Dibersihkan! ✨' : clearing ? 'Membersihkan...' : 'Segarkan Cache'}
         </button>
 

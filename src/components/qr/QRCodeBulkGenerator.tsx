@@ -2,29 +2,7 @@
 
 import React, { useRef, useState, useMemo, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { 
-  X, 
-  Printer, 
-  QrCode, 
-  Check, 
-  MapPin, 
-  Search, 
-  Filter, 
-  Layers, 
-  Download, 
-  ExternalLink,
-  Sparkles,
-  Building2,
-  PawPrint,
-  Compass,
-  RotateCcw,
-  CheckSquare,
-  Square,
-  FileSpreadsheet,
-  Palette,
-  LayoutGrid,
-  Info
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Animal } from '@/hooks/useAnimals';
@@ -706,7 +684,7 @@ export default function QRCodeBulkGenerator({
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-border bg-muted/40 flex-shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-emerald-600/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-black shadow-2xs">
-              <QrCode className="w-5 h-5" />
+              <AppIcon name="solar:qr-code-bold-duotone" className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -729,7 +707,7 @@ export default function QRCodeBulkGenerator({
               className="p-2 hover:bg-muted rounded-xl transition-colors text-muted-foreground hover:text-foreground"
               title="Tutup Modal"
             >
-              <X className="w-5 h-5" />
+              <AppIcon name="solar:close-circle-bold" className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -748,7 +726,7 @@ export default function QRCodeBulkGenerator({
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <Layers className="w-3.5 h-3.5" />
+                <AppIcon name="solar:layers-bold-duotone" className="w-3.5 h-3.5" />
                 <span>Semua Titik ({allPrintItems.length})</span>
               </button>
 
@@ -760,7 +738,7 @@ export default function QRCodeBulkGenerator({
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <PawPrint className="w-3.5 h-3.5" />
+                <AppIcon name="fluent-emoji-flat:paw-prints" className="w-3.5 h-3.5" />
                 <span>Kandang Satwa ({animalsData.length})</span>
               </button>
 
@@ -772,7 +750,7 @@ export default function QRCodeBulkGenerator({
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <Building2 className="w-3.5 h-3.5" />
+                <AppIcon name="solar:buildings-2-bold-duotone" className="w-3.5 h-3.5" />
                 <span>Titik Fasilitas ({facilitiesData.length})</span>
               </button>
             </div>
@@ -783,7 +761,7 @@ export default function QRCodeBulkGenerator({
                 onClick={toggleSelectAllFiltered}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-muted hover:bg-muted/80 text-foreground font-bold border border-border/80 transition-all"
               >
-                <CheckSquare className="w-3.5 h-3.5 text-primary" />
+                <AppIcon name="solar:check-square-bold" className="w-3.5 h-3.5 text-primary" />
                 <span>Pilih Tampil ({filteredItems.length})</span>
               </button>
 
@@ -792,7 +770,7 @@ export default function QRCodeBulkGenerator({
                 className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all font-semibold"
                 title="Batalkan seluruh pilihan"
               >
-                <Square className="w-3.5 h-3.5" />
+                <AppIcon name="solar:stop-bold" className="w-3.5 h-3.5" />
                 <span>Reset</span>
               </button>
 
@@ -805,7 +783,7 @@ export default function QRCodeBulkGenerator({
           {/* Search Bar + Dynamic Category Filter */}
           <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <AppIcon name="solar:magnifer-linear" className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 type="text"
                 value={searchQuery}
@@ -888,7 +866,7 @@ export default function QRCodeBulkGenerator({
             {/* Format Layout Selector */}
             <div className="flex items-center gap-2">
               <span className="font-bold text-muted-foreground flex items-center gap-1">
-                <LayoutGrid className="w-3.5 h-3.5" />
+                <AppIcon name="solar:widget-5-bold-duotone" className="w-3.5 h-3.5" />
                 <span>Format:</span>
               </span>
               <div className="inline-flex p-0.5 bg-muted rounded-xl border border-border">
@@ -934,7 +912,7 @@ export default function QRCodeBulkGenerator({
             {/* Theme Color Selector */}
             <div className="flex items-center gap-2">
               <span className="font-bold text-muted-foreground flex items-center gap-1">
-                <Palette className="w-3.5 h-3.5" />
+                <AppIcon name="solar:palette-bold-duotone" className="w-3.5 h-3.5" />
                 <span>Warna Tema:</span>
               </span>
               <div className="inline-flex gap-1">
@@ -1015,7 +993,7 @@ export default function QRCodeBulkGenerator({
 
           {filteredItems.length === 0 ? (
             <div className="text-center py-16 text-muted-foreground space-y-2">
-              <QrCode className="w-12 h-12 mx-auto opacity-30 animate-pulse" />
+              <AppIcon name="solar:qr-code-bold-duotone" className="w-12 h-12 mx-auto opacity-30 animate-pulse" />
               <p className="font-bold text-sm">Tidak ada titik satwa atau fasilitas yang cocok</p>
               <p className="text-xs">Coba ubah kata kunci pencarian atau bersihkan filter kategori.</p>
             </div>
@@ -1047,7 +1025,7 @@ export default function QRCodeBulkGenerator({
                             : 'bg-muted border border-border text-transparent'
                         }`}
                       >
-                        <Check className="w-4 h-4" />
+                        <AppIcon name="solar:check-read-linear" className="w-4 h-4" />
                       </div>
                     </div>
 
@@ -1095,7 +1073,7 @@ export default function QRCodeBulkGenerator({
                       {/* Location Pill */}
                       {showLocationPill && (
                         <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-muted text-[10px] font-bold text-foreground max-w-full truncate mt-1">
-                          <MapPin className="w-3 h-3 text-primary flex-shrink-0" />
+                          <AppIcon name="solar:map-point-bold-duotone" className="w-3 h-3 text-primary flex-shrink-0" />
                           <span className="truncate">{item.zoneOrLocation}</span>
                         </div>
                       )}
@@ -1147,7 +1125,7 @@ export default function QRCodeBulkGenerator({
               disabled={selectedItems.length === 0}
               className="flex-1 sm:flex-none gap-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md font-bold text-xs sm:text-sm px-6"
             >
-              <Printer className="w-4 h-4" />
+              <AppIcon name="solar:printer-bold-duotone" className="w-4 h-4" />
               <span>Cetak {selectedItems.length} Label Sekarang</span>
             </Button>
           </div>

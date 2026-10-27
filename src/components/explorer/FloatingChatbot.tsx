@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
-import { ChevronDown } from 'lucide-react';
-import { MessageCircle, X, Send, Bot, User, Sparkles, Phone, ThumbsUp, ThumbsDown, Trash2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useChatbotFaqs } from '@/hooks/useChatbotFaqs';
 import { useSystemConfigs } from '@/hooks/useSystemConfigs';
@@ -540,7 +539,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                     isThinking && 'ring-2 ring-white/50 ring-offset-1 ring-offset-primary'
                   )}
                 >
-                  <Bot className={cn('w-5 h-5 text-white', isThinking && 'animate-pulse')} />
+                  <AppIcon name="solar:chat-round-dots-bold-duotone" className={cn('w-5 h-5 text-white', isThinking && 'animate-pulse')} />
                 </div>
                 <div className="min-w-0 flex-1">
                   <h3 className="font-extrabold text-sm truncate text-white">{t.title}</h3>
@@ -562,7 +561,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                     onClick={handleClearChat}
                     title={t.clearChat}
                   >
-                    <Trash2 className="w-3.5 h-3.5" />
+                    <AppIcon name="solar:trash-bin-trash-bold" className="w-3.5 h-3.5" />
                   </Button>
                 )}
                 <Button
@@ -571,7 +570,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                   className="h-8 w-8 text-white hover:bg-white/20 transition-transform hover:rotate-90 duration-200"
                   onClick={() => setIsOpen(false)}
                 >
-                  <X className="w-4 h-4" />
+                  <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
                 </Button>
               </div>
             </div>
@@ -595,7 +594,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                             msg.isStreaming && msg.id === streamingMessageId && 'ring-2 ring-primary/30'
                           )}
                         >
-                          <Bot className={cn('w-3.5 h-3.5 text-primary', msg.isStreaming && msg.id === streamingMessageId && 'animate-pulse')} />
+                          <AppIcon name="solar:chat-round-dots-bold-duotone" className={cn('w-3.5 h-3.5 text-primary', msg.isStreaming && msg.id === streamingMessageId && 'animate-pulse')} />
                         </div>
                       )}
 
@@ -624,7 +623,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
 
                       {msg.type === 'user' && (
                         <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center flex-shrink-0 mb-5">
-                          <User className="w-3.5 h-3.5 text-secondary-foreground" />
+                          <AppIcon name="solar:user-bold" className="w-3.5 h-3.5 text-secondary-foreground" />
                         </div>
                       )}
                     </div>
@@ -642,7 +641,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                           )}
                           title={t.rateUp}
                         >
-                          <ThumbsUp className="w-3 h-3" />
+                          <AppIcon name="solar:like-bold" className="w-3 h-3" />
                         </button>
                         <button
                           onClick={() => handleRate(msg.id, 'down')}
@@ -654,7 +653,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                           )}
                           title={t.rateDown}
                         >
-                          <ThumbsDown className="w-3 h-3" />
+                          <AppIcon name="solar:dislike-bold" className="w-3 h-3" />
                         </button>
                       </div>
                     )}
@@ -666,7 +665,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                           onClick={() => openWhatsApp()}
                           className="inline-flex items-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white px-3 py-1.5 rounded-full text-xs font-medium transition-colors shadow-sm"
                         >
-                          <Phone className="w-3.5 h-3.5" />
+                          <AppIcon name="solar:phone-calling-rounded-bold" className="w-3.5 h-3.5" />
                           {t.contactWhatsApp}
                         </button>
                       </div>
@@ -678,7 +677,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                 {isThinking && (
                   <div className="flex gap-2 justify-start items-end">
                     <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mb-5">
-                      <Bot className="w-3.5 h-3.5 text-primary animate-pulse" />
+                      <AppIcon name="solar:chat-round-dots-bold-duotone" className="w-3.5 h-3.5 text-primary animate-pulse" />
                     </div>
                     <div className="bg-muted rounded-2xl rounded-bl-sm px-4 py-3 mb-5">
                       <div className="flex gap-1 items-center h-3">
@@ -703,13 +702,14 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                   className="w-full flex items-center justify-between px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors group"
                 >
                   <div className="flex items-center gap-1.5">
-                    <Sparkles className="w-3 h-3 text-primary" />
+                    <AppIcon name="solar:stars-minimalistic-bold" className="w-3 h-3 text-primary" />
                     <span className="font-medium">{t.suggestions}</span>
                     <span className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded-full font-medium">
                       {suggestions.length}
                     </span>
                   </div>
-                  <ChevronDown
+                  <AppIcon
+                    name="solar:alt-arrow-down-linear"
                     className={cn(
                       'w-3.5 h-3.5 transition-transform duration-200',
                       isSuggestionsOpen ? 'rotate-180' : 'rotate-0'
@@ -760,7 +760,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                   disabled={!inputValue.trim() || faqsLoading || isThinking || !!streamingMessageId}
                   className="shrink-0 h-9 w-9 rounded-xl"
                 >
-                  <Send className="w-4 h-4" />
+                  <AppIcon name="solar:plain-bold-duotone" className="w-4 h-4" />
                 </Button>
               </div>
 
@@ -769,7 +769,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                   onClick={() => openWhatsApp()}
                   className="w-full mt-2 text-[11px] text-muted-foreground hover:text-[#25D366] flex items-center justify-center gap-1 py-1 transition-colors"
                 >
-                  <Phone className="w-3 h-3" />
+                  <AppIcon name="solar:phone-bold" className="w-3 h-3" />
                   <span>{t.needMoreHelp} {t.contactWhatsApp}</span>
                 </button>
               )}
@@ -802,7 +802,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
             )}
           >
             {isOpen ? (
-              <X className="w-5 h-5 md:w-7 md:h-7" />
+              <AppIcon name="solar:close-circle-bold" className="w-5 h-5 md:w-7 md:h-7" />
             ) : customIconUrl ? (
               <img
                 src={customIconUrl}
@@ -810,7 +810,7 @@ const FloatingChatbot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                 className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
               />
             ) : (
-              <MessageCircle className="w-6 h-6 md:w-8 md:h-8 text-white drop-shadow-sm" />
+              <AppIcon name="solar:chat-round-dots-bold-duotone" className="w-6 h-6 md:w-8 md:h-8 text-white drop-shadow-sm" />
             )}
           </div>
         </button>

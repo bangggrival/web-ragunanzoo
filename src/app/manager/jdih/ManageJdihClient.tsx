@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { FileText, Plus, Search, Edit2, Trash2, Filter, X, Scale, Download, ExternalLink, Globe, Loader2, Upload } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { JdihDocument, JDIH_TYPES, JDIH_STATUSES } from '@/hooks/useJdihDocuments';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -149,7 +149,7 @@ export default function ManageJdihClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <Scale className="w-5 h-5 text-green-500" />
+              <AppIcon icon="Scale" className="w-5 h-5 text-green-500" />
             </div>
             JDIH
           </h1>
@@ -161,7 +161,7 @@ export default function ManageJdihClient() {
           onClick={handleAdd} 
           className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(99,102,241,0.5)] hover:-translate-y-0.5"
         >
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           {language === 'en' ? 'Add Document' : 'Tambah Dokumen'}
         </button>
       </div>
@@ -169,7 +169,7 @@ export default function ManageJdihClient() {
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row gap-3 p-2 bg-white/60 backdrop-blur-xl rounded-[1.5rem] border border-white/80 shadow-sm">
           <div className="relative flex-1 ml-2">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <AppIcon icon="Search" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
               placeholder={language === 'en' ? 'Search documents...' : 'Cari dokumen...'}
@@ -180,7 +180,7 @@ export default function ManageJdihClient() {
           </div>
           <div className="w-px h-8 bg-slate-200 hidden sm:block self-center"></div>
           <div className="relative sm:min-w-[200px] mr-2">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            <AppIcon icon="Filter" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
@@ -205,7 +205,7 @@ export default function ManageJdihClient() {
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs font-bold border border-green-100">
                 "{searchQuery}"
                 <button onClick={() => setSearchQuery('')} className="hover:bg-green-100 rounded-full p-0.5">
-                  <X className="w-3 h-3" />
+                  <AppIcon icon="X" className="w-3 h-3" />
                 </button>
               </span>
             )}
@@ -213,7 +213,7 @@ export default function ManageJdihClient() {
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-violet-50 text-violet-600 rounded-full text-xs font-bold border border-violet-100">
                 {getTypeIcon(typeFilter)} {getTypeLabel(typeFilter, language)}
                 <button onClick={() => setTypeFilter('')} className="hover:bg-violet-100 rounded-full p-0.5">
-                  <X className="w-3 h-3" />
+                  <AppIcon icon="X" className="w-3 h-3" />
                 </button>
               </span>
             )}
@@ -228,7 +228,7 @@ export default function ManageJdihClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-              <FileText className="w-4 h-4 text-green-500" />
+              <AppIcon icon="FileText" className="w-4 h-4 text-green-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Dokumen</span>
           </div>
@@ -237,7 +237,7 @@ export default function ManageJdihClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-              <Scale className="w-4 h-4 text-green-500" />
+              <AppIcon icon="Scale" className="w-4 h-4 text-green-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Berlaku</span>
           </div>
@@ -246,7 +246,7 @@ export default function ManageJdihClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
-              <Globe className="w-4 h-4 text-blue-500" />
+              <AppIcon icon="Globe" className="w-4 h-4 text-blue-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Dipublikasi</span>
           </div>
@@ -255,7 +255,7 @@ export default function ManageJdihClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-              <Filter className="w-4 h-4 text-slate-500" />
+              <AppIcon icon="Filter" className="w-4 h-4 text-slate-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Jenis Dokumen</span>
           </div>
@@ -267,7 +267,7 @@ export default function ManageJdihClient() {
         {paginatedItems.length === 0 ? (
           <div className="text-center py-20">
             <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-slate-100">
-              <Scale className="w-10 h-10 text-slate-300" />
+              <AppIcon icon="Scale" className="w-10 h-10 text-slate-300" />
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-2">
               {hasFilters 
@@ -321,12 +321,12 @@ export default function ManageJdihClient() {
                           <div className="flex gap-2">
                             {doc.file_url && (
                               <a href={doc.file_url} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-green-50 text-green-500 hover:bg-green-100 transition-colors">
-                                <Download className="w-4 h-4" />
+                                <AppIcon icon="Download" className="w-4 h-4" />
                               </a>
                             )}
                             {doc.source_url && (
                               <a href={doc.source_url} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 text-slate-500 hover:bg-slate-100 transition-colors">
-                                <ExternalLink className="w-4 h-4" />
+                                <AppIcon icon="ExternalLink" className="w-4 h-4" />
                               </a>
                             )}
                           </div>
@@ -334,10 +334,10 @@ export default function ManageJdihClient() {
                         <td className="manager-table-td manager-table-td-right">
                           <div className="manager-table-actions justify-end">
                             <button onClick={() => handleEdit(doc)} className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors">
-                              <Edit2 className="w-4 h-4" />
+                              <AppIcon icon="Edit2" className="w-4 h-4" />
                             </button>
                             <button onClick={() => setDeleteDoc(doc)} className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors">
-                              <Trash2 className="w-4 h-4" />
+                              <AppIcon icon="Trash2" className="w-4 h-4" />
                             </button>
                           </div>
                         </td>
@@ -381,21 +381,21 @@ export default function ManageJdihClient() {
                       <div className="flex gap-2">
                         {doc.file_url && (
                           <a href={doc.file_url} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-green-50 text-green-500 hover:bg-green-100 transition-colors">
-                            <Download className="w-4 h-4" />
+                            <AppIcon icon="Download" className="w-4 h-4" />
                           </a>
                         )}
                         {doc.source_url && (
                           <a href={doc.source_url} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 text-slate-500 hover:bg-slate-100 transition-colors">
-                            <ExternalLink className="w-4 h-4" />
+                            <AppIcon icon="ExternalLink" className="w-4 h-4" />
                           </a>
                         )}
                       </div>
                       <div className="flex gap-2">
                         <button onClick={() => handleEdit(doc)} className="px-3 py-1.5 text-xs font-bold rounded-lg text-green-600 bg-green-50 hover:bg-green-100 transition-colors flex items-center gap-1.5">
-                          <Edit2 className="w-3 h-3" /> Edit
+                          <AppIcon icon="Edit2" className="w-3 h-3" /> Edit
                         </button>
                         <button onClick={() => setDeleteDoc(doc)} className="px-3 py-1.5 text-xs font-bold rounded-lg text-rose-600 bg-rose-50 hover:bg-rose-100 transition-colors flex items-center gap-1.5">
-                          <Trash2 className="w-3 h-3" /> Hapus
+                          <AppIcon icon="Trash2" className="w-3 h-3" /> Hapus
                         </button>
                       </div>
                     </div>
@@ -591,7 +591,7 @@ function JdihFormModalClient({ isOpen, onClose, document, onSuccess, language }:
         <DialogHeader className="p-6 border-b border-slate-100">
           <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <Scale className="w-5 h-5 text-green-500" />
+              <AppIcon icon="Scale" className="w-5 h-5 text-green-500" />
             </div>
             {document ? 'Edit Dokumen JDIH' : 'Tambah Dokumen JDIH'}
           </DialogTitle>
@@ -637,7 +637,7 @@ function JdihFormModalClient({ isOpen, onClose, document, onSuccess, language }:
 
           <div className="space-y-4 pt-2 border-t border-slate-100">
             <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-              <Globe className="w-4 h-4 text-slate-400" /> Konten Multibahasa
+              <AppIcon icon="Globe" className="w-4 h-4 text-slate-400" /> Konten Multibahasa
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-3">
@@ -666,13 +666,13 @@ function JdihFormModalClient({ isOpen, onClose, document, onSuccess, language }:
           </div>
 
           <div className="space-y-4 pt-2 border-t border-slate-100">
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><FileText className="w-4 h-4 text-slate-400" /> File & Tautan</h3>
+            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><AppIcon icon="FileText" className="w-4 h-4 text-slate-400" /> File & Tautan</h3>
             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
               <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-slate-300 rounded-xl cursor-pointer hover:border-green-500 hover:bg-green-50/50 transition-all group">
                 <input type="file" accept=".pdf" onChange={handleFileUpload} className="hidden" disabled={uploading} />
-                {uploading ? <Loader2 className="w-6 h-6 animate-spin text-green-500" /> : (
+                {uploading ? <AppIcon icon="Loader2" className="w-6 h-6 animate-spin text-green-500" /> : (
                   <>
-                    <Upload className="w-6 h-6 text-slate-400 group-hover:text-green-500 mb-2" />
+                    <AppIcon icon="Upload" className="w-6 h-6 text-slate-400 group-hover:text-green-500 mb-2" />
                     <span className="text-sm font-bold text-slate-600">Upload PDF (Maks 50MB)</span>
                   </>
                 )}
@@ -682,12 +682,12 @@ function JdihFormModalClient({ isOpen, onClose, document, onSuccess, language }:
                 <div className="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-xl shadow-sm">
                   <div className="flex items-center gap-2 overflow-hidden">
                     <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-                      <FileText className="w-4 h-4 text-green-500" />
+                      <AppIcon icon="FileText" className="w-4 h-4 text-green-500" />
                     </div>
                     <span className="text-xs font-bold text-slate-700 truncate">{formData.file_url.split('/').pop()}</span>
                   </div>
                   <button type="button" onClick={() => setFormData(prev => ({ ...prev, file_url: '' }))} className="w-8 h-8 flex items-center justify-center rounded-lg bg-rose-50 text-rose-500 hover:bg-rose-100 flex-shrink-0">
-                    <X className="w-4 h-4" />
+                    <AppIcon icon="X" className="w-4 h-4" />
                   </button>
                 </div>
               )}
@@ -695,7 +695,7 @@ function JdihFormModalClient({ isOpen, onClose, document, onSuccess, language }:
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">URL Sumber Eksternal (Opsional)</label>
                 <div className="relative">
-                  <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <AppIcon icon="Globe" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input type="url" value={formData.source_url} onChange={(e) => setFormData({ ...formData, source_url: e.target.value })} placeholder="https://..." className="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500/20 focus:border-green-500 font-medium text-sm" />
                 </div>
               </div>
@@ -714,7 +714,7 @@ function JdihFormModalClient({ isOpen, onClose, document, onSuccess, language }:
         <DialogFooter className="p-5 border-t border-slate-100 bg-slate-50/80 rounded-b-[2rem]">
           <button onClick={onClose} className="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 font-bold transition-colors">Batal</button>
           <button onClick={handleSubmit} disabled={loading || !formData.title_id.trim() || !formData.document_number.trim()} className="flex items-center justify-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:opacity-50 font-bold shadow-lg shadow-green-600/20 transition-all">
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+            {loading ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : null}
             {document ? 'Simpan Perubahan' : 'Tambah Dokumen'}
           </button>
         </DialogFooter>

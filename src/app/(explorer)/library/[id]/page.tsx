@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { supabase } from '@/integrations/supabase/client';
-import { Book, ChevronLeft, Download, Star, Eye, FileText, ShoppingCart, LockKeyhole, BookOpen, Clock, Globe } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Book as BookType, useBooks } from '@/hooks/useBooks';
 import { usePurchases } from '@/hooks/usePurchases';
@@ -109,7 +109,7 @@ export default function BookDetailPage() {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
         <div className="text-center">
-          <Book className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+          <AppIcon icon="Book" className="w-16 h-16 text-slate-300 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-slate-800 mb-2">Buku Tidak Ditemukan</h1>
           <button onClick={() => router.push('/library')} className="text-primary hover:underline">
             Kembali ke Perpustakaan
@@ -127,7 +127,7 @@ export default function BookDetailPage() {
           onClick={() => router.push('/library')}
           className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors mb-8"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <AppIcon icon="ChevronLeft" className="w-4 h-4" />
           {language === 'en' ? 'Back to Library' : 'Kembali ke Perpustakaan'}
         </button>
 
@@ -140,13 +140,13 @@ export default function BookDetailPage() {
                   <img src={book.cover_url} alt={getTitle(book)} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                    <Book className="w-20 h-20 text-primary/30" />
+                    <AppIcon icon="Book" className="w-20 h-20 text-primary/30" />
                   </div>
                 )}
                 
                 {book.is_premium && (
                   <div className="absolute top-4 right-4 px-3 py-1.5 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full flex items-center shadow-lg border border-amber-300">
-                    <Star className="w-4 h-4 text-white fill-white mr-1.5" />
+                    <AppIcon icon="Star" className="w-4 h-4 text-white fill-white mr-1.5" />
                     <span className="text-xs font-bold text-white tracking-wider">PREMIUM</span>
                   </div>
                 )}
@@ -161,7 +161,7 @@ export default function BookDetailPage() {
                 </span>
                 {book.is_featured && (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary/10 text-secondary rounded-lg text-xs font-bold border border-secondary/20">
-                    <Star className="w-3.5 h-3.5 fill-secondary" /> 
+                    <AppIcon icon="Star" className="w-3.5 h-3.5 fill-secondary" /> 
                     {language === 'en' ? 'Featured' : 'Unggulan'}
                   </span>
                 )}
@@ -181,7 +181,7 @@ export default function BookDetailPage() {
                 {book.page_count && (
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-500">
-                      <FileText className="w-5 h-5" />
+                      <AppIcon icon="FileText" className="w-5 h-5" />
                     </div>
                     <div>
                       <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">{language === 'en' ? 'Pages' : 'Halaman'}</p>
@@ -192,7 +192,7 @@ export default function BookDetailPage() {
                 {book.year_published && (
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center text-rose-500">
-                      <Clock className="w-5 h-5" />
+                      <AppIcon icon="Clock" className="w-5 h-5" />
                     </div>
                     <div>
                       <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">{language === 'en' ? 'Published' : 'Terbit'}</p>
@@ -202,7 +202,7 @@ export default function BookDetailPage() {
                 )}
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-500">
-                    <Eye className="w-5 h-5" />
+                    <AppIcon icon="Eye" className="w-5 h-5" />
                   </div>
                   <div>
                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Views</p>
@@ -235,7 +235,7 @@ export default function BookDetailPage() {
                         disabled={reading || !book.file_url}
                         className="flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-3.5 rounded-xl font-bold shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40 hover:-translate-y-0.5 transition-all w-full sm:w-auto"
                       >
-                        <BookOpen className="w-5 h-5" />
+                        <AppIcon icon="BookOpen" className="w-5 h-5" />
                         {reading ? 'Membuka...' : 'Baca Buku Premium'}
                       </button>
                     ) : (
@@ -243,8 +243,8 @@ export default function BookDetailPage() {
                         onClick={handleBuy}
                         className="flex items-center justify-center gap-2 bg-slate-900 text-white px-8 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all w-full sm:w-auto group"
                       >
-                        <LockKeyhole className="w-5 h-5 group-hover:hidden" />
-                        <ShoppingCart className="w-5 h-5 hidden group-hover:block" />
+                        <AppIcon icon="LockKeyhole" className="w-5 h-5 group-hover:hidden" />
+                        <AppIcon icon="ShoppingCart" className="w-5 h-5 hidden group-hover:block" />
                         Beli E-Book
                       </button>
                     )}
@@ -260,7 +260,7 @@ export default function BookDetailPage() {
                       disabled={reading || !book.file_url}
                       className="flex items-center justify-center gap-2 bg-primary text-white px-8 py-3.5 rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all w-full sm:w-auto"
                     >
-                      <BookOpen className="w-5 h-5" />
+                      <AppIcon icon="BookOpen" className="w-5 h-5" />
                       {language === 'en' ? 'Read Now' : 'Baca Sekarang'}
                     </button>
                   </div>

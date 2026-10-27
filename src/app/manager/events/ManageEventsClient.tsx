@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Plus, Edit2, Trash2, Clock, MapPin, Download, FileSpreadsheet, FileText, AlertTriangle, CheckCircle2, Filter, X } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useConfirm } from '@/hooks/useConfirm';
 import { Event } from '@/hooks/useEvents';
 import { toast } from 'sonner';
@@ -274,7 +274,7 @@ export default function ManageEventsClient() {
                 <button 
                   className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all font-semibold shadow-2xs btn-interactive text-xs sm:text-sm"
                 >
-                  <Download className="w-4 h-4 text-emerald-600" />
+                  <AppIcon icon="Download" className="w-4 h-4 text-emerald-600" />
                   <span>Ekspor Agenda</span>
                 </button>
               </DropdownMenuTrigger>
@@ -283,14 +283,14 @@ export default function ManageEventsClient() {
                   onClick={() => handleExport('excel')}
                   className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl cursor-pointer"
                 >
-                  <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+                  <AppIcon icon="FileSpreadsheet" className="w-4 h-4 text-emerald-600" />
                   <span>Ekspor ke Excel (.xlsx)</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={() => handleExport('pdf')}
                   className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl cursor-pointer"
                 >
-                  <FileText className="w-4 h-4 text-rose-600" />
+                  <AppIcon icon="FileText" className="w-4 h-4 text-rose-600" />
                   <span>Cetak Dokumen PDF (.pdf)</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -301,7 +301,7 @@ export default function ManageEventsClient() {
               onClick={handleAdd}
               className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all font-semibold shadow-md shadow-emerald-500/20 btn-interactive text-xs sm:text-sm"
             >
-              <Plus className="w-4 h-4" />
+              <AppIcon icon="Plus" className="w-4 h-4" />
               Tambah Acara
             </button>
           </div>
@@ -310,7 +310,7 @@ export default function ManageEventsClient() {
         {/* Conflict Alert Banner */}
         {conflicts.length > 0 && (
           <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 flex items-start gap-3.5 animate-slide-in-up">
-            <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+            <AppIcon icon="AlertTriangle" className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <h4 className="font-bold text-sm text-amber-800 dark:text-amber-300">
                 Peringatan Bentrok Jadwal Acara ({conflicts.length} Slot Waktu)
@@ -326,7 +326,7 @@ export default function ManageEventsClient() {
                       key={slotKey}
                       className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-xs font-bold"
                     >
-                      <Clock className="w-3 h-3 text-amber-600" />
+                      <AppIcon icon="Clock" className="w-3 h-3 text-amber-600" />
                       <span>{date} @ {time} WIB:</span>
                       <span className="font-normal">{items.map(i => i.title).join(' & ')}</span>
                     </span>
@@ -399,18 +399,18 @@ export default function ManageEventsClient() {
 
                   <div className="space-y-1.5 text-xs text-muted-foreground pt-2 border-t border-border">
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                      <AppIcon icon="Calendar" className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                       <span>{formatDate(event.event_date)}</span>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                      <AppIcon icon="Clock" className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                       <span className="font-mono font-medium">
                         {event.time || 'TBA'} WIB
                       </span>
                       {isConflicting && (
                         <span className="text-[10px] text-amber-600 dark:text-amber-400 font-bold inline-flex items-center gap-1 bg-amber-500/10 px-1.5 py-0.5 rounded-full border border-amber-500/20">
-                          <AlertTriangle className="w-2.5 h-2.5 shrink-0" />
+                          <AppIcon icon="AlertTriangle" className="w-2.5 h-2.5 shrink-0" />
                           Bentrok
                         </span>
                       )}
@@ -418,7 +418,7 @@ export default function ManageEventsClient() {
 
                     {event.location && (
                       <div className="flex items-center gap-2">
-                        <MapPin className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                        <AppIcon icon="MapPin" className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                         <span className="truncate">{event.location}</span>
                       </div>
                     )}
@@ -441,14 +441,14 @@ export default function ManageEventsClient() {
                       className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors"
                       title="Edit Acara"
                     >
-                      <Edit2 className="w-4 h-4" />
+                      <AppIcon icon="Edit2" className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(event.id)}
                       className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
                       title="Hapus Acara"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <AppIcon icon="Trash2" className="w-4 h-4" />
                     </button>
                   </div>
                 </div>

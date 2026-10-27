@@ -22,21 +22,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { 
-  Plus, Save, Loader2, Trash2, Edit2, FileText, Eye, EyeOff, ExternalLink, Info, AlertCircle,
-  Globe, Home, MapPin, PawPrint, Ticket, Calendar, QrCode, Newspaper, Heart, Building2, View,
-  Link as LinkIcon, Star, Gift, Camera, Music, Coffee, ShoppingBag, Phone, Mail, Upload, ImageIcon, X,
-  type LucideIcon
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { createCustomPageAction, updateCustomPageAction, deleteCustomPageAction } from './actions';
 import { supabase } from '@/integrations/supabase/client';
 
-const iconMap: Record<string, LucideIcon> = {
-  FileText, Home, MapPin, PawPrint, Ticket, Calendar, QrCode, Newspaper, Heart, Building2, View,
-  Link: LinkIcon, Info, Star, Gift, Camera, Music, Coffee, ShoppingBag, Phone, Mail, Globe,
-};
-
-const availableIcons = Object.keys(iconMap);
+const availableIcons = [
+  'FileText', 'Home', 'MapPin', 'PawPrint', 'Ticket', 'Calendar', 'QrCode', 'Newspaper', 'Heart', 'Building2', 'View',
+  'Link', 'Info', 'Star', 'Gift', 'Camera', 'Music', 'Coffee', 'ShoppingBag', 'Phone', 'Mail', 'Globe',
+];
 
 interface ManageCustomPagesClientProps {
   initialPages: CustomPage[];
@@ -304,7 +297,7 @@ export default function ManageCustomPagesClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-rose-50 rounded-xl flex items-center justify-center border border-rose-100">
-              <FileText className="w-5 h-5 text-rose-500" />
+              <AppIcon icon="FileText" className="w-5 h-5 text-rose-500" />
             </div>
             Halaman Kustom
           </h1>
@@ -316,7 +309,7 @@ export default function ManageCustomPagesClient() {
           onClick={openAddDialog} 
           className="flex items-center justify-center gap-2 bg-gradient-to-r from-rose-500 to-pink-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-semibold shadow-[0_2px_15px_-3px_rgba(244,63,94,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(244,63,94,0.5)] hover:-translate-y-0.5"
         >
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           Buat Halaman Baru
         </button>
       </div>
@@ -324,7 +317,7 @@ export default function ManageCustomPagesClient() {
       <div className="bg-gradient-to-r from-blue-500/10 to-green-500/10 border border-blue-500/20 p-5 rounded-[1.5rem] backdrop-blur-xl">
         <div className="flex gap-4">
           <div className="w-12 h-12 bg-white/60 rounded-xl flex items-center justify-center border border-white/80 shadow-sm flex-shrink-0">
-            <Info className="w-6 h-6 text-blue-600" />
+            <AppIcon icon="Info" className="w-6 h-6 text-blue-600" />
           </div>
           <div>
             <p className="font-bold text-slate-800 mb-2">Cara Menggunakan:</p>
@@ -342,7 +335,7 @@ export default function ManageCustomPagesClient() {
       {pages.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {pages.map((page) => {
-            const Icon = (iconMap[page.navbar_icon || 'FileText'] || FileText) as any;
+            
             const hasImages = page.image_urls && page.image_urls.length > 0;
             return (
               <div 
@@ -366,7 +359,7 @@ export default function ManageCustomPagesClient() {
                 <div className="p-5 flex flex-col flex-1">
                   <div className="flex items-start gap-4 mb-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${page.is_published ? 'bg-rose-50 text-rose-500 border border-rose-100' : 'bg-slate-100 text-slate-400'}`}>
-                      <Icon className="w-6 h-6" />
+                      <AppIcon icon={page.navbar_icon || "FileText"} className="w-6 h-6" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
@@ -391,9 +384,9 @@ export default function ManageCustomPagesClient() {
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold transition-colors ${page.is_published ? 'text-slate-500 hover:bg-slate-100' : 'text-green-600 bg-green-50 hover:bg-green-100'}`}
                     >
                       {page.is_published ? (
-                        <><EyeOff className="w-4 h-4" /><span>Sembunyikan</span></>
+                        <><AppIcon icon="EyeOff" className="w-4 h-4" /><span>Sembunyikan</span></>
                       ) : (
-                        <><Eye className="w-4 h-4" /><span>Publikasi</span></>
+                        <><AppIcon icon="Eye" className="w-4 h-4" /><span>Publikasi</span></>
                       )}
                     </button>
                     <a
@@ -402,7 +395,7 @@ export default function ManageCustomPagesClient() {
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold text-blue-600 hover:bg-blue-50 transition-colors"
                     >
-                      <ExternalLink className="w-4 h-4" />
+                      <AppIcon icon="ExternalLink" className="w-4 h-4" />
                       <span>Lihat</span>
                     </a>
                     <div className="flex-1" />
@@ -410,13 +403,13 @@ export default function ManageCustomPagesClient() {
                       onClick={() => openEditDialog(page)}
                       className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors"
                     >
-                      <Edit2 className="w-4 h-4" />
+                      <AppIcon icon="Edit2" className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => confirmDelete(page)}
                       className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <AppIcon icon="Trash2" className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -427,12 +420,12 @@ export default function ManageCustomPagesClient() {
       ) : (
         <div className="text-center py-16 px-4 bg-white/60 backdrop-blur-xl border border-slate-200/60 rounded-[2rem]">
           <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100">
-            <FileText className="w-8 h-8 text-slate-300" />
+            <AppIcon icon="FileText" className="w-8 h-8 text-slate-300" />
           </div>
           <h3 className="text-lg font-bold text-slate-800">Belum Ada Halaman</h3>
           <p className="text-slate-500 mt-1 mb-6">Mulai buat halaman statis pertama Anda seperti "Tentang Kami", "Visi Misi", dll.</p>
           <button onClick={openAddDialog} className="bg-rose-500 hover:bg-rose-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-md shadow-rose-500/20 inline-flex items-center gap-2">
-            <Plus className="w-4 h-4" />
+            <AppIcon icon="Plus" className="w-4 h-4" />
             Buat Halaman Pertama
           </button>
         </div>
@@ -444,7 +437,7 @@ export default function ManageCustomPagesClient() {
           <DialogHeader className="p-6 border-b border-slate-100">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-rose-50 rounded-xl flex items-center justify-center border border-rose-100">
-                {editingPage ? <Edit2 className="w-5 h-5 text-rose-500" /> : <Plus className="w-5 h-5 text-rose-500" />}
+                {editingPage ? <AppIcon icon="Edit2" className="w-5 h-5 text-rose-500" /> : <AppIcon icon="Plus" className="w-5 h-5 text-rose-500" />}
               </div>
               {editingPage ? 'Edit Halaman' : 'Buat Halaman Baru'}
             </DialogTitle>
@@ -468,7 +461,7 @@ export default function ManageCustomPagesClient() {
                 />
                 {formErrors.title_id && (
                   <p className="text-xs font-bold text-rose-500 flex items-center gap-1 mt-1">
-                    <AlertCircle className="w-3 h-3" />
+                    <AppIcon icon="AlertCircle" className="w-3 h-3" />
                     {formErrors.title_id}
                   </p>
                 )}
@@ -492,7 +485,7 @@ export default function ManageCustomPagesClient() {
                 </div>
                 {formErrors.slug && (
                   <p className="text-xs font-bold text-rose-500 flex items-center gap-1 mt-1">
-                    <AlertCircle className="w-3 h-3" />
+                    <AppIcon icon="AlertCircle" className="w-3 h-3" />
                     {formErrors.slug}
                   </p>
                 )}
@@ -512,7 +505,7 @@ export default function ManageCustomPagesClient() {
 
             <div className="space-y-3 bg-slate-50 p-5 rounded-2xl border border-slate-100">
               <Label className="flex items-center gap-2 text-sm font-bold text-slate-800">
-                <ImageIcon className="w-4 h-4 text-slate-500" />
+                <AppIcon icon="ImageIcon" className="w-4 h-4 text-slate-500" />
                 Gambar Halaman
               </Label>
               
@@ -530,7 +523,7 @@ export default function ManageCustomPagesClient() {
                         onClick={() => removeImage(index)}
                         className="absolute top-1.5 right-1.5 p-1 bg-rose-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-rose-600"
                       >
-                        <X className="w-3 h-3" />
+                        <AppIcon icon="X" className="w-3 h-3" />
                       </button>
                       {index === 0 && (
                         <span className="absolute bottom-1.5 left-1.5 text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md border border-white/20 text-white px-2 py-0.5 rounded-full">
@@ -557,7 +550,7 @@ export default function ManageCustomPagesClient() {
                   disabled={uploading}
                   className="flex items-center gap-2 px-4 py-2 border-2 border-dashed border-slate-300 rounded-xl text-slate-600 hover:border-green-500 hover:text-green-600 hover:bg-green-50 transition-all font-bold text-sm disabled:opacity-50"
                 >
-                  {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                  {uploading ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : <AppIcon icon="Upload" className="w-4 h-4" />}
                   {uploading ? 'Mengupload...' : 'Upload Gambar'}
                 </button>
                 <span className="text-xs font-medium text-slate-400">
@@ -568,7 +561,7 @@ export default function ManageCustomPagesClient() {
 
             <div className="space-y-3">
               <Label className="text-sm font-bold text-slate-800 flex items-center gap-2">
-                <FileText className="w-4 h-4 text-slate-500" />
+                <AppIcon icon="FileText" className="w-4 h-4 text-slate-500" />
                 Konten Halaman
               </Label>
               <Tabs defaultValue="id" className="w-full">
@@ -601,7 +594,7 @@ export default function ManageCustomPagesClient() {
               <Label className="text-sm font-bold text-slate-800">Icon Halaman</Label>
               <div className="grid grid-cols-8 gap-2 p-3 bg-slate-50 border border-slate-100 rounded-2xl max-h-40 overflow-y-auto custom-scrollbar">
                 {availableIcons.map((iconName) => {
-                  const Icon = iconMap[iconName] as any;
+                  
                   const isSelected = formData.navbar_icon === iconName;
                   return (
                     <button
@@ -617,7 +610,7 @@ export default function ManageCustomPagesClient() {
                       `}
                       title={iconName}
                     >
-                      <Icon className="w-5 h-5" />
+                      <AppIcon icon={iconName} className="w-5 h-5" />
                     </button>
                   );
                 })}
@@ -642,7 +635,7 @@ export default function ManageCustomPagesClient() {
               Batal
             </button>
             <button onClick={handleSave} disabled={saving || uploading} className="flex items-center justify-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:opacity-50 font-bold shadow-lg shadow-green-600/20 transition-all">
-              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+              {saving ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : <AppIcon icon="Save" className="w-4 h-4" />}
               {editingPage ? 'Simpan Perubahan' : 'Buat Halaman'}
             </button>
           </DialogFooter>
@@ -654,7 +647,7 @@ export default function ManageCustomPagesClient() {
           <AlertDialogHeader>
             <AlertDialogTitle className="text-xl font-bold text-slate-800 flex items-center gap-2">
               <div className="w-10 h-10 bg-rose-50 rounded-xl flex items-center justify-center border border-rose-100">
-                <AlertCircle className="w-5 h-5 text-rose-500" />
+                <AppIcon icon="AlertCircle" className="w-5 h-5 text-rose-500" />
               </div>
               Hapus Halaman?
             </AlertDialogTitle>
@@ -663,7 +656,7 @@ export default function ManageCustomPagesClient() {
               Tindakan ini tidak dapat dibatalkan.
               {pageToDelete?.image_urls && pageToDelete.image_urls.length > 0 && (
                 <span className="block mt-3 text-amber-600 bg-amber-50 p-3 rounded-xl border border-amber-100 text-sm font-bold flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4" />
+                  <AppIcon icon="AlertCircle" className="w-4 h-4" />
                   {pageToDelete.image_urls.length} gambar juga akan dihapus permanen.
                 </span>
               )}

@@ -44,37 +44,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { 
-  GraduationCap, 
-  FlaskConical, 
-  Search, 
-  Download, 
-  Eye, 
-  MoreHorizontal,
-  CheckCircle,
-  XCircle,
-  Clock,
-  Loader2,
-  FileSpreadsheet,
-  Filter,
-  RefreshCw,
-  Calendar as CalendarIcon,
-  Mail,
-  Phone,
-  Building2,
-  User,
-  FileText,
-  CheckCircle2,
-  AlertCircle,
-  X,
-  FileDown,
-  Stethoscope,
-  Mic,
-  FileArchive,
-  Link,
-  Save,
-  MessageCircle
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { format } from 'date-fns';
 import { id as idLocale } from 'date-fns/locale';
 import { toast } from 'sonner';
@@ -86,37 +56,37 @@ import { generateServiceDispositionPdf, generateWhatsAppMessageUrl } from '@/uti
 // Status configuration
 const statusConfig: Record<ServiceRegistration['status'], { 
   label: string; 
-  icon: typeof Clock; 
+  icon: React.ElementType; 
   className: string;
   bgClass: string;
 }> = {
   pending: { 
     label: 'Menunggu', 
-    icon: Clock, 
+    icon: (props: any) => <AppIcon icon="Clock" {...props} />, 
     className: 'text-amber-700',
     bgClass: 'bg-amber-100 border-amber-200 hover:bg-amber-200'
   },
   reviewing: { 
     label: 'Ditinjau', 
-    icon: Eye, 
+    icon: (props: any) => <AppIcon icon="Eye" {...props} />, 
     className: 'text-blue-700',
     bgClass: 'bg-blue-100 border-blue-200 hover:bg-blue-200'
   },
   approved: { 
     label: 'Disetujui', 
-    icon: CheckCircle, 
+    icon: (props: any) => <AppIcon icon="CheckCircle" {...props} />, 
     className: 'text-green-700',
     bgClass: 'bg-green-100 border-green-200 hover:bg-green-200'
   },
   rejected: { 
     label: 'Ditolak', 
-    icon: XCircle, 
+    icon: (props: any) => <AppIcon icon="XCircle" {...props} />, 
     className: 'text-rose-700',
     bgClass: 'bg-rose-100 border-rose-200 hover:bg-rose-200'
   },
   completed: { 
     label: 'Selesai', 
-    icon: CheckCircle2, 
+    icon: (props: any) => <AppIcon icon="CheckCircle2" {...props} />, 
     className: 'text-purple-700',
     bgClass: 'bg-purple-100 border-purple-200 hover:bg-purple-200'
   }
@@ -503,7 +473,7 @@ export default function ManageServiceRegistrationsClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <FileSpreadsheet className="w-5 h-5 text-green-500" />
+              <AppIcon icon="FileSpreadsheet" className="w-5 h-5 text-green-500" />
             </div>
             Pendaftaran Layanan
           </h1>
@@ -511,11 +481,11 @@ export default function ManageServiceRegistrationsClient() {
         </div>
         <div className="flex flex-wrap gap-3">
           <Button variant="outline" onClick={() => window.location.reload()} className="rounded-xl font-bold border-slate-200 bg-white hover:bg-slate-50 hover:text-green-600">
-            <RefreshCw className="w-4 h-4 mr-2" />
+            <AppIcon icon="RefreshCw" className="w-4 h-4 mr-2" />
             Refresh
           </Button>
           <Button onClick={handleExportExcel} variant="outline" className="rounded-xl font-bold border-green-200 bg-green-50 text-green-700 hover:bg-green-100 hover:border-green-300">
-            <FileSpreadsheet className="w-4 h-4 mr-2" />
+            <AppIcon icon="FileSpreadsheet" className="w-4 h-4 mr-2" />
             Excel
           </Button>
           <Button 
@@ -525,9 +495,9 @@ export default function ManageServiceRegistrationsClient() {
             className="rounded-xl font-bold border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 hover:border-rose-300"
           >
             {isExportingPdf ? (
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              <AppIcon icon="Loader2" className="w-4 h-4 mr-2 animate-spin" />
             ) : (
-              <FileDown className="w-4 h-4 mr-2" />
+              <AppIcon icon="FileDown" className="w-4 h-4 mr-2" />
             )}
             PDF
           </Button>
@@ -539,7 +509,7 @@ export default function ManageServiceRegistrationsClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-              <FileText className="w-4 h-4 text-slate-600" />
+              <AppIcon icon="FileText" className="w-4 h-4 text-slate-600" />
             </div>
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total</p>
           </div>
@@ -550,7 +520,7 @@ export default function ManageServiceRegistrationsClient() {
           <div className="absolute top-0 right-0 w-24 h-24 bg-amber-100/50 rounded-bl-full -z-10" />
           <div className="flex items-center gap-3 mb-2">
             <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
-              <Clock className="w-4 h-4 text-amber-600" />
+              <AppIcon icon="Clock" className="w-4 h-4 text-amber-600" />
             </div>
             <p className="text-xs font-bold text-amber-700 uppercase tracking-wider">Menunggu</p>
           </div>
@@ -561,7 +531,7 @@ export default function ManageServiceRegistrationsClient() {
           <div className="absolute top-0 right-0 w-24 h-24 bg-blue-100/50 rounded-bl-full -z-10" />
           <div className="flex items-center gap-3 mb-2">
             <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
-              <Eye className="w-4 h-4 text-blue-600" />
+              <AppIcon icon="Eye" className="w-4 h-4 text-blue-600" />
             </div>
             <p className="text-xs font-bold text-blue-700 uppercase tracking-wider">Ditinjau</p>
           </div>
@@ -572,7 +542,7 @@ export default function ManageServiceRegistrationsClient() {
           <div className="absolute top-0 right-0 w-24 h-24 bg-green-100/50 rounded-bl-full -z-10" />
           <div className="flex items-center gap-3 mb-2">
             <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
-              <CheckCircle className="w-4 h-4 text-green-600" />
+              <AppIcon icon="CheckCircle" className="w-4 h-4 text-green-600" />
             </div>
             <p className="text-xs font-bold text-green-700 uppercase tracking-wider">Disetujui</p>
           </div>
@@ -583,7 +553,7 @@ export default function ManageServiceRegistrationsClient() {
           <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -z-10" />
           <div className="flex items-center gap-3 mb-2">
             <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center">
-              <GraduationCap className="w-4 h-4 text-blue-500" />
+              <AppIcon icon="GraduationCap" className="w-4 h-4 text-blue-500" />
             </div>
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">PKL</p>
           </div>
@@ -594,7 +564,7 @@ export default function ManageServiceRegistrationsClient() {
           <div className="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -z-10" />
           <div className="flex items-center gap-3 mb-2">
             <div className="w-8 h-8 rounded-lg bg-purple-50 border border-purple-100 flex items-center justify-center">
-              <FlaskConical className="w-4 h-4 text-purple-500" />
+              <AppIcon icon="FlaskConical" className="w-4 h-4 text-purple-500" />
             </div>
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Penelitian</p>
           </div>
@@ -615,7 +585,7 @@ export default function ManageServiceRegistrationsClient() {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <AppIcon icon="Search" className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input
                 placeholder="Cari kode tracking, nama, institusi, email..."
                 value={searchQuery}
@@ -626,7 +596,7 @@ export default function ManageServiceRegistrationsClient() {
           </div>
           <Select value={filterStatus} onValueChange={setFilterStatus}>
             <SelectTrigger className="w-full md:w-[180px] h-12 bg-white border-slate-200 rounded-xl font-bold shadow-sm">
-              <Filter className="w-4 h-4 mr-2 text-slate-400" />
+              <AppIcon icon="Filter" className="w-4 h-4 mr-2 text-slate-400" />
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent className="rounded-xl border-slate-100 shadow-xl">
@@ -710,7 +680,7 @@ export default function ManageServiceRegistrationsClient() {
                     !startDate ? "text-slate-400 border-slate-200" : "text-green-700 border-green-200 bg-green-50/50"
                   )}
                 >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  <AppIcon icon="Calendar" className="mr-2 h-4 w-4" />
                   {startDate ? format(startDate, "dd MMM yyyy", { locale: idLocale }) : "Dari tanggal"}
                 </Button>
               </PopoverTrigger>
@@ -738,7 +708,7 @@ export default function ManageServiceRegistrationsClient() {
                     !endDate ? "text-slate-400 border-slate-200" : "text-green-700 border-green-200 bg-green-50/50"
                   )}
                 >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  <AppIcon icon="Calendar" className="mr-2 h-4 w-4" />
                   {endDate ? format(endDate, "dd MMM yyyy", { locale: idLocale }) : "Sampai tanggal"}
                 </Button>
               </PopoverTrigger>
@@ -763,7 +733,7 @@ export default function ManageServiceRegistrationsClient() {
                 onClick={clearDateFilter}
                 className="h-10 px-3 rounded-xl text-slate-500 hover:text-rose-600 hover:bg-rose-50 font-bold"
               >
-                <X className="h-4 w-4 mr-1.5" />
+                <AppIcon icon="X" className="h-4 w-4 mr-1.5" />
                 Reset
               </Button>
             )}
@@ -783,7 +753,7 @@ export default function ManageServiceRegistrationsClient() {
         {filteredRegistrations.length === 0 ? (
           <div className="text-center py-16">
             <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100">
-              <AlertCircle className="w-10 h-10 text-slate-300" />
+              <AppIcon icon="AlertCircle" className="w-10 h-10 text-slate-300" />
             </div>
             <p className="font-bold text-slate-700 text-lg">Tidak ada data pendaftaran</p>
             <p className="text-slate-500 font-medium mt-1">Coba sesuaikan filter pencarian Anda</p>
@@ -814,22 +784,22 @@ export default function ManageServiceRegistrationsClient() {
                     <TableCell className="whitespace-nowrap">
                       {reg.program_type === 'pkl' && (
                         <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200/60">
-                          <GraduationCap className="w-3.5 h-3.5" /> PKL
+                          <AppIcon icon="GraduationCap" className="w-3.5 h-3.5" /> PKL
                         </div>
                       )}
                       {reg.program_type === 'research' && (
                         <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200/60">
-                          <FlaskConical className="w-3.5 h-3.5" /> Penelitian
+                          <AppIcon icon="FlaskConical" className="w-3.5 h-3.5" /> Penelitian
                         </div>
                       )}
                       {reg.program_type === 'koas' && (
                         <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-teal-50 text-teal-700 text-xs font-bold border border-teal-200/60">
-                          <Stethoscope className="w-3.5 h-3.5" /> Koas
+                          <AppIcon icon="Stethoscope" className="w-3.5 h-3.5" /> Koas
                         </div>
                       )}
                       {reg.program_type === 'interview' && (
                         <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-50 text-orange-700 text-xs font-bold border border-orange-200/60">
-                          <Mic className="w-3.5 h-3.5" /> Wawancara
+                          <AppIcon icon="Mic" className="w-3.5 h-3.5" /> Wawancara
                         </div>
                       )}
                     </TableCell>
@@ -856,20 +826,20 @@ export default function ManageServiceRegistrationsClient() {
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon" className="w-8 h-8 rounded-lg text-slate-400 hover:text-green-600 hover:bg-green-50 border border-transparent hover:border-green-100">
-                            <MoreHorizontal className="w-4 h-4" />
+                            <AppIcon icon="MoreHorizontal" className="w-4 h-4" />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-52 rounded-xl border-slate-100 shadow-xl p-1">
                           <DropdownMenuItem onClick={() => { setSelectedRegistration(reg); setDetailModalOpen(true); }} className="rounded-lg font-bold text-slate-700 focus:bg-slate-50 focus:text-green-600 cursor-pointer">
-                            <Eye className="w-4 h-4 mr-2" />
+                            <AppIcon icon="Eye" className="w-4 h-4 mr-2" />
                             Lihat Detail
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => { setSelectedRegistration(reg); setNewStatus(reg.status); setStatusModalOpen(true); }} className="rounded-lg font-bold text-slate-700 focus:bg-slate-50 focus:text-green-600 cursor-pointer">
-                            <CheckCircle className="w-4 h-4 mr-2" />
+                            <AppIcon icon="CheckCircle" className="w-4 h-4 mr-2" />
                             Update Status
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => generateServiceDispositionPdf(reg)} className="rounded-lg font-bold text-slate-700 focus:bg-slate-50 focus:text-emerald-600 cursor-pointer">
-                            <FileDown className="w-4 h-4 mr-2 text-emerald-600" />
+                            <AppIcon icon="FileDown" className="w-4 h-4 mr-2 text-emerald-600" />
                             Surat Disposisi (PDF)
                           </DropdownMenuItem>
                           {reg.participant_phone && (
@@ -877,7 +847,7 @@ export default function ManageServiceRegistrationsClient() {
                               onClick={() => window.open(generateWhatsAppMessageUrl(reg.participant_phone, reg), '_blank')} 
                               className="rounded-lg font-bold text-emerald-700 focus:bg-emerald-50 focus:text-emerald-800 cursor-pointer"
                             >
-                              <MessageCircle className="w-4 h-4 mr-2 text-emerald-600" />
+                              <AppIcon icon="MessageCircle" className="w-4 h-4 mr-2 text-emerald-600" />
                               Kirim Notifikasi WA
                             </DropdownMenuItem>
                           )}
@@ -899,7 +869,7 @@ export default function ManageServiceRegistrationsClient() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                  <FileText className="w-5 h-5 text-green-500" />
+                  <AppIcon icon="FileText" className="w-5 h-5 text-green-500" />
                 </div>
                 <div>
                   <DialogTitle className="text-xl font-bold text-slate-800">Detail Pendaftaran</DialogTitle>
@@ -922,10 +892,10 @@ export default function ManageServiceRegistrationsClient() {
                   <div>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Jenis Program</p>
                     <p className="font-bold text-slate-800 flex items-center gap-1.5">
-                      {selectedRegistration.program_type === 'pkl' && <><GraduationCap className="w-4 h-4 text-blue-500" /> PKL</>}
-                      {selectedRegistration.program_type === 'research' && <><FlaskConical className="w-4 h-4 text-purple-500" /> Penelitian</>}
-                      {selectedRegistration.program_type === 'koas' && <><Stethoscope className="w-4 h-4 text-orange-500" /> Koas</>}
-                      {selectedRegistration.program_type === 'interview' && <><Mic className="w-4 h-4 text-green-500" /> Wawancara</>}
+                      {selectedRegistration.program_type === 'pkl' && <><AppIcon icon="GraduationCap" className="w-4 h-4 text-blue-500" /> PKL</>}
+                      {selectedRegistration.program_type === 'research' && <><AppIcon icon="FlaskConical" className="w-4 h-4 text-purple-500" /> Penelitian</>}
+                      {selectedRegistration.program_type === 'koas' && <><AppIcon icon="Stethoscope" className="w-4 h-4 text-orange-500" /> Koas</>}
+                      {selectedRegistration.program_type === 'interview' && <><AppIcon icon="Mic" className="w-4 h-4 text-green-500" /> Wawancara</>}
                     </p>
                   </div>
                   <div>
@@ -946,7 +916,7 @@ export default function ManageServiceRegistrationsClient() {
                   {/* Participant Info */}
                   <div className="space-y-4">
                     <h4 className="font-bold text-slate-800 flex items-center gap-2 pb-2 border-b border-slate-100">
-                      <User className="w-4 h-4 text-green-500" />
+                      <AppIcon icon="User" className="w-4 h-4 text-green-500" />
                       Data Peserta
                     </h4>
                     <div className="space-y-3">
@@ -963,14 +933,14 @@ export default function ManageServiceRegistrationsClient() {
                       <div>
                         <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Email</p>
                         <a href={`mailto:${selectedRegistration.participant_email}`} className="font-semibold text-green-600 hover:underline flex items-center gap-1.5">
-                          <Mail className="w-3.5 h-3.5" />
+                          <AppIcon icon="Mail" className="w-3.5 h-3.5" />
                           {selectedRegistration.participant_email}
                         </a>
                       </div>
                       <div>
                         <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Telepon</p>
                         <a href={`tel:${selectedRegistration.participant_phone}`} className="font-semibold text-green-600 hover:underline flex items-center gap-1.5">
-                          <Phone className="w-3.5 h-3.5" />
+                          <AppIcon icon="Phone" className="w-3.5 h-3.5" />
                           {selectedRegistration.participant_phone}
                         </a>
                       </div>
@@ -980,7 +950,7 @@ export default function ManageServiceRegistrationsClient() {
                   {/* Institution Info */}
                   <div className="space-y-4">
                     <h4 className="font-bold text-slate-800 flex items-center gap-2 pb-2 border-b border-slate-100">
-                      <Building2 className="w-4 h-4 text-green-500" />
+                      <AppIcon icon="Building2" className="w-4 h-4 text-green-500" />
                       Data Institusi
                     </h4>
                     <div className="space-y-3">
@@ -1020,7 +990,7 @@ export default function ManageServiceRegistrationsClient() {
                 {selectedRegistration.program_type === 'research' && selectedRegistration.research_title && (
                   <div className="space-y-4">
                     <h4 className="font-bold text-slate-800 flex items-center gap-2 pb-2 border-b border-slate-100">
-                      <FlaskConical className="w-4 h-4 text-green-500" />
+                      <AppIcon icon="FlaskConical" className="w-4 h-4 text-green-500" />
                       Data Penelitian
                     </h4>
                     <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-3">
@@ -1041,7 +1011,7 @@ export default function ManageServiceRegistrationsClient() {
                 {selectedRegistration.program_type === 'koas' && (
                   <div className="space-y-4">
                     <h4 className="font-bold text-slate-800 flex items-center gap-2 pb-2 border-b border-slate-100">
-                      <Stethoscope className="w-4 h-4 text-green-500" />
+                      <AppIcon icon="Stethoscope" className="w-4 h-4 text-green-500" />
                       Data Koas
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
@@ -1076,7 +1046,7 @@ export default function ManageServiceRegistrationsClient() {
                 {selectedRegistration.program_type === 'interview' && (
                   <div className="space-y-4">
                     <h4 className="font-bold text-slate-800 flex items-center gap-2 pb-2 border-b border-slate-100">
-                      <Mic className="w-4 h-4 text-green-500" />
+                      <AppIcon icon="Mic" className="w-4 h-4 text-green-500" />
                       Data Wawancara / Liputan
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
@@ -1108,7 +1078,7 @@ export default function ManageServiceRegistrationsClient() {
                         <div className="sm:col-span-2 bg-white p-3 rounded-lg border border-slate-200 inline-block">
                           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Waktu Pelaksanaan</p>
                           <p className="font-bold text-green-700 flex items-center gap-2">
-                            <Clock className="w-4 h-4" />
+                            <AppIcon icon="Clock" className="w-4 h-4" />
                             {selectedRegistration.interview_date && format(new Date(selectedRegistration.interview_date), 'dd MMMM yyyy', { locale: idLocale })}
                             {selectedRegistration.interview_date && selectedRegistration.interview_time && ' Pukul '}
                             {selectedRegistration.interview_time}
@@ -1122,7 +1092,7 @@ export default function ManageServiceRegistrationsClient() {
                 {/* Documents */}
                 <div className="space-y-4">
                   <h4 className="font-bold text-slate-800 flex items-center gap-2 pb-2 border-b border-slate-100">
-                    <FileArchive className="w-4 h-4 text-green-500" />
+                    <AppIcon icon="FileArchive" className="w-4 h-4 text-green-500" />
                     Dokumen Pendukung
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1134,17 +1104,17 @@ export default function ManageServiceRegistrationsClient() {
                         className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:shadow-sm transition-all group"
                       >
                         <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
-                          <FileText className="w-5 h-5 text-green-600" />
+                          <AppIcon icon="FileText" className="w-5 h-5 text-green-600" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-slate-800 truncate">Surat Pengantar</p>
-                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><Link className="w-3 h-3" /> Buka Dokumen</p>
+                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><AppIcon icon="Link" className="w-3 h-3" /> Buka Dokumen</p>
                         </div>
                       </a>
                     ) : (
                       <div className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-100 rounded-xl opacity-60">
                         <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
-                          <X className="w-5 h-5 text-slate-400" />
+                          <AppIcon icon="X" className="w-5 h-5 text-slate-400" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-slate-500">Surat Pengantar</p>
@@ -1161,17 +1131,17 @@ export default function ManageServiceRegistrationsClient() {
                         className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:shadow-sm transition-all group"
                       >
                         <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
-                          <FileText className="w-5 h-5 text-green-600" />
+                          <AppIcon icon="FileText" className="w-5 h-5 text-green-600" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-slate-800 truncate">Proposal Kegiatan</p>
-                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><Link className="w-3 h-3" /> Buka Dokumen</p>
+                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><AppIcon icon="Link" className="w-3 h-3" /> Buka Dokumen</p>
                         </div>
                       </a>
                     ) : (
                       <div className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-100 rounded-xl opacity-60">
                         <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
-                          <X className="w-5 h-5 text-slate-400" />
+                          <AppIcon icon="X" className="w-5 h-5 text-slate-400" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-slate-500">Proposal</p>
@@ -1188,11 +1158,11 @@ export default function ManageServiceRegistrationsClient() {
                         className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:shadow-sm transition-all group"
                       >
                         <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
-                          <FileText className="w-5 h-5 text-green-600" />
+                          <AppIcon icon="FileText" className="w-5 h-5 text-green-600" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-slate-800 truncate">KTM / KTP</p>
-                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><Link className="w-3 h-3" /> Buka Dokumen</p>
+                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><AppIcon icon="Link" className="w-3 h-3" /> Buka Dokumen</p>
                         </div>
                       </a>
                     )}
@@ -1205,11 +1175,11 @@ export default function ManageServiceRegistrationsClient() {
                         className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:shadow-sm transition-all group"
                       >
                         <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
-                          <FileText className="w-5 h-5 text-green-600" />
+                          <AppIcon icon="FileText" className="w-5 h-5 text-green-600" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-slate-800 truncate">Surat Rekomendasi</p>
-                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><Link className="w-3 h-3" /> Buka Dokumen</p>
+                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><AppIcon icon="Link" className="w-3 h-3" /> Buka Dokumen</p>
                         </div>
                       </a>
                     )}
@@ -1222,11 +1192,11 @@ export default function ManageServiceRegistrationsClient() {
                         className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:shadow-sm transition-all group"
                       >
                         <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
-                          <FileText className="w-5 h-5 text-green-600" />
+                          <AppIcon icon="FileText" className="w-5 h-5 text-green-600" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-slate-800 truncate">Kartu Pers / ID Card</p>
-                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><Link className="w-3 h-3" /> Buka Dokumen</p>
+                          <p className="text-[10px] font-medium text-slate-500 flex items-center gap-1"><AppIcon icon="Link" className="w-3 h-3" /> Buka Dokumen</p>
                         </div>
                       </a>
                     )}
@@ -1237,7 +1207,7 @@ export default function ManageServiceRegistrationsClient() {
                 {selectedRegistration.admin_notes && (
                   <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl space-y-2">
                     <h4 className="font-bold text-amber-800 text-sm flex items-center gap-2">
-                      <AlertCircle className="w-4 h-4" />
+                      <AppIcon icon="AlertCircle" className="w-4 h-4" />
                       Catatan Admin
                     </h4>
                     <p className="text-sm font-medium text-amber-900 leading-relaxed">
@@ -1259,7 +1229,7 @@ export default function ManageServiceRegistrationsClient() {
                 onClick={() => generateServiceDispositionPdf(selectedRegistration)}
                 className="rounded-xl font-bold border-slate-200 bg-white hover:bg-slate-50 text-slate-700 flex items-center gap-2 flex-1 sm:flex-none"
               >
-                <Download className="w-4 h-4 text-emerald-600" />
+                <AppIcon icon="Download" className="w-4 h-4 text-emerald-600" />
                 <span>Surat Disposisi (PDF)</span>
               </Button>
             )}
@@ -1270,7 +1240,7 @@ export default function ManageServiceRegistrationsClient() {
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 text-sm transition-all flex-1 sm:flex-none"
               >
-                <MessageCircle className="w-4 h-4" />
+                <AppIcon icon="MessageCircle" className="w-4 h-4" />
                 <span>Kirim WA</span>
               </a>
             )}
@@ -1293,7 +1263,7 @@ export default function ManageServiceRegistrationsClient() {
           <DialogHeader className="px-6 py-5 border-b border-slate-100 bg-white/50">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                <CheckCircle className="w-5 h-5 text-green-500" />
+                <AppIcon icon="CheckCircle" className="w-5 h-5 text-green-500" />
               </div>
               Update Status Pendaftaran
             </DialogTitle>
@@ -1365,9 +1335,9 @@ export default function ManageServiceRegistrationsClient() {
               className="rounded-xl font-bold bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-600/20 flex-1 sm:flex-none"
             >
               {savingStatus ? (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                <AppIcon icon="Loader2" className="w-4 h-4 mr-2 animate-spin" />
               ) : (
-                <Save className="w-4 h-4 mr-2" />
+                <AppIcon icon="Save" className="w-4 h-4 mr-2" />
               )}
               Simpan Status
             </Button>

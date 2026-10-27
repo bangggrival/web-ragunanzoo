@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Leaf, Loader2, MapPin, Activity, FileText, Star } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { Plant } from '@/hooks/usePlants';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -184,12 +184,12 @@ export default function PlantFormModal({ isOpen, onClose, plant, onSuccess }: Pl
         <div className="manager-modal-header shrink-0">
           <div className="manager-modal-title">
             <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center">
-              <Leaf className="w-4 h-4 text-green-600" />
+              <AppIcon name="fluent-emoji-flat:herb" className="w-4 h-4 text-green-600" />
             </div>
             <span>{plant ? 'Edit Tumbuhan' : 'Tambah Tumbuhan'}</span>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-muted rounded-lg transition-colors">
-            <X className="w-5 h-5 text-muted-foreground" />
+            <AppIcon name="solar:close-circle-bold" className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 
@@ -274,7 +274,7 @@ export default function PlantFormModal({ isOpen, onClose, plant, onSuccess }: Pl
           {/* Lokasi & Koordinat */}
           <div className="manager-form-section">
             <p className="manager-form-section-title">
-              <MapPin className="w-4 h-4 text-green-600" />
+              <AppIcon name="solar:map-point-wave-bold-duotone" className="w-4 h-4 text-green-600" />
               Lokasi & Koordinat
             </p>
             <div className="manager-form-grid-3">
@@ -314,7 +314,7 @@ export default function PlantFormModal({ isOpen, onClose, plant, onSuccess }: Pl
           {/* Habitat & Status */}
           <div className="manager-form-section">
             <p className="manager-form-section-title">
-              <Activity className="w-4 h-4 text-green-600" />
+              <AppIcon name="solar:pulse-2-bold-duotone" className="w-4 h-4 text-green-600" />
               Status & Konservasi
             </p>
             <div className="manager-form-grid-2">
@@ -350,7 +350,7 @@ export default function PlantFormModal({ isOpen, onClose, plant, onSuccess }: Pl
           {/* Deskripsi */}
           <div className="manager-form-section">
             <p className="manager-form-section-title">
-              <FileText className="w-4 h-4 text-green-600" />
+              <AppIcon name="solar:document-text-bold-duotone" className="w-4 h-4 text-green-600" />
               Deskripsi
             </p>
             <div className="space-y-4">
@@ -380,7 +380,7 @@ export default function PlantFormModal({ isOpen, onClose, plant, onSuccess }: Pl
           {/* Unggulan Toggle */}
           <div className="manager-toggle-row bg-primary/5 border border-primary/20">
             <div className="flex items-center gap-2">
-              <Star className="w-4 h-4 text-primary" />
+              <AppIcon name="solar:star-bold-duotone" className="w-4 h-4 text-primary" />
               <div>
                 <p className="text-sm font-medium">Tampilkan Unggulan</p>
                 <p className="text-xs text-muted-foreground">Tampil di halaman utama</p>
@@ -410,7 +410,7 @@ export default function PlantFormModal({ isOpen, onClose, plant, onSuccess }: Pl
           >
             {loading ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
                 Menyimpan...
               </>
             ) : (

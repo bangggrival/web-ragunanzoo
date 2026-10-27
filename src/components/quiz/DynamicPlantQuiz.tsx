@@ -1,21 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { 
-  CheckCircle2, 
-  XCircle, 
-  Trophy, 
-  RotateCcw, 
-  Sparkles, 
-  ChevronRight, 
-  Loader2, 
-  X, 
-  Leaf,
-  Share2,
-  Award,
-  BookOpen,
-  ChevronDown
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import confetti from 'canvas-confetti';
 import { supabase } from '@/integrations/supabase/client';
 import { Plant } from '@/hooks/usePlants';
@@ -288,7 +274,7 @@ export default function DynamicPlantQuiz({
       <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center p-4" style={{ zIndex: 9999 }}>
         <div className="bg-card rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border border-border">
           <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-emerald-500/15 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-            <Loader2 className="w-8 h-8 animate-spin" />
+            <AppIcon name="solar:spinner-linear" className="w-8 h-8 animate-spin" />
           </div>
           <h4 className="font-extrabold text-base text-foreground mb-1">
             {language === 'en' ? 'Preparing Flora Quiz...' : 'Menyiapkan Soal Kuis Flora...'}
@@ -332,7 +318,7 @@ export default function DynamicPlantQuiz({
           <div className="flex items-center justify-between mb-3 relative z-10">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-lg shadow-inner">
-                <Leaf className="w-5 h-5 text-white" />
+                <AppIcon name="solar:leaf-bold" className="w-5 h-5 text-white" />
               </div>
               <div>
                 <span className="font-extrabold text-base sm:text-lg tracking-tight block">
@@ -348,7 +334,7 @@ export default function DynamicPlantQuiz({
               className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white transition-colors"
               aria-label="Close quiz"
             >
-              <X className="w-4 h-4" />
+              <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
             </button>
           </div>
           
@@ -375,7 +361,7 @@ export default function DynamicPlantQuiz({
               {/* Question Header Card */}
               <div className="mb-5">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 font-bold text-[11px] mb-3">
-                  <Sparkles className="w-3 h-3" />
+                  <AppIcon name="solar:stars-minimalistic-bold" className="w-3 h-3" />
                   <span>{language === 'en' ? `Question ${currentQuestion + 1}` : `Pertanyaan ${currentQuestion + 1}`}</span>
                 </div>
 
@@ -424,10 +410,10 @@ export default function DynamicPlantQuiz({
                         </span>
                         <span className="flex-1 leading-snug">{option}</span>
                         {showResult && isCorrect && (
-                          <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 animate-bounce" />
+                          <AppIcon name="solar:check-circle-bold" className="w-5 h-5 text-emerald-600 flex-shrink-0 animate-bounce" />
                         )}
                         {showResult && isSelected && !isCorrect && (
-                          <XCircle className="w-5 h-5 text-destructive flex-shrink-0" />
+                          <AppIcon name="solar:close-circle-bold" className="w-5 h-5 text-destructive flex-shrink-0" />
                         )}
                       </div>
                     </button>
@@ -440,7 +426,7 @@ export default function DynamicPlantQuiz({
                 <div className="mb-5 p-4 rounded-2xl bg-muted/70 border border-border/80 animate-fade-in space-y-1.5">
                   <div className="flex items-center gap-2">
                     <span className="w-5 h-5 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="w-3 h-3" />
+                      <AppIcon name="solar:stars-minimalistic-bold" className="w-3 h-3" />
                     </span>
                     <p className="font-extrabold text-xs uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
                       {language === 'en' ? 'Botanical Fact & Knowledge' : 'Wawasan & Fakta Flora'}
@@ -461,12 +447,12 @@ export default function DynamicPlantQuiz({
                   {currentQuestion < questions.length - 1 ? (
                     <>
                       <span>{language === 'en' ? 'Next Question' : 'Pertanyaan Berikutnya'}</span>
-                      <ChevronRight className="w-4 h-4" />
+                      <AppIcon name="solar:alt-arrow-right-linear" className="w-4 h-4" />
                     </>
                   ) : (
                     <>
                       <span>{language === 'en' ? 'View Botanical Results' : 'Lihat Hasil Akhir Kuis'}</span>
-                      <Trophy className="w-4 h-4" />
+                      <AppIcon name="solar:cup-star-bold" className="w-4 h-4" />
                     </>
                   )}
                 </button>
@@ -481,7 +467,7 @@ export default function DynamicPlantQuiz({
                   {badge.icon}
                 </div>
                 <div className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md">
-                  <Award className="w-4 h-4" />
+                  <AppIcon name="solar:medal-star-circle-bold" className="w-4 h-4" />
                 </div>
               </div>
 
@@ -509,7 +495,11 @@ export default function DynamicPlantQuiz({
                     }`}
                     title={`Soal ${i + 1}: ${correct ? 'Benar' : 'Salah'}`}
                   >
-                    {correct ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
+                    {correct ? (
+                      <AppIcon name="solar:check-circle-bold" className="w-4 h-4" />
+                    ) : (
+                      <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
+                    )}
                   </div>
                 ))}
               </div>
@@ -522,10 +512,13 @@ export default function DynamicPlantQuiz({
                   className="w-full p-3.5 flex items-center justify-between font-bold text-xs text-foreground hover:bg-muted/40 transition-colors"
                 >
                   <span className="flex items-center gap-2">
-                    <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
+                    <AppIcon name="solar:book-bookmark-bold-duotone" className="w-3.5 h-3.5 text-emerald-600" />
                     <span>{language === 'en' ? 'Review Botanical Explanations' : 'Rangkuman & Pembahasan Soal Flora'}</span>
                   </span>
-                  <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${showReview ? 'rotate-180' : ''}`} />
+                  <AppIcon 
+                    name="solar:alt-arrow-down-linear" 
+                    className={`w-4 h-4 text-muted-foreground transition-transform ${showReview ? 'rotate-180' : ''}`} 
+                  />
                 </button>
 
                 {showReview && (
@@ -563,7 +556,7 @@ export default function DynamicPlantQuiz({
                     onClick={handleShareScore}
                     className="flex-1 py-3 px-3 rounded-2xl bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]"
                   >
-                    <Share2 className="w-3.5 h-3.5" />
+                    <AppIcon name="solar:share-bold" className="w-3.5 h-3.5" />
                     <span>{language === 'en' ? 'Share Score' : 'Bagikan Skor'}</span>
                   </button>
 
@@ -571,7 +564,7 @@ export default function DynamicPlantQuiz({
                     onClick={handleRestart}
                     className="flex-1 py-3 px-3 rounded-2xl bg-muted hover:bg-muted/80 text-foreground font-bold text-xs flex items-center justify-center gap-1.5 border border-border transition-all hover:scale-[1.01] active:scale-[0.99]"
                   >
-                    <RotateCcw className="w-3.5 h-3.5 text-emerald-600" />
+                    <AppIcon name="solar:restart-bold" className="w-3.5 h-3.5 text-emerald-600" />
                     <span>{language === 'en' ? 'Play Again' : 'Main Soal Baru'}</span>
                   </button>
                 </div>

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
-import { Plus, Pencil, Trash2, Upload, Loader2, ExternalLink, Award, X, LayoutTemplate } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -179,21 +179,21 @@ export default function ManageOrganizationsClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <LayoutTemplate className="w-5 h-5 text-green-500" />
+              <AppIcon icon="LayoutTemplate" className="w-5 h-5 text-green-500" />
             </div>
             Keanggotaan Organisasi
           </h1>
           <p className="text-slate-500 font-medium mt-1 ml-13">Kelola logo organisasi yang ditampilkan di halaman utama</p>
         </div>
         <button onClick={openCreate} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(99,102,241,0.5)] hover:-translate-y-0.5">
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           <span className="hidden sm:inline">Tambah Organisasi</span>
         </button>
       </div>
 
       <div className="bg-gradient-to-r from-green-50 to-violet-50 rounded-[1.5rem] p-5 border border-green-100 flex gap-4">
         <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm flex-shrink-0">
-          <Award className="w-6 h-6 text-green-500" />
+          <AppIcon icon="Award" className="w-6 h-6 text-green-500" />
         </div>
         <div>
           <h3 className="font-bold text-green-900 mb-1">Keanggotaan Kebun Binatang</h3>
@@ -207,7 +207,7 @@ export default function ManageOrganizationsClient() {
         {organizations.length === 0 ? (
           <div className="col-span-full text-center py-16 bg-white/60 backdrop-blur-xl border border-white/80 rounded-[1.5rem] shadow-sm">
             <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100">
-              <Award className="w-8 h-8 text-slate-300" />
+              <AppIcon icon="Award" className="w-8 h-8 text-slate-300" />
             </div>
             <p className="font-bold text-slate-600 mb-1">Belum ada organisasi</p>
             <p className="text-sm font-medium text-slate-500">Klik "Tambah Organisasi" untuk mulai menambahkan logo.</p>
@@ -217,10 +217,10 @@ export default function ManageOrganizationsClient() {
             <div key={org.id} className="bg-white/60 backdrop-blur-xl border border-white/80 rounded-[1.5rem] shadow-sm p-5 hover:shadow-md transition-all group flex flex-col h-full relative overflow-hidden">
               <div className="absolute top-4 right-4 z-10 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <Button variant="outline" size="icon" className="w-8 h-8 rounded-lg border-slate-200 bg-white/90 hover:bg-white text-slate-600 hover:text-green-600 shadow-sm backdrop-blur-sm" onClick={() => openEdit(org)}>
-                  <Pencil className="w-4 h-4" />
+                  <AppIcon icon="Pencil" className="w-4 h-4" />
                 </Button>
                 <Button variant="outline" size="icon" className="w-8 h-8 rounded-lg border-slate-200 bg-white/90 hover:bg-rose-50 text-slate-600 hover:text-rose-600 hover:border-rose-200 shadow-sm backdrop-blur-sm" onClick={() => handleDelete(org)}>
-                  <Trash2 className="w-4 h-4" />
+                  <AppIcon icon="Trash2" className="w-4 h-4" />
                 </Button>
               </div>
 
@@ -257,7 +257,7 @@ export default function ManageOrganizationsClient() {
                 <div>
                   {org.website_url ? (
                     <a href={org.website_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold text-green-600 hover:text-green-700 hover:underline">
-                      <ExternalLink className="w-3.5 h-3.5" /> 
+                      <AppIcon icon="ExternalLink" className="w-3.5 h-3.5" /> 
                       <span className="truncate max-w-[200px]">{org.website_url.replace(/^https?:\/\//, '')}</span>
                     </a>
                   ) : (
@@ -276,12 +276,12 @@ export default function ManageOrganizationsClient() {
             <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-white/50">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center border border-green-100">
-                  <Award className="w-5 h-5 text-green-500" />
+                  <AppIcon icon="Award" className="w-5 h-5 text-green-500" />
                 </div>
                 <h2 className="text-xl font-bold text-slate-800">{editing ? 'Edit Organisasi' : 'Tambah Organisasi'}</h2>
               </div>
               <button onClick={() => setModalOpen(false)} className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
-                <X className="w-5 h-5 text-slate-400" />
+                <AppIcon icon="X" className="w-5 h-5 text-slate-400" />
               </button>
             </div>
 
@@ -314,7 +314,7 @@ export default function ManageOrganizationsClient() {
                   <div className="flex-1 space-y-2">
                     <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleUpload} />
                     <Button variant="outline" className="w-full h-10 rounded-xl font-bold bg-white border-slate-200 hover:bg-slate-50" onClick={() => fileRef.current?.click()} disabled={uploading}>
-                      {uploading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Upload className="w-4 h-4 mr-2" />}
+                      {uploading ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin mr-2" /> : <AppIcon icon="Upload" className="w-4 h-4 mr-2" />}
                       {uploading ? 'Mengupload...' : 'Pilih Logo'}
                     </Button>
                     {form.logo_url && (

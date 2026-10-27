@@ -4,7 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { cn } from '@/lib/utils';
 import { HeroBanner } from '@/hooks/useHeroBanner';
-import { Volume2, VolumeX } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Skeleton } from '@/components/ui/skeleton';
 import BannerAmbientAtmosphere from '@/components/ambient/BannerAmbientAtmosphere';
 import { ActiveAmbientTheme, useWeatherAmbient } from '@/contexts/WeatherAmbientContext';
@@ -280,7 +280,7 @@ export default function HeroCarousel({
           className="absolute bottom-24 md:bottom-28 left-4 z-20 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors"
           aria-label={isMuted ? 'Unmute' : 'Mute'}
         >
-          {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+          {isMuted ? <AppIcon name="solar:muted-bold" className="w-5 h-5" /> : <AppIcon name="solar:volume-loud-bold" className="w-5 h-5" />}
         </button>
       )}
 

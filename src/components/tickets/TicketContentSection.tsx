@@ -2,17 +2,17 @@ import { useState } from 'react';
 import { TicketContent } from '@/hooks/useTicketContent';
 import { useLanguage } from '@/contexts/LanguageContext';
 import ImageLightbox from '@/components/ui/ImageLightbox';
-import { FileText, Tag, CreditCard, ScrollText } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 interface TicketContentSectionProps {
   contents: TicketContent[];
 }
 
-const typeIcons: Record<string, React.ComponentType<{ className?: string }>> = {
-  info: FileText,
-  promo: Tag,
-  payment_method: CreditCard,
-  rule: ScrollText,
+const typeIcons: Record<string, string> = {
+  info: 'solar:document-text-bold-duotone',
+  promo: 'solar:tag-price-bold-duotone',
+  payment_method: 'solar:card-bold-duotone',
+  rule: 'solar:clipboard-list-bold-duotone',
 };
 
 const typeColors: Record<string, any> = {
@@ -52,14 +52,14 @@ export function TicketContentSection({ contents }: TicketContentSectionProps) {
     <>
       <div className="space-y-6">
         {Object.entries(groupedContents).map(([type, items]) => {
-          const Icon = typeIcons[type] || FileText;
+          const iconName = typeIcons[type] || 'solar:document-text-bold-duotone';
           const colorClass = typeColors[type] || 'bg-gray-500/10 text-gray-600';
 
           return (
             <div key={type} className="space-y-4">
               <div className="flex items-center gap-2">
                 <div className={`p-2 rounded-lg ${colorClass}`}>
-                  <Icon className="w-5 h-5" />
+                  <AppIcon name={iconName} className="w-5 h-5" />
                 </div>
                 <h3 className="font-semibold text-lg capitalize">
                   {type === 'info' && (language === 'en' ? 'Information' : 'Informasi')}

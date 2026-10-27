@@ -10,3 +10,13 @@ npm-debug.log
 .gitignore
 bun.lockb
 tsconfig.tsbuildinfo
+.env
+.env.*
+server/.env
+server/.env.*
+scratch
+pgsql
+*.sql
+*.docx
+*.bak
+

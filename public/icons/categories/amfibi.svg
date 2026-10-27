@@ -1,17 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-  <circle cx="24" cy="24" r="22" fill="#34D399" fill-opacity="0.15"/>
-  <circle cx="24" cy="24" r="21" stroke="#34D399" stroke-opacity="0.3" stroke-width="1.5"/>
-  <!-- Frog Body -->
-  <ellipse cx="24" cy="27" rx="11" ry="9" fill="#34D399" fill-opacity="0.35"/>
-  <!-- Eye Bulges -->
-  <circle cx="17" cy="18" r="4.5" fill="#0B4635"/>
-  <circle cx="31" cy="18" r="4.5" fill="#0B4635"/>
-  <circle cx="17" cy="18" r="2" fill="#FFFFFF"/>
-  <circle cx="31" cy="18" r="2" fill="#FFFFFF"/>
-  <circle cx="17" cy="18" r="1" fill="#0B4635"/>
-  <circle cx="31" cy="18" r="1" fill="#0B4635"/>
-  <!-- Frog Mouth -->
-  <path d="M17 28Q24 33 31 28" stroke="#0B4635" stroke-width="2" stroke-linecap="round"/>
-  <!-- Front Feet -->
-  <path d="M14 34L11 38M34 34L37 38" stroke="#0B4635" stroke-width="2" stroke-linecap="round"/>
+  <!-- Outer brand halo -->
+  <circle cx="24" cy="24" r="22" fill="#10B981" fill-opacity="0.12"/>
+  <circle cx="24" cy="24" r="21" stroke="#10B981" stroke-opacity="0.25" stroke-width="1.5"/>
+
+  <!-- Perched Tree Frog Body (Natural Rounded Arch) -->
+  <path d="M14 28C14 20 18 16 25 16C31 16 35 19 36 24C37 28 35 34 29 36C22 38 15 35 14 28Z" fill="#10B981" fill-opacity="0.35"/>
+
+  <!-- Frog Head & Snout Silhouette -->
+  <path d="M22 17C26 15 32 16 36 19C39 22 39 26 36 28C32 28 27 27 22 24Z" fill="#0B4635"/>
+
+  <!-- Powerful Folded Hind Leg (Jumping Musculature) -->
+  <path d="M13 28C11 25 12 21 15 21C18 21 21 25 21 30C21 34 16 36 13 33C11 31 11 29 13 28Z" fill="#0B4635"/>
+  <path d="M14 34L11 37M11 37L9 36M11 37L10 39M11 37L13 39" stroke="#0B4635" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Slender Front Leg with Webbed Suction Toe Discs -->
+  <path d="M30 26L31 34L35 36M35 36L37 35M35 36L37 37M35 36L35 38" stroke="#0B4635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Natural Large Tree Frog Eye with Golden Iris and Slit -->
+  <circle cx="29" cy="18" r="4" fill="#0B4635"/>
+  <circle cx="29" cy="18" r="2.8" fill="#FDE68A"/>
+  <ellipse cx="29" cy="18" rx="0.9" ry="2.2" fill="#0B4635"/> <!-- Horizontal pupil slit -->
+
+  <!-- Natural Dorsal Spots & Throat Line -->
+  <circle cx="21" cy="24" r="1.2" fill="#0B4635"/>
+  <circle cx="25" cy="28" r="1.4" fill="#0B4635"/>
+  <path d="M26 26Q31 29 35 25" stroke="#FDE68A" stroke-width="1.4" stroke-linecap="round"/>
 </svg>

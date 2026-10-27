@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { MANAGER_PAGES } from '@/hooks/useUserPermissions';
-import { PawPrint, User, Lock, ArrowLeft, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { z } from 'zod';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
@@ -183,7 +183,7 @@ function AuthForm() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
-          <PawPrint className="w-12 h-12 text-primary animate-pulse mx-auto mb-4" />
+          <AppIcon icon="fluent-emoji-flat:paw-prints" className="w-12 h-12 animate-pulse mx-auto mb-4" />
           <p className="text-muted-foreground">Memuat...</p>
         </div>
       </div>
@@ -198,7 +198,7 @@ function AuthForm() {
           href="/" 
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <AppIcon icon="solar:arrow-left-linear" className="w-4 h-4" />
           Kembali ke Beranda
         </Link>
 
@@ -218,7 +218,7 @@ function AuthForm() {
               <div className="space-y-2">
                 <label className="text-sm font-medium">Nama Lengkap</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <AppIcon icon="solar:user-bold-duotone" className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <input
                     type="text"
                     value={name}
@@ -233,7 +233,7 @@ function AuthForm() {
             <div className="space-y-2">
               <label className="block text-sm font-medium mb-2">Username</label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <AppIcon icon="solar:user-bold-duotone" className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
                   value={username}
@@ -247,7 +247,7 @@ function AuthForm() {
             <div>
               <label className="block text-sm font-medium mb-2">Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <AppIcon icon="solar:lock-password-bold-duotone" className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
@@ -260,14 +260,14 @@ function AuthForm() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  {showPassword ? <AppIcon icon="solar:eye-closed-bold-duotone" className="w-5 h-5" /> : <AppIcon icon="solar:eye-bold-duotone" className="w-5 h-5" />}
                 </button>
               </div>
             </div>
 
             {successMessage && (
               <div className="p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-700 dark:text-emerald-400 text-sm flex items-start gap-2.5">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <AppIcon icon="solar:check-circle-bold-duotone" className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <span>{successMessage}</span>
               </div>
             )}

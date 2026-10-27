@@ -2,26 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { 
-  Newspaper, 
-  Calendar, 
-  ArrowRight, 
-  Search, 
-  Clock, 
-  Eye, 
-  Sparkles, 
-  Flame, 
-  Filter, 
-  ChevronRight, 
-  BookOpen, 
-  Megaphone, 
-  Share2, 
-  X, 
-  Mail, 
-  CheckCircle2, 
-  TrendingUp,
-  Bookmark
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useNews, News } from '@/hooks/useNews';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -125,7 +106,7 @@ export default function ExplorerNews() {
           <div className="container mx-auto flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5 min-w-0 flex-1">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary text-slate-950 font-black text-[10px] uppercase tracking-wider flex-shrink-0 animate-pulse">
-                <Megaphone className="w-3 h-3" />
+                <AppIcon icon="Megaphone" className="w-3 h-3" />
                 <span>Kabar Terkini</span>
               </span>
               <Link 
@@ -140,7 +121,7 @@ export default function ExplorerNews() {
               className="text-primary hover:text-white font-extrabold hidden sm:inline-flex items-center gap-1 text-[11px] flex-shrink-0"
             >
               <span>{language === 'en' ? 'Read' : 'Baca'}</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              <AppIcon icon="ChevronRight" className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
@@ -156,7 +137,7 @@ export default function ExplorerNews() {
           <div className="max-w-3xl mx-auto text-center">
             
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-primary text-xs font-black backdrop-blur-md mb-4 shadow-inner">
-              <Sparkles className="w-4 h-4 text-primary" />
+              <AppIcon icon="Sparkles" className="w-4 h-4 text-primary" />
               <span>{language === 'en' ? 'Ragunan Digital Newsroom' : 'Portal Berita & Informasi Resmi'}</span>
             </div>
 
@@ -172,7 +153,7 @@ export default function ExplorerNews() {
 
             {/* Search Input Box */}
             <div className="relative max-w-xl mx-auto mb-8">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
+              <AppIcon icon="Search" className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
               <input
                 type="text"
                 value={searchQuery}
@@ -185,7 +166,7 @@ export default function ExplorerNews() {
                   onClick={() => setSearchQuery('')}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white"
                 >
-                  <X className="w-4 h-4" />
+                  <AppIcon icon="X" className="w-4 h-4" />
                 </button>
               )}
             </div>
@@ -193,19 +174,19 @@ export default function ExplorerNews() {
             {/* Live Stats Counters Strip */}
             <div className="inline-flex flex-wrap items-center justify-center gap-6 sm:gap-10 px-6 py-3 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md text-xs font-bold text-white shadow-lg">
               <div className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-primary" />
+                <AppIcon icon="BookOpen" className="w-4 h-4 text-primary" />
                 <span>{publishedNews.length} {language === 'en' ? 'Articles' : 'Artikel Dipublikasikan'}</span>
               </div>
               <div className="w-1.5 h-1.5 rounded-full bg-primary hidden sm:block" />
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-primary" />
+                <AppIcon icon="TrendingUp" className="w-4 h-4 text-primary" />
                 <span>{categories.length} {language === 'en' ? 'Categories' : 'Kategori Utama'}</span>
               </div>
               {totalViews > 0 && (
                 <>
                   <div className="w-1.5 h-1.5 rounded-full bg-primary hidden sm:block" />
                   <div className="flex items-center gap-2">
-                    <Eye className="w-4 h-4 text-amber-400" />
+                    <AppIcon icon="Eye" className="w-4 h-4 text-amber-400" />
                     <span>{totalViews.toLocaleString()} {language === 'en' ? 'Reads' : 'Total Pembaca'}</span>
                   </div>
                 </>
@@ -221,7 +202,7 @@ export default function ExplorerNews() {
         {/* ══════════ CATEGORY PILLS FILTER BAR ══════════ */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar border-b border-border/80">
           <span className="text-xs font-black text-slate-800 dark:text-slate-200 flex items-center gap-1.5 mr-2 flex-shrink-0">
-            <Filter className="w-3.5 h-3.5 text-primary" />
+            <AppIcon icon="Filter" className="w-3.5 h-3.5 text-primary" />
             {language === 'en' ? 'Filter Category:' : 'Filter Kategori:'}
           </span>
 
@@ -271,7 +252,7 @@ export default function ExplorerNews() {
           /* Empty State */
           <div className="text-center py-20 bg-card border border-border rounded-3xl shadow-sm">
             <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-4 border border-border">
-              <Newspaper className="w-10 h-10 text-muted-foreground/40" />
+              <AppIcon icon="Newspaper" className="w-10 h-10 text-muted-foreground/40" />
             </div>
             <h3 className="text-xl font-bold text-foreground mb-2">
               {language === 'en' ? 'No Articles Found' : 'Belum Ada Berita yang Cocok'}
@@ -308,7 +289,7 @@ export default function ExplorerNews() {
                       <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
                         <div className="flex items-center gap-2">
                           <Badge className="bg-primary text-slate-950 font-black text-xs shadow-md px-3 py-1 border-none">
-                            <Flame className="w-3.5 h-3.5 mr-1" />
+                            <AppIcon icon="Flame" className="w-3.5 h-3.5 mr-1" />
                             Pilihan Redaksi
                           </Badge>
                           {featuredArticle.category && (
@@ -323,7 +304,7 @@ export default function ExplorerNews() {
                           className="w-9 h-9 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition-colors"
                           title="Bagikan artikel ini"
                         >
-                          <Share2 className="w-4 h-4" />
+                          <AppIcon icon="Share2" className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
@@ -333,12 +314,12 @@ export default function ExplorerNews() {
                       <div>
                         <div className="flex items-center gap-4 text-xs text-slate-700 dark:text-slate-300 mb-4 font-bold">
                           <span className="flex items-center gap-1.5 text-primary font-black">
-                            <Calendar className="w-4 h-4" />
+                            <AppIcon icon="Calendar" className="w-4 h-4" />
                             {formatDate(featuredArticle.created_at)}
                           </span>
                           {featuredArticle.read_time && (
                             <span className="flex items-center gap-1.5">
-                              <Clock className="w-4 h-4 text-slate-800 dark:text-slate-200" />
+                              <AppIcon icon="Clock" className="w-4 h-4 text-slate-800 dark:text-slate-200" />
                               {featuredArticle.read_time}
                             </span>
                           )}
@@ -361,12 +342,12 @@ export default function ExplorerNews() {
                           className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-md hover:opacity-90 transition-all hover:gap-3"
                         >
                           <span>{language === 'en' ? 'Read Full Story' : 'Baca Selengkapnya'}</span>
-                          <ArrowRight className="w-4 h-4" />
+                          <AppIcon icon="ArrowRight" className="w-4 h-4" />
                         </Link>
 
                         {featuredArticle.views_count && (
                           <span className="text-xs text-slate-700 dark:text-slate-300 font-bold flex items-center gap-1">
-                            <Eye className="w-3.5 h-3.5 text-primary" />
+                            <AppIcon icon="Eye" className="w-3.5 h-3.5 text-primary" />
                             {featuredArticle.views_count} views
                           </span>
                         )}
@@ -386,7 +367,7 @@ export default function ExplorerNews() {
               <div className={searchQuery || selectedCategory !== 'all' ? 'lg:col-span-12' : 'lg:col-span-8'}>
                 <h3 className="text-lg font-black text-foreground mb-6 flex items-center justify-between">
                   <span className="flex items-center gap-2">
-                    <BookOpen className="w-5 h-5 text-primary" />
+                    <AppIcon icon="BookOpen" className="w-5 h-5 text-primary" />
                     <span>{searchQuery ? 'Hasil Pencarian' : (language === 'en' ? 'Latest Stories' : 'Kumpulan Berita Terbaru')}</span>
                     <span className="text-xs font-black text-slate-950 bg-primary px-2.5 py-0.5 rounded-full ml-1">
                       {filteredNews.length}
@@ -421,15 +402,15 @@ export default function ExplorerNews() {
                               className="w-7 h-7 rounded-full bg-black/60 backdrop-blur-md text-white hover:bg-white hover:text-black flex items-center justify-center transition-all duration-200 border border-white/20 shadow-sm"
                               title="Bagikan"
                             >
-                              <Share2 className="w-3.5 h-3.5" />
+                              <AppIcon icon="Share2" className="w-3.5 h-3.5" />
                             </button>
                           }
                           metaLabel={formatDate(item.created_at)}
-                          metaIcon={<Calendar className="w-3 h-3 text-primary" />}
+                          metaIcon={<AppIcon icon="Calendar" className="w-3 h-3 text-primary" />}
                           metaRight={
                             item.read_time ? (
                               <span className="flex items-center gap-1 text-[10px] text-white/90 font-medium">
-                                <Clock className="w-3 h-3 text-white/70" />
+                                <AppIcon icon="Clock" className="w-3 h-3 text-white/70" />
                                 {item.read_time}
                               </span>
                             ) : undefined
@@ -450,7 +431,7 @@ export default function ExplorerNews() {
                   {/* Top Read Stories */}
                   <div className="bg-card border border-border rounded-3xl p-6 shadow-md">
                     <h3 className="text-base font-black text-foreground mb-5 flex items-center gap-2 border-b border-border pb-3">
-                      <Flame className="w-5 h-5 text-amber-500" />
+                      <AppIcon icon="Flame" className="w-5 h-5 text-amber-500" />
                       <span>{language === 'en' ? 'Most Popular Stories' : 'Paling Banyak Dibaca'}</span>
                     </h3>
 
@@ -469,7 +450,7 @@ export default function ExplorerNews() {
                               <span>{formatDate(topItem.created_at)}</span>
                               {topItem.views_count && (
                                 <span className="flex items-center gap-1 text-slate-800 dark:text-slate-200">
-                                  <Eye className="w-3 h-3 text-primary" />
+                                  <AppIcon icon="Eye" className="w-3 h-3 text-primary" />
                                   {topItem.views_count}
                                 </span>
                               )}
@@ -488,7 +469,7 @@ export default function ExplorerNews() {
                     <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
                     
                     <div className="w-10 h-10 rounded-2xl bg-primary/15 text-slate-950 dark:text-primary flex items-center justify-center mb-3">
-                      <Mail className="w-5 h-5" />
+                      <AppIcon icon="Mail" className="w-5 h-5" />
                     </div>
 
                     <h4 className="font-black text-base text-foreground mb-1.5">
@@ -502,7 +483,7 @@ export default function ExplorerNews() {
 
                     {emailSubcribed ? (
                       <div className="p-3 rounded-xl bg-primary/15 border border-primary/30 text-slate-900 dark:text-slate-100 text-xs font-bold flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                        <AppIcon icon="CheckCircle2" className="w-4 h-4 text-primary flex-shrink-0" />
                         <span>Terima kasih telah berlangganan!</span>
                       </div>
                     ) : (
@@ -526,7 +507,7 @@ export default function ExplorerNews() {
 
                   {/* Public Information Banner Box */}
                   <div className="rounded-3xl bg-gradient-to-br from-slate-950 to-green-950 p-6 text-white shadow-xl relative overflow-hidden border border-green-500/30">
-                    <Sparkles className="w-7 h-7 text-primary mb-3" />
+                    <AppIcon icon="Sparkles" className="w-7 h-7 text-primary mb-3" />
                     <h4 className="font-black text-base mb-2">
                       {language === 'en' ? 'Planning a Visit?' : 'Ingin Berkunjung ke Ragunan?'}
                     </h4>
@@ -540,7 +521,7 @@ export default function ExplorerNews() {
                       className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-xl text-xs font-bold transition-all text-white border border-white/20"
                     >
                       <span>Lihat Standar Pelayanan</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-primary" />
+                      <AppIcon icon="ChevronRight" className="w-3.5 h-3.5 text-primary" />
                     </Link>
                   </div>
 

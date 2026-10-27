@@ -5,7 +5,7 @@ import { useCategories } from '@/hooks/useCategories';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { PawPrint, Leaf } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import CategoryIcon from '@/components/ui/CategoryIcon';
 
 export default function Categories() {
@@ -85,11 +85,11 @@ export default function Categories() {
       <Tabs defaultValue="fauna" className="space-y-6">
         <TabsList className="grid w-full grid-cols-2 max-w-xs">
           <TabsTrigger value="fauna" className="gap-2">
-            <PawPrint className="w-4 h-4" />
+            <AppIcon icon="PawPrint" className="w-4 h-4" />
             Fauna ({faunaCategories.length})
           </TabsTrigger>
           <TabsTrigger value="flora" className="gap-2">
-            <Leaf className="w-4 h-4" />
+            <AppIcon icon="Leaf" className="w-4 h-4" />
             Flora ({floraCategories.length})
           </TabsTrigger>
         </TabsList>
@@ -97,7 +97,7 @@ export default function Categories() {
         <TabsContent value="fauna">
           {faunaCategories.length === 0 ? (
             <div className="text-center py-12">
-              <PawPrint className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+              <AppIcon icon="PawPrint" className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground">
                 {language === 'en' ? 'No fauna categories yet' : 'Belum ada kategori fauna'}
               </p>
@@ -114,7 +114,7 @@ export default function Categories() {
         <TabsContent value="flora">
           {floraCategories.length === 0 ? (
             <div className="text-center py-12">
-              <Leaf className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+              <AppIcon icon="Leaf" className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground">
                 {language === 'en' ? 'No flora categories yet' : 'Belum ada kategori flora'}
               </p>

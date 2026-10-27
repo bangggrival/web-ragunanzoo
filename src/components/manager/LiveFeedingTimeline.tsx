@@ -2,16 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { 
-  Clock, 
-  Utensils, 
-  Sparkles, 
-  ChevronRight, 
-  CheckCircle2, 
-  AlertCircle, 
-  Calendar,
-  ArrowUpRight
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { cn } from '@/lib/utils';
 
 export interface FeedingItem {
@@ -87,7 +78,7 @@ export default function LiveFeedingTimeline() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
-              <Utensils className="w-4 h-4" />
+              <AppIcon name="solar:dish-bold-duotone" className="w-4 h-4" />
             </div>
             <div>
               <h3 className="font-bold text-base text-foreground leading-none">Jadwal Feeding & Atraksi</h3>
@@ -100,7 +91,7 @@ export default function LiveFeedingTimeline() {
             className="text-xs font-bold text-primary hover:text-primary/80 flex items-center gap-0.5 group"
           >
             Kelola
-            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <AppIcon name="solar:alt-arrow-right-linear" className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
@@ -145,7 +136,7 @@ export default function LiveFeedingTimeline() {
             >
               <div className="flex items-center gap-3 min-w-0">
                 <div className="flex items-center gap-1.5 font-bold font-mono text-xs flex-shrink-0">
-                  <Clock className="w-3.5 h-3.5 text-muted-foreground" />
+                  <AppIcon name="solar:clock-circle-bold-duotone" className="w-3.5 h-3.5 text-muted-foreground" />
                   <span>{item.time}</span>
                 </div>
 
@@ -160,12 +151,12 @@ export default function LiveFeedingTimeline() {
               <div className="flex items-center gap-1.5 flex-shrink-0">
                 {item.status === 'completed' ? (
                   <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                    <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                    <AppIcon name="solar:check-circle-bold" className="w-3 h-3 text-emerald-500" />
                     Selesai
                   </span>
                 ) : item.status === 'ongoing' ? (
                   <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded-full">
-                    <Sparkles className="w-3 h-3 animate-spin" />
+                    <AppIcon name="solar:stars-minimalistic-bold-duotone" className="w-3 h-3" />
                     Live
                   </span>
                 ) : (
@@ -182,7 +173,7 @@ export default function LiveFeedingTimeline() {
       {/* Footer link */}
       <div className="pt-2 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
         <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold text-[11px]">
-          <CheckCircle2 className="w-3.5 h-3.5" />
+          <AppIcon name="solar:check-circle-bold" className="w-3.5 h-3.5" />
           Semua Keeper Terjadwal
         </span>
         <Link href="/manager/events" className="text-primary hover:underline font-bold text-[11px]">

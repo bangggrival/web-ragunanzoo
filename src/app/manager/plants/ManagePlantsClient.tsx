@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
-import { Leaf } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Plant } from '@/hooks/usePlants';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -224,7 +224,7 @@ export default function ManagePlantsClient() {
 
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center gap-2 text-slate-500">
-            <Leaf className="w-4 h-4 text-emerald-500" />
+            <AppIcon icon="Leaf" className="w-4 h-4 text-emerald-500" />
             <span>
               {language === 'en' ? 'Total:' : 'Total:'}{' '}
               <strong className="text-slate-800 dark:text-slate-200">{totalItems}</strong>{' '}

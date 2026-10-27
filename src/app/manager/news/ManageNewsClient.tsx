@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
-import { Newspaper, Plus, Edit2, Trash2, X, Eye, EyeOff, Globe, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { News } from '@/hooks/useNews';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -229,7 +229,7 @@ export default function ManageNewsClient() {
           onClick={handleAdd}
           className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-teal-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-semibold shadow-[0_2px_15px_-3px_rgba(16,185,129,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(16,185,129,0.5)] hover:-translate-y-0.5"
         >
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           Tambah Berita
         </button>
       </div>
@@ -237,7 +237,7 @@ export default function ManageNewsClient() {
       <div className="grid grid-cols-2 gap-4">
         <div className="stat-card">
           <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center flex-shrink-0">
-            <Newspaper className="w-6 h-6" />
+            <AppIcon icon="Newspaper" className="w-6 h-6" />
           </div>
           <div>
             <p className="text-sm font-semibold text-slate-500">Total Berita</p>
@@ -246,7 +246,7 @@ export default function ManageNewsClient() {
         </div>
         <div className="stat-card">
           <div className="w-12 h-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center flex-shrink-0">
-            <Globe className="w-6 h-6" />
+            <AppIcon icon="Globe" className="w-6 h-6" />
           </div>
           <div>
             <p className="text-sm font-semibold text-slate-500">Dipublikasikan</p>
@@ -269,7 +269,7 @@ export default function ManageNewsClient() {
               </div>
             ) : (
               <div className="w-full h-48 bg-slate-100 flex items-center justify-center">
-                <Newspaper className="w-12 h-12 text-slate-300" />
+                <AppIcon icon="Newspaper" className="w-12 h-12 text-slate-300" />
               </div>
             )}
             
@@ -294,14 +294,14 @@ export default function ManageNewsClient() {
                   onClick={() => handleEdit(item)}
                   className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-semibold text-slate-600 bg-slate-50 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                 >
-                  <Edit2 className="w-4 h-4" />
+                  <AppIcon icon="Edit2" className="w-4 h-4" />
                   Edit
                 </button>
                 <button 
                   onClick={() => handleDelete(item.id)}
                   className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-semibold text-slate-600 bg-slate-50 hover:bg-rose-50 hover:text-rose-600 transition-colors"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <AppIcon icon="Trash2" className="w-4 h-4" />
                   Hapus
                 </button>
               </div>
@@ -327,12 +327,12 @@ export default function ManageNewsClient() {
       {news.length === 0 && (
         <div className="text-center py-16 px-4 bg-white/60 backdrop-blur-xl border border-slate-200/60 rounded-[2rem]">
           <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100">
-            <Newspaper className="w-8 h-8 text-slate-300" />
+            <AppIcon icon="Newspaper" className="w-8 h-8 text-slate-300" />
           </div>
           <h3 className="text-lg font-bold text-slate-800">Belum ada berita</h3>
           <p className="text-slate-500 mt-1 mb-6">Mulai tambahkan berita untuk pengunjung kebun binatang.</p>
           <button onClick={handleAdd} className="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-md shadow-green-500/20 inline-flex items-center gap-2">
-            <Plus className="w-4 h-4" />
+            <AppIcon icon="Plus" className="w-4 h-4" />
             Tambah Berita
           </button>
         </div>
@@ -345,19 +345,19 @@ export default function ManageNewsClient() {
             <div className="manager-modal-header shrink-0 bg-transparent border-b border-slate-100 p-4 sm:p-5 flex items-center justify-between">
               <div className="manager-modal-title flex items-center gap-3">
                 <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100 flex-shrink-0">
-                  <Newspaper className="w-5 h-5 text-green-500" />
+                  <AppIcon icon="Newspaper" className="w-5 h-5 text-green-500" />
                 </div>
                 <span className="font-bold text-slate-800 text-base sm:text-lg">{selectedNews ? 'Edit Berita' : 'Tambah Berita Baru'}</span>
               </div>
               <button onClick={() => setShowModal(false)} className="w-8 h-8 flex items-center justify-center bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-500 rounded-lg transition-colors flex-shrink-0">
-                <X className="w-5 h-5" />
+                <AppIcon icon="X" className="w-5 h-5" />
               </button>
             </div>
 
             <div className="manager-modal-body flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
               <div className="manager-form-section bg-transparent border-none p-0 shadow-none">
                 <p className="manager-form-section-title flex items-center gap-2 border-none pb-2 text-sm text-slate-600 font-semibold">
-                  <Globe className="w-4 h-4 text-green-600" />
+                  <AppIcon icon="Globe" className="w-4 h-4 text-green-600" />
                   Konten Multibahasa
                 </p>
                 
@@ -435,7 +435,7 @@ export default function ManageNewsClient() {
               <div className="bg-slate-50 border border-slate-200 rounded-[1.25rem] p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${formData.is_published ? 'bg-green-100 text-green-600' : 'bg-slate-200 text-slate-500'}`}>
-                    {formData.is_published ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+                    {formData.is_published ? <AppIcon icon="Eye" className="w-5 h-5" /> : <AppIcon icon="EyeOff" className="w-5 h-5" />}
                   </div>
                   <div>
                     <p className="text-sm font-bold text-slate-800">Publikasikan</p>
@@ -466,7 +466,7 @@ export default function ManageNewsClient() {
               >
                 {saving ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" />
                     Menyimpan...
                   </>
                 ) : (

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Html5Qrcode, Html5QrcodeResult, Html5QrcodeSupportedFormats } from 'html5-qrcode';
-import { Camera, X, SwitchCamera, AlertCircle, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 
 interface QRScannerProps {
@@ -257,7 +257,7 @@ export default function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
           className="w-12 h-12 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-md text-white hover:bg-white/50 transition-all shadow-lg active:scale-95"
           aria-label="Tutup Scanner"
         >
-          <X className="w-6 h-6" />
+          <AppIcon name="solar:close-circle-bold" className="w-6 h-6" />
         </button>
         <h2 className="text-white font-semibold text-lg">Scan QR Code</h2>
         <div className="w-12" />
@@ -275,7 +275,7 @@ export default function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
         {isInitializing && !error && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-20">
             <div className="text-center">
-              <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-4" />
+              <AppIcon name="solar:spinner-linear" className="w-12 h-12 text-primary animate-spin mx-auto mb-4" />
               <p className="text-white">Memuat kamera...</p>
               <p className="text-white/60 text-sm mt-2">Pastikan izin kamera diberikan</p>
             </div>
@@ -304,7 +304,7 @@ export default function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
           <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-20">
             <div className="text-center p-6 max-w-sm">
               <div className="w-16 h-16 bg-destructive/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <AlertCircle className="w-8 h-8 text-destructive" />
+                <AppIcon name="solar:danger-triangle-bold-duotone" className="w-8 h-8 text-destructive" />
               </div>
               <h3 className="text-white font-semibold mb-2">Kamera Tidak Tersedia</h3>
               <p className="text-white/70 text-sm mb-4">{error}</p>
@@ -333,7 +333,7 @@ export default function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
           <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-20">
             <div className="text-center p-6 max-w-sm">
               <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Camera className="w-8 h-8 text-primary" />
+                <AppIcon name="solar:camera-bold-duotone" className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-white font-semibold mb-2">Scan Berhasil!</h3>
               <p className="text-white/70 text-sm mb-4">
@@ -361,7 +361,7 @@ export default function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
               onClick={switchCamera}
               className="w-14 h-14 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-colors"
             >
-              <SwitchCamera className="w-6 h-6" />
+              <AppIcon name="solar:camera-rotate-bold-duotone" className="w-6 h-6" />
             </button>
           )}
         </div>

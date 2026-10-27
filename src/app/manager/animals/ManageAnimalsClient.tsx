@@ -2,28 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
-import { 
-  PawPrint, 
-  Search, 
-  Plus, 
-  Edit2, 
-  Trash2, 
-  MapPin, 
-  Shield, 
-  QrCode, 
-  Printer, 
-  Filter, 
-  X,
-  Download,
-  FileSpreadsheet,
-  FileText,
-  CheckSquare,
-  Square,
-  CheckCircle2,
-  AlertTriangle,
-  ZoomIn,
-  Volume2
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Animal } from '@/hooks/useAnimals';
 import { useCategories } from '@/hooks/useCategories';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -362,7 +341,7 @@ export default function ManageAnimalsClient() {
                 <button 
                   className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all font-semibold shadow-2xs btn-interactive text-xs sm:text-sm"
                 >
-                  <Download className="w-4 h-4 text-emerald-600" />
+                  <AppIcon icon="Download" className="w-4 h-4 text-emerald-600" />
                   <span>Ekspor Laporan</span>
                 </button>
               </DropdownMenuTrigger>
@@ -371,14 +350,14 @@ export default function ManageAnimalsClient() {
                   onClick={() => handleExport('excel')}
                   className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl cursor-pointer"
                 >
-                  <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+                  <AppIcon icon="FileSpreadsheet" className="w-4 h-4 text-emerald-600" />
                   <span>Ekspor ke Excel (.xlsx)</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={() => handleExport('pdf')}
                   className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl cursor-pointer"
                 >
-                  <FileText className="w-4 h-4 text-rose-600" />
+                  <AppIcon icon="FileText" className="w-4 h-4 text-rose-600" />
                   <span>Cetak Dokumen PDF (.pdf)</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -389,7 +368,7 @@ export default function ManageAnimalsClient() {
               onClick={() => setShowBulkQR(true)}
               className="flex items-center justify-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all font-semibold shadow-2xs btn-interactive text-xs sm:text-sm"
             >
-              <Printer className="w-4 h-4 text-slate-500" />
+              <AppIcon icon="Printer" className="w-4 h-4 text-slate-500" />
               <span>Cetak QR Massal</span>
             </button>
 
@@ -398,7 +377,7 @@ export default function ManageAnimalsClient() {
               onClick={handleAdd}
               className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-teal-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all font-semibold shadow-md shadow-emerald-500/20 btn-interactive text-xs sm:text-sm"
             >
-              <Plus className="w-4 h-4" />
+              <AppIcon icon="Plus" className="w-4 h-4" />
               Tambah Satwa
             </button>
           </div>
@@ -407,7 +386,7 @@ export default function ManageAnimalsClient() {
         {/* Search and Category Filter */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1 group">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
+            <AppIcon icon="Search" className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
             <input
               type="text"
               placeholder="Cari nama satwa, nama latin, atau lokasi..."
@@ -417,7 +396,7 @@ export default function ManageAnimalsClient() {
             />
           </div>
           <div className="relative min-w-[200px]">
-            <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            <AppIcon icon="Filter" className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
@@ -439,7 +418,7 @@ export default function ManageAnimalsClient() {
               <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-50 border border-green-100 text-green-700 rounded-full text-xs font-semibold">
                 Pencarian: &quot;{searchQuery}&quot;
                 <button onClick={() => setSearchQuery('')} className="hover:bg-green-100 rounded-full p-0.5">
-                  <X className="w-3 h-3" />
+                  <AppIcon icon="X" className="w-3 h-3" />
                 </button>
               </span>
             )}
@@ -447,7 +426,7 @@ export default function ManageAnimalsClient() {
               <span className="inline-flex items-center gap-1 px-3 py-1 bg-teal-50 border border-teal-100 text-teal-700 rounded-full text-xs font-semibold">
                 {getCategoryDisplay(selectedCategoryName, language)}
                 <button onClick={() => setCategoryFilter('')} className="hover:bg-teal-100 rounded-full p-0.5">
-                  <X className="w-3 h-3" />
+                  <AppIcon icon="X" className="w-3 h-3" />
                 </button>
               </span>
             )}
@@ -477,7 +456,7 @@ export default function ManageAnimalsClient() {
                 onClick={() => setShowBulkQR(true)}
                 className="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-xs font-bold transition-colors flex items-center gap-1.5"
               >
-                <Printer className="w-3.5 h-3.5" />
+                <AppIcon icon="Printer" className="w-3.5 h-3.5" />
                 Cetak Label QR
               </button>
 
@@ -485,7 +464,7 @@ export default function ManageAnimalsClient() {
                 onClick={() => handleBulkHealthStatus('Sehat')}
                 className="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-xs font-bold transition-colors flex items-center gap-1.5"
               >
-                <CheckCircle2 className="w-3.5 h-3.5" />
+                <AppIcon icon="CheckCircle2" className="w-3.5 h-3.5" />
                 Set Status Sehat
               </button>
 
@@ -493,7 +472,7 @@ export default function ManageAnimalsClient() {
                 onClick={handleBulkDelete}
                 className="px-3 py-1.5 rounded-xl bg-rose-500/80 hover:bg-rose-600 text-xs font-bold transition-colors flex items-center gap-1.5"
               >
-                <Trash2 className="w-3.5 h-3.5" />
+                <AppIcon icon="Trash2" className="w-3.5 h-3.5" />
                 Hapus Terpilih
               </button>
 
@@ -560,7 +539,7 @@ export default function ManageAnimalsClient() {
                               className="w-12 h-12 rounded-xl object-cover border border-slate-200 shadow-2xs group-hover/img:scale-105 transition-transform"
                             />
                             <div className="absolute inset-0 bg-black/30 rounded-xl opacity-0 group-hover/img:opacity-100 flex items-center justify-center transition-opacity text-white">
-                              <ZoomIn className="w-4 h-4 drop-shadow" />
+                              <AppIcon icon="ZoomIn" className="w-4 h-4 drop-shadow" />
                             </div>
                           </button>
 
@@ -580,14 +559,14 @@ export default function ManageAnimalsClient() {
                       </td>
                       <td className="manager-table-td">
                         <div className="flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-slate-300">
-                          <MapPin className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+                          <AppIcon icon="MapPin" className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
                           <span>{animal.location || animal.zone || '-'}</span>
                         </div>
                       </td>
                       <td className="manager-table-td">
                         <div className="flex flex-col gap-1">
                           <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border w-fit ${getStatusColor(animal.status)}`}>
-                            <Shield className="w-3 h-3" />
+                            <AppIcon icon="Shield" className="w-3 h-3" />
                             {animal.status || 'Aman'}
                           </span>
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border w-fit ${getHealthColor(animal.health_status)}`}>
@@ -616,14 +595,14 @@ export default function ManageAnimalsClient() {
                             className="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all"
                             title="Generate QR Code"
                           >
-                            <QrCode className="w-4 h-4" />
+                            <AppIcon icon="QrCode" className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleEdit(animal)}
                             className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
                             title="Edit"
                           >
-                            <Edit2 className="w-4 h-4" />
+                            <AppIcon icon="Edit2" className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(animal.id)}
@@ -631,7 +610,7 @@ export default function ManageAnimalsClient() {
                             className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all disabled:opacity-50"
                             title="Hapus"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <AppIcon icon="Trash2" className="w-4 h-4" />
                           </button>
                         </div>
                       </td>
@@ -679,7 +658,7 @@ export default function ManageAnimalsClient() {
 
                       <div className="flex flex-wrap gap-1.5 mt-2">
                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${getStatusColor(animal.status)}`}>
-                          <Shield className="w-2.5 h-2.5" />
+                          <AppIcon icon="Shield" className="w-2.5 h-2.5" />
                           {animal.status || 'Aman'}
                         </span>
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border ${getHealthColor(animal.health_status)}`}>
@@ -691,7 +670,7 @@ export default function ManageAnimalsClient() {
 
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
                     <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
-                      <MapPin className="w-3.5 h-3.5 text-emerald-500" />
+                      <AppIcon icon="MapPin" className="w-3.5 h-3.5 text-emerald-500" />
                       <span>{animal.location || animal.zone || '-'}</span>
                     </div>
 
@@ -700,19 +679,19 @@ export default function ManageAnimalsClient() {
                         onClick={() => setQrAnimal(animal)}
                         className="p-2 text-slate-400 hover:text-emerald-600 rounded-lg"
                       >
-                        <QrCode className="w-4 h-4" />
+                        <AppIcon icon="QrCode" className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleEdit(animal)}
                         className="p-2 text-slate-400 hover:text-blue-600 rounded-lg"
                       >
-                        <Edit2 className="w-4 h-4" />
+                        <AppIcon icon="Edit2" className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(animal.id)}
                         className="p-2 text-slate-400 hover:text-rose-600 rounded-lg"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <AppIcon icon="Trash2" className="w-4 h-4" />
                       </button>
                     </div>
                   </div>

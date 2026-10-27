@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useOrganizationMemberships } from '@/hooks/useOrganizationMemberships';
-import { History, TreePine, Leaf, Calendar, ChevronDown, Award, ExternalLink } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
@@ -51,15 +51,15 @@ export default function HistoryPage() {
       <section className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground py-8 md:py-12 overflow-hidden">
         {/* Forest Decorations */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <TreePine className="absolute top-4 left-4 w-20 h-20 md:w-32 md:h-32 opacity-10" />
-          <Leaf className="absolute top-10 right-10 w-16 h-16 md:w-24 md:h-24 opacity-10 rotate-45" />
-          <TreePine className="absolute bottom-0 right-1/4 w-24 h-24 md:w-40 md:h-40 opacity-10" />
+          <AppIcon icon="TreePine" className="absolute top-4 left-4 w-20 h-20 md:w-32 md:h-32 opacity-10" />
+          <AppIcon icon="Leaf" className="absolute top-10 right-10 w-16 h-16 md:w-24 md:h-24 opacity-10 rotate-45" />
+          <AppIcon icon="TreePine" className="absolute bottom-0 right-1/4 w-24 h-24 md:w-40 md:h-40 opacity-10" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <History className="w-5 h-5 md:w-6 md:h-6" />
+              <AppIcon icon="History" className="w-5 h-5 md:w-6 md:h-6" />
             </div>
             <h1 className="text-2xl md:text-4xl font-bold">
               {language === 'en' ? 'Our History' : 'Sejarah Kami'}
@@ -125,11 +125,11 @@ export default function HistoryPage() {
                     <div className="explorer-card overflow-hidden group">
                       {/* Forest-themed header */}
                       <div className="relative bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-4">
-                        <TreePine className="absolute top-2 right-2 w-8 h-8 opacity-10" />
+                        <AppIcon icon="TreePine" className="absolute top-2 right-2 w-8 h-8 opacity-10" />
                         
                         {/* Year Badge - Desktop */}
                         <div className="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/20 text-primary font-bold text-sm mb-2">
-                          <Calendar className="w-3.5 h-3.5" />
+                          <AppIcon icon="Calendar" className="w-3.5 h-3.5" />
                           {item.year || '—'}
                         </div>
                         
@@ -176,14 +176,14 @@ export default function HistoryPage() {
             {/* Scroll indicator */}
             {historyItems.length > 3 && (
               <div className="flex justify-center mt-8 md:mt-12 animate-bounce-slow">
-                <ChevronDown className="w-6 h-6 text-muted-foreground" />
+                <AppIcon icon="ChevronDown" className="w-6 h-6 text-muted-foreground" />
               </div>
             )}
           </div>
         ) : (
           <div className="text-center py-16">
             <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <History className="w-10 h-10 text-primary" />
+              <AppIcon icon="History" className="w-10 h-10 text-primary" />
             </div>
             <h3 className="text-lg font-semibold mb-2">
               {language === 'en' ? 'No History Available' : 'Belum Ada Sejarah'}
@@ -201,7 +201,7 @@ export default function HistoryPage() {
       <section className="bg-gradient-to-b from-transparent to-muted/30 py-12 md:py-20 border-t border-border/50">
         <div className="container mx-auto px-4 text-center max-w-6xl">
           <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm mb-6">
-            <Award className="w-4 h-4" />
+            <AppIcon icon="Award" className="w-4 h-4" />
             {language === 'en' ? 'Global Network' : 'Jaringan & Afiliasi'}
           </div>
           
@@ -237,7 +237,7 @@ export default function HistoryPage() {
                     <span className="px-2.5 py-0.5 rounded-full bg-muted/70 dark:bg-slate-800/80 text-[10px] font-bold tracking-wider text-muted-foreground">
                       {i === 0 ? 'Pemprov' : i === 1 ? 'Instansi' : i === 2 ? 'Nasional' : i === 3 ? 'Regional' : 'Dunia'}
                     </span>
-                    <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all duration-300 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <AppIcon icon="ExternalLink" className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all duration-300 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
 
                   {/* Logo Podium */}

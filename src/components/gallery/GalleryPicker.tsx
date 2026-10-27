@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Image, Upload, Search, Check, Loader2, Grid3X3, List, FolderOpen } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { useMediaGallery, MediaItem, MEDIA_CATEGORIES } from '@/hooks/useMediaGallery';
 import { useDebounce } from '@/hooks/useDebounce';
 import { cn } from '@/lib/utils';
@@ -95,7 +95,7 @@ export default function GalleryPicker({
         <div className="flex items-center justify-between px-6 py-5 border-b border-border/50 shrink-0 bg-background/50">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center shadow-inner">
-              <FolderOpen className="w-6 h-6 text-primary" />
+              <AppIcon name="solar:folder-with-files-bold-duotone" className="w-6 h-6 text-primary" />
             </div>
             <div>
               <h2 className="text-xl font-bold tracking-tight text-foreground">Galeri Media</h2>
@@ -105,7 +105,7 @@ export default function GalleryPicker({
             </div>
           </div>
           <button onClick={onClose} className="p-2.5 hover:bg-rose-500/10 hover:text-rose-600 text-muted-foreground rounded-xl transition-colors">
-            <X className="w-5 h-5" />
+            <AppIcon name="solar:close-circle-bold" className="w-5 h-5" />
           </button>
         </div>
 
@@ -113,7 +113,7 @@ export default function GalleryPicker({
         <div className="flex flex-wrap items-center gap-3 px-6 py-4 border-b border-border/50 shrink-0 bg-muted/20">
           {/* Search */}
           <div className="relative flex-1 min-w-[200px]">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <AppIcon name="solar:magnifer-bold-duotone" className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               value={searchQuery}
@@ -145,7 +145,7 @@ export default function GalleryPicker({
                 viewMode === 'grid' ? 'bg-primary text-primary-foreground shadow-sm' : 'hover:bg-muted text-muted-foreground'
               )}
             >
-              <Grid3X3 className="w-4 h-4" />
+              <AppIcon name="solar:widget-4-bold-duotone" className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('list')}
@@ -154,16 +154,16 @@ export default function GalleryPicker({
                 viewMode === 'list' ? 'bg-primary text-primary-foreground shadow-sm' : 'hover:bg-muted text-muted-foreground'
               )}
             >
-              <List className="w-4 h-4" />
+              <AppIcon name="solar:list-bold-duotone" className="w-4 h-4" />
             </button>
           </div>
 
           {/* Upload Button */}
           <label className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl cursor-pointer hover:bg-primary/90 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all font-medium">
             {uploading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
             ) : (
-              <Upload className="w-4 h-4" />
+              <AppIcon name="solar:upload-track-2-bold-duotone" className="w-4 h-4" />
             )}
             <span className="text-sm">Upload</span>
             <input
@@ -181,13 +181,13 @@ export default function GalleryPicker({
         <div className="flex-1 overflow-y-auto p-6 bg-muted/10">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20">
-              <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
+              <AppIcon name="solar:spinner-linear" className="w-10 h-10 animate-spin text-primary mb-4" />
               <p className="text-muted-foreground animate-pulse">Memuat galeri...</p>
             </div>
           ) : filteredMedia.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center">
               <div className="w-24 h-24 bg-muted/50 rounded-full flex items-center justify-center mb-6 shadow-inner">
-                <Image className="w-10 h-10 text-muted-foreground/50" />
+                <AppIcon name="solar:gallery-bold-duotone" className="w-10 h-10 text-muted-foreground/50" />
               </div>
               <h3 className="text-lg font-semibold mb-1">Belum ada gambar</h3>
               <p className="text-sm text-muted-foreground max-w-sm">Upload gambar baru atau ubah kata kunci pencarian Anda untuk menemukan media.</p>
@@ -218,7 +218,7 @@ export default function GalleryPicker({
                   </div>
                   {multiple && selectedItems.includes(item.file_url) && (
                     <div className="absolute top-3 right-3 w-7 h-7 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-lg shadow-primary/40 animate-in zoom-in-50 duration-200">
-                      <Check className="w-4 h-4 stroke-[3]" />
+                      <AppIcon name="solar:check-circle-bold" className="w-4 h-4" />
                     </div>
                   )}
                 </div>
@@ -246,7 +246,7 @@ export default function GalleryPicker({
                     />
                     {multiple && selectedItems.includes(item.file_url) && (
                       <div className="absolute inset-0 bg-primary/20 flex items-center justify-center backdrop-blur-[2px]">
-                        <Check className="w-6 h-6 text-primary drop-shadow-md stroke-[3]" />
+                        <AppIcon name="solar:check-circle-bold" className="w-6 h-6 text-primary drop-shadow-md" />
                       </div>
                     )}
                   </div>

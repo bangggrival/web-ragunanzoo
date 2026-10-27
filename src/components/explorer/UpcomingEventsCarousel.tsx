@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { Calendar, Clock, MapPin, ChevronLeft, ChevronRight, ArrowUpRight, Sparkles, Utensils, GraduationCap, Ticket } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Event } from '@/hooks/useEvents';
@@ -54,12 +54,12 @@ export default function UpcomingEventsCarousel({ events, loading }: UpcomingEven
   const getCategoryConfig = (category?: string) => {
     const cat = category?.toLowerCase() || '';
     if (cat.includes('feed') || cat.includes('makan')) {
-      return { icon: Utensils, label: language === 'en' ? 'Feeding Time' : 'Feeding Time', badgeClass: 'bg-amber-500/90 text-white' };
+      return { icon: 'fluent-emoji-flat:fork-and-knife-with-plate', label: language === 'en' ? 'Feeding Time' : 'Feeding Time', badgeClass: 'bg-amber-500/90 text-white' };
     }
     if (cat.includes('edu') || cat.includes('sekolah')) {
-      return { icon: GraduationCap, label: language === 'en' ? 'Education' : 'Edukasi', badgeClass: 'bg-emerald-600/90 text-white' };
+      return { icon: 'solar:square-academic-cap-2-bold-duotone', label: language === 'en' ? 'Education' : 'Edukasi', badgeClass: 'bg-emerald-600/90 text-white' };
     }
-    return { icon: Calendar, label: language === 'en' ? 'Show & Event' : 'Pertunjukan', badgeClass: 'bg-primary/90 text-white' };
+    return { icon: 'solar:calendar-bold-duotone', label: language === 'en' ? 'Show & Event' : 'Pertunjukan', badgeClass: 'bg-primary/90 text-white' };
   };
 
   if (loading) {
@@ -92,7 +92,7 @@ export default function UpcomingEventsCarousel({ events, loading }: UpcomingEven
         <div className="flex items-center justify-between gap-2 mb-3 sm:mb-5 px-1 sm:px-2">
           <div className="flex items-center gap-2.5 sm:gap-3">
             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-secondary/15 text-secondary flex items-center justify-center flex-shrink-0 shadow-sm">
-              <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
+              <AppIcon name="solar:calendar-bold-duotone" className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
               <h3 className="text-base sm:text-xl md:text-2xl font-extrabold text-foreground tracking-tight">
@@ -113,7 +113,7 @@ export default function UpcomingEventsCarousel({ events, loading }: UpcomingEven
                 className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-card hover:bg-muted border border-border text-foreground flex items-center justify-center shadow-sm transition-all duration-200 hover:scale-105 active:scale-95 group"
                 aria-label="Previous event"
               >
-                <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+                <AppIcon name="solar:alt-arrow-left-linear" className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
               </button>
               <button
                 type="button"
@@ -121,7 +121,7 @@ export default function UpcomingEventsCarousel({ events, loading }: UpcomingEven
                 className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-card hover:bg-muted border border-border text-foreground flex items-center justify-center shadow-sm transition-all duration-200 hover:scale-105 active:scale-95 group"
                 aria-label="Next event"
               >
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                <AppIcon name="solar:alt-arrow-right-linear" className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
             </div>
 
@@ -130,7 +130,7 @@ export default function UpcomingEventsCarousel({ events, loading }: UpcomingEven
               className="inline-flex items-center gap-1 sm:gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-card hover:bg-muted border border-border text-foreground text-[11px] sm:text-xs font-bold transition-all shadow-sm hover:shadow"
             >
               <span>{t('view_all_events')}</span>
-              <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <AppIcon name="solar:arrow-right-up-linear" className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </Link>
           </div>
         </div>
@@ -142,7 +142,6 @@ export default function UpcomingEventsCarousel({ events, loading }: UpcomingEven
               const eventTitle = getText(event.title_id, event.title_en, event.title);
               const eventDesc = getText(event.description_id, event.description_en, event.description || '');
               const catConfig = getCategoryConfig(event.category || event.type || '');
-              const CatIcon = catConfig.icon;
 
               return (
                 <div 
@@ -159,13 +158,13 @@ export default function UpcomingEventsCarousel({ events, loading }: UpcomingEven
                     aspectRatio="video"
                     badgeTopLeft={
                       <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide backdrop-blur-md border shadow-sm ${catConfig.badgeClass}`}>
-                        <CatIcon className="w-3 h-3" />
+                        <AppIcon name={catConfig.icon} className="w-3.5 h-3.5" />
                         <span>{catConfig.label}</span>
                       </div>
                     }
                     badgeTopRight={
                       <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-extrabold border border-white/20 shadow-sm">
-                        <Clock className="w-3 h-3 text-amber-400" />
+                        <AppIcon name="solar:clock-circle-bold" className="w-3 h-3 text-amber-400" />
                         <span>{event.time || '10:30 WIB'}</span>
                       </div>
                     }

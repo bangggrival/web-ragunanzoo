@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Ticket, CreditCard, MonitorSmartphone, Monitor, Globe, Sparkles, Layers, ExternalLink } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useTicketContent } from '@/hooks/useTicketContent';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { TicketContentSection } from '@/components/tickets/TicketContentSection';
@@ -68,7 +68,7 @@ function TicketPageContent() {
       {/* Header */}
       <AtmosphericHeader
         theme="tickets"
-        icon={<Ticket className="w-5 h-5 md:w-6 md:h-6 text-amber-200" />}
+        icon={<AppIcon icon="Ticket" className="w-5 h-5 md:w-6 md:h-6 text-amber-200" />}
         title={heroTitle}
         description={heroSubtitle}
         breadcrumbs={[
@@ -77,11 +77,11 @@ function TicketPageContent() {
         ]}
         stats={[
           {
-            icon: <Ticket className="w-3.5 h-3.5" />,
+            icon: <AppIcon icon="Ticket" className="w-3.5 h-3.5" />,
             label: language === 'en' ? '4 Entry Options' : '4 Pilihan Jalur Masuk',
           },
           {
-            icon: <CreditCard className="w-3.5 h-3.5" />,
+            icon: <AppIcon icon="CreditCard" className="w-3.5 h-3.5" />,
             label: 'Cashless / JakCard & QRIS',
           },
         ]}
@@ -113,7 +113,7 @@ function TicketPageContent() {
                     : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
                 }`}
               >
-                <Globe className={`w-4 h-4 shrink-0 ${activeTab === 'online' ? 'text-white' : 'text-sky-500'}`} />
+                <AppIcon icon="Globe" className={`w-4 h-4 shrink-0 ${activeTab === 'online' ? 'text-white' : 'text-sky-500'}`} />
                 <span className="truncate">{language === 'en' ? 'E-Ticket Simulation' : 'Simulasi E-Tiket'}</span>
               </button>
 
@@ -125,7 +125,7 @@ function TicketPageContent() {
                     : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
                 }`}
               >
-                <CreditCard className={`w-4 h-4 shrink-0 ${activeTab === 'jakcard' ? 'text-white' : 'text-primary'}`} />
+                <AppIcon icon="CreditCard" className={`w-4 h-4 shrink-0 ${activeTab === 'jakcard' ? 'text-white' : 'text-primary'}`} />
                 <span className="truncate">JakCard</span>
               </button>
 
@@ -137,7 +137,7 @@ function TicketPageContent() {
                     : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
                 }`}
               >
-                <MonitorSmartphone className={`w-4 h-4 shrink-0 ${activeTab === 'mpos' ? 'text-white' : 'text-amber-700 dark:text-amber-400'}`} />
+                <AppIcon icon="MonitorSmartphone" className={`w-4 h-4 shrink-0 ${activeTab === 'mpos' ? 'text-white' : 'text-amber-700 dark:text-amber-400'}`} />
                 <span className="truncate">MPoS Loket</span>
               </button>
 
@@ -149,7 +149,7 @@ function TicketPageContent() {
                     : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
                 }`}
               >
-                <Monitor className={`w-4 h-4 shrink-0 ${activeTab === 'tvm' ? 'text-white' : 'text-amber-500'}`} />
+                <AppIcon icon="Monitor" className={`w-4 h-4 shrink-0 ${activeTab === 'tvm' ? 'text-white' : 'text-amber-500'}`} />
                 <span className="truncate">Mesin TVM</span>
               </button>
             </div>
@@ -169,7 +169,7 @@ function TicketPageContent() {
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <AppIcon icon="Sparkles" className="w-3.5 h-3.5 text-amber-500" />
                   <span>{language === 'en' ? 'Interactive Guide' : 'Simulasi Interaktif'}</span>
                 </button>
 
@@ -181,7 +181,7 @@ function TicketPageContent() {
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  <Layers className="w-3.5 h-3.5 text-primary" />
+                  <AppIcon icon="Layers" className="w-3.5 h-3.5 text-primary" />
                   <span>{language === 'en' ? 'Step Diagrams' : 'Diagram Langkah'}</span>
                 </button>
               </div>
@@ -296,7 +296,7 @@ function TicketPageContent() {
           <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-emerald-500/10 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
             <div className="flex items-center gap-3 text-center sm:text-left">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0 hidden sm:flex">
-                <ExternalLink className="w-5 h-5" />
+                <AppIcon icon="ExternalLink" className="w-5 h-5" />
               </div>
               <div>
                 <h4 className="font-bold text-sm text-foreground">

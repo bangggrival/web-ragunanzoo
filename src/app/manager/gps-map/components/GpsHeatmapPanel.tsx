@@ -1,21 +1,5 @@
 import React from 'react';
-import {
-  Flame,
-  AlertTriangle,
-  RefreshCw,
-  Zap,
-  Trash2,
-  MapPin,
-  Clock,
-  Filter,
-  CheckCircle2,
-  Navigation,
-  SlidersHorizontal,
-  Info,
-  ShieldCheck,
-  Eye,
-  EyeOff
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
@@ -69,7 +53,7 @@ export function GpsHeatmapPanel({
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <span className="p-2.5 rounded-2xl bg-gradient-to-br from-orange-500 to-rose-600 text-white shadow-sm">
-              <Flame className="w-5 h-5 animate-pulse" />
+              <AppIcon icon="Flame" className="w-5 h-5 animate-pulse" />
             </span>
             <div>
               <h3 className="font-bold text-gray-900 text-base flex items-center gap-1.5">
@@ -136,7 +120,7 @@ export function GpsHeatmapPanel({
       <div className="bg-white/80 backdrop-blur-xl border border-white/90 p-5 rounded-[2rem] shadow-sm space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <AlertTriangle className={`w-4 h-4 ${congestedZones.length > 0 ? 'text-rose-600' : 'text-emerald-600'}`} />
+            <AppIcon icon="AlertTriangle" className={`w-4 h-4 ${congestedZones.length > 0 ? 'text-rose-600' : 'text-emerald-600'}`} />
             <h4 className="font-bold text-gray-900 text-sm">
               Sistem Deteksi Penumpukan Massa (Crowd Alert)
             </h4>
@@ -182,7 +166,7 @@ export function GpsHeatmapPanel({
                     onClick={() => onFlyToZone(zone.lat, zone.lng, zone.name)}
                     className="h-7 text-xs rounded-lg border-orange-200 text-orange-700 hover:bg-orange-50 flex-shrink-0"
                   >
-                    <Navigation className="w-3 h-3 mr-1" />
+                    <AppIcon icon="Navigation" className="w-3 h-3 mr-1" />
                     Fokus Peta
                   </Button>
                 </div>
@@ -191,7 +175,7 @@ export function GpsHeatmapPanel({
           </div>
         ) : (
           <div className="p-4 bg-emerald-50/60 border border-emerald-200 rounded-2xl flex items-center gap-3 text-xs text-emerald-800">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+            <AppIcon icon="CheckCircle2" className="w-5 h-5 text-emerald-600 flex-shrink-0" />
             <div>
               <p className="font-semibold">Arus Pengunjung Terkendali</p>
               <p className="text-emerald-700/80 mt-0.5">
@@ -206,7 +190,7 @@ export function GpsHeatmapPanel({
       <div className="bg-white/80 backdrop-blur-xl border border-white/90 p-5 rounded-[2rem] shadow-sm space-y-4">
         <div className="flex items-center justify-between">
           <h4 className="font-bold text-gray-900 text-sm flex items-center gap-2">
-            <SlidersHorizontal className="w-4 h-4 text-emerald-600" />
+            <AppIcon icon="SlidersHorizontal" className="w-4 h-4 text-emerald-600" />
             Parameter Heatmap & Filter Data
           </h4>
           <Button
@@ -216,7 +200,7 @@ export function GpsHeatmapPanel({
             disabled={isLoading}
             className="h-7 text-xs text-emerald-700 hover:bg-emerald-50 rounded-lg"
           >
-            <RefreshCw className={`w-3 h-3 mr-1 ${isLoading ? 'animate-spin' : ''}`} />
+            <AppIcon icon="RefreshCw" className={`w-3 h-3 mr-1 ${isLoading ? 'animate-spin' : ''}`} />
             Segarkan
           </Button>
         </div>
@@ -224,7 +208,7 @@ export function GpsHeatmapPanel({
         {/* Filter Rentang Waktu */}
         <div className="space-y-1.5">
           <Label className="text-xs font-semibold text-gray-700 flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-gray-500" />
+            <AppIcon icon="Clock" className="w-3.5 h-3.5 text-gray-500" />
             Rentang Waktu Akumulasi
           </Label>
           <div className="grid grid-cols-4 gap-1.5 bg-gray-100 p-1 rounded-xl text-xs font-medium">
@@ -270,7 +254,7 @@ export function GpsHeatmapPanel({
         {/* Filter Sumber Data */}
         <div className="space-y-1.5">
           <Label className="text-xs font-semibold text-gray-700 flex items-center gap-1.5">
-            <Filter className="w-3.5 h-3.5 text-gray-500" />
+            <AppIcon icon="Filter" className="w-3.5 h-3.5 text-gray-500" />
             Sumber Data Panas
           </Label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-xs">
@@ -334,7 +318,7 @@ export function GpsHeatmapPanel({
       {/* 4. Action & Security Controls (Simulate / Drill / Clear) */}
       <div className="bg-white/80 backdrop-blur-xl border border-white/90 p-5 rounded-[2rem] shadow-sm space-y-3">
         <h4 className="font-bold text-gray-900 text-sm flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-blue-600" />
+          <AppIcon icon="ShieldCheck" className="w-4 h-4 text-blue-600" />
           Aksi Operasional & Simulasi Darurat
         </h4>
         <p className="text-xs text-gray-500">
@@ -348,7 +332,7 @@ export function GpsHeatmapPanel({
             disabled={isLoading}
             className="rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white shadow-sm text-xs"
           >
-            <Zap className="w-3.5 h-3.5 mr-1.5" />
+            <AppIcon icon="Zap" className="w-3.5 h-3.5 mr-1.5" />
             Simulasi Traffic Pengunjung (Drill)
           </Button>
 
@@ -359,7 +343,7 @@ export function GpsHeatmapPanel({
             disabled={isLoading}
             className="rounded-xl border-rose-200 text-rose-700 hover:bg-rose-50 text-xs"
           >
-            <Trash2 className="w-3.5 h-3.5 mr-1.5" />
+            <AppIcon icon="Trash2" className="w-3.5 h-3.5 mr-1.5" />
             Reset Data Traffic
           </Button>
         </div>

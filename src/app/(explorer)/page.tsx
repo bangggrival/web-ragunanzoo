@@ -2,27 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  MapPin, 
-  Ticket, 
-  Calendar, 
-  Sun, 
-  ChevronDown, 
-  Cloud, 
-  CloudRain, 
-  CloudDrizzle, 
-  CloudLightning, 
-  CloudFog, 
-  RefreshCw, 
-  Wind, 
-  Droplets,
-  PawPrint,
-  Leaf,
-  Navigation,
-  Headphones,
-  Box,
-  Sparkles
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useAnimals } from '@/hooks/useAnimals';
 import { useEvents } from '@/hooks/useEvents';
 import { useWeather } from '@/hooks/useWeather';
@@ -145,7 +125,7 @@ export default function ExplorerHome() {
                 }`}
               >
                 <div className="w-7 h-7 md:w-9 md:h-9 bg-primary-foreground rounded-lg md:rounded-xl flex items-center justify-center shadow-inner">
-                  <MapPin className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+                  <AppIcon name="solar:map-point-bold" className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                 </div>
                 {t('see_map')}
               </Link>
@@ -164,7 +144,7 @@ export default function ExplorerHome() {
                     }`}
                   >
                     <div className="w-7 h-7 md:w-9 md:h-9 bg-secondary-foreground rounded-lg md:rounded-xl flex items-center justify-center shadow-inner">
-                      <Ticket className="w-4 h-4 md:w-5 md:h-5 text-secondary" />
+                      <AppIcon name="solar:ticket-bold-duotone" className="w-4 h-4 md:w-5 md:h-5 text-secondary" />
                     </div>
                     {t('buy_tickets')}
                   </a>
@@ -178,7 +158,7 @@ export default function ExplorerHome() {
                     }`}
                   >
                     <div className="w-7 h-7 md:w-9 md:h-9 bg-secondary-foreground rounded-lg md:rounded-xl flex items-center justify-center shadow-inner">
-                      <Ticket className="w-4 h-4 md:w-5 md:h-5 text-secondary" />
+                      <AppIcon name="solar:ticket-bold-duotone" className="w-4 h-4 md:w-5 md:h-5 text-secondary" />
                     </div>
                     {t('buy_tickets')}
                   </Link>
@@ -195,7 +175,7 @@ export default function ExplorerHome() {
                 }`}
               >
                 <div className="w-7 h-7 md:w-9 md:h-9 bg-accent-foreground rounded-lg md:rounded-xl flex items-center justify-center shadow-inner">
-                  <Calendar className="w-4 h-4 md:w-5 md:h-5 text-accent" />
+                  <AppIcon name="solar:calendar-bold-duotone" className="w-4 h-4 md:w-5 md:h-5 text-accent" />
                 </div>
                 {t('see_schedule')}
               </Link>
@@ -208,7 +188,7 @@ export default function ExplorerHome() {
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 text-xs font-bold text-foreground border border-border/70 shadow-2xs backdrop-blur-md hover:scale-105 transition-all btn-interactive group"
               >
                 <span className="w-5 h-5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                  <PawPrint className="w-3 h-3" />
+                  <AppIcon name="fluent-emoji-flat:paw-prints" className="w-3.5 h-3.5" />
                 </span>
                 <span>{language === 'en' ? 'Fauna Collection' : 'Koleksi Satwa'}</span>
               </Link>
@@ -218,7 +198,7 @@ export default function ExplorerHome() {
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 text-xs font-bold text-foreground border border-border/70 shadow-2xs backdrop-blur-md hover:scale-105 transition-all btn-interactive group"
               >
                 <span className="w-5 h-5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                  <Leaf className="w-3 h-3" />
+                  <AppIcon name="fluent-emoji-flat:herb" className="w-3.5 h-3.5" />
                 </span>
                 <span>{language === 'en' ? 'Rare Flora' : 'Flora Langka'}</span>
               </Link>
@@ -228,7 +208,7 @@ export default function ExplorerHome() {
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 text-xs font-bold text-foreground border border-border/70 shadow-2xs backdrop-blur-md hover:scale-105 transition-all btn-interactive group"
               >
                 <span className="w-5 h-5 rounded-full bg-primary/15 text-primary flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                  <Navigation className="w-3 h-3" />
+                  <AppIcon name="solar:routing-2-bold-duotone" className="w-3.5 h-3.5" />
                 </span>
                 <span>{language === 'en' ? 'GPS Interactive Map' : 'Peta Rute & GPS'}</span>
               </Link>
@@ -238,7 +218,7 @@ export default function ExplorerHome() {
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 text-xs font-bold text-foreground border border-border/70 shadow-2xs backdrop-blur-md hover:scale-105 transition-all btn-interactive group"
               >
                 <span className="w-5 h-5 rounded-full bg-purple-500/15 text-purple-700 dark:text-purple-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                  <Headphones className="w-3 h-3" />
+                  <AppIcon name="solar:headphones-round-sound-bold-duotone" className="w-3.5 h-3.5" />
                 </span>
                 <span>{language === 'en' ? 'Audio Tour Guide' : 'Panduan Audio'}</span>
               </Link>
@@ -248,7 +228,7 @@ export default function ExplorerHome() {
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 text-xs font-bold text-foreground border border-border/70 shadow-2xs backdrop-blur-md hover:scale-105 transition-all btn-interactive group"
               >
                 <span className="w-5 h-5 rounded-full bg-teal-500/15 text-teal-700 dark:text-teal-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                  <Box className="w-3 h-3" />
+                  <AppIcon name="solar:box-minimalistic-bold-duotone" className="w-3.5 h-3.5" />
                 </span>
                 <span>{language === 'en' ? '3D Virtual Animals' : 'Galeri Satwa 3D'}</span>
               </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Leaf, PawPrint, FolderOpen } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -180,7 +180,7 @@ export default function ManageCategoriesClient() {
           onClick={handleAdd}
           className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-teal-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-semibold shadow-[0_2px_15px_-3px_rgba(16,185,129,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(16,185,129,0.5)] hover:-translate-y-0.5"
         >
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           Tambah Kategori
         </button>
       </div>
@@ -192,11 +192,11 @@ export default function ManageCategoriesClient() {
             Semua ({categories.length})
           </TabsTrigger>
           <TabsTrigger value="fauna" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm px-4 py-2 gap-2">
-            <PawPrint className="w-4 h-4 text-orange-500" />
+            <AppIcon icon="PawPrint" className="w-4 h-4 text-orange-500" />
             Fauna ({categories.filter(c => c.type === 'fauna').length})
           </TabsTrigger>
           <TabsTrigger value="flora" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm px-4 py-2 gap-2">
-            <Leaf className="w-4 h-4 text-green-500" />
+            <AppIcon icon="Leaf" className="w-4 h-4 text-green-500" />
             Flora ({categories.filter(c => c.type === 'flora').length})
           </TabsTrigger>
         </TabsList>
@@ -205,12 +205,12 @@ export default function ManageCategoriesClient() {
           {filteredCategories.length === 0 ? (
             <div className="text-center py-16 px-4 bg-white/60 backdrop-blur-xl border border-slate-200/60 rounded-[2rem]">
               <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-slate-400">
-                <FolderOpen className="w-8 h-8" />
+                <AppIcon icon="FolderOpen" className="w-8 h-8" />
               </div>
               <h3 className="text-lg font-bold text-slate-800">Belum ada kategori</h3>
               <p className="text-slate-500 mt-1 mb-6">Tambahkan kategori pertama Anda</p>
               <Button onClick={handleAdd} className="bg-green-500 hover:bg-green-600">
-                <Plus className="w-4 h-4 mr-2" />
+                <AppIcon icon="Plus" className="w-4 h-4 mr-2" />
                 Tambah Kategori
               </Button>
             </div>
@@ -241,9 +241,9 @@ export default function ManageCategoriesClient() {
                       </div>
                       <Badge variant="outline" className={`border-0 ${category.type === 'fauna' ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}`}>
                         {category.type === 'fauna' ? (
-                          <><PawPrint className="w-3 h-3 mr-1" />Fauna</>
+                          <><AppIcon icon="PawPrint" className="w-3 h-3 mr-1" />Fauna</>
                         ) : (
-                          <><Leaf className="w-3 h-3 mr-1" />Flora</>
+                          <><AppIcon icon="Leaf" className="w-3 h-3 mr-1" />Flora</>
                         )}
                       </Badge>
                     </div>
@@ -283,13 +283,13 @@ export default function ManageCategoriesClient() {
                           onClick={() => handleEdit(category)}
                           className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
                         >
-                          <Edit2 className="w-4 h-4" />
+                          <AppIcon icon="Edit2" className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => setDeleteId(category.id)}
                           className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <AppIcon icon="Trash2" className="w-4 h-4" />
                         </button>
                       </div>
                     </div>

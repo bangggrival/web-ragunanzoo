@@ -1,6 +1,6 @@
 "use client";
 
-import { Users, Search, Shield, Plus, Edit2, UserCheck, UserX, RefreshCw, Trash2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
@@ -230,7 +230,7 @@ export default function ManageUsersClient() {
             className="h-11 w-11 flex items-center justify-center rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-all shadow-sm"
             title="Refresh"
           >
-            <RefreshCw className="w-4 h-4 text-slate-500" />
+            <AppIcon icon="RefreshCw" className="w-4 h-4 text-slate-500" />
           </button>
           {userRole === 'admin' && (
             <button
@@ -238,7 +238,7 @@ export default function ManageUsersClient() {
               className="group relative inline-flex items-center gap-2.5 h-11 px-6 text-sm font-bold rounded-2xl bg-gradient-to-r from-green-500 to-teal-500 text-white overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-[0_8px_20px_-6px_rgba(16,185,129,0.4)] hover:shadow-[0_12px_24px_-6px_rgba(16,185,129,0.5)] border border-green-400/20"
             >
               <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-              <Plus className="w-4 h-4 relative z-10 transition-transform group-hover:rotate-90 duration-300" />
+              <AppIcon icon="Plus" className="w-4 h-4 relative z-10 transition-transform group-hover:rotate-90 duration-300" />
               <span className="relative z-10">Tambah User</span>
             </button>
           )}
@@ -248,10 +248,10 @@ export default function ManageUsersClient() {
       {/* ===== STAT CARDS ===== */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Total Pengguna', value: users.length, textClass: 'text-slate-700', iconColor: 'text-slate-600', iconBg: 'bg-slate-100', icon: Users, shadow: 'hover:shadow-slate-200' },
-          { label: 'Admin', value: adminCount, textClass: 'text-rose-700', iconColor: 'text-rose-600', iconBg: 'bg-rose-100', icon: Shield, shadow: 'hover:shadow-rose-200' },
-          { label: 'Staff', value: staffCount, textClass: 'text-green-700', iconColor: 'text-green-600', iconBg: 'bg-green-100', icon: UserCheck, shadow: 'hover:shadow-green-200' },
-          { label: 'Visitor', value: visitorCount, textClass: 'text-blue-700', iconColor: 'text-blue-600', iconBg: 'bg-blue-100', icon: UserX, shadow: 'hover:shadow-blue-200' },
+          { label: 'Total Pengguna', value: users.length, textClass: 'text-slate-700', iconColor: 'text-slate-600', iconBg: 'bg-slate-100', icon: (props: any) => <AppIcon icon="Users" {...props} />, shadow: 'hover:shadow-slate-200' },
+          { label: 'Admin', value: adminCount, textClass: 'text-rose-700', iconColor: 'text-rose-600', iconBg: 'bg-rose-100', icon: (props: any) => <AppIcon icon="Shield" {...props} />, shadow: 'hover:shadow-rose-200' },
+          { label: 'Staff', value: staffCount, textClass: 'text-green-700', iconColor: 'text-green-600', iconBg: 'bg-green-100', icon: (props: any) => <AppIcon icon="UserCheck" {...props} />, shadow: 'hover:shadow-green-200' },
+          { label: 'Visitor', value: visitorCount, textClass: 'text-blue-700', iconColor: 'text-blue-600', iconBg: 'bg-blue-100', icon: (props: any) => <AppIcon icon="UserX" {...props} />, shadow: 'hover:shadow-blue-200' }
         ].map((stat) => {
           const Icon = stat.icon as any;
           return (
@@ -275,7 +275,7 @@ export default function ManageUsersClient() {
       {/* ===== ADMIN NOTICE ===== */}
       {userRole !== 'admin' && (
         <div className="bg-amber-50 border border-amber-200/60 rounded-xl p-3.5 flex items-center gap-3">
-          <Shield className="w-4 h-4 text-amber-600 flex-shrink-0" />
+          <AppIcon icon="Shield" className="w-4 h-4 text-amber-600 flex-shrink-0" />
           <p className="text-sm text-amber-700">Hanya admin yang dapat mengubah role dan permission pengguna.</p>
         </div>
       )}
@@ -284,7 +284,7 @@ export default function ManageUsersClient() {
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1 group">
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <Search className="w-5 h-5 text-slate-400 group-focus-within:text-green-500 transition-colors" />
+            <AppIcon icon="Search" className="w-5 h-5 text-slate-400 group-focus-within:text-green-500 transition-colors" />
           </div>
           <input
             type="text"
@@ -296,7 +296,7 @@ export default function ManageUsersClient() {
         </div>
         <div className="relative w-full sm:w-64 group">
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <Shield className="w-5 h-5 text-slate-400 group-focus-within:text-green-500 transition-colors" />
+            <AppIcon icon="Shield" className="w-5 h-5 text-slate-400 group-focus-within:text-green-500 transition-colors" />
           </div>
           <select
             value={roleFilter}
@@ -324,7 +324,7 @@ export default function ManageUsersClient() {
             <div className="relative w-24 h-24 mx-auto mb-6 group">
               <div className="absolute inset-0 bg-slate-100 rounded-[2rem] rotate-6 group-hover:rotate-12 transition-transform duration-500" />
               <div className="absolute inset-0 bg-slate-50 rounded-[2rem] -rotate-3 border border-slate-200 flex items-center justify-center shadow-sm">
-                <UserX className="w-10 h-10 text-slate-400" />
+                <AppIcon icon="UserX" className="w-10 h-10 text-slate-400" />
               </div>
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-2">Tidak Ditemukan</h3>
@@ -372,7 +372,7 @@ export default function ManageUsersClient() {
                       {/* Role */}
                       <td className="manager-table-td">
                         <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm ${getRoleBadge(user.role)}`}>
-                          <Shield className="w-3.5 h-3.5" />
+                          <AppIcon icon="Shield" className="w-3.5 h-3.5" />
                           {getRoleLabel(user.role)}
                         </span>
                       </td>
@@ -418,14 +418,14 @@ export default function ManageUsersClient() {
                               className="w-9 h-9 flex items-center justify-center rounded-[1rem] bg-white border border-slate-200 hover:bg-green-50 hover:border-green-200 transition-all shadow-sm hover:shadow-md group/btn"
                               title="Edit Detail & Akses"
                             >
-                              <Edit2 className="w-4 h-4 text-slate-400 group-hover/btn:text-green-500 transition-colors" />
+                              <AppIcon icon="Edit2" className="w-4 h-4 text-slate-400 group-hover/btn:text-green-500 transition-colors" />
                             </button>
                             <button
                               onClick={() => handleDeleteClick(user)}
                               className="w-9 h-9 flex items-center justify-center rounded-[1rem] bg-white border border-slate-200 hover:bg-rose-50 hover:border-rose-200 transition-all shadow-sm hover:shadow-md group/btn"
                               title="Hapus Akun"
                             >
-                              <Trash2 className="w-4 h-4 text-slate-400 group-hover/btn:text-rose-500 transition-colors" />
+                              <AppIcon icon="Trash2" className="w-4 h-4 text-slate-400 group-hover/btn:text-rose-500 transition-colors" />
                             </button>
                           </div>
                         </td>
@@ -448,7 +448,7 @@ export default function ManageUsersClient() {
                       <p className="font-bold text-base text-slate-800 truncate">{getDisplayName(user)}</p>
                       <p className="text-xs text-slate-500 font-mono mb-2">@{getUsername(user)}</p>
                       <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[10px] font-bold shadow-sm ${getRoleBadge(user.role)}`}>
-                        <Shield className="w-3 h-3" />
+                        <AppIcon icon="Shield" className="w-3 h-3" />
                         {getRoleLabel(user.role)}
                       </span>
                     </div>
@@ -477,7 +477,7 @@ export default function ManageUsersClient() {
                         onClick={() => handleEditUser(user)}
                         className="h-10 px-4 flex items-center justify-center gap-2 rounded-[1rem] bg-white border border-slate-200 hover:bg-green-50 hover:border-green-200 transition-all shadow-sm hover:shadow-md text-slate-600 font-semibold text-sm"
                       >
-                        <Edit2 className="w-4 h-4" />
+                        <AppIcon icon="Edit2" className="w-4 h-4" />
                         Edit
                       </button>
                       <button
@@ -485,7 +485,7 @@ export default function ManageUsersClient() {
                         className="h-10 px-4 flex items-center justify-center gap-2 rounded-[1rem] bg-white border border-slate-200 hover:bg-rose-50 hover:border-rose-200 transition-all shadow-sm hover:shadow-md text-slate-600 font-semibold text-sm text-rose-600 hover:text-rose-700"
                         title="Hapus Akun"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <AppIcon icon="Trash2" className="w-4 h-4" />
                       </button>
                     </div>
                   )}

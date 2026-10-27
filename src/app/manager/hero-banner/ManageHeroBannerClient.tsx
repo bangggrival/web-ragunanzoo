@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
-import { Image as ImageIcon2, Plus, Edit2, Trash2, Upload, X, Globe, Star, StarOff, Link as LinkIcon, Video, ImageIcon, Timer, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { HeroBanner } from '@/hooks/useHeroBanner';
 import { SiteSettings } from '@/hooks/useSiteSettings';
 import { supabase } from '@/integrations/supabase/client';
@@ -139,14 +139,14 @@ export default function ManageHeroBannerClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <ImageIcon className="w-5 h-5 text-green-500" />
+              <AppIcon icon="ImageIcon" className="w-5 h-5 text-green-500" />
             </div>
             Hero Banner
           </h1>
           <p className="text-slate-500 font-medium mt-1 ml-13">Kelola banner dan video untuk halaman utama website</p>
         </div>
         <button onClick={handleAdd} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(99,102,241,0.5)] hover:-translate-y-0.5">
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           Tambah Banner
         </button>
       </div>
@@ -155,7 +155,7 @@ export default function ManageHeroBannerClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-              <ImageIcon2 className="w-4 h-4 text-green-500" />
+              <AppIcon icon="Image" className="w-4 h-4 text-green-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Banner</span>
           </div>
@@ -164,7 +164,7 @@ export default function ManageHeroBannerClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-              <Star className="w-4 h-4 text-green-500" />
+              <AppIcon icon="Star" className="w-4 h-4 text-green-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Banner Aktif</span>
           </div>
@@ -175,7 +175,7 @@ export default function ManageHeroBannerClient() {
       <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm">
         <div className="flex items-center gap-2 mb-6">
           <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
-            <Timer className="w-4 h-4 text-blue-500" />
+            <AppIcon icon="Timer" className="w-4 h-4 text-blue-500" />
           </div>
           <div>
             <h3 className="font-bold text-slate-800">Durasi Autoplay Carousel</h3>
@@ -213,7 +213,7 @@ export default function ManageHeroBannerClient() {
             disabled={savingDuration}
             className="flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 font-bold shadow-lg shadow-blue-600/20 transition-all"
           >
-            {savingDuration ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+            {savingDuration ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : null}
             {savingDuration ? 'Menyimpan...' : 'Simpan Durasi'}
           </button>
         </div>
@@ -222,12 +222,12 @@ export default function ManageHeroBannerClient() {
       {activeBanner && (
         <div className="bg-gradient-to-r from-green-50/80 to-green-50/80 rounded-[1.5rem] p-6 border border-green-100 shadow-sm relative overflow-hidden">
           <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
-            <Star className="w-32 h-32 text-green-500 fill-green-500" />
+            <AppIcon icon="Star" className="w-32 h-32 text-green-500 fill-green-500" />
           </div>
           
           <div className="flex items-center gap-3 mb-6 relative z-10">
             <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center border border-green-200">
-              <Star className="w-4 h-4 text-green-600 fill-green-600" />
+              <AppIcon icon="Star" className="w-4 h-4 text-green-600 fill-green-600" />
             </div>
             <div>
               <h3 className="font-bold text-slate-800 text-lg">Banner Utama Aktif</h3>
@@ -243,14 +243,14 @@ export default function ManageHeroBannerClient() {
                 <img src={activeBanner.image_url} alt="Active Banner" className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <ImageIcon2 className="w-10 h-10 text-slate-300" />
+                  <AppIcon icon="Image" className="w-10 h-10 text-slate-300" />
                 </div>
               )}
             </div>
             
             <div className="flex-1 space-y-3">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/60 text-slate-600 rounded-lg text-xs font-bold border border-slate-200 shadow-sm backdrop-blur-sm">
-                {activeBanner.media_type === 'video' ? <Video className="w-3.5 h-3.5" /> : <ImageIcon className="w-3.5 h-3.5" />}
+                {activeBanner.media_type === 'video' ? <AppIcon icon="Video" className="w-3.5 h-3.5" /> : <AppIcon icon="ImageIcon" className="w-3.5 h-3.5" />}
                 {activeBanner.media_type === 'video' ? 'Video' : 'Gambar'}
               </span>
               <div>
@@ -268,12 +268,12 @@ export default function ManageHeroBannerClient() {
       {banners.length === 0 ? (
         <div className="bg-white/60 backdrop-blur-2xl border border-white/80 p-12 text-center rounded-[2rem] shadow-sm">
           <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-100">
-            <ImageIcon2 className="w-10 h-10 text-green-300" />
+            <AppIcon icon="Image" className="w-10 h-10 text-green-300" />
           </div>
           <h3 className="font-bold text-xl text-slate-800 mb-2">Belum ada hero banner</h3>
           <p className="text-slate-500 text-sm max-w-sm mx-auto mb-8">Tambahkan banner atau video pertama Anda untuk ditampilkan di halaman utama website.</p>
           <button onClick={handleAdd} className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-green-600/20 inline-flex items-center gap-2 transition-all">
-            <Plus className="w-5 h-5" />
+            <AppIcon icon="Plus" className="w-5 h-5" />
             Tambah Banner Pertama
           </button>
         </div>
@@ -286,23 +286,23 @@ export default function ManageHeroBannerClient() {
                   <div className="w-full h-full relative group">
                     <video src={item.video_url || ''} className="w-full h-full object-cover" muted />
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                      <Video className="w-12 h-12 text-white/70" />
+                      <AppIcon icon="Video" className="w-12 h-12 text-white/70" />
                     </div>
                   </div>
                 ) : item.image_url ? (
                   <img src={item.image_url} alt={item.title_id || 'Banner'} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <ImageIcon2 className="w-12 h-12 text-slate-300" />
+                    <AppIcon icon="Image" className="w-12 h-12 text-slate-300" />
                   </div>
                 )}
                 
                 <div className="absolute top-4 left-4">
                   <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm backdrop-blur-md ${item.is_active ? 'bg-green-500 text-white border border-green-400' : 'bg-white/80 text-slate-600 border border-slate-200'}`}>
                     {item.is_active ? (
-                      <><Star className="w-3.5 h-3.5 fill-white" /> Aktif</>
+                      <><AppIcon icon="Star" className="w-3.5 h-3.5 fill-white" /> Aktif</>
                     ) : (
-                      <><StarOff className="w-3.5 h-3.5" /> Tidak Aktif</>
+                      <><AppIcon icon="StarOff" className="w-3.5 h-3.5" /> Tidak Aktif</>
                     )}
                   </span>
                 </div>
@@ -315,7 +315,7 @@ export default function ManageHeroBannerClient() {
                   
                   {item.link_url && (
                     <div className="flex items-center gap-1.5 text-xs font-bold text-green-500 bg-green-50 px-3 py-1.5 rounded-lg border border-green-100 inline-block truncate max-w-full">
-                      <LinkIcon className="w-3 h-3 inline mr-1" />
+                      <AppIcon icon="Link" className="w-3 h-3 inline mr-1" />
                       {item.link_url}
                     </div>
                   )}
@@ -324,14 +324,14 @@ export default function ManageHeroBannerClient() {
                 <div className="flex items-center gap-2 mt-5 pt-4 border-t border-slate-100">
                   {!item.is_active && (
                     <button onClick={() => handleSetActive(item.id)} className="flex-1 h-10 text-sm font-bold text-green-600 bg-green-50 hover:bg-green-100 border border-green-200 rounded-xl flex items-center justify-center gap-1.5 transition-colors">
-                      <Star className="w-4 h-4" /> Aktifkan
+                      <AppIcon icon="Star" className="w-4 h-4" /> Aktifkan
                     </button>
                   )}
                   <button onClick={() => handleEdit(item)} className={`${item.is_active ? 'flex-1' : 'px-4'} h-10 text-sm font-bold text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl flex items-center justify-center gap-1.5 transition-colors`}>
-                    <Edit2 className="w-4 h-4" /> Edit
+                    <AppIcon icon="Edit2" className="w-4 h-4" /> Edit
                   </button>
                   <button onClick={() => setDeleteId(item.id)} className="w-10 h-10 text-rose-500 bg-rose-50 hover:bg-rose-100 border border-rose-100 rounded-xl flex items-center justify-center transition-colors">
-                    <Trash2 className="w-4 h-4" />
+                    <AppIcon icon="Trash2" className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -507,7 +507,7 @@ function HeroBannerFormModalClient({ isOpen, onClose, banner, onSuccess }: any) 
         <DialogHeader className="p-6 border-b border-slate-100">
           <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <ImageIcon className="w-5 h-5 text-green-500" />
+              <AppIcon icon="ImageIcon" className="w-5 h-5 text-green-500" />
             </div>
             {banner ? 'Edit Hero Banner' : 'Tambah Hero Banner'}
           </DialogTitle>
@@ -516,35 +516,35 @@ function HeroBannerFormModalClient({ isOpen, onClose, banner, onSuccess }: any) 
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div className="space-y-4">
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><ImageIcon className="w-4 h-4 text-slate-400" /> Tipe Media</h3>
+            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><AppIcon icon="ImageIcon" className="w-4 h-4 text-slate-400" /> Tipe Media</h3>
             <RadioGroup value={formData.media_type} onValueChange={(value: 'image' | 'video') => setFormData(prev => ({ ...prev, media_type: value }))} className="flex gap-4">
               <div className="flex items-center space-x-2 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200">
                 <RadioGroupItem value="image" id="media-image" />
-                <label htmlFor="media-image" className="cursor-pointer font-bold text-sm text-slate-700 flex items-center gap-1.5"><ImageIcon className="w-4 h-4 text-slate-500" /> Gambar</label>
+                <label htmlFor="media-image" className="cursor-pointer font-bold text-sm text-slate-700 flex items-center gap-1.5"><AppIcon icon="ImageIcon" className="w-4 h-4 text-slate-500" /> Gambar</label>
               </div>
               <div className="flex items-center space-x-2 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200">
                 <RadioGroupItem value="video" id="media-video" />
-                <label htmlFor="media-video" className="cursor-pointer font-bold text-sm text-slate-700 flex items-center gap-1.5"><Video className="w-4 h-4 text-slate-500" /> Video</label>
+                <label htmlFor="media-video" className="cursor-pointer font-bold text-sm text-slate-700 flex items-center gap-1.5"><AppIcon icon="Video" className="w-4 h-4 text-slate-500" /> Video</label>
               </div>
             </RadioGroup>
           </div>
 
           <div className="space-y-4 pt-2">
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><Upload className="w-4 h-4 text-slate-400" /> File Banner</h3>
+            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><AppIcon icon="Upload" className="w-4 h-4 text-slate-400" /> File Banner</h3>
             {formData.media_type === 'image' ? (
               <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
                 {formData.image_url ? (
                   <div className="relative rounded-xl overflow-hidden shadow-sm border border-slate-200">
                     <img src={formData.image_url} alt="Preview" className="w-full h-40 object-cover" />
                     <button type="button" onClick={() => setFormData(prev => ({ ...prev, image_url: '' }))} className="absolute top-2 right-2 p-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-lg shadow-sm transition-colors">
-                      <X className="w-4 h-4" />
+                      <AppIcon icon="X" className="w-4 h-4" />
                     </button>
                   </div>
                 ) : (
                   <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading} className="w-full h-32 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-green-500 hover:bg-green-50/50 transition-all group">
-                    {uploading ? <Loader2 className="w-6 h-6 animate-spin text-green-500" /> : (
+                    {uploading ? <AppIcon icon="Loader2" className="w-6 h-6 animate-spin text-green-500" /> : (
                       <>
-                        <Upload className="w-6 h-6 text-slate-400 group-hover:text-green-500" />
+                        <AppIcon icon="Upload" className="w-6 h-6 text-slate-400 group-hover:text-green-500" />
                         <span className="text-sm font-bold text-slate-600">Klik untuk upload gambar (1920x600)</span>
                       </>
                     )}
@@ -558,14 +558,14 @@ function HeroBannerFormModalClient({ isOpen, onClose, banner, onSuccess }: any) 
                   <div className="relative rounded-xl overflow-hidden shadow-sm border border-slate-200">
                     <video src={formData.video_url} className="w-full h-40 object-cover" controls muted />
                     <button type="button" onClick={() => setFormData(prev => ({ ...prev, video_url: '' }))} className="absolute top-2 right-2 p-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-lg shadow-sm transition-colors">
-                      <X className="w-4 h-4" />
+                      <AppIcon icon="X" className="w-4 h-4" />
                     </button>
                   </div>
                 ) : (
                   <button type="button" onClick={() => videoInputRef.current?.click()} disabled={uploading} className="w-full h-32 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-green-500 hover:bg-green-50/50 transition-all group">
-                    {uploading ? <Loader2 className="w-6 h-6 animate-spin text-green-500" /> : (
+                    {uploading ? <AppIcon icon="Loader2" className="w-6 h-6 animate-spin text-green-500" /> : (
                       <>
-                        <Video className="w-6 h-6 text-slate-400 group-hover:text-green-500" />
+                        <AppIcon icon="Video" className="w-6 h-6 text-slate-400 group-hover:text-green-500" />
                         <span className="text-sm font-bold text-slate-600">Klik untuk upload MP4 (Max 50MB)</span>
                       </>
                     )}
@@ -578,7 +578,7 @@ function HeroBannerFormModalClient({ isOpen, onClose, banner, onSuccess }: any) 
           </div>
 
           <div className="space-y-4 pt-2">
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><Globe className="w-4 h-4 text-slate-400" /> Konten Multibahasa</h3>
+            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><AppIcon icon="Globe" className="w-4 h-4 text-slate-400" /> Konten Multibahasa</h3>
             <Tabs defaultValue="id" className="w-full">
               <TabsList className="grid w-full grid-cols-2 bg-slate-100 p-1 rounded-xl mb-3">
                 <TabsTrigger value="id" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm px-4 py-2 font-bold text-xs">Indonesia</TabsTrigger>
@@ -616,14 +616,14 @@ function HeroBannerFormModalClient({ isOpen, onClose, banner, onSuccess }: any) 
           </div>
 
           <div className="space-y-1.5 pt-2 border-t border-slate-100">
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><LinkIcon className="w-4 h-4 text-slate-400" /> Tautan</h3>
+            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><AppIcon icon="Link" className="w-4 h-4 text-slate-400" /> Tautan</h3>
             <input type="text" value={formData.link_url} onChange={e => setFormData(prev => ({ ...prev, link_url: e.target.value }))} placeholder="https://..." className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500/20 focus:border-green-500 font-medium text-sm mt-2" />
             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1">Banner akan bisa diklik jika tautan diisi.</p>
           </div>
 
           <div className="flex items-center justify-between p-4 bg-green-50 border border-green-100 rounded-xl mt-4">
             <div className="flex items-center gap-3">
-              <Star className="w-5 h-5 text-green-500" />
+              <AppIcon icon="Star" className="w-5 h-5 text-green-500" />
               <div>
                 <p className="font-bold text-slate-800 text-sm">Aktifkan Banner</p>
                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Banner ini akan langsung tayang di halaman utama</p>
@@ -636,7 +636,7 @@ function HeroBannerFormModalClient({ isOpen, onClose, banner, onSuccess }: any) 
         <DialogFooter className="p-5 border-t border-slate-100 bg-slate-50/80 rounded-b-[2rem]">
           <button onClick={onClose} className="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 font-bold transition-colors">Batal</button>
           <button onClick={handleSubmit} disabled={loading || !formData.title_id.trim()} className="flex items-center justify-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:opacity-50 font-bold shadow-lg shadow-green-600/20 transition-all">
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+            {loading ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : null}
             {banner ? 'Simpan Perubahan' : 'Tambah Banner'}
           </button>
         </DialogFooter>

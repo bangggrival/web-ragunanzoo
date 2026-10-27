@@ -1,41 +1,29 @@
 "use client";
 
-import React from 'react';
-import { 
-  Sun, 
-  Cloud, 
-  CloudRain, 
-  CloudDrizzle, 
-  CloudLightning, 
-  CloudFog, 
-  RefreshCw, 
-  Wind, 
-  Droplets,
-  MapPin
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { useWeatherAmbient } from '@/contexts/WeatherAmbientContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
-// Map icon string to Lucide component & animation
+// Map icon string to AppIcon icon identifier & animation
 const getWeatherIcon = (icon: string) => {
   switch (icon) {
     case 'sun':
-      return { Icon: Sun, animation: 'animate-sun-rotate', color: 'text-amber-500' };
+      return { icon: 'solar:sun-bold-duotone', animation: 'animate-sun-rotate', color: 'text-amber-500' };
     case 'cloud':
-      return { Icon: Cloud, animation: 'animate-cloud-drift', color: 'text-slate-400' };
+      return { icon: 'solar:cloud-bold-duotone', animation: 'animate-cloud-drift', color: 'text-slate-400' };
     case 'cloud-sun':
-      return { Icon: Cloud, animation: 'animate-cloud-drift', color: 'text-amber-500' };
+      return { icon: 'solar:cloud-sun-bold-duotone', animation: 'animate-cloud-drift', color: 'text-amber-500' };
     case 'cloud-rain':
-      return { Icon: CloudRain, animation: 'animate-rain-fall', color: 'text-emerald-500' };
+      return { icon: 'solar:cloud-rain-bold-duotone', animation: 'animate-rain-fall', color: 'text-emerald-500' };
     case 'cloud-drizzle':
-      return { Icon: CloudDrizzle, animation: 'animate-rain-fall', color: 'text-teal-500' };
+      return { icon: 'solar:cloud-waterdrops-bold-duotone', animation: 'animate-rain-fall', color: 'text-teal-500' };
     case 'cloud-lightning':
-      return { Icon: CloudLightning, animation: 'animate-lightning-flash', color: 'text-yellow-500' };
+      return { icon: 'solar:cloud-bolt-bold-duotone', animation: 'animate-lightning-flash', color: 'text-yellow-500' };
     case 'cloud-fog':
-      return { Icon: CloudFog, animation: 'animate-pulse-soft', color: 'text-slate-400' };
+      return { icon: 'solar:fog-bold-duotone', animation: 'animate-pulse-soft', color: 'text-slate-400' };
     default:
-      return { Icon: Sun, animation: 'animate-sun-pulse', color: 'text-amber-500' };
+      return { icon: 'solar:sun-bold-duotone', animation: 'animate-sun-pulse', color: 'text-amber-500' };
   }
 };
 
@@ -44,7 +32,6 @@ export default function WeatherAtmosphereWidget() {
   const { language } = useLanguage();
 
   const iconConfig = getWeatherIcon(weather?.icon || 'sun');
-  const WeatherIconComponent = iconConfig.Icon;
 
   const currentRecommendation = language === 'en'
     ? weather?.recommendation?.en || 'Ideal weather for touring the park and viewing wildlife.'
@@ -68,16 +55,16 @@ export default function WeatherAtmosphereWidget() {
             className="p-1.5 text-muted-foreground hover:text-primary transition-colors disabled:opacity-50 rounded-full hover:bg-muted/50"
             title={language === 'en' ? 'Refresh weather' : 'Perbarui cuaca'}
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            <AppIcon icon="solar:restart-bold" className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           </button>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-amber-500/10 rounded-2xl flex items-center justify-center overflow-hidden flex-shrink-0">
             {loading ? (
-              <RefreshCw className="w-5 h-5 text-amber-500 animate-spin" />
+              <AppIcon icon="solar:restart-bold" className="w-5 h-5 text-amber-500 animate-spin" />
             ) : (
-              <WeatherIconComponent className={`w-5 h-5 ${iconConfig.color} ${iconConfig.animation}`} />
+              <AppIcon icon={iconConfig.icon} className={`w-5 h-5 ${iconConfig.color} ${iconConfig.animation}`} />
             )}
           </div>
           <div className="flex-1 min-w-0">
@@ -100,9 +87,9 @@ export default function WeatherAtmosphereWidget() {
             <div className="inline-flex items-center gap-2 backdrop-blur-xl bg-white/70 dark:bg-slate-900/70 border border-border/60 shadow-2xs hover:shadow-sm rounded-full px-4 py-2 cursor-pointer transition-all duration-300 group">
               <div className="w-7 h-7 bg-amber-500/10 rounded-full flex items-center justify-center overflow-hidden">
                 {loading ? (
-                  <RefreshCw className="w-3.5 h-3.5 text-secondary animate-spin" />
+                  <AppIcon icon="solar:restart-bold" className="w-3.5 h-3.5 text-secondary animate-spin" />
                 ) : (
-                  <WeatherIconComponent className={`w-3.5 h-3.5 ${iconConfig.color} ${iconConfig.animation} group-hover:scale-110 transition-transform`} />
+                  <AppIcon icon={iconConfig.icon} className={`w-3.5 h-3.5 ${iconConfig.color} ${iconConfig.animation} group-hover:scale-110 transition-transform`} />
                 )}
               </div>
 
@@ -130,7 +117,7 @@ export default function WeatherAtmosphereWidget() {
                 className="p-1 text-muted-foreground hover:text-primary transition-colors disabled:opacity-50 ml-1 rounded-full hover:bg-muted"
                 title={language === 'en' ? 'Refresh weather' : 'Perbarui cuaca'}
               >
-                <RefreshCw className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} />
+                <AppIcon icon="solar:restart-bold" className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} />
               </button>
             </div>
           </TooltipTrigger>
@@ -142,7 +129,7 @@ export default function WeatherAtmosphereWidget() {
               <>
                 <div className="flex items-center justify-between pb-2 border-b border-border">
                   <div className="flex items-center gap-2">
-                    <WeatherIconComponent className={`w-6 h-6 ${iconConfig.color} ${iconConfig.animation}`} />
+                    <AppIcon icon={iconConfig.icon} className={`w-6 h-6 ${iconConfig.color} ${iconConfig.animation}`} />
                     <div>
                       <p className="font-semibold text-foreground text-sm">{weather.description}</p>
                       <p className="text-[11px] text-muted-foreground">Jakarta Selatan</p>
@@ -154,7 +141,7 @@ export default function WeatherAtmosphereWidget() {
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div className="flex items-center gap-2 p-1.5 rounded-lg bg-muted/40">
                     <div className="w-6 h-6 rounded-md bg-primary/10 flex items-center justify-center">
-                      <Droplets className="w-3.5 h-3.5 text-primary" />
+                      <AppIcon icon="solar:drop-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                     </div>
                     <div>
                       <p className="text-[10px] text-muted-foreground">
@@ -166,7 +153,7 @@ export default function WeatherAtmosphereWidget() {
 
                   <div className="flex items-center gap-2 p-1.5 rounded-lg bg-muted/40">
                     <div className="w-6 h-6 rounded-md bg-secondary/10 flex items-center justify-center">
-                      <Wind className="w-3.5 h-3.5 text-secondary" />
+                      <AppIcon icon="solar:wind-bold-duotone" className="w-3.5 h-3.5 text-secondary" />
                     </div>
                     <div>
                       <p className="text-[10px] text-muted-foreground">
@@ -212,7 +199,7 @@ export default function WeatherAtmosphereWidget() {
                 </div>
 
                 <p className="text-[10px] text-muted-foreground text-center pt-0.5 flex items-center justify-center gap-1">
-                  <MapPin className="w-3 h-3 text-primary" />
+                  <AppIcon icon="solar:map-point-bold-duotone" className="w-3 h-3 text-primary" />
                   <span>Taman Margasatwa Ragunan</span>
                 </p>
               </>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, PawPrint, Calendar, Newspaper, Building2, FileText } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -8,12 +8,12 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
 
-const typeIcons: Record<string, any> = {
-  animal: PawPrint,
-  event: Calendar,
-  news: Newspaper,
-  venue: Building2,
-  page: FileText,
+const typeIcons: Record<string, string> = {
+  animal: 'fluent-emoji-flat:paw-prints',
+  event: 'solar:calendar-bold-duotone',
+  news: 'solar:newspaper-bold-duotone',
+  venue: 'solar:buildings-2-bold-duotone',
+  page: 'solar:document-text-bold-duotone',
 };
 
 const typeLabels: Record<string, Record<string, string>> = {
@@ -103,7 +103,7 @@ export function GlobalSearch({ className, variant = 'expanded' }: GlobalSearchPr
           className="h-9 w-9 text-foreground/70 hover:text-foreground hover:bg-accent"
           aria-label={language === 'en' ? 'Search' : 'Cari'}
         >
-          <Search className="h-5 w-5" />
+          <AppIcon name="solar:magnifer-linear" className="h-5 w-5" />
         </Button>
 
         {isOpen && (
@@ -141,7 +141,7 @@ export function GlobalSearch({ className, variant = 'expanded' }: GlobalSearchPr
           setTimeout(() => inputRef.current?.focus(), 50);
         }}
       >
-        <Search className="h-4 w-4 text-muted-foreground shrink-0" />
+        <AppIcon name="solar:magnifer-linear" className="h-4 w-4 text-muted-foreground shrink-0" />
         <input
           ref={inputRef}
           type="text"
@@ -162,7 +162,7 @@ export function GlobalSearch({ className, variant = 'expanded' }: GlobalSearchPr
             }}
             className="text-muted-foreground hover:text-foreground"
           >
-            <X className="h-3.5 w-3.5" />
+            <AppIcon name="solar:close-circle-bold" className="h-3.5 w-3.5" />
           </button>
         )}
       </div>
@@ -221,7 +221,7 @@ function SearchDropdown({
       {/* Search Input - only show for icon variant */}
       {showInput && (
         <div className="flex items-center gap-2 p-3 border-b border-border">
-          <Search className="h-4 w-4 text-muted-foreground shrink-0" />
+          <AppIcon name="solar:magnifer-linear" className="h-4 w-4 text-muted-foreground shrink-0" />
           <Input
             ref={inputRef}
             type="text"
@@ -237,7 +237,7 @@ function SearchDropdown({
               onClick={() => setQuery('')}
               className="h-6 w-6 shrink-0"
             >
-              <X className="h-4 w-4" />
+              <AppIcon name="solar:close-circle-bold" className="h-4 w-4" />
             </Button>
           )}
         </div>
@@ -260,7 +260,7 @@ function SearchDropdown({
         ) : (
           <div className="py-2">
             {results.map((result) => {
-              const Icon = typeIcons[result.type];
+              const iconKey = typeIcons[result.type] || 'solar:document-text-bold-duotone';
               return (
                 <button
                   key={`${result.type}-${result.id}`}
@@ -280,7 +280,7 @@ function SearchDropdown({
                         }}
                       />
                     ) : (
-                      <Icon className="h-5 w-5 text-muted-foreground" />
+                      <AppIcon name={iconKey} className="h-5 w-5 text-muted-foreground" />
                     )}
                   </div>
 

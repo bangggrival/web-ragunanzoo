@@ -12,23 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { 
-  CalendarDays, 
-  Settings2, 
-  Users, 
-  Save, 
-  ChevronLeft, 
-  ChevronRight,
-  GraduationCap,
-  FlaskConical,
-  Stethoscope,
-  Mic,
-  Loader2,
-  CheckCircle2,
-  XCircle,
-  AlertCircle,
-  Calendar as CalendarIcon
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { format, startOfMonth, endOfMonth, addMonths, subMonths, eachDayOfInterval, isSameDay } from 'date-fns';
 import { id as idLocale } from 'date-fns/locale';
 import { toast } from 'sonner';
@@ -40,10 +24,10 @@ import { supabase } from '@/integrations/supabase/client';
 type ProgramType = 'pkl' | 'research' | 'koas' | 'interview';
 
 const programConfig: Record<ProgramType, { label: string; icon: React.ElementType; color: string; border: string }> = {
-  pkl: { label: 'PKL / Magang', icon: GraduationCap, color: 'text-blue-600 bg-blue-100', border: 'border-blue-200' },
-  research: { label: 'Penelitian', icon: FlaskConical, color: 'text-purple-600 bg-purple-100', border: 'border-purple-200' },
-  koas: { label: 'Koas / Klinis', icon: Stethoscope, color: 'text-orange-600 bg-orange-100', border: 'border-orange-200' },
-  interview: { label: 'Wawancara', icon: Mic, color: 'text-green-600 bg-green-100', border: 'border-green-200' },
+  pkl: { label: 'PKL / Magang', icon: (props: any) => <AppIcon icon="GraduationCap" {...props} />, color: 'text-blue-600 bg-blue-100', border: 'border-blue-200' },
+  research: { label: 'Penelitian', icon: (props: any) => <AppIcon icon="FlaskConical" {...props} />, color: 'text-purple-600 bg-purple-100', border: 'border-purple-200' },
+  koas: { label: 'Koas / Klinis', icon: (props: any) => <AppIcon icon="Stethoscope" {...props} />, color: 'text-orange-600 bg-orange-100', border: 'border-orange-200' },
+  interview: { label: 'Wawancara', icon: (props: any) => <AppIcon icon="Mic" {...props} />, color: 'text-green-600 bg-green-100', border: 'border-green-200' },
 };
 
 export default function ManageServiceAvailabilityClient() {
@@ -227,7 +211,7 @@ export default function ManageServiceAvailabilityClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <CalendarDays className="w-5 h-5 text-green-500" />
+              <AppIcon icon="CalendarDays" className="w-5 h-5 text-green-500" />
             </div>
             Kelola Ketersediaan
           </h1>
@@ -236,7 +220,7 @@ export default function ManageServiceAvailabilityClient() {
           </p>
         </div>
         <Button onClick={() => setBulkEditOpen(true)} className="rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold shadow-lg shadow-slate-800/20 px-6">
-          <Settings2 className="w-4 h-4 mr-2" />
+          <AppIcon icon="Settings2" className="w-4 h-4 mr-2" />
           Edit Massal
         </Button>
       </div>
@@ -272,13 +256,13 @@ export default function ManageServiceAvailabilityClient() {
                 </h3>
                 <div className="flex items-center gap-2 bg-slate-50 p-1.5 rounded-xl border border-slate-100">
                   <Button variant="ghost" size="icon" onClick={handlePrevMonth} className="w-8 h-8 rounded-lg hover:bg-white hover:text-green-600 hover:shadow-sm">
-                    <ChevronLeft className="w-4 h-4" />
+                    <AppIcon icon="ChevronLeft" className="w-4 h-4" />
                   </Button>
                   <span className="font-bold text-slate-700 min-w-[140px] text-center text-sm">
                     {format(currentMonth, 'MMMM yyyy', { locale: idLocale })}
                   </span>
                   <Button variant="ghost" size="icon" onClick={handleNextMonth} className="w-8 h-8 rounded-lg hover:bg-white hover:text-green-600 hover:shadow-sm">
-                    <ChevronRight className="w-4 h-4" />
+                    <AppIcon icon="ChevronRight" className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
@@ -286,7 +270,7 @@ export default function ManageServiceAvailabilityClient() {
               <div className="bg-white rounded-2xl border border-slate-100 p-4">
                 {isLoading ? (
                   <div className="flex items-center justify-center py-20">
-                    <Loader2 className="w-8 h-8 animate-spin text-green-500" />
+                    <AppIcon icon="Loader2" className="w-8 h-8 animate-spin text-green-500" />
                   </div>
                 ) : (
                   <div className="grid grid-cols-7 gap-2">
@@ -371,7 +355,7 @@ export default function ManageServiceAvailabilityClient() {
               
               <div className="pb-5 border-b border-slate-100 mb-5">
                 <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                  <CalendarIcon className="w-5 h-5 text-green-500" />
+                  <AppIcon icon="Calendar" className="w-5 h-5 text-green-500" />
                   Detail Tanggal
                 </h3>
                 {selectedDate ? (
@@ -391,7 +375,7 @@ export default function ManageServiceAvailabilityClient() {
                     {/* Slot Configuration */}
                     <div className="space-y-1.5">
                       <Label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
-                        <Users className="w-3 h-3 text-green-500" />
+                        <AppIcon icon="Users" className="w-3 h-3 text-green-500" />
                         Maksimal Slot
                       </Label>
                       <Input
@@ -445,11 +429,11 @@ export default function ManageServiceAvailabilityClient() {
                       <div className="flex items-center gap-3">
                         {editingAvailability.is_available ? (
                           <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                            <CheckCircle2 className="w-4 h-4 text-green-600" />
+                            <AppIcon icon="CheckCircle2" className="w-4 h-4 text-green-600" />
                           </div>
                         ) : (
                           <div className="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center">
-                            <XCircle className="w-4 h-4 text-rose-600" />
+                            <AppIcon icon="XCircle" className="w-4 h-4 text-rose-600" />
                           </div>
                         )}
                         <Label className={cn(
@@ -490,9 +474,9 @@ export default function ManageServiceAvailabilityClient() {
                       disabled={saving}
                     >
                       {saving ? (
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        <AppIcon icon="Loader2" className="w-4 h-4 mr-2 animate-spin" />
                       ) : (
-                        <Save className="w-4 h-4 mr-2" />
+                        <AppIcon icon="Save" className="w-4 h-4 mr-2" />
                       )}
                       Simpan Perubahan
                     </Button>
@@ -500,7 +484,7 @@ export default function ManageServiceAvailabilityClient() {
                 ) : (
                   <div className="text-center py-12">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center">
-                      <CalendarDays className="w-8 h-8 text-slate-300" />
+                      <AppIcon icon="CalendarDays" className="w-8 h-8 text-slate-300" />
                     </div>
                     <p className="font-bold text-slate-700">Tidak ada data</p>
                     <p className="text-sm font-medium text-slate-500 mt-1">Pilih tanggal yang tersedia untuk diedit</p>
@@ -570,7 +554,7 @@ export default function ManageServiceAvailabilityClient() {
           <DialogHeader className="px-6 py-5 border-b border-slate-100 bg-white/50">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                <Settings2 className="w-5 h-5 text-green-500" />
+                <AppIcon icon="Settings2" className="w-5 h-5 text-green-500" />
               </div>
               Edit Ketersediaan Massal
             </DialogTitle>
@@ -601,7 +585,7 @@ export default function ManageServiceAvailabilityClient() {
                         !bulkEditRange.start ? "text-slate-400 border-slate-200" : "text-green-700 border-green-200 bg-green-50/50"
                       )}
                     >
-                      <CalendarIcon className="w-4 h-4 mr-2" />
+                      <AppIcon icon="Calendar" className="w-4 h-4 mr-2" />
                       {bulkEditRange.start 
                         ? format(bulkEditRange.start, 'd MMM yyyy', { locale: idLocale })
                         : 'Pilih tanggal'}
@@ -630,7 +614,7 @@ export default function ManageServiceAvailabilityClient() {
                         !bulkEditRange.end ? "text-slate-400 border-slate-200" : "text-green-700 border-green-200 bg-green-50/50"
                       )}
                     >
-                      <CalendarIcon className="w-4 h-4 mr-2" />
+                      <AppIcon icon="Calendar" className="w-4 h-4 mr-2" />
                       {bulkEditRange.end 
                         ? format(bulkEditRange.end, 'd MMM yyyy', { locale: idLocale })
                         : 'Pilih tanggal'}
@@ -655,7 +639,7 @@ export default function ManageServiceAvailabilityClient() {
               <div className="space-y-1.5">
                 <Label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider">Maks. Slot/Hari</Label>
                 <div className="relative">
-                  <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <AppIcon icon="Users" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <Input
                     type="number"
                     min={1}
@@ -699,7 +683,7 @@ export default function ManageServiceAvailabilityClient() {
             {/* Info Box */}
             {bulkEditRange.start && bulkEditRange.end && (
               <div className="flex items-start gap-3 p-4 rounded-xl bg-blue-50 border border-blue-100">
-                <AlertCircle className="w-5 h-5 text-blue-500 shrink-0" />
+                <AppIcon icon="AlertCircle" className="w-5 h-5 text-blue-500 shrink-0" />
                 <p className="text-sm font-medium text-blue-800 leading-relaxed">
                   Perubahan akan diterapkan pada semua tanggal mulai{' '}
                   <strong className="font-bold text-blue-900">{format(bulkEditRange.start, 'd MMMM', { locale: idLocale })}</strong> hingga{' '}
@@ -719,9 +703,9 @@ export default function ManageServiceAvailabilityClient() {
               className="flex-1 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-600/20"
             >
               {bulkSaving ? (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                <AppIcon icon="Loader2" className="w-4 h-4 mr-2 animate-spin" />
               ) : (
-                <CheckCircle2 className="w-4 h-4 mr-2" />
+                <AppIcon icon="CheckCircle2" className="w-4 h-4 mr-2" />
               )}
               Terapkan Massal
             </Button>

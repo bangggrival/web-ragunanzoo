@@ -2,17 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { 
-  History, 
-  PawPrint, 
-  FileText, 
-  Newspaper, 
-  Ticket, 
-  RotateCw, 
-  CheckCircle2, 
-  Sparkles,
-  ChevronRight
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { cn } from '@/lib/utils';
 
 export interface ActivityItem {
@@ -73,15 +63,15 @@ export default function QuickActivityFeed() {
   const getIconAndColor = (type: ActivityItem['type']) => {
     switch (type) {
       case 'animal':
-        return { icon: PawPrint, bg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' };
+        return { icon: 'fluent-emoji-flat:paw-prints', bg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' };
       case 'service':
-        return { icon: FileText, bg: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' };
+        return { icon: 'solar:document-text-bold-duotone', bg: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' };
       case 'news':
-        return { icon: Newspaper, bg: 'bg-blue-500/10 text-blue-600 dark:text-blue-400' };
+        return { icon: 'solar:document-add-bold-duotone', bg: 'bg-blue-500/10 text-blue-600 dark:text-blue-400' };
       case 'ticket':
-        return { icon: Ticket, bg: 'bg-purple-500/10 text-purple-600 dark:text-purple-400' };
+        return { icon: 'solar:ticket-sale-bold-duotone', bg: 'bg-purple-500/10 text-purple-600 dark:text-purple-400' };
       default:
-        return { icon: Sparkles, bg: 'bg-slate-500/10 text-slate-600 dark:text-slate-400' };
+        return { icon: 'solar:stars-minimalistic-bold-duotone', bg: 'bg-slate-500/10 text-slate-600 dark:text-slate-400' };
     }
   };
 
@@ -91,7 +81,7 @@ export default function QuickActivityFeed() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-            <History className="w-4 h-4" />
+            <AppIcon name="solar:history-bold-duotone" className="w-4 h-4" />
           </div>
           <div>
             <h3 className="font-bold text-base text-foreground leading-none">Aktivitas Terkini</h3>
@@ -104,18 +94,18 @@ export default function QuickActivityFeed() {
           className="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
           title="Segarkan aktivitas"
         >
-          <RotateCw className={cn("w-4 h-4", isRefreshing && "animate-spin text-primary")} />
+          <AppIcon name="solar:restart-bold" className={cn("w-4 h-4", isRefreshing && "animate-spin text-primary")} />
         </button>
       </div>
 
       {/* Activity List */}
       <div className="space-y-3 my-1">
         {activities.map((item) => {
-          const { icon: Icon, bg } = getIconAndColor(item.type);
+          const { icon: iconName, bg } = getIconAndColor(item.type);
           return (
             <div key={item.id} className="flex items-start gap-3 group">
               <div className={cn("w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5", bg)}>
-                <Icon className="w-4 h-4" />
+                <AppIcon name={iconName} className="w-4 h-4" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
@@ -137,7 +127,7 @@ export default function QuickActivityFeed() {
       {/* Footer */}
       <div className="pt-2 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
         <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold text-[11px]">
-          <CheckCircle2 className="w-3.5 h-3.5" />
+          <AppIcon name="solar:check-circle-bold" className="w-3.5 h-3.5" />
           Audit Trail Aktif
         </span>
         <Link href="/manager/system-configs" className="text-primary hover:underline font-bold text-[11px]">

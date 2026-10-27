@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { Headphones, MapPin, Volume2, Navigation, Radio, Loader2, AlertCircle, ChevronRight, X, ShieldAlert } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -112,7 +112,7 @@ export default function AudioGuide() {
     if (animalsLoading || flagsLoading) {
       return (
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <AppIcon icon="Loader2" className="w-8 h-8 animate-spin text-primary" />
         </div>
       );
     }
@@ -122,7 +122,7 @@ export default function AudioGuide() {
         <div className="container mx-auto px-4 py-16 text-center">
           <div className="max-w-md mx-auto p-8 rounded-2xl bg-card border shadow-sm space-y-4">
             <div className="w-16 h-16 bg-amber-500/10 rounded-2xl flex items-center justify-center mx-auto text-amber-600 dark:text-amber-400">
-              <ShieldAlert className="w-8 h-8" />
+              <AppIcon icon="ShieldAlert" className="w-8 h-8" />
             </div>
             <h2 className="text-xl font-bold">Fitur Suara Satwa & Audio Guide Nonaktif</h2>
             <p className="text-sm text-muted-foreground">
@@ -144,7 +144,7 @@ export default function AudioGuide() {
        <div className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground p-6 rounded-b-3xl">
          <div className="flex items-center gap-3 mb-2">
            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-             <Headphones className="w-6 h-6" />
+             <AppIcon icon="Headphones" className="w-6 h-6" />
            </div>
            <div>
              <h1 className="text-2xl font-bold">{t.title}</h1>
@@ -172,7 +172,7 @@ export default function AudioGuide() {
                </div>
                {position && (
                  <Badge variant={isWithinZoo ? "default" : "secondary"}>
-                   <MapPin className="w-3 h-3 mr-1" />
+                   <AppIcon icon="MapPin" className="w-3 h-3 mr-1" />
                    {isWithinZoo 
                      ? (language === 'en' ? 'Inside Zoo' : 'Dalam Kebun Binatang')
                      : (language === 'en' ? 'Outside Zoo' : 'Luar Kebun Binatang')
@@ -188,18 +188,18 @@ export default function AudioGuide() {
                disabled={loading}
              >
                {loading ? (
-                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                 <AppIcon icon="Loader2" className="w-4 h-4 mr-2 animate-spin" />
                ) : isTracking ? (
-                 <X className="w-4 h-4 mr-2" />
+                 <AppIcon icon="X" className="w-4 h-4 mr-2" />
                ) : (
-                 <Navigation className="w-4 h-4 mr-2" />
+                 <AppIcon icon="Navigation" className="w-4 h-4 mr-2" />
                )}
                {isTracking ? t.stopTracking : t.startTracking}
              </Button>
  
              {error && (
                <div className="mt-3 p-3 bg-destructive/10 rounded-lg flex items-start gap-2">
-                 <AlertCircle className="w-4 h-4 text-destructive mt-0.5" />
+                 <AppIcon icon="AlertCircle" className="w-4 h-4 text-destructive mt-0.5" />
                  <p className="text-sm text-destructive">{error}</p>
                </div>
              )}
@@ -211,7 +211,7 @@ export default function AudioGuide() {
            <CardContent className="p-4">
              <div className="flex items-center justify-between">
                <div className="flex items-center gap-3">
-                 <Radio className="w-5 h-5 text-primary" />
+                 <AppIcon icon="Radio" className="w-5 h-5 text-primary" />
                  <span className="text-sm font-medium">{t.autoPlayLabel}</span>
                </div>
                <Switch
@@ -249,7 +249,7 @@ export default function AudioGuide() {
          {isTracking && (
            <div className="space-y-3">
              <h2 className="font-semibold text-lg flex items-center gap-2">
-               <Volume2 className="w-5 h-5 text-primary" />
+               <AppIcon icon="Volume2" className="w-5 h-5 text-primary" />
                {t.nearbyAnimals}
              </h2>
  
@@ -257,7 +257,7 @@ export default function AudioGuide() {
                <Card className="border-destructive/50 bg-destructive/10">
                  <CardContent className="p-4">
                    <div className="flex items-start gap-3">
-                     <AlertCircle className="w-5 h-5 text-destructive mt-0.5" />
+                     <AppIcon icon="AlertCircle" className="w-5 h-5 text-destructive mt-0.5" />
                      <p className="text-sm text-destructive">{t.outsideZoo}</p>
                    </div>
                  </CardContent>
@@ -285,7 +285,7 @@ export default function AudioGuide() {
                              />
                            ) : (
                              <div className="w-full h-full flex items-center justify-center">
-                               <Volume2 className="w-6 h-6 text-muted-foreground" />
+                               <AppIcon icon="Volume2" className="w-6 h-6 text-muted-foreground" />
                              </div>
                            )}
                          </div>
@@ -299,7 +299,7 @@ export default function AudioGuide() {
                                variant={animal.distance <= triggerRadius ? "default" : "secondary"}
                                className="text-xs"
                              >
-                               <MapPin className="w-3 h-3 mr-1" />
+                               <AppIcon icon="MapPin" className="w-3 h-3 mr-1" />
                                {getDistanceText(animal.distance)}
                              </Badge>
                              {animal.distance <= triggerRadius && (
@@ -318,7 +318,7 @@ export default function AudioGuide() {
                          >
                            {animal.audio_url ? (
                              <>
-                               <Volume2 className="w-4 h-4 mr-1" />
+                               <AppIcon icon="Volume2" className="w-4 h-4 mr-1" />
                                {t.listenNow}
                              </>
                            ) : (
@@ -333,7 +333,7 @@ export default function AudioGuide() {
              ) : isWithinZoo ? (
                <Card>
                  <CardContent className="p-6 text-center">
-                   <Navigation className="w-10 h-10 text-muted-foreground mx-auto mb-2" />
+                   <AppIcon icon="Navigation" className="w-10 h-10 text-muted-foreground mx-auto mb-2" />
                    <p className="text-muted-foreground">{t.noNearby}</p>
                  </CardContent>
                </Card>
@@ -346,7 +346,7 @@ export default function AudioGuide() {
            <Card>
              <CardContent className="p-4">
                <h3 className="font-semibold mb-3 flex items-center gap-2">
-                 <Headphones className="w-5 h-5 text-primary" />
+                 <AppIcon icon="Headphones" className="w-5 h-5 text-primary" />
                  {t.howToUse}
                </h3>
                <div className="space-y-3">

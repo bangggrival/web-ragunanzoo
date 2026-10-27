@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ChevronDown, ChevronRight, User, LogOut, Shield, ExternalLink, Accessibility } from 'lucide-react';
 import { type NavbarItem } from '@/hooks/useNavbarItems';
 import { useAuth } from '@/hooks/useAuth';
 import { useAccessibility } from '@/contexts/AccessibilityContext';
-import { allIcons } from '@/components/ui/IconPicker';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 interface MobileNavProps {
   items: NavbarItem[];
@@ -61,7 +60,6 @@ export default function MobileNav({
             const externalUrl = getExternalUrl(item);
             const isDropdown = !!(item.is_dropdown && item.children && item.children.length > 0);
             const expanded = !!expandedIds[item.id];
-            const ItemIcon = allIcons[item.icon] || User;
 
             // Mobile dropdown item
             if (isDropdown) {
@@ -86,11 +84,12 @@ export default function MobileNav({
                       <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 ${
                         active ? 'bg-white/20' : 'bg-primary/10'
                       }`}>
-                        <ItemIcon className={`w-4 h-4 ${active ? 'text-white' : 'text-primary'}`} />
+                        <AppIcon icon={item.icon} className={`w-4 h-4 ${active ? 'text-white' : 'text-primary'}`} fallback={<AppIcon name="solar:link-circle-bold-duotone" className={`w-4 h-4 ${active ? 'text-white' : 'text-primary'}`} />} />
                       </div>
                       <span className="truncate">{getLabel(item)}</span>
                     </div>
-                    <ChevronDown
+                    <AppIcon
+                      name="solar:alt-arrow-down-linear"
                       className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${expanded ? 'rotate-180' : ''} ${
                         active ? 'text-white/90' : 'text-muted-foreground'
                       }`}
@@ -105,7 +104,6 @@ export default function MobileNav({
                       {item.children?.map((child) => {
                         const childExternalUrl = getExternalUrl(child);
                         const childActive = isActive(child.path) && !childExternalUrl;
-                        const ChildIcon = allIcons[child.icon] || User;
 
                         const childClass = `flex items-center gap-3 w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                           childActive
@@ -124,10 +122,10 @@ export default function MobileNav({
                               onClick={onClose}
                             >
                               <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                                <ChildIcon className="w-3.5 h-3.5 text-primary" />
+                                <AppIcon icon={child.icon} className="w-3.5 h-3.5 text-primary" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-3.5 h-3.5 text-primary" />} />
                               </span>
                               <span className="flex-1 truncate">{getLabel(child)}</span>
-                              <ExternalLink className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                              <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
                             </a>
                           );
                         }
@@ -142,10 +140,10 @@ export default function MobileNav({
                             <span className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
                               childActive ? 'bg-primary/20 text-primary' : 'bg-primary/10 text-primary'
                             }`}>
-                              <ChildIcon className="w-3.5 h-3.5" />
+                              <AppIcon icon={child.icon} className="w-3.5 h-3.5" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-3.5 h-3.5" />} />
                             </span>
                             <span className="flex-1 truncate">{getLabel(child)}</span>
-                            <ChevronRight className={`w-3.5 h-3.5 flex-shrink-0 ${childActive ? 'text-primary' : 'text-muted-foreground'}`} />
+                            <AppIcon name="solar:alt-arrow-right-linear" className={`w-3.5 h-3.5 flex-shrink-0 ${childActive ? 'text-primary' : 'text-muted-foreground'}`} />
                           </Link>
                         );
                       })}
@@ -167,10 +165,10 @@ export default function MobileNav({
                   onClick={onClose}
                 >
                   <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <ItemIcon className="w-4 h-4 text-primary" />
+                    <AppIcon icon={item.icon} className="w-4 h-4 text-primary" fallback={<AppIcon name="solar:link-circle-bold-duotone" className="w-4 h-4 text-primary" />} />
                   </div>
                   <span className="flex-1 truncate">{getLabel(item)}</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                  <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
                 </a>
               );
             }
@@ -191,10 +189,10 @@ export default function MobileNav({
                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 ${
                   active ? 'bg-white/20' : 'bg-primary/10'
                 }`}>
-                  <ItemIcon className={`w-4 h-4 ${active ? 'text-white' : 'text-primary'}`} />
+                  <AppIcon icon={item.icon} className={`w-4 h-4 ${active ? 'text-white' : 'text-primary'}`} fallback={<AppIcon name="solar:link-circle-bold-duotone" className={`w-4 h-4 ${active ? 'text-white' : 'text-primary'}`} />} />
                 </div>
                 <span className="flex-1 truncate">{getLabel(item)}</span>
-                {active && <ChevronRight className="w-4 h-4 text-white/90 flex-shrink-0" />}
+                {active && <AppIcon name="solar:alt-arrow-right-linear" className="w-4 h-4 text-white/90 flex-shrink-0" />}
               </Link>
             );
           })}
@@ -210,7 +208,7 @@ export default function MobileNav({
               className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-sm font-medium text-foreground hover:bg-muted/70 transition-all w-full text-left active:scale-[0.98]"
             >
               <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                <Accessibility className="w-4 h-4" />
+                <AppIcon name="solar:wheelchair-bold-duotone" className="w-4 h-4" />
               </div>
               <span className="font-semibold text-xs text-foreground">Menu Aksesibilitas</span>
             </button>
@@ -223,12 +221,12 @@ export default function MobileNav({
                 {/* User card */}
                 <div className="flex items-center gap-3 px-3.5 py-3 rounded-2xl bg-muted/40 border border-border/50">
                   <div className="w-9 h-9 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center flex-shrink-0">
-                    <User className="w-4 h-4 text-primary" />
+                    <AppIcon name="solar:user-bold-duotone" className="w-4 h-4 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-foreground truncate">{user?.name || user?.username}</p>
                     <p className="text-xs text-muted-foreground flex items-center gap-1 capitalize mt-0.5">
-                      <Shield className="w-3 h-3" />
+                      <AppIcon name="solar:shield-check-bold-duotone" className="w-3 h-3" />
                       {userRole || 'Visitor'}
                     </p>
                   </div>
@@ -241,7 +239,7 @@ export default function MobileNav({
                     onClick={onClose}
                   >
                     <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
-                      <Shield className="w-4 h-4 text-violet-500" />
+                      <AppIcon name="solar:shield-check-bold-duotone" className="w-4 h-4 text-violet-500" />
                     </div>
                     Panel Pengelola
                   </Link>
@@ -252,7 +250,7 @@ export default function MobileNav({
                   className="flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-medium text-rose-500 hover:bg-rose-50/50 dark:hover:bg-rose-500/10 transition-all w-full"
                 >
                   <div className="w-8 h-8 rounded-xl bg-rose-500/10 flex items-center justify-center">
-                    <LogOut className="w-4 h-4 text-rose-500" />
+                    <AppIcon name="solar:logout-2-bold-duotone" className="w-4 h-4 text-rose-500" />
                   </div>
                   Keluar
                 </button>
@@ -263,7 +261,7 @@ export default function MobileNav({
                 className="flex items-center justify-center gap-2.5 px-4 py-3 rounded-2xl text-sm font-semibold bg-primary text-primary-foreground shadow-[0_4px_16px_-4px_rgba(5,150,105,0.4)] hover:shadow-[0_6px_20px_-4px_rgba(5,150,105,0.5)] hover:brightness-105 transition-all active:scale-[0.98]"
                 onClick={onClose}
               >
-                <User className="w-4 h-4" />
+                <AppIcon name="solar:user-bold-duotone" className="w-4 h-4" />
                 Masuk / Daftar
               </Link>
             )}

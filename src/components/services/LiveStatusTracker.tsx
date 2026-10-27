@@ -1,28 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Search, 
-  Loader2, 
-  CheckCircle2, 
-  Clock, 
-  AlertCircle, 
-  XCircle, 
-  FileText, 
-  Building2, 
-  Calendar, 
-  User, 
-  MessageSquare, 
-  Printer, 
-  Share2, 
-  Copy, 
-  Sparkles, 
-  ArrowRight,
-  ShieldAlert,
-  FileCheck,
-  Check,
-  PhoneCall
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
@@ -102,35 +81,35 @@ export default function LiveStatusTracker({
       stepNum: 1,
       title: isEn ? 'Application Submitted' : 'Pendaftaran Diterima',
       desc: isEn ? 'Document entered into system' : 'Dokumen berhasil tersimpan di sistem UP TMR',
-      icon: Clock,
+      icon: 'solar:clock-circle-bold-duotone',
     },
     {
       id: 'reviewing',
       stepNum: 2,
       title: isEn ? 'Document Verification' : 'Verifikasi Berkas & Administrasi',
       desc: isEn ? 'Reviewing qualifications & proposal' : 'Penelaahan kelayakan proposal & kelengkapan syarat',
-      icon: FileText,
+      icon: 'solar:document-text-bold-duotone',
     },
     {
       id: 'approved',
       stepNum: 3,
       title: isEn ? 'Head Office Approval' : 'Persetujuan Kepala UP TMR',
       desc: isEn ? 'Official confirmation & quota assignment' : 'Persetujuan resmi dan alokasi unit penempatan',
-      icon: CheckCircle2,
+      icon: 'solar:check-circle-bold-duotone',
     },
     {
       id: 'ready',
       stepNum: 4,
       title: isEn ? 'Official Letter Issued' : 'Penerbitan Surat Keterangan / Balasan',
       desc: isEn ? 'Letter ready for pick-up / download' : 'Surat balasan resmi untuk kampus/sekolah selesai',
-      icon: FileCheck,
+      icon: 'solar:file-check-bold-duotone',
     },
     {
       id: 'completed',
       stepNum: 5,
       title: isEn ? 'Program Completed' : 'Pelaksanaan Selesai',
       desc: isEn ? 'Reporting & certificate finalized' : 'Penyerahan laporan akhir dan sertifikat kegiatan',
-      icon: Sparkles,
+      icon: 'solar:stars-minimalistic-bold-duotone',
     },
   ];
 
@@ -157,7 +136,7 @@ export default function LiveStatusTracker({
       <div className="rounded-3xl bg-card border border-border/80 p-6 md:p-8 shadow-sm">
         <div className="max-w-2xl mx-auto text-center space-y-3 mb-6">
           <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto shadow-inner">
-            <Search className="w-6 h-6" />
+            <AppIcon name="solar:magnifer-linear" className="w-6 h-6" />
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
             {isEn ? 'Live Status Tracker' : 'Pelacakan Status Pengajuan Berkas'}
@@ -197,9 +176,9 @@ export default function LiveStatusTracker({
               className="px-5 py-3.5 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-md transition-all flex items-center gap-2 shrink-0 disabled:opacity-50"
             >
               {isLoading ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
               ) : (
-                <Search className="w-4 h-4" />
+                <AppIcon name="solar:magnifer-linear" className="w-4 h-4" />
               )}
               <span className="hidden sm:inline">{isEn ? 'Track' : 'Lacak'}</span>
             </button>
@@ -227,7 +206,7 @@ export default function LiveStatusTracker({
       {/* Loading Skeleton */}
       {isLoading && (
         <div className="p-12 rounded-3xl bg-card border border-border/70 text-center space-y-3">
-          <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto" />
+          <AppIcon name="solar:spinner-linear" className="w-8 h-8 animate-spin text-primary mx-auto" />
           <p className="text-sm font-semibold text-muted-foreground">
             {isEn ? 'Checking verification records in database...' : 'Menghubungkan ke basis data UP TMR...'}
           </p>
@@ -256,7 +235,7 @@ export default function LiveStatusTracker({
                         className="p-1 rounded-md text-muted-foreground hover:text-primary"
                         title="Salin Kode"
                       >
-                        <Copy className="w-3.5 h-3.5" />
+                        <AppIcon name="solar:copy-bold" className="w-3.5 h-3.5" />
                       </button>
                     </div>
                     <p className="text-xs text-muted-foreground">
@@ -269,27 +248,27 @@ export default function LiveStatusTracker({
                 <div>
                   {isRejected ? (
                     <Badge className="bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/30 px-3 py-1 text-xs font-bold flex items-center gap-1.5">
-                      <XCircle className="w-4 h-4" />
+                      <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
                       <span>{isEn ? 'Application Rejected / Revision' : 'Perlu Perbaikan / Ditolak'}</span>
                     </Badge>
                   ) : registration.status === 'completed' ? (
                     <Badge className="bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/30 px-3 py-1 text-xs font-bold flex items-center gap-1.5">
-                      <Sparkles className="w-4 h-4" />
+                      <AppIcon name="solar:stars-minimalistic-bold" className="w-4 h-4" />
                       <span>{isEn ? 'Program Completed' : 'Kegiatan Selesai'}</span>
                     </Badge>
                   ) : registration.status === 'approved' ? (
                     <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 px-3 py-1 text-xs font-bold flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4" />
+                      <AppIcon name="solar:check-circle-bold" className="w-4 h-4" />
                       <span>{isEn ? 'Approved by UP TMR' : 'Disetujui UP TMR'}</span>
                     </Badge>
                   ) : registration.status === 'reviewing' ? (
                     <Badge className="bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30 px-3 py-1 text-xs font-bold flex items-center gap-1.5">
-                      <FileText className="w-4 h-4" />
+                      <AppIcon name="solar:document-text-bold" className="w-4 h-4" />
                       <span>{isEn ? 'Under Review' : 'Sedang Ditinjau'}</span>
                     </Badge>
                   ) : (
                     <Badge className="bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30 px-3 py-1 text-xs font-bold flex items-center gap-1.5">
-                      <Clock className="w-4 h-4" />
+                      <AppIcon name="solar:clock-circle-bold" className="w-4 h-4" />
                       <span>{isEn ? 'Pending Review' : 'Menunggu Verifikasi'}</span>
                     </Badge>
                   )}
@@ -307,7 +286,6 @@ export default function LiveStatusTracker({
                     const isPassed = !isRejected && idx < activeStageIndex;
                     const isCurrent = !isRejected && idx === activeStageIndex;
                     const isFuture = !isRejected && idx > activeStageIndex;
-                    const StageIcon = stage.icon;
 
                     return (
                       <div key={stage.id} className="flex md:flex-col items-start gap-3 md:gap-2 relative">
@@ -323,7 +301,7 @@ export default function LiveStatusTracker({
                                   ? 'bg-red-500 text-white'
                                   : 'bg-muted text-muted-foreground'
                           }`}>
-                            {isPassed ? <Check className="w-4 h-4" /> : idx + 1}
+                            {isPassed ? <AppIcon name="solar:check-read-linear" className="w-4 h-4" /> : idx + 1}
                           </div>
 
                           {/* Connecting Line (Desktop) */}
@@ -358,7 +336,7 @@ export default function LiveStatusTracker({
                 {registration.admin_notes && (
                   <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 space-y-1">
                     <div className="flex items-center gap-1.5 text-xs font-bold text-amber-800 dark:text-amber-300">
-                      <MessageSquare className="w-4 h-4" />
+                      <AppIcon name="solar:chat-round-dots-bold-duotone" className="w-4 h-4" />
                       <span>{isEn ? 'Official Officer Notes:' : 'Catatan Petugas UP TMR:'}</span>
                     </div>
                     <p className="text-xs sm:text-sm text-foreground/90 font-medium pl-5.5">
@@ -370,7 +348,7 @@ export default function LiveStatusTracker({
                 {/* Rejection Alert */}
                 {isRejected && (
                   <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-start gap-3 text-red-800 dark:text-red-300">
-                    <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5" />
+                    <AppIcon name="solar:danger-triangle-bold-duotone" className="w-5 h-5 shrink-0 mt-0.5" />
                     <div className="text-xs sm:text-sm">
                       <p className="font-bold">
                         {isEn ? 'Application Requires Revision / Incomplete' : 'Permohonan Belum Dapat Disetujui'}
@@ -387,7 +365,7 @@ export default function LiveStatusTracker({
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
                   <div className="p-3.5 rounded-2xl bg-muted/30 border border-border/70">
                     <div className="flex items-center gap-1.5 text-muted-foreground font-semibold mb-1">
-                      <User className="w-3.5 h-3.5 text-primary" />
+                      <AppIcon name="solar:user-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                       <span>{isEn ? 'Applicant Name' : 'Nama Lengkap'}</span>
                     </div>
                     <p className="font-bold text-sm text-foreground">{registration.participant_name}</p>
@@ -400,7 +378,7 @@ export default function LiveStatusTracker({
 
                   <div className="p-3.5 rounded-2xl bg-muted/30 border border-border/70">
                     <div className="flex items-center gap-1.5 text-muted-foreground font-semibold mb-1">
-                      <Building2 className="w-3.5 h-3.5 text-primary" />
+                      <AppIcon name="solar:buildings-2-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                       <span>{isEn ? 'Institution' : 'Asal Sekolah / Kampus'}</span>
                     </div>
                     <p className="font-bold text-sm text-foreground truncate">{registration.institution_name}</p>
@@ -413,7 +391,7 @@ export default function LiveStatusTracker({
 
                   <div className="p-3.5 rounded-2xl bg-muted/30 border border-border/70">
                     <div className="flex items-center gap-1.5 text-muted-foreground font-semibold mb-1">
-                      <Calendar className="w-3.5 h-3.5 text-primary" />
+                      <AppIcon name="solar:calendar-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                       <span>{isEn ? 'Period & Duration' : 'Periode Pengajuan'}</span>
                     </div>
                     <p className="font-bold text-sm text-foreground">
@@ -432,14 +410,14 @@ export default function LiveStatusTracker({
                       onClick={handlePrint}
                       className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-muted hover:bg-card border border-border text-xs font-semibold text-foreground transition-colors"
                     >
-                      <Printer className="w-3.5 h-3.5 text-primary" />
+                      <AppIcon name="solar:printer-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                       <span>{isEn ? 'Print Slip' : 'Cetak Bukti'}</span>
                     </button>
                     <button
                       onClick={handleContactAdmin}
                       className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-xs transition-colors"
                     >
-                      <PhoneCall className="w-3.5 h-3.5" />
+                      <AppIcon name="solar:phone-calling-bold" className="w-3.5 h-3.5" />
                       <span>{isEn ? 'WhatsApp Helpdesk' : 'Hubungi Petugas'}</span>
                     </button>
                   </div>
@@ -461,7 +439,7 @@ export default function LiveStatusTracker({
             /* Not Found State */
             <div className="p-8 md:p-12 rounded-3xl bg-card border border-border/80 text-center space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center mx-auto">
-                <AlertCircle className="w-7 h-7" />
+                <AppIcon name="solar:danger-circle-bold-duotone" className="w-7 h-7" />
               </div>
               <div className="max-w-md mx-auto space-y-1">
                 <h3 className="text-base sm:text-lg font-bold text-foreground">
@@ -485,7 +463,7 @@ export default function LiveStatusTracker({
                   onClick={handleContactAdmin}
                   className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
                 >
-                  <PhoneCall className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:phone-calling-bold" className="w-3.5 h-3.5" />
                   <span>{isEn ? 'Ask Helpdesk' : 'Tanya Petugas via WhatsApp'}</span>
                 </button>
               </div>

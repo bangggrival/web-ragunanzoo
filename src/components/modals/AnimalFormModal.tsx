@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { X, PawPrint, Upload, Trash2, Loader2, Volume2, Box, Image as ImageIcon, FolderOpen } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { Animal } from '@/hooks/useAnimals';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -320,12 +320,12 @@ export default function AnimalFormModal({ isOpen, onClose, animal, onSuccess }: 
         <div className="manager-modal-header shrink-0">
           <div className="manager-modal-title">
             <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-              <PawPrint className="w-4 h-4 text-primary" />
+              <AppIcon name="fluent-emoji-flat:paw-prints" className="w-4 h-4 text-primary" />
             </div>
             <span>{animal ? 'Edit Satwa' : 'Tambah Satwa'}</span>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-muted rounded-lg transition-colors">
-            <X className="w-5 h-5 text-muted-foreground" />
+            <AppIcon name="solar:close-circle-bold" className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 
@@ -344,7 +344,7 @@ export default function AnimalFormModal({ isOpen, onClose, animal, onSuccess }: 
                     onClick={() => setFormData({...formData, image_url: ''})}
                     className="absolute top-1 right-1 p-1 bg-destructive text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   >
-                    <X className="w-3 h-3" />
+                    <AppIcon name="solar:close-circle-bold" className="w-3 h-3" />
                   </button>
                 </div>
               ) : (
@@ -355,7 +355,7 @@ export default function AnimalFormModal({ isOpen, onClose, animal, onSuccess }: 
                     disabled={uploadingImage}
                     className="w-16 h-16 border-2 border-dashed border-manager-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 hover:bg-muted/30 transition-all disabled:opacity-50"
                   >
-                    {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImageIcon className="w-4 h-4 text-muted-foreground" />}
+                    {uploadingImage ? <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" /> : <AppIcon name="solar:gallery-bold-duotone" className="w-4 h-4 text-muted-foreground" />}
                     <span className="text-[9px] text-muted-foreground mt-1">Upload</span>
                   </button>
                   <button
@@ -363,7 +363,7 @@ export default function AnimalFormModal({ isOpen, onClose, animal, onSuccess }: 
                     onClick={() => setShowGallery(true)}
                     className="w-16 h-16 border border-primary/30 bg-primary/5 rounded-lg flex flex-col items-center justify-center hover:bg-primary/10 transition-all text-primary"
                   >
-                    <FolderOpen className="w-4 h-4" />
+                    <AppIcon name="solar:folder-with-files-bold-duotone" className="w-4 h-4" />
                     <span className="text-[9px] font-semibold mt-1">Galeri</span>
                   </button>
                 </div>
@@ -372,13 +372,13 @@ export default function AnimalFormModal({ isOpen, onClose, animal, onSuccess }: 
               {/* 3D Model */}
               {formData.model_url ? (
                 <div className="relative group w-16 h-16 rounded-lg overflow-hidden border border-manager-border bg-muted flex items-center justify-center">
-                  <Box className="w-6 h-6 text-primary" />
+                  <AppIcon name="solar:box-bold-duotone" className="w-6 h-6 text-primary" />
                   <button
                     type="button"
                     onClick={() => setFormData({...formData, model_url: ''})}
                     className="absolute top-1 right-1 p-1 bg-destructive text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   >
-                    <X className="w-3 h-3" />
+                    <AppIcon name="solar:close-circle-bold" className="w-3 h-3" />
                   </button>
                 </div>
               ) : (
@@ -388,7 +388,7 @@ export default function AnimalFormModal({ isOpen, onClose, animal, onSuccess }: 
                   disabled={uploadingModel}
                   className="w-16 h-16 border-2 border-dashed border-manager-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 hover:bg-muted/30 transition-all disabled:opacity-50"
                 >
-                  {uploadingModel ? <Loader2 className="w-4 h-4 animate-spin" /> : <Box className="w-4 h-4 text-muted-foreground" />}
+                  {uploadingModel ? <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" /> : <AppIcon name="solar:box-bold-duotone" className="w-4 h-4 text-muted-foreground" />}
                   <span className="text-[9px] text-muted-foreground mt-1">3D Model</span>
                 </button>
               )}
@@ -396,13 +396,13 @@ export default function AnimalFormModal({ isOpen, onClose, animal, onSuccess }: 
               {/* Audio */}
               {formData.audio_url ? (
                 <div className="relative group w-16 h-16 rounded-lg overflow-hidden border border-manager-border bg-muted flex items-center justify-center">
-                  <Volume2 className="w-6 h-6 text-primary" />
+                  <AppIcon name="solar:volume-loud-bold-duotone" className="w-6 h-6 text-primary" />
                   <button
                     type="button"
                     onClick={() => setFormData({...formData, audio_url: ''})}
                     className="absolute top-1 right-1 p-1 bg-destructive text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   >
-                    <X className="w-3 h-3" />
+                    <AppIcon name="solar:close-circle-bold" className="w-3 h-3" />
                   </button>
                 </div>
               ) : (
@@ -412,7 +412,7 @@ export default function AnimalFormModal({ isOpen, onClose, animal, onSuccess }: 
                   disabled={uploadingAudio}
                   className="w-16 h-16 border-2 border-dashed border-manager-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 hover:bg-muted/30 transition-all disabled:opacity-50"
                 >
-                  {uploadingAudio ? <Loader2 className="w-4 h-4 animate-spin" /> : <Volume2 className="w-4 h-4 text-muted-foreground" />}
+                  {uploadingAudio ? <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" /> : <AppIcon name="solar:volume-loud-bold-duotone" className="w-4 h-4 text-muted-foreground" />}
                   <span className="text-[9px] text-muted-foreground mt-1">Audio</span>
                 </button>
               )}
@@ -575,7 +575,7 @@ export default function AnimalFormModal({ isOpen, onClose, animal, onSuccess }: 
           >
             {loading ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
                 Menyimpan...
               </>
             ) : animal ? 'Simpan Perubahan' : 'Tambah Satwa'}

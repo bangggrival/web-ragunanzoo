@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, Link as LinkIcon, Sparkles } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { type NavbarItem } from '@/hooks/useNavbarItems';
-import { allIcons } from '@/components/ui/IconPicker';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 interface DesktopNavProps {
   items: NavbarItem[];
@@ -118,7 +117,7 @@ function DropdownNavItem({
           }`}
         >
           {getLabel(item)}
-          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+          <AppIcon name="solar:alt-arrow-down-linear" className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -128,7 +127,6 @@ function DropdownNavItem({
       >
         {item.children?.map((child) => {
           const childExternalUrl = getExternalUrl(child);
-          const ChildIcon = allIcons[child.icon] || Sparkles;
           const childActive = isActive(child.path) && !childExternalUrl;
 
           if (childExternalUrl) {
@@ -145,7 +143,7 @@ function DropdownNavItem({
                   className="cursor-pointer flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-foreground hover:text-primary hover:bg-primary/10 transition-colors"
                 >
                   <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                    <ChildIcon className="w-4 h-4 text-primary" />
+                    <AppIcon icon={child.icon} className="w-4 h-4 text-primary" fallback={<AppIcon name="solar:stars-minimalistic-bold-duotone" className="w-4 h-4 text-primary" />} />
                   </span>
                   <span>{getLabel(child)}</span>
                 </a>
@@ -170,7 +168,7 @@ function DropdownNavItem({
                 <span className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
                   childActive ? 'bg-white/20 text-white' : 'bg-primary/10 text-primary'
                 }`}>
-                  <ChildIcon className="w-4 h-4" />
+                  <AppIcon icon={child.icon} className="w-4 h-4" fallback={<AppIcon name="solar:stars-minimalistic-bold-duotone" className="w-4 h-4" />} />
                 </span>
                 <span>{getLabel(child)}</span>
               </Link>

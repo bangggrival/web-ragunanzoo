@@ -11,14 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { 
-  Clock, 
-  Banknote, 
-  FileText, 
-  ClipboardList, 
-  MessageSquare,
-  CheckCircle2
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { allIcons } from '@/components/ui/IconPicker';
 import BackButton from '@/components/ui/BackButton';
 import PageHeader from '@/components/ui/PageHeader';
@@ -28,8 +21,8 @@ export default function ServiceStandards() {
   const { data: standards, isLoading } = useServiceStandards();
 
   const getIcon = (iconName: string | null) => {
-    if (!iconName) return FileText;
-    return allIcons[iconName as keyof typeof allIcons] || FileText;
+    if (!iconName) return allIcons['FileText'];
+    return allIcons[iconName as keyof typeof allIcons] || allIcons['FileText'];
   };
 
   const renderList = (content: string | null) => {
@@ -39,7 +32,7 @@ export default function ServiceStandards() {
       <ul className="space-y-1.5 text-xs sm:text-sm">
         {items.map((item, index) => (
           <li key={index} className="flex items-start gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary shrink-0 mt-0.5" />
+            <AppIcon icon="CheckCircle2" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary shrink-0 mt-0.5" />
             <span className="text-muted-foreground">{item.replace(/^[-•*]\s*/, '')}</span>
           </li>
         ))}
@@ -51,7 +44,7 @@ export default function ServiceStandards() {
     return (
       <div className="min-h-screen bg-background pb-20 md:pb-8">
         <PageHeader
-          icon={<FileText className="w-7 h-7 md:w-8 md:h-8" />}
+          icon={<AppIcon icon="FileText" className="w-7 h-7 md:w-8 md:h-8" />}
           title={t('service_standards')}
           description={t('service_standards_subtitle')}
           backPath="/services"
@@ -68,7 +61,7 @@ export default function ServiceStandards() {
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       <PageHeader
-        icon={<FileText className="w-7 h-7 md:w-8 md:h-8" />}
+        icon={<AppIcon icon="FileText" className="w-7 h-7 md:w-8 md:h-8" />}
         title={t('service_standards')}
         description={t('service_standards_subtitle')}
         backPath="/services"
@@ -114,13 +107,13 @@ export default function ServiceStandards() {
                           <div className="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-4 mt-1 sm:mt-1.5">
                             {standard.duration && (
                               <span className="flex items-center gap-1 text-[10px] sm:text-xs md:text-sm text-muted-foreground">
-                                <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                                <AppIcon icon="Clock" className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                                 <span className="truncate max-w-[100px] sm:max-w-none">{standard.duration}</span>
                               </span>
                             )}
                             {standard.cost && (
                               <span className="flex items-center gap-1 text-[10px] sm:text-xs md:text-sm text-muted-foreground">
-                                <Banknote className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                                <AppIcon icon="Banknote" className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                                 <span className="truncate max-w-[100px] sm:max-w-none">{standard.cost}</span>
                               </span>
                             )}
@@ -138,7 +131,7 @@ export default function ServiceStandards() {
                         {requirements && (
                           <div className="bg-muted/30 rounded-lg p-3 sm:p-4">
                             <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-                              <ClipboardList className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                              <AppIcon icon="ClipboardList" className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                               <h4 className="font-semibold text-sm sm:text-base">{t('requirements')}</h4>
                             </div>
                             {renderList(requirements)}
@@ -149,7 +142,7 @@ export default function ServiceStandards() {
                         {procedure && (
                           <div className="bg-muted/30 rounded-lg p-3 sm:p-4">
                             <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-                              <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                              <AppIcon icon="FileText" className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                               <h4 className="font-semibold text-sm sm:text-base">{t('procedure')}</h4>
                             </div>
                             {renderList(procedure)}
@@ -161,7 +154,7 @@ export default function ServiceStandards() {
                       {complaint && (
                         <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 sm:p-4">
                           <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-                            <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                            <AppIcon icon="MessageSquare" className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                             <h4 className="font-semibold text-sm sm:text-base">{t('complaint_mechanism')}</h4>
                           </div>
                           {renderList(complaint)}
@@ -175,7 +168,7 @@ export default function ServiceStandards() {
           </Accordion>
         ) : (
           <div className="text-center py-12 md:py-16">
-            <FileText className="w-12 h-12 md:w-16 md:h-16 text-muted-foreground/30 mx-auto mb-3" />
+            <AppIcon icon="FileText" className="w-12 h-12 md:w-16 md:h-16 text-muted-foreground/30 mx-auto mb-3" />
             <h3 className="font-medium text-base md:text-lg mb-1">{t('no_service_standards')}</h3>
             <p className="text-sm md:text-base text-muted-foreground">{t('no_service_standards_desc')}</p>
           </div>

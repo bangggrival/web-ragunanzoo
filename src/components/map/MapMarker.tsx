@@ -1,14 +1,4 @@
-import { 
-  MapPin, 
-  PawPrint, 
-  Ticket, 
-  Utensils, 
-  HeartPulse, 
-  Compass, 
-  Train, 
-  Sparkles,
-  Bath
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { cn } from '@/lib/utils';
 import type { MapPointType } from './zoneConfig';
 
@@ -34,21 +24,21 @@ export default function MapMarker({
     const iconClass = "w-3.5 h-3.5 md:w-4 md:h-4 text-white";
     switch (iconType) {
       case 'toilet':
-        return <Bath className={iconClass} />;
+        return <AppIcon name="solar:bath-bold-duotone" className={iconClass} />;
       case 'musholla':
-        return <Compass className={iconClass} />;
+        return <AppIcon name="fluent-emoji-flat:mosque" className={iconClass} />;
       case 'tram':
-        return <Train className={iconClass} />;
+        return <AppIcon name="solar:bus-bold-duotone" className={iconClass} />;
       case 'ticket':
-        return <Ticket className={iconClass} />;
+        return <AppIcon name="solar:ticket-sale-bold-duotone" className={iconClass} />;
       case 'kuliner':
-        return <Utensils className={iconClass} />;
+        return <AppIcon name="solar:dish-bold-duotone" className={iconClass} />;
       case 'medical':
-        return <HeartPulse className={iconClass} />;
+        return <AppIcon name="solar:health-bold-duotone" className={iconClass} />;
       case 'animal':
-        return <PawPrint className={iconClass} />;
+        return <AppIcon name="fluent-emoji-flat:paw-prints" className={iconClass} />;
       default:
-        return <MapPin className={iconClass} />;
+        return <AppIcon name="solar:map-point-wave-bold-duotone" className={iconClass} />;
     }
   };
 

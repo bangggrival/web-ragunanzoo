@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Calendar, Globe, Loader2 } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { Event } from '@/hooks/useEvents';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -140,12 +140,12 @@ export default function EventFormModal({ isOpen, onClose, event, onSuccess }: Ev
         <div className="manager-modal-header shrink-0">
           <div className="manager-modal-title">
             <div className="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center">
-              <Calendar className="w-4 h-4 text-secondary" />
+              <AppIcon name="solar:calendar-bold-duotone" className="w-4 h-4 text-secondary" />
             </div>
             <span>{event ? 'Edit Event' : 'Tambah Event Baru'}</span>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-muted rounded-lg transition-colors">
-            <X className="w-5 h-5 text-muted-foreground" />
+            <AppIcon name="solar:close-circle-bold" className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 
@@ -154,7 +154,7 @@ export default function EventFormModal({ isOpen, onClose, event, onSuccess }: Ev
           {/* Bilingual Tabs */}
           <div className="manager-form-section">
             <p className="manager-form-section-title flex items-center gap-2">
-              <Globe className="w-4 h-4" />
+              <AppIcon name="solar:global-bold-duotone" className="w-4 h-4" />
               Konten Multibahasa
             </p>
             
@@ -311,7 +311,7 @@ export default function EventFormModal({ isOpen, onClose, event, onSuccess }: Ev
           >
             {loading ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
                 Menyimpan...
               </>
             ) : (

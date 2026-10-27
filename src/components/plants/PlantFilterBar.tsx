@@ -1,4 +1,4 @@
-import { Search, Filter, X } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCategories, Category } from '@/hooks/useCategories';
 
@@ -29,7 +29,7 @@ export default function PlantFilterBar({
       {/* Search and Category Filter */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <AppIcon name="solar:magnifer-linear" className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <input
             type="text"
             placeholder={language === 'en' ? 'Search plants...' : 'Cari tumbuhan...'}
@@ -39,7 +39,7 @@ export default function PlantFilterBar({
           />
         </div>
         <div className="relative sm:min-w-[200px]">
-          <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+          <AppIcon name="solar:filter-bold-duotone" className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
           <select
             value={categoryFilter}
             onChange={(e) => onCategoryChange(e.target.value)}
@@ -67,7 +67,7 @@ export default function PlantFilterBar({
                 onClick={() => onSearchChange('')} 
                 className="hover:bg-primary/20 rounded-full p-0.5 transition-colors"
               >
-                <X className="w-3 h-3" />
+                <AppIcon name="solar:close-circle-bold" className="w-3 h-3" />
               </button>
             </span>
           )}
@@ -79,7 +79,7 @@ export default function PlantFilterBar({
                 onClick={() => onCategoryChange('')} 
                 className="hover:bg-accent/20 rounded-full p-0.5 transition-colors"
               >
-                <X className="w-3 h-3" />
+                <AppIcon name="solar:close-circle-bold" className="w-3 h-3" />
               </button>
             </span>
           )}

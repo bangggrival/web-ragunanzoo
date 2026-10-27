@@ -2,46 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import Link from 'next/link';
-import {
-  MapPin,
-  Plus,
-  Trash2,
-  Edit2,
-  ExternalLink,
-  RefreshCw,
-  Search,
-  Compass,
-  Clock,
-  Utensils,
-  AlertTriangle,
-  Info,
-  Layers,
-  ChevronRight,
-  Sparkles,
-  Train,
-  CheckCircle2,
-  XCircle,
-  AlertCircle,
-  Eye,
-  Crosshair,
-  ArrowUp,
-  ArrowDown,
-  Building2,
-  Bath,
-  Ticket,
-  HeartPulse,
-  Save,
-  X,
-  Copy,
-  Maximize2,
-  Move,
-  Globe,
-  ShieldCheck,
-  Flame,
-  SlidersHorizontal,
-  Zap,
-  Radio
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -620,14 +581,16 @@ export default function ManageGpsMapClient() {
 
     loadLeaflet().catch(err => console.error('Error loading Leaflet map:', err));
 
+    const currentContainer = mapContainerRef.current;
+
     return () => {
       isCancelled = true;
       if (leafletMapInstanceRef.current) {
         leafletMapInstanceRef.current.remove();
         leafletMapInstanceRef.current = null;
       }
-      if (mapContainerRef.current && (mapContainerRef.current as any)._leaflet_id) {
-        (mapContainerRef.current as any)._leaflet_id = null;
+      if (currentContainer && (currentContainer as any)._leaflet_id) {
+        (currentContainer as any)._leaflet_id = null;
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -995,7 +958,7 @@ export default function ManageGpsMapClient() {
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="p-2 bg-emerald-100 text-emerald-700 rounded-xl">
-              <Compass className="w-6 h-6" />
+              <AppIcon icon="Compass" className="w-6 h-6" />
             </span>
             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
               Manajemen Peta GPS Interaktif
@@ -1004,7 +967,7 @@ export default function ManageGpsMapClient() {
               Leaflet Engine
             </Badge>
             <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3 text-blue-600" />
+              <AppIcon icon="ShieldCheck" className="w-3 h-3 text-blue-600" />
               Geo-Fence Guard Aktif
             </Badge>
           </div>
@@ -1021,7 +984,7 @@ export default function ManageGpsMapClient() {
             disabled={isRefreshing}
             className="rounded-xl border-gray-200"
           >
-            <RefreshCw className={`w-4 h-4 mr-1.5 ${isRefreshing ? 'animate-spin text-emerald-600' : ''}`} />
+            <AppIcon icon="RefreshCw" className={`w-4 h-4 mr-1.5 ${isRefreshing ? 'animate-spin text-emerald-600' : ''}`} />
             Segarkan
           </Button>
 
@@ -1031,7 +994,7 @@ export default function ManageGpsMapClient() {
               size="sm"
               className="rounded-xl border-emerald-200 text-emerald-700 hover:bg-emerald-50"
             >
-              <ExternalLink className="w-4 h-4 mr-1.5" />
+              <AppIcon icon="ExternalLink" className="w-4 h-4 mr-1.5" />
               Buka Peta Publik
             </Button>
           </Link>
@@ -1041,7 +1004,7 @@ export default function ManageGpsMapClient() {
               onClick={handleOpenCreatePoi}
               className="rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
             >
-              <Plus className="w-4 h-4 mr-1.5" />
+              <AppIcon icon="Plus" className="w-4 h-4 mr-1.5" />
               Tambah Titik POI
             </Button>
           )}
@@ -1060,7 +1023,7 @@ export default function ManageGpsMapClient() {
               }}
               className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white shadow-sm"
             >
-              <Plus className="w-4 h-4 mr-1.5" />
+              <AppIcon icon="Plus" className="w-4 h-4 mr-1.5" />
               Tambah Titik Jalur
             </Button>
           )}
@@ -1077,7 +1040,7 @@ export default function ManageGpsMapClient() {
               : 'bg-white/60 text-gray-600 hover:bg-white/90'
           }`}
         >
-          <MapPin className="w-4 h-4" />
+          <AppIcon icon="MapPin" className="w-4 h-4" />
           Titik Lokasi Satwa & Fasilitas ({pois.length})
         </button>
 
@@ -1089,7 +1052,7 @@ export default function ManageGpsMapClient() {
               : 'bg-white/60 text-gray-600 hover:bg-white/90'
           }`}
         >
-          <Train className="w-4 h-4" />
+          <AppIcon icon="Train" className="w-4 h-4" />
           Jalur Kereta Keliling ({tramPoints.length} Waypoints)
         </button>
 
@@ -1101,7 +1064,7 @@ export default function ManageGpsMapClient() {
               : 'bg-white/60 text-gray-600 hover:bg-white/90'
           }`}
         >
-          <AlertTriangle className="w-4 h-4" />
+          <AppIcon icon="AlertTriangle" className="w-4 h-4" />
           Status Zona, Tutup & Kapasitas
         </button>
 
@@ -1113,7 +1076,7 @@ export default function ManageGpsMapClient() {
               : 'bg-white/60 text-gray-600 hover:bg-white/90'
           }`}
         >
-          <Sparkles className="w-4 h-4" />
+          <AppIcon icon="Sparkles" className="w-4 h-4" />
           Statistik & Panduan Koordinat
         </button>
 
@@ -1129,7 +1092,7 @@ export default function ManageGpsMapClient() {
               : 'bg-white/60 text-gray-600 hover:bg-white/90'
           }`}
         >
-          <Flame className="w-4 h-4 text-orange-400" />
+          <AppIcon icon="Flame" className="w-4 h-4 text-orange-400" />
           Heatmap Kepadatan ({heatmapData?.stats?.totalEvents ?? 0})
         </button>
       </div>
@@ -1173,7 +1136,7 @@ export default function ManageGpsMapClient() {
                   }`}
                   title="Visualisasi lapisan panas kepadatan pengunjung"
                 >
-                  <Flame className="w-3.5 h-3.5 mr-1" />
+                  <AppIcon icon="Flame" className="w-3.5 h-3.5 mr-1" />
                   {showHeatmapLayer ? 'Heatmap Aktif' : 'Heatmap'}
                 </Button>
 
@@ -1223,7 +1186,7 @@ export default function ManageGpsMapClient() {
                   }`}
                   title="Aktifkan geser marker langsung di peta"
                 >
-                  <Move className="w-3.5 h-3.5 mr-1" />
+                  <AppIcon icon="Move" className="w-3.5 h-3.5 mr-1" />
                   {isDragMode ? 'Selesai Geser' : 'Geser Marker'}
                 </Button>
 
@@ -1234,7 +1197,7 @@ export default function ManageGpsMapClient() {
                   className="text-xs rounded-xl h-8 text-gray-700"
                   title="Fokuskan ke seluruh titik"
                 >
-                  <Maximize2 className="w-3.5 h-3.5 mr-1" />
+                  <AppIcon icon="Maximize2" className="w-3.5 h-3.5 mr-1" />
                   Fit All
                 </Button>
 
@@ -1248,7 +1211,7 @@ export default function ManageGpsMapClient() {
                   }}
                   className="text-xs rounded-xl h-8 text-gray-700"
                 >
-                  <Crosshair className="w-3.5 h-3.5 mr-1" />
+                  <AppIcon icon="Crosshair" className="w-3.5 h-3.5 mr-1" />
                   Pusat
                 </Button>
               </div>
@@ -1258,7 +1221,7 @@ export default function ManageGpsMapClient() {
             {isDragMode && (
               <div className="p-3 bg-amber-500/10 border border-amber-300/80 rounded-xl flex items-center justify-between gap-2 text-xs text-amber-900 animate-pulse">
                 <div className="flex items-center gap-2">
-                  <Move className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                  <AppIcon icon="Move" className="w-4 h-4 text-amber-600 flex-shrink-0" />
                   <span>
                     <b>Mode Geser Marker Aktif</b>: Klik & seret ikon satwa atau halte di peta. Anda akan diminta konfirmasi sebelum posisi baru disimpan.
                   </span>
@@ -1287,7 +1250,7 @@ export default function ManageGpsMapClient() {
                 <div className="absolute top-3 right-3 z-20 bg-white/95 backdrop-blur-md p-3 rounded-2xl border border-gray-200 text-xs text-gray-800 shadow-md space-y-1.5">
                   <div className="flex items-center justify-between gap-3 font-semibold text-gray-900">
                     <span className="flex items-center gap-1.5">
-                      <Flame className="w-4 h-4 text-orange-500 animate-pulse" />
+                      <AppIcon icon="Flame" className="w-4 h-4 text-orange-500 animate-pulse" />
                       Kepadatan Pengunjung
                     </span>
                     <Badge variant="outline" className="text-[10px] bg-orange-50 text-orange-700 border-orange-200 px-1.5 py-0">
@@ -1304,7 +1267,7 @@ export default function ManageGpsMapClient() {
               )}
 
               <div className="absolute bottom-3 left-3 z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl border border-gray-200 text-xs text-gray-700 shadow-sm flex items-center gap-2">
-                <Info className="w-3.5 h-3.5 text-emerald-600" />
+                <AppIcon icon="Info" className="w-3.5 h-3.5 text-emerald-600" />
                 <span>
                   {isDragMode ? 'Seret marker ke titik baru.' : 'Klik di mana saja pada peta untuk mengambil koordinat Lat/Lng.'}
                 </span>
@@ -1316,7 +1279,7 @@ export default function ManageGpsMapClient() {
               <div className="p-3 bg-emerald-50/90 border border-emerald-200 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
                 <div className="flex items-center gap-2">
                   <span className="font-semibold text-emerald-900 flex items-center gap-1">
-                    <Crosshair className="w-4 h-4 text-emerald-600" />
+                    <AppIcon icon="Crosshair" className="w-4 h-4 text-emerald-600" />
                     Titik Terpilih:
                   </span>
                   <span className="font-mono bg-white px-2 py-0.5 rounded border border-emerald-200 text-emerald-800 font-bold">
@@ -1331,7 +1294,7 @@ export default function ManageGpsMapClient() {
                     onClick={() => handleCopyCoords(pickedCoords)}
                     className="h-7 text-xs bg-white text-gray-700 rounded-lg hover:bg-emerald-50"
                   >
-                    <Copy className="w-3 h-3 mr-1" />
+                    <AppIcon icon="Copy" className="w-3 h-3 mr-1" />
                     Salin
                   </Button>
 
@@ -1341,7 +1304,7 @@ export default function ManageGpsMapClient() {
                       onClick={handleOpenCreatePoi}
                       className="h-7 text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg"
                     >
-                      <Plus className="w-3 h-3 mr-1" />
+                      <AppIcon icon="Plus" className="w-3 h-3 mr-1" />
                       Buat POI di Sini
                     </Button>
                   )}
@@ -1361,7 +1324,7 @@ export default function ManageGpsMapClient() {
                       }}
                       className="h-7 text-xs bg-amber-600 hover:bg-amber-700 text-white rounded-lg"
                     >
-                      <Train className="w-3 h-3 mr-1" />
+                      <AppIcon icon="Train" className="w-3 h-3 mr-1" />
                       Tambah Waypoint
                     </Button>
                   )}
@@ -1388,7 +1351,7 @@ export default function ManageGpsMapClient() {
               {/* Search & Category Filter */}
               <div className="space-y-3">
                 <div className="relative">
-                  <Search className="w-4 h-4 absolute left-3.5 top-3 text-gray-400" />
+                  <AppIcon icon="Search" className="w-4 h-4 absolute left-3.5 top-3 text-gray-400" />
                   <Input
                     placeholder="Cari satwa, fasilitas, atau ID..."
                     value={searchQuery}
@@ -1424,7 +1387,7 @@ export default function ManageGpsMapClient() {
               <div className="space-y-2.5 max-h-[460px] overflow-y-auto pr-1">
                 {filteredPois.length === 0 ? (
                   <div className="text-center py-12 text-gray-400 space-y-2">
-                    <MapPin className="w-8 h-8 mx-auto stroke-1" />
+                    <AppIcon icon="MapPin" className="w-8 h-8 mx-auto stroke-1" />
                     <p className="text-sm">Tidak ada titik lokasi yang cocok.</p>
                   </div>
                 ) : (
@@ -1462,13 +1425,13 @@ export default function ManageGpsMapClient() {
                           </div>
                           {poi.feeding_time && (
                             <div className="text-[11px] text-amber-700 font-medium mt-0.5 flex items-center gap-1">
-                              <Utensils className="w-3 h-3" />
+                              <AppIcon icon="Utensils" className="w-3 h-3" />
                               <span>Makan: {poi.feeding_time}</span>
                             </div>
                           )}
                           {poi.operating_hours_open && (
                             <div className="text-[11px] text-blue-700 font-medium mt-0.5 flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
+                              <AppIcon icon="Clock" className="w-3 h-3" />
                               <span>Buka: {poi.operating_hours_open} - {poi.operating_hours_close || ''}</span>
                             </div>
                           )}
@@ -1483,7 +1446,7 @@ export default function ManageGpsMapClient() {
                           className="w-8 h-8 rounded-lg hover:bg-gray-100 text-gray-600"
                           title="Edit POI"
                         >
-                          <Edit2 className="w-3.5 h-3.5" />
+                          <AppIcon icon="Edit2" className="w-3.5 h-3.5" />
                         </Button>
                         <Button
                           size="icon"
@@ -1492,7 +1455,7 @@ export default function ManageGpsMapClient() {
                           className="w-8 h-8 rounded-lg hover:bg-red-50 text-red-600"
                           title="Hapus POI"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <AppIcon icon="Trash2" className="w-3.5 h-3.5" />
                         </Button>
                       </div>
                     </div>
@@ -1508,7 +1471,7 @@ export default function ManageGpsMapClient() {
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-gray-900 text-base flex items-center gap-1.5">
-                    <Train className="w-4 h-4 text-amber-600" />
+                    <AppIcon icon="Train" className="w-4 h-4 text-amber-600" />
                     Daftar Waypoint Rute ({tramPoints.length})
                   </h4>
                   <p className="text-xs text-gray-500">Klik titik untuk melihat di peta.</p>
@@ -1527,7 +1490,7 @@ export default function ManageGpsMapClient() {
                   }}
                   className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs h-8"
                 >
-                  <Plus className="w-3.5 h-3.5 mr-1" />
+                  <AppIcon icon="Plus" className="w-3.5 h-3.5 mr-1" />
                   Tambah
                 </Button>
               </div>
@@ -1535,7 +1498,7 @@ export default function ManageGpsMapClient() {
               <div className="space-y-2 max-h-[470px] overflow-y-auto pr-1">
                 {tramPoints.length === 0 ? (
                   <div className="text-center py-12 text-gray-400 space-y-2">
-                    <Train className="w-8 h-8 mx-auto stroke-1" />
+                    <AppIcon icon="Train" className="w-8 h-8 mx-auto stroke-1" />
                     <p className="text-sm">Belum ada titik jalur kereta.</p>
                   </div>
                 ) : (
@@ -1578,7 +1541,7 @@ export default function ManageGpsMapClient() {
                           className="w-7 h-7 rounded-lg text-gray-500 disabled:opacity-30"
                           title="Naik"
                         >
-                          <ArrowUp className="w-3.5 h-3.5" />
+                          <AppIcon icon="ArrowUp" className="w-3.5 h-3.5" />
                         </Button>
                         <Button
                           size="icon"
@@ -1588,7 +1551,7 @@ export default function ManageGpsMapClient() {
                           className="w-7 h-7 rounded-lg text-gray-500 disabled:opacity-30"
                           title="Turun"
                         >
-                          <ArrowDown className="w-3.5 h-3.5" />
+                          <AppIcon icon="ArrowDown" className="w-3.5 h-3.5" />
                         </Button>
                         <Button
                           size="icon"
@@ -1606,7 +1569,7 @@ export default function ManageGpsMapClient() {
                           className="w-7 h-7 rounded-lg text-gray-600 hover:bg-gray-100"
                           title="Edit"
                         >
-                          <Edit2 className="w-3.5 h-3.5" />
+                          <AppIcon icon="Edit2" className="w-3.5 h-3.5" />
                         </Button>
                         <Button
                           size="icon"
@@ -1615,7 +1578,7 @@ export default function ManageGpsMapClient() {
                           className="w-7 h-7 rounded-lg text-red-600 hover:bg-red-50"
                           title="Hapus"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <AppIcon icon="Trash2" className="w-3.5 h-3.5" />
                         </Button>
                       </div>
                     </div>
@@ -1666,7 +1629,7 @@ export default function ManageGpsMapClient() {
           <div className="bg-white/70 backdrop-blur-xl border border-white/80 p-6 rounded-[2rem] shadow-sm space-y-4">
             <div>
               <h3 className="font-semibold text-gray-900 text-lg flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-amber-600" />
+                <AppIcon icon="AlertTriangle" className="w-5 h-5 text-amber-600" />
                 Pusat Kontrol Lapangan & Status Operasional Zona
               </h3>
               <p className="text-sm text-gray-500">
@@ -1713,7 +1676,7 @@ export default function ManageGpsMapClient() {
                   {poi.is_temporarily_closed && (
                     <div className="p-2.5 bg-red-100/70 rounded-xl border border-red-200 text-xs text-red-800 space-y-1">
                       <div className="font-semibold flex items-center gap-1">
-                        <AlertCircle className="w-3.5 h-3.5" />
+                        <AppIcon icon="AlertCircle" className="w-3.5 h-3.5" />
                         Alasan: {poi.closure_reason || 'Sedang renovasi'}
                       </div>
                       {poi.closure_until && <div>Estimasi buka: {poi.closure_until}</div>}

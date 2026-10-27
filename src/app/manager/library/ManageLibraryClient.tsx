@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Book, Plus, Search, Edit2, Trash2, Eye, Download, Filter, X, BookOpen, Star, Loader2, FileText, Upload, Globe } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { BOOK_CATEGORIES, Book as BookType } from '@/hooks/useBooks';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -172,7 +172,7 @@ export default function ManageLibraryClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <BookOpen className="w-5 h-5 text-green-500" />
+              <AppIcon icon="BookOpen" className="w-5 h-5 text-green-500" />
             </div>
             {language === 'en' ? 'Digital Library' : 'Perpustakaan Digital'}
           </h1>
@@ -184,7 +184,7 @@ export default function ManageLibraryClient() {
           onClick={handleAdd} 
           className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(99,102,241,0.5)] hover:-translate-y-0.5"
         >
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           {language === 'en' ? 'Add Book' : 'Tambah Buku'}
         </button>
       </div>
@@ -192,7 +192,7 @@ export default function ManageLibraryClient() {
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row gap-3 p-2 bg-white/60 backdrop-blur-xl rounded-[1.5rem] border border-white/80 shadow-sm">
           <div className="relative flex-1 ml-2">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <AppIcon icon="Search" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
               placeholder={language === 'en' ? 'Search books...' : 'Cari buku...'}
@@ -203,7 +203,7 @@ export default function ManageLibraryClient() {
           </div>
           <div className="w-px h-8 bg-slate-200 hidden sm:block self-center"></div>
           <div className="relative sm:min-w-[200px] mr-2">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            <AppIcon icon="Filter" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
@@ -228,7 +228,7 @@ export default function ManageLibraryClient() {
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs font-bold border border-green-100">
                 "{searchQuery}"
                 <button onClick={() => setSearchQuery('')} className="hover:bg-green-100 rounded-full p-0.5">
-                  <X className="w-3 h-3" />
+                  <AppIcon icon="X" className="w-3 h-3" />
                 </button>
               </span>
             )}
@@ -236,7 +236,7 @@ export default function ManageLibraryClient() {
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-violet-50 text-violet-600 rounded-full text-xs font-bold border border-violet-100">
                 {getCategoryIcon(categoryFilter)} {getCategoryLabel(categoryFilter, language)}
                 <button onClick={() => setCategoryFilter('')} className="hover:bg-violet-100 rounded-full p-0.5">
-                  <X className="w-3 h-3" />
+                  <AppIcon icon="X" className="w-3 h-3" />
                 </button>
               </span>
             )}
@@ -251,7 +251,7 @@ export default function ManageLibraryClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-              <Book className="w-4 h-4 text-green-500" />
+              <AppIcon icon="Book" className="w-4 h-4 text-green-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Buku</span>
           </div>
@@ -260,7 +260,7 @@ export default function ManageLibraryClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
-              <Star className="w-4 h-4 text-amber-500" />
+              <AppIcon icon="Star" className="w-4 h-4 text-amber-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Dipublikasi</span>
           </div>
@@ -269,7 +269,7 @@ export default function ManageLibraryClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-              <Eye className="w-4 h-4 text-green-500" />
+              <AppIcon icon="Eye" className="w-4 h-4 text-green-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Views</span>
           </div>
@@ -278,7 +278,7 @@ export default function ManageLibraryClient() {
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
-              <Download className="w-4 h-4 text-blue-500" />
+              <AppIcon icon="Download" className="w-4 h-4 text-blue-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Unduhan</span>
           </div>
@@ -290,7 +290,7 @@ export default function ManageLibraryClient() {
         {paginatedItems.length === 0 ? (
           <div className="text-center py-20">
             <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-slate-100">
-              <Book className="w-10 h-10 text-slate-300" />
+              <AppIcon icon="Book" className="w-10 h-10 text-slate-300" />
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-2">
               {hasFilters 
@@ -325,13 +325,13 @@ export default function ManageLibraryClient() {
                             <img src={book.cover_url} alt={book.title_id} className="w-12 h-16 rounded-xl object-cover border border-slate-200/60 shadow-sm" />
                           ) : (
                             <div className="w-12 h-16 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200/60 shadow-sm">
-                              <Book className="w-6 h-6 text-slate-400" />
+                              <AppIcon icon="Book" className="w-6 h-6 text-slate-400" />
                             </div>
                           )}
                           <div className="min-w-0 flex-1">
                             <p className="font-bold text-sm text-slate-800 flex items-center gap-1.5 truncate">
                               {book.title_id}
-                              {book.is_featured && <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />}
+                              {book.is_featured && <AppIcon icon="Star" className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />}
                             </p>
                             {book.author && <p className="text-xs font-medium text-slate-500 truncate mt-0.5">{book.author}</p>}
                           </div>
@@ -344,8 +344,8 @@ export default function ManageLibraryClient() {
                       </td>
                       <td className="manager-table-td">
                         <div className="flex flex-col gap-1.5">
-                          <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500"><Eye className="w-3.5 h-3.5 text-slate-400" /> {book.view_count || 0}</span>
-                          <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500"><Download className="w-3.5 h-3.5 text-slate-400" /> {book.download_count || 0}</span>
+                          <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500"><AppIcon icon="Eye" className="w-3.5 h-3.5 text-slate-400" /> {book.view_count || 0}</span>
+                          <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500"><AppIcon icon="Download" className="w-3.5 h-3.5 text-slate-400" /> {book.download_count || 0}</span>
                         </div>
                       </td>
                       <td className="manager-table-td">
@@ -358,10 +358,10 @@ export default function ManageLibraryClient() {
                       <td className="manager-table-td manager-table-td-right">
                         <div className="manager-table-actions justify-end">
                           <button onClick={() => handleEdit(book)} className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors">
-                            <Edit2 className="w-4 h-4" />
+                            <AppIcon icon="Edit2" className="w-4 h-4" />
                           </button>
                           <button onClick={() => setDeleteBook(book)} className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors">
-                            <Trash2 className="w-4 h-4" />
+                            <AppIcon icon="Trash2" className="w-4 h-4" />
                           </button>
                         </div>
                       </td>
@@ -380,7 +380,7 @@ export default function ManageLibraryClient() {
                       <img src={book.cover_url} alt={book.title_id} className="w-16 h-20 rounded-xl object-cover border border-slate-200/60 shadow-sm flex-shrink-0" />
                     ) : (
                       <div className="w-16 h-20 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200/60 shadow-sm flex-shrink-0">
-                        <Book className="w-6 h-6 text-slate-400" />
+                        <AppIcon icon="Book" className="w-6 h-6 text-slate-400" />
                       </div>
                     )}
                     
@@ -389,7 +389,7 @@ export default function ManageLibraryClient() {
                         <div className="flex items-start justify-between gap-2">
                           <p className="font-bold text-sm text-slate-800 line-clamp-2">
                             {book.title_id}
-                            {book.is_featured && <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 inline ml-1.5" />}
+                            {book.is_featured && <AppIcon icon="Star" className="w-3.5 h-3.5 text-amber-400 fill-amber-400 inline ml-1.5" />}
                           </p>
                         </div>
                         {book.author && <p className="text-xs font-medium text-slate-500 truncate mt-0.5">{book.author}</p>}
@@ -414,15 +414,15 @@ export default function ManageLibraryClient() {
 
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100/80">
                     <div className="flex gap-3">
-                      <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500"><Eye className="w-3.5 h-3.5 text-slate-400" /> {book.view_count || 0}</span>
-                      <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500"><Download className="w-3.5 h-3.5 text-slate-400" /> {book.download_count || 0}</span>
+                      <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500"><AppIcon icon="Eye" className="w-3.5 h-3.5 text-slate-400" /> {book.view_count || 0}</span>
+                      <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500"><AppIcon icon="Download" className="w-3.5 h-3.5 text-slate-400" /> {book.download_count || 0}</span>
                     </div>
                     <div className="flex gap-2">
                       <button onClick={() => handleEdit(book)} className="px-3 py-1.5 text-xs font-bold rounded-lg text-green-600 bg-green-50 hover:bg-green-100 transition-colors flex items-center gap-1.5">
-                        <Edit2 className="w-3 h-3" /> Edit
+                        <AppIcon icon="Edit2" className="w-3 h-3" /> Edit
                       </button>
                       <button onClick={() => setDeleteBook(book)} className="px-3 py-1.5 text-xs font-bold rounded-lg text-rose-600 bg-rose-50 hover:bg-rose-100 transition-colors flex items-center gap-1.5">
-                        <Trash2 className="w-3 h-3" /> Hapus
+                        <AppIcon icon="Trash2" className="w-3 h-3" /> Hapus
                       </button>
                     </div>
                   </div>
@@ -636,7 +636,7 @@ function BookFormModalClient({ isOpen, onClose, book, onSuccess, language }: any
         <DialogHeader className="p-6 border-b border-slate-100">
           <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <Book className="w-5 h-5 text-green-500" />
+              <AppIcon icon="Book" className="w-5 h-5 text-green-500" />
             </div>
             {book ? 'Edit Buku' : 'Tambah Buku'}
           </DialogTitle>
@@ -662,7 +662,7 @@ function BookFormModalClient({ isOpen, onClose, book, onSuccess, language }: any
 
             <div className="flex-1 space-y-5">
               <div className="space-y-3">
-                <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><Globe className="w-4 h-4 text-slate-400" /> Konten Multibahasa</h3>
+                <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><AppIcon icon="Globe" className="w-4 h-4 text-slate-400" /> Konten Multibahasa</h3>
                 <Tabs defaultValue="id" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 bg-slate-100 p-1 rounded-xl mb-3">
                     <TabsTrigger value="id" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm px-4 py-2 font-bold text-xs">Indonesia</TabsTrigger>
@@ -743,7 +743,7 @@ function BookFormModalClient({ isOpen, onClose, book, onSuccess, language }: any
 
                 <div className="flex items-center justify-between p-4 bg-green-50 border border-green-100 rounded-xl">
                   <div className="flex items-center gap-2">
-                    <Star className="w-4 h-4 text-green-500" />
+                    <AppIcon icon="Star" className="w-4 h-4 text-green-500" />
                     <div>
                       <p className="font-bold text-slate-800 text-sm">Buku Unggulan</p>
                       <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Tampilkan di bagian depan</p>
@@ -762,13 +762,13 @@ function BookFormModalClient({ isOpen, onClose, book, onSuccess, language }: any
               </div>
 
               <div className="space-y-3 pt-2">
-                <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><FileText className="w-4 h-4 text-slate-400" /> File Buku</h3>
+                <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2"><AppIcon icon="FileText" className="w-4 h-4 text-slate-400" /> File Buku</h3>
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
                   <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-slate-300 rounded-xl cursor-pointer hover:border-green-500 hover:bg-green-50/50 transition-all group mb-3">
                     <input type="file" accept=".pdf,.epub" onChange={handleFileUpload} className="hidden" disabled={uploading} />
-                    {uploading ? <Loader2 className="w-6 h-6 animate-spin text-green-500" /> : (
+                    {uploading ? <AppIcon icon="Loader2" className="w-6 h-6 animate-spin text-green-500" /> : (
                       <>
-                        <Upload className="w-6 h-6 text-slate-400 group-hover:text-green-500 mb-2" />
+                        <AppIcon icon="Upload" className="w-6 h-6 text-slate-400 group-hover:text-green-500 mb-2" />
                         <span className="text-sm font-bold text-slate-600">Upload PDF/EPUB (Maks 50MB)</span>
                       </>
                     )}
@@ -778,12 +778,12 @@ function BookFormModalClient({ isOpen, onClose, book, onSuccess, language }: any
                     <div className="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-xl shadow-sm">
                       <div className="flex items-center gap-2 overflow-hidden">
                         <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-                          <FileText className="w-4 h-4 text-green-500" />
+                          <AppIcon icon="FileText" className="w-4 h-4 text-green-500" />
                         </div>
                         <span className="text-xs font-bold text-slate-700 truncate">{formData.file_url.split('/').pop()}</span>
                       </div>
                       <button type="button" onClick={() => setFormData(prev => ({ ...prev, file_url: '' }))} className="w-8 h-8 flex items-center justify-center rounded-lg bg-rose-50 text-rose-500 hover:bg-rose-100 flex-shrink-0">
-                        <X className="w-4 h-4" />
+                        <AppIcon icon="X" className="w-4 h-4" />
                       </button>
                     </div>
                   )}
@@ -796,7 +796,7 @@ function BookFormModalClient({ isOpen, onClose, book, onSuccess, language }: any
         <DialogFooter className="p-5 border-t border-slate-100 bg-slate-50/80 rounded-b-[2rem]">
           <button onClick={onClose} className="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 font-bold transition-colors">Batal</button>
           <button onClick={handleSubmit} disabled={loading || !formData.title_id.trim()} className="flex items-center justify-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:opacity-50 font-bold shadow-lg shadow-green-600/20 transition-all">
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+            {loading ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : null}
             {book ? 'Simpan Perubahan' : 'Tambah Buku'}
           </button>
         </DialogFooter>

@@ -81,13 +81,7 @@ Akses:
 
 ## 🐳 Panduan Deploy via Docker
 
-### One-Command Docker Setup
-```bash
-bash setup-docker.sh
-```
-Script otomatis akan memeriksa Docker, menyiapkan `.env`, membangun container, dan menunggu database serta API siap.
-
-### Manual Docker Compose
+### Menjalankan dengan Docker Compose
 ```bash
 # Build dan jalankan seluruh container di background
 docker compose up -d --build
@@ -100,29 +94,61 @@ docker compose logs -f
 ```
 
 Ports dan Endpoint Akses:
-- **Frontend Lokal Server**: `http://localhost:3000` (atau `http://10.41.20.245:3002` di server staging)
-- **Akses Publik Remote**: `https://yaninfo.tail14acf1.ts.net:10000` (Tailscale Funnel SSL)
-- **Backend API**: `http://localhost:5005` (atau `http://10.41.20.245:5005`)
+- **Frontend Web**: `http://localhost:3002`
+- **Backend API**: `http://localhost:5005`
 - **Database PostgreSQL**: Port 5432 (Internal bridge network `ragunan-internal`, terisolasi dari publik)
+
+---
+
+## 🚀 Panduan Deploy Produksi (Clean Production Deployment)
+
+Untuk deployment ke server VPS produksi, gunakan arsitektur terisolasi dengan reverse proxy Nginx dan backup otomatis:
+
+### 1. Salin Berkas Environment Produksi
+```bash
+cp .env.example .env
+cp server/.env.example server/.env
+```
+> **Penting**: Ubah `PGPASSWORD`, `JWT_SECRET` (minimal 64 karakter), serta ganti `NEXT_PUBLIC_BACKEND_URL` dan `FRONTEND_URL` dengan domain publik HTTPS asli Anda.
+
+### 2. Jalankan Container Produksi
+```bash
+docker compose -f docker-compose.prod.yml up -d --build
+```
+*Catatan keamanan: Pada mode produksi, port 3002 dan 5005 terikat khusus ke `127.0.0.1` (loopback), sehingga hanya Nginx yang dapat meneruskan lalu lintas web dari internet.*
+
+### 3. Konfigurasi Nginx Reverse Proxy & SSL
+Gunakan berkas konfigurasi siap pakai di `nginx/ragunan.conf`:
+```bash
+sudo cp nginx/ragunan.conf /etc/nginx/sites-available/ragunan.conf
+sudo ln -s /etc/nginx/sites-available/ragunan.conf /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+
+# Pasang sertifikat SSL gratis via Certbot Let's Encrypt:
+sudo certbot --nginx -d ragunanzoo.jakarta.go.id -d www.ragunanzoo.jakarta.go.id
+```
+
+### 4. Pasang Jadwal Backup Database Otomatis (Cron Job)
+Gunakan skrip yang telah disediakan di `scripts/backup_database.sh`:
+```bash
+chmod +x scripts/backup_database.sh
+
+# Tambahkan ke crontab (eksekusi setiap jam 02:00 pagi WIB dengan retensi 14 hari):
+(crontab -l 2>/dev/null; echo "0 2 * * * $(pwd)/scripts/backup_database.sh >> /var/log/ragunan_backup.log 2>&1") | crontab -
+```
 
 ---
 
 ## 🧪 Pengujian & Verifikasi Kualitas
 
-Proyek dilengkapi dengan test suite otomatis:
+Proyek dilengkapi dengan verifikasi kualitas kode:
 
 ```bash
 # 1. Jalankan TypeScript Type Checking (0 errors)
-npx tsc --noEmit
+npm run typecheck
 
 # 2. Jalankan Linter ESLint (0 errors, 0 warnings)
 npm run lint
-
-# 3. Jalankan Automated Audit Verification (Phase 1)
-node scratch/verify_audit.mjs
-
-# 4. Jalankan Enterprise Security Verification (Phase 2)
-node scratch/verify_phase2.mjs
 ```
 
 ---
@@ -154,20 +180,19 @@ web-ragunanzoo/
 │   ├── proxy.ts            # Next.js Edge route guard & HMAC JWT verifier
 │   └── index.css           # Design tokens, CSS variables & spring easing
 ├── Dockerfile              # Multi-stage Next.js production build
-├── docker-compose.yml      # Multi-container orchestration (DB, API, Web)
-├── DEPLOY.md               # Panduan deployment server production
-├── DOCUMENTATION.md        # Dokumentasi arsitektur lengkap
-└── SECURITY_DOCUMENTATION.md# Dokumentasi kepatuhan & pengamanan sistem
+└── docker-compose.yml      # Multi-container orchestration (DB, API, Web)
 ```
 
 ---
 
-## 🔑 Akun Default & Kredensial
+## 🔐 Keamanan & Akun Administratif
 
-| Role | Username | Password Default | Catatan |
-|---|---|---|---|
-| **Admin** | `admin_rival` / `admin` | `admin123` | Wajib ganti saat pertama kali deploy ke production |
+Pada saat inisialisasi basis data awal di server produksi:
+1. Pastikan Anda segera membuat akun administrator melalui skrip `server/scripts/rotate_admin_passwords.js` atau registrasi awal yang terlindungi.
+2. Gunakan kata sandi yang kuat (minimal 12 karakter kombinasi alfanumerik & simbol).
+3. Selalu simpan kredensial administratif di dalam *Secret Manager* atau berkas `.env` privat server yang terlindungi hak aksesnya (`chmod 600`).
 
 ---
 
 *Hak Cipta © 2026 Taman Margasatwa Ragunan.*
+

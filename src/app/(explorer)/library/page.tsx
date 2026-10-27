@@ -1,26 +1,26 @@
 "use client";
 
 import { useState } from 'react';
-import { Book, Download, Search, BookOpen, Filter, Star, Eye, Leaf, PawPrint, Globe, GraduationCap, Compass, Scroll } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useBooks, BOOK_CATEGORIES } from '@/hooks/useBooks';
 
 function renderBookCategoryIcon(categoryValue: string, className: string = "w-3.5 h-3.5") {
   switch (categoryValue) {
     case 'flora':
-      return <Leaf className={className} />;
+      return <AppIcon icon="Leaf" className={className} />;
     case 'fauna':
-      return <PawPrint className={className} />;
+      return <AppIcon icon="PawPrint" className={className} />;
     case 'konservasi':
-      return <Globe className={className} />;
+      return <AppIcon icon="Globe" className={className} />;
     case 'edukasi':
-      return <GraduationCap className={className} />;
+      return <AppIcon icon="GraduationCap" className={className} />;
     case 'panduan':
-      return <Compass className={className} />;
+      return <AppIcon icon="Compass" className={className} />;
     case 'sejarah':
-      return <Scroll className={className} />;
+      return <AppIcon icon="Scroll" className={className} />;
     case 'umum':
     default:
-      return <BookOpen className={className} />;
+      return <AppIcon icon="BookOpen" className={className} />;
   }
 }
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -80,7 +80,7 @@ export default function Library() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <BookOpen className="w-6 h-6" />
+              <AppIcon icon="BookOpen" className="w-6 h-6" />
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold">
@@ -97,7 +97,7 @@ export default function Library() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             {/* Search Bar */}
             <div className="relative flex-1 max-w-xl">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
+              <AppIcon icon="Search" className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
               <input
                 type="text"
                 placeholder={language === 'en' ? 'Search books...' : 'Cari buku...'}
@@ -112,7 +112,7 @@ export default function Library() {
               onClick={() => window.location.href = '/my-library'}
               className="flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl backdrop-blur transition-all text-white font-medium shadow-sm w-max"
             >
-              <Book className="w-5 h-5" />
+              <AppIcon icon="Book" className="w-5 h-5" />
               {language === 'en' ? 'My Library' : 'Koleksi Saya'}
             </button>
           </div>
@@ -154,7 +154,7 @@ export default function Library() {
         {featuredBooks.length > 0 && !searchQuery && !categoryFilter && (
           <div className="mb-10">
             <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
-              <Star className="w-5 h-5 text-secondary" />
+              <AppIcon icon="Star" className="w-5 h-5 text-secondary" />
               {language === 'en' ? 'Featured Books' : 'Buku Unggulan'}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -176,7 +176,7 @@ export default function Library() {
         {/* Stats */}
         <div className="flex items-center gap-4 mb-6 text-sm text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <Book className="w-4 h-4" />
+            <AppIcon icon="Book" className="w-4 h-4" />
             {filteredBooks.length} {language === 'en' ? 'books' : 'buku'}
           </span>
         </div>
@@ -195,7 +195,7 @@ export default function Library() {
         ) : filteredBooks.length === 0 ? (
           <div className="text-center py-16">
             <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <Book className="w-10 h-10 text-muted-foreground/40" />
+              <AppIcon icon="Book" className="w-10 h-10 text-muted-foreground/40" />
             </div>
             <h3 className="text-lg font-semibold text-muted-foreground">
               {language === 'en' ? 'No books found' : 'Tidak ada buku ditemukan'}
@@ -254,7 +254,7 @@ function BookCard({
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
-            <Book className="w-12 h-12 text-primary/40" />
+            <AppIcon icon="Book" className="w-12 h-12 text-primary/40" />
           </div>
         )}
         
@@ -267,14 +267,14 @@ function BookCard({
           {/* Premium Badge */}
           {book.is_premium && (
             <div className="absolute top-2 right-2 px-2 py-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full flex items-center justify-center shadow-lg border border-amber-300">
-              <Star className="w-3 h-3 text-amber-950 fill-amber-950 mr-1" />
+              <AppIcon icon="Star" className="w-3 h-3 text-amber-950 fill-amber-950 mr-1" />
               <span className="text-[10px] font-black text-amber-950 tracking-wider">PREMIUM</span>
             </div>
           )}
           {/* Featured Badge (if not premium) */}
           {book.is_featured && !book.is_premium && (
             <div className="absolute top-2 right-2 w-6 h-6 bg-secondary rounded-full flex items-center justify-center">
-              <Star className="w-3 h-3 text-white fill-white" />
+              <AppIcon icon="Star" className="w-3 h-3 text-white fill-white" />
             </div>
           )}
         </div>
@@ -298,7 +298,7 @@ function BookCard({
                 <span>{book.page_count} {language === 'en' ? 'pages' : 'hal'}</span>
               )}
               <span className="flex items-center gap-0.5">
-                <Eye className="w-3 h-3" />
+                <AppIcon icon="Eye" className="w-3 h-3" />
                 {book.view_count || 0}
               </span>
             </div>
@@ -333,12 +333,12 @@ function BookCard({
             >
               {book.is_premium ? (
                 <>
-                  <Book className="w-3 h-3" />
+                  <AppIcon icon="Book" className="w-3 h-3" />
                   {language === 'en' ? 'Details' : 'Detail'}
                 </>
               ) : (
                 <>
-                  <BookOpen className="w-3 h-3" />
+                  <AppIcon icon="BookOpen" className="w-3 h-3" />
                   {language === 'en' ? 'Read' : 'Baca'}
                 </>
               )}
@@ -350,7 +350,7 @@ function BookCard({
                 disabled={!book.file_url}
                 className="h-8 w-8 rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                <Download className="w-3 h-3" />
+                <AppIcon icon="Download" className="w-3 h-3" />
               </button>
             )}
           </div>

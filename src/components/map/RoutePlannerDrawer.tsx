@@ -1,20 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { 
-  X, 
-  ArrowUpDown, 
-  Navigation, 
-  MapPin, 
-  Footprints, 
-  Clock, 
-  Flame, 
-  Sparkles, 
-  ChevronRight,
-  Search,
-  Check,
-  Compass
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { allMapPoints } from './zoneConfig';
 
@@ -268,7 +255,7 @@ export default function RoutePlannerDrawer({
         <div className="px-5 py-3.5 border-b border-border/70 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">
-              <Navigation className="w-4 h-4" />
+              <AppIcon name="solar:routing-2-bold-duotone" className="w-4 h-4" />
             </div>
             <div>
               <h3 className="font-extrabold text-sm sm:text-base text-foreground tracking-tight">
@@ -285,7 +272,7 @@ export default function RoutePlannerDrawer({
             className="w-8 h-8 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors"
             title="Tutup perencana rute"
           >
-            <X className="w-4 h-4" />
+            <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
           </button>
         </div>
 
@@ -310,7 +297,7 @@ export default function RoutePlannerDrawer({
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <AppIcon name="solar:stars-minimalistic-bold-duotone" className="w-3.5 h-3.5 text-amber-500" />
               <span>{language === 'en' ? 'Thematic Tours' : 'Tur Tematik Ragunan'}</span>
             </button>
           </div>
@@ -354,7 +341,7 @@ export default function RoutePlannerDrawer({
                     className="relative z-10 w-9 h-9 rounded-full bg-background hover:bg-muted border border-border shadow-xs text-primary flex items-center justify-center transition-all hover:scale-110 active:rotate-180"
                     title="Tukar Titik Asal dan Titik Tujuan"
                   >
-                    <ArrowUpDown className="w-4 h-4" />
+                    <AppIcon name="solar:sort-vertical-bold-duotone" className="w-4 h-4" />
                   </button>
                 </div>
 
@@ -377,7 +364,7 @@ export default function RoutePlannerDrawer({
                   {isSelectingDestination ? (
                     <div className="space-y-2">
                       <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+                        <AppIcon name="solar:magnifer-bold-duotone" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
                         <input
                           type="text"
                           value={destSearchQuery}
@@ -401,7 +388,7 @@ export default function RoutePlannerDrawer({
                             }`}
                           >
                             <span className="truncate">{d.name}</span>
-                            {destId === d.id && <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />}
+                            {destId === d.id && <AppIcon name="solar:check-circle-bold" className="w-3.5 h-3.5 text-primary flex-shrink-0" />}
                           </button>
                         ))}
                       </div>
@@ -456,7 +443,7 @@ export default function RoutePlannerDrawer({
               <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-muted/40 border border-border/70 text-center">
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
-                    <Footprints className="w-3 h-3 text-emerald-500" />
+                    <AppIcon name="solar:walking-round-bold-duotone" className="w-3 h-3 text-emerald-500" />
                     Jarak
                   </span>
                   <div className="text-xs sm:text-sm font-extrabold text-foreground">
@@ -466,7 +453,7 @@ export default function RoutePlannerDrawer({
 
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
-                    <Clock className="w-3 h-3 text-sky-500" />
+                    <AppIcon name="solar:clock-circle-bold-duotone" className="w-3 h-3 text-sky-500" />
                     Waktu
                   </span>
                   <div className="text-xs sm:text-sm font-extrabold text-foreground">
@@ -476,7 +463,7 @@ export default function RoutePlannerDrawer({
 
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
-                    <Flame className="w-3 h-3 text-amber-500" />
+                    <AppIcon name="solar:flame-bold-duotone" className="w-3 h-3 text-amber-500" />
                     Kalori
                   </span>
                   <div className="text-xs sm:text-sm font-extrabold text-foreground">
@@ -521,7 +508,7 @@ export default function RoutePlannerDrawer({
                       </div>
                     </div>
 
-                    <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                    <AppIcon name="solar:alt-arrow-right-linear" className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
                   </button>
                 ))}
               </div>
@@ -536,7 +523,7 @@ export default function RoutePlannerDrawer({
             onClick={handleStartRoute}
             className="w-full sm:flex-1 py-3 px-4 rounded-full bg-primary text-primary-foreground font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all hover:scale-[1.01] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
           >
-            <Navigation className="w-4 h-4" />
+            <AppIcon name="solar:routing-2-bold-duotone" className="w-4 h-4" />
             <span>
               {language === 'en' ? 'Start Navigation Route' : 'Mulai Navigasi Rute Ini'}
             </span>

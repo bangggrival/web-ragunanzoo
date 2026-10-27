@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { X, Download, Printer, QrCode, MapPin } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Animal } from '@/hooks/useAnimals';
 
@@ -137,14 +137,14 @@ export default function QRCodeGenerator({ animal, baseUrl, onClose }: QRCodeGene
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-manager-border">
           <div className="flex items-center gap-2">
-            <QrCode className="w-5 h-5 text-manager-primary" />
+            <AppIcon name="solar:qr-code-bold-duotone" className="w-5 h-5 text-manager-primary" />
             <h2 className="font-bold text-lg">QR Code Satwa</h2>
           </div>
           <button 
             onClick={onClose}
             className="p-2 hover:bg-muted rounded-lg transition-colors"
           >
-            <X className="w-5 h-5" />
+            <AppIcon name="solar:close-circle-bold" className="w-5 h-5" />
           </button>
         </div>
 
@@ -178,7 +178,7 @@ export default function QRCodeGenerator({ animal, baseUrl, onClose }: QRCodeGene
             
             {animal.location && (
               <p className="text-sm font-medium text-manager-primary mt-3 px-3 py-2 bg-manager-primary/10 rounded-lg inline-flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-manager-primary shrink-0" />
+                <AppIcon name="solar:map-point-bold-duotone" className="w-3.5 h-3.5 text-manager-primary shrink-0" />
                 <span>{animal.location}</span>
               </p>
             )}
@@ -198,14 +198,14 @@ export default function QRCodeGenerator({ animal, baseUrl, onClose }: QRCodeGene
             variant="outline" 
             className="flex-1 gap-2"
           >
-            <Download className="w-4 h-4" />
+            <AppIcon name="solar:download-bold" className="w-4 h-4" />
             Download PNG
           </Button>
           <Button 
             onClick={handlePrint}
             className="flex-1 gap-2 bg-manager-primary hover:bg-manager-primary/90"
           >
-            <Printer className="w-4 h-4" />
+            <AppIcon name="solar:printer-bold-duotone" className="w-4 h-4" />
             Cetak
           </Button>
         </div>

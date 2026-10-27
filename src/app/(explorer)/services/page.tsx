@@ -10,38 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { 
-  GraduationCap, 
-  FlaskConical, 
-  Stethoscope, 
-  Mic, 
-  ChevronRight, 
-  ChevronLeft,
-  FileText,
-  Upload,
-  Send,
-  CheckCircle2,
-  Download,
-  Calendar as CalendarIcon,
-  Clock,
-  Users,
-  Building2,
-  Phone,
-  Mail,
-  HelpCircle,
-  Sparkles,
-  ClipboardList,
-  Search,
-  Loader2,
-  XCircle,
-  AlertCircle,
-  Check,
-  ShieldCheck,
-  RotateCcw,
-  BookOpen,
-  CalendarDays,
-  FileCheck
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 import { id as idLocale, enUS } from 'date-fns/locale';
@@ -339,10 +308,10 @@ function ServicesContent() {
   };
 
   const stepLabels = [
-    { step: 1, title: isEn ? 'Select Program' : 'Pilih Program', icon: ClipboardList },
-    { step: 2, title: isEn ? 'Personal Data' : 'Data & Spesifikasi', icon: Users },
-    { step: 3, title: isEn ? 'Upload Files' : 'Unggah Berkas', icon: FileText },
-    { step: 4, title: isEn ? 'Review & Submit' : 'Tinjau & Kirim', icon: Send },
+    { step: 1, title: isEn ? 'Select Program' : 'Pilih Program', icon: 'solar:clipboard-list-bold-duotone' },
+    { step: 2, title: isEn ? 'Personal Data' : 'Data & Spesifikasi', icon: 'solar:users-group-two-rounded-bold-duotone' },
+    { step: 3, title: isEn ? 'Upload Files' : 'Unggah Berkas', icon: 'solar:document-text-bold-duotone' },
+    { step: 4, title: isEn ? 'Review & Submit' : 'Tinjau & Kirim', icon: 'solar:plain-bold-duotone' },
   ];
 
   const progressPercent = ((currentStep - 1) / 3) * 100;
@@ -353,7 +322,7 @@ function ServicesContent() {
       {/* Atmospheric Hero Header */}
       <AtmosphericHeader
         theme="tickets"
-        icon={<GraduationCap className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" />}
+        icon={<AppIcon icon="GraduationCap" className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" />}
         title={isEn ? 'Public Service Portal' : 'Portal Layanan Publik'}
         description={
           isEn
@@ -366,15 +335,15 @@ function ServicesContent() {
         ]}
         stats={[
           {
-            icon: <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />,
+            icon: <AppIcon icon="ShieldCheck" className="w-3.5 h-3.5 text-emerald-400" />,
             label: isEn ? '100% Free (Rp 0)' : '100% Bebas Biaya (Rp 0)',
           },
           {
-            icon: <Clock className="w-3.5 h-3.5 text-sky-400" />,
+            icon: <AppIcon icon="Clock" className="w-3.5 h-3.5 text-sky-400" />,
             label: isEn ? '7-Day Review SLA' : 'Respon 7 Hari Kerja',
           },
           {
-            icon: <BookOpen className="w-3.5 h-3.5 text-amber-400" />,
+            icon: <AppIcon icon="BookOpen" className="w-3.5 h-3.5 text-amber-400" />,
             label: isEn ? '4 Academic Paths' : '4 Jalur Pendaftaran',
           },
         ]}
@@ -394,7 +363,7 @@ function ServicesContent() {
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            <BookOpen className={`w-4 h-4 ${activeTab === 'guide' ? 'text-primary' : ''}`} />
+            <AppIcon icon="BookOpen" className={`w-4 h-4 ${activeTab === 'guide' ? 'text-primary' : ''}`} />
             <span>{isEn ? 'Requirements Guide' : 'Panduan & Persyaratan'}</span>
           </button>
 
@@ -409,7 +378,7 @@ function ServicesContent() {
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            <ClipboardList className={`w-4 h-4 ${activeTab === 'form' ? 'text-primary' : ''}`} />
+            <AppIcon icon="ClipboardList" className={`w-4 h-4 ${activeTab === 'form' ? 'text-primary' : ''}`} />
             <span>{isEn ? 'Application Form' : 'Formulir Pendaftaran'}</span>
           </button>
 
@@ -421,7 +390,7 @@ function ServicesContent() {
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            <Search className={`w-4 h-4 ${activeTab === 'track' ? 'text-primary' : ''}`} />
+            <AppIcon icon="Search" className={`w-4 h-4 ${activeTab === 'track' ? 'text-primary' : ''}`} />
             <span>{isEn ? 'Live Status Tracker' : 'Live Tracker Status'}</span>
           </button>
 
@@ -433,7 +402,7 @@ function ServicesContent() {
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            <CalendarDays className={`w-4 h-4 ${activeTab === 'calendar' ? 'text-primary' : ''}`} />
+            <AppIcon icon="CalendarDays" className={`w-4 h-4 ${activeTab === 'calendar' ? 'text-primary' : ''}`} />
             <span>{isEn ? 'Quota & Calendar' : 'Jadwal & Kuota'}</span>
           </button>
 
@@ -494,7 +463,7 @@ function ServicesContent() {
 
                   {/* 4 Step Number Markers */}
                   <div className="grid grid-cols-4 gap-2">
-                    {stepLabels.map(({ step, title, icon: Icon }) => {
+                    {stepLabels.map(({ step, title }) => {
                       const isDone = currentStep > step;
                       const isCurrent = currentStep === step;
                       return (
@@ -511,7 +480,7 @@ function ServicesContent() {
                                 ? 'bg-primary text-primary-foreground shadow-md ring-2 ring-primary/20' 
                                 : 'bg-muted text-muted-foreground'
                           }`}>
-                            {isDone ? <Check className="w-4 h-4" /> : step}
+                            {isDone ? <AppIcon icon="Check" className="w-4 h-4" /> : step}
                           </div>
                           <span className="text-xs font-bold truncate hidden sm:inline">
                             {title}
@@ -553,7 +522,7 @@ function ServicesContent() {
                           <div>
                             <div className="flex items-center justify-between mb-3">
                               <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
-                                <GraduationCap className="w-6 h-6" />
+                                <AppIcon icon="GraduationCap" className="w-6 h-6" />
                               </div>
                               <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 text-[10px]">
                                 SMK & Mahasiswa
@@ -584,7 +553,7 @@ function ServicesContent() {
                           <div>
                             <div className="flex items-center justify-between mb-3">
                               <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 flex items-center justify-center">
-                                <FlaskConical className="w-6 h-6" />
+                                <AppIcon icon="FlaskConical" className="w-6 h-6" />
                               </div>
                               <Badge className="bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30 text-[10px]">
                                 S1, S2, S3 & Peneliti
@@ -615,7 +584,7 @@ function ServicesContent() {
                           <div>
                             <div className="flex items-center justify-between mb-3">
                               <div className="w-12 h-12 rounded-2xl bg-teal-500/10 text-teal-600 flex items-center justify-center">
-                                <Stethoscope className="w-6 h-6" />
+                                <AppIcon icon="Stethoscope" className="w-6 h-6" />
                               </div>
                               <Badge className="bg-teal-500/10 text-teal-700 dark:text-teal-400 border-teal-500/30 text-[10px]">
                                 Profesi Dokter Hewan
@@ -646,7 +615,7 @@ function ServicesContent() {
                           <div>
                             <div className="flex items-center justify-between mb-3">
                               <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center">
-                                <Mic className="w-6 h-6" />
+                                <AppIcon icon="Mic" className="w-6 h-6" />
                               </div>
                               <Badge className="bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30 text-[10px]">
                                 Media & Jurnalis
@@ -676,7 +645,7 @@ function ServicesContent() {
                       {/* Section A: Identitas Pemohon */}
                       <div className="space-y-4">
                         <h4 className="font-bold text-sm text-foreground uppercase tracking-wider flex items-center gap-2 border-b pb-2">
-                          <Users className="w-4 h-4 text-primary" />
+                          <AppIcon icon="Users" className="w-4 h-4 text-primary" />
                           <span>Identitas Pemohon / Ketua Tim</span>
                         </h4>
 
@@ -756,7 +725,7 @@ function ServicesContent() {
                       {/* Section B: Detail Spesifik Program */}
                       <div className="space-y-4 pt-2">
                         <h4 className="font-bold text-sm text-foreground uppercase tracking-wider flex items-center gap-2 border-b pb-2">
-                          <CalendarIcon className="w-4 h-4 text-primary" />
+                          <AppIcon icon="Calendar" className="w-4 h-4 text-primary" />
                           <span>Detail Jadwal & Spesifikasi Program</span>
                         </h4>
 
@@ -901,7 +870,7 @@ function ServicesContent() {
                     <div className="space-y-6">
                       
                       <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3">
-                        <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                        <AppIcon icon="AlertCircle" className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                         <div className="text-xs text-foreground/90 space-y-1">
                           <p className="font-bold text-amber-800 dark:text-amber-300">
                             Ketentuan Unggah Berkas:
@@ -921,7 +890,7 @@ function ServicesContent() {
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         />
                         <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-3 shadow-inner group-hover:scale-105 transition-transform">
-                          <Upload className="w-8 h-8" />
+                          <AppIcon icon="Upload" className="w-8 h-8" />
                         </div>
                         <h4 className="font-bold text-sm sm:text-base text-foreground mb-1">
                           {isEn ? 'Drop your files here or click to browse' : 'Tarik berkas persyaratan ke sini atau klik untuk memilih file'}
@@ -944,7 +913,7 @@ function ServicesContent() {
                                 className="p-3 rounded-2xl bg-muted/40 border border-border/70 flex items-center justify-between gap-3 text-xs"
                               >
                                 <div className="flex items-center gap-2.5 truncate">
-                                  <FileCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                                  <AppIcon icon="FileCheck" className="w-4 h-4 text-emerald-600 shrink-0" />
                                   <span className="font-semibold text-foreground truncate">{file.name}</span>
                                   <span className="text-[10px] font-mono text-muted-foreground shrink-0">
                                     ({(file.size / 1024 / 1024).toFixed(2)} MB)
@@ -966,7 +935,7 @@ function ServicesContent() {
                       {/* Official Downloadable Shortcut */}
                       <div className="p-4 rounded-2xl bg-card border border-border/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
                         <div className="flex items-center gap-2.5">
-                          <Download className="w-4 h-4 text-primary shrink-0" />
+                          <AppIcon icon="Download" className="w-4 h-4 text-primary shrink-0" />
                           <span className="text-muted-foreground">
                             Belum memiliki format Surat Pernyataan atau Formulir Magang?
                           </span>
@@ -989,7 +958,7 @@ function ServicesContent() {
                       
                       <div className="p-4 rounded-2xl bg-primary/5 border border-primary/20 space-y-1">
                         <h4 className="font-bold text-sm text-foreground flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-primary" />
+                          <AppIcon icon="CheckCircle2" className="w-4 h-4 text-primary" />
                           <span>Tinjau Data Pendaftaran Sebelum Mengirim</span>
                         </h4>
                         <p className="text-xs text-muted-foreground">
@@ -1074,7 +1043,7 @@ function ServicesContent() {
                       onClick={handleBack}
                       className="px-5 py-2.5 rounded-xl border border-border bg-card hover:bg-muted font-bold text-xs sm:text-sm text-foreground transition-all flex items-center gap-1.5"
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <AppIcon icon="ChevronLeft" className="w-4 h-4" />
                       <span>{isEn ? 'Previous' : 'Sebelumnya'}</span>
                     </button>
                   ) : <div />}
@@ -1087,7 +1056,7 @@ function ServicesContent() {
                       className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs sm:text-sm shadow-md transition-all flex items-center gap-1.5 disabled:opacity-50 hover:scale-[1.02]"
                     >
                       <span>{isEn ? 'Next Step' : 'Langkah Berikutnya'}</span>
-                      <ChevronRight className="w-4 h-4" />
+                      <AppIcon icon="ChevronRight" className="w-4 h-4" />
                     </button>
                   ) : (
                     <button
@@ -1098,12 +1067,12 @@ function ServicesContent() {
                     >
                       {createRegistration.isPending ? (
                         <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" />
                           <span>{isEn ? 'Submitting...' : 'Mengirim Pengajuan...'}</span>
                         </>
                       ) : (
                         <>
-                          <Send className="w-4 h-4" />
+                          <AppIcon icon="Send" className="w-4 h-4" />
                           <span>{isEn ? 'Submit Application Now' : 'Kirim Pengajuan Sekarang'}</span>
                         </>
                       )}
@@ -1136,7 +1105,7 @@ function ServicesContent() {
             <Card className="rounded-3xl border-border/80 shadow-sm p-6 md:p-8">
               <CardHeader className="p-0 pb-6">
                 <CardTitle className="text-xl sm:text-2xl font-black text-foreground flex items-center gap-2">
-                  <CalendarDays className="w-6 h-6 text-primary" />
+                  <AppIcon icon="CalendarDays" className="w-6 h-6 text-primary" />
                   <span>{isEn ? 'Quota & Schedule Availability' : 'Kalender Ketersediaan Kuota Magang & Penelitian'}</span>
                 </CardTitle>
                 <CardDescription className="text-xs sm:text-sm">
@@ -1170,7 +1139,7 @@ export default function ServicesPage() {
   return (
     <Suspense fallback={
       <div className="p-20 text-center">
-        <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
+        <AppIcon icon="Loader2" className="w-8 h-8 animate-spin mx-auto text-primary" />
       </div>
     }>
       <ServicesContent />

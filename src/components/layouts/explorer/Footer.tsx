@@ -4,19 +4,7 @@ import { useOrganizationMemberships } from '@/hooks/useOrganizationMemberships';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock, 
-  ChevronRight, 
-  Leaf, 
-  ShieldCheck,
-  Sparkles,
-  Ticket,
-  ArrowUp,
-  ExternalLink
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { SiteSettings } from '@/hooks/useSiteSettings';
 
 interface FooterProps {
@@ -117,7 +105,7 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
         <div className="container mx-auto px-4 lg:px-8 py-3.5 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-3 text-center sm:text-left">
             <div className="w-8 h-8 rounded-xl bg-[#94be2d]/15 border border-[#94be2d]/30 flex items-center justify-center text-[#a6cf38] flex-shrink-0 hidden sm:flex">
-              <Sparkles className="w-4 h-4 text-[#a6cf38]" />
+              <AppIcon icon="solar:stars-minimalistic-bold-duotone" className="w-4 h-4 text-[#a6cf38]" />
             </div>
             <div>
               <p className="text-xs sm:text-sm font-bold text-[#FFF6E8]">
@@ -135,9 +123,9 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#94be2d] hover:bg-[#85ab28] text-white text-xs font-bold transition-all duration-200 shadow-sm hover:scale-102 active:scale-98 flex-shrink-0 group"
           >
-            <Ticket className="w-3.5 h-3.5 text-[#eef7d5]" />
+            <AppIcon icon="solar:ticket-bold-duotone" className="w-3.5 h-3.5 text-[#eef7d5]" />
             <span>{language === 'en' ? 'Book Tickets Online' : 'Pesan Tiket Online'}</span>
-            <ExternalLink className="w-3.5 h-3.5 text-[#eef7d5] group-hover:translate-x-0.5 transition-transform" />
+            <AppIcon icon="solar:arrow-right-up-linear" className="w-3.5 h-3.5 text-[#eef7d5] group-hover:translate-x-0.5 transition-transform" />
           </a>
         </div>
       </div>
@@ -162,7 +150,7 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
               ) : (
                 <div className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-[#94be2d]/15 border border-[#94be2d]/30 flex items-center justify-center">
-                    <Leaf className="w-4 h-4 text-[#94be2d]" />
+                    <AppIcon icon="solar:leaf-bold-duotone" className="w-4 h-4 text-[#94be2d]" />
                   </div>
                   <span className="text-lg font-bold tracking-tight text-[#FFF6E8]">
                     Taman Margasatwa Ragunan
@@ -226,7 +214,7 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
                     href={link.href}
                     className="inline-flex items-center gap-1.5 text-[#c2b099] hover:text-[#FFF6E8] hover:translate-x-1 transition-all duration-150 py-0.5 group"
                   >
-                    <ChevronRight className="w-3.5 h-3.5 text-[#6e5847] group-hover:text-[#a6cf38] transition-colors" />
+                    <AppIcon icon="solar:alt-arrow-right-linear" className="w-3.5 h-3.5 text-[#6e5847] group-hover:text-[#a6cf38] transition-colors" />
                     <span>{language === 'en' ? link.label_en : link.label_id}</span>
                   </Link>
                 </li>
@@ -252,7 +240,7 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
                     href={link.href}
                     className="inline-flex items-center gap-1.5 text-[#c2b099] hover:text-[#FFF6E8] hover:translate-x-1 transition-all duration-150 py-0.5 group"
                   >
-                    <ChevronRight className="w-3.5 h-3.5 text-[#6e5847] group-hover:text-[#a6cf38] transition-colors" />
+                    <AppIcon icon="solar:alt-arrow-right-linear" className="w-3.5 h-3.5 text-[#6e5847] group-hover:text-[#a6cf38] transition-colors" />
                     <span>{language === 'en' ? link.label_en : link.label_id}</span>
                   </Link>
                 </li>
@@ -270,7 +258,7 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
               {/* Click-to-Maps */}
               <li className="flex items-start gap-2.5 group">
                 <div className="w-7 h-7 rounded-lg bg-[#2b2019] border border-[#3e2e23] text-[#94be2d] flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#382a20] group-hover:border-[#94be2d]/40 group-hover:scale-105 transition-all">
-                  <MapPin className="w-3.5 h-3.5 text-[#94be2d]" />
+                  <AppIcon icon="solar:map-point-bold-duotone" className="w-3.5 h-3.5 text-[#94be2d]" />
                 </div>
                 <a
                   href="https://maps.google.com/?q=Taman+Margasatwa+Ragunan+Jakarta"
@@ -280,14 +268,14 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
                   title={language === 'en' ? 'Open directions in Google Maps' : 'Buka petunjuk arah di Google Maps'}
                 >
                   <span>{settings?.contact_address || 'Jl. Harsono RM No. 1, Ragunan, Pasar Minggu, Jakarta Selatan 12550'}</span>
-                  <ExternalLink className="w-3 h-3 text-[#6e5847] group-hover/link:text-[#a6cf38] inline-block opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                  <AppIcon icon="solar:arrow-right-up-linear" className="w-3 h-3 text-[#6e5847] group-hover/link:text-[#a6cf38] inline-block opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                 </a>
               </li>
 
               {/* Click-to-Call */}
               <li className="flex items-center gap-2.5 group">
                 <div className="w-7 h-7 rounded-lg bg-[#2b2019] border border-[#3e2e23] text-[#94be2d] flex items-center justify-center flex-shrink-0 group-hover:bg-[#382a20] group-hover:border-[#94be2d]/40 group-hover:scale-105 transition-all">
-                  <Phone className="w-3.5 h-3.5 text-[#94be2d]" />
+                  <AppIcon icon="solar:phone-bold-duotone" className="w-3.5 h-3.5 text-[#94be2d]" />
                 </div>
                 <a
                   href={`tel:${(settings?.contact_phone || '(021) 7884 7114').replace(/[^0-9+]/g, '')}`}
@@ -301,7 +289,7 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
               {/* Click-to-Email */}
               <li className="flex items-center gap-2.5 group">
                 <div className="w-7 h-7 rounded-lg bg-[#2b2019] border border-[#3e2e23] text-[#94be2d] flex items-center justify-center flex-shrink-0 group-hover:bg-[#382a20] group-hover:border-[#94be2d]/40 group-hover:scale-105 transition-all">
-                  <Mail className="w-3.5 h-3.5 text-[#94be2d]" />
+                  <AppIcon icon="solar:letter-bold-duotone" className="w-3.5 h-3.5 text-[#94be2d]" />
                 </div>
                 <a
                   href={`mailto:${settings?.contact_email || 'ragunanzoo@jakarta.go.id'}`}
@@ -423,7 +411,7 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
             </Link>
             <span className="text-[#4a3a2f]">•</span>
             <span className="text-[#8c7662] flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#94be2d]/80" />
+              <AppIcon icon="solar:shield-check-bold-duotone" className="w-3.5 h-3.5 text-[#94be2d]/80" />
               <span>{language === 'en' ? 'Official Gov Portal' : 'Portal Resmi Pemprov DKI'}</span>
             </span>
             <span className="text-[#4a3a2f] hidden sm:inline">•</span>
@@ -434,7 +422,7 @@ export default function Footer({ settings: propSettings, settingsLoading: propLo
               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#28201a] hover:bg-[#94be2d]/20 border border-[#3e2e23] hover:border-[#94be2d]/40 text-[#c2b099] hover:text-[#FFF6E8] transition-all text-[11px] font-medium group active:scale-95"
               title={language === 'en' ? 'Back to top' : 'Kembali ke atas'}
             >
-              <ArrowUp className="w-3 h-3 text-[#94be2d] group-hover:-translate-y-0.5 transition-transform" />
+              <AppIcon icon="solar:arrow-up-linear" className="w-3 h-3 text-[#94be2d] group-hover:-translate-y-0.5 transition-transform" />
               <span>{language === 'en' ? 'Top' : 'Ke Atas'}</span>
             </button>
           </div>

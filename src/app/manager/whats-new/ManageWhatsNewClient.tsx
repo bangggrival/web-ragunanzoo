@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
-import { Sparkles, Plus, Edit2, Trash2, X, Globe, PawPrint, Calendar, Newspaper, Building2, Upload, Loader2, Image as ImageIcon, LayoutTemplate } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { WhatsNewItem } from '@/hooks/useWhatsNewItems';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -16,10 +16,10 @@ import { Badge } from '@/components/ui/badge';
 import { deleteWhatsNewItemAction, upsertWhatsNewItemAction } from './actions';
 
 const typeConfig = {
-  animal: { icon: PawPrint, label: 'Satwa', color: 'bg-green-50 text-green-600 border-green-200' },
-  event: { icon: Calendar, label: 'Event', color: 'bg-green-50 text-green-600 border-green-200' },
-  news: { icon: Newspaper, label: 'Berita', color: 'bg-blue-50 text-blue-600 border-blue-200' },
-  venue: { icon: Building2, label: 'Venue', color: 'bg-amber-50 text-amber-600 border-amber-200' },
+  animal: { icon: (props: any) => <AppIcon icon="PawPrint" {...props} />, label: 'Satwa', color: 'bg-green-50 text-green-600 border-green-200' },
+  event: { icon: (props: any) => <AppIcon icon="Calendar" {...props} />, label: 'Event', color: 'bg-green-50 text-green-600 border-green-200' },
+  news: { icon: (props: any) => <AppIcon icon="Newspaper" {...props} />, label: 'Berita', color: 'bg-blue-50 text-blue-600 border-blue-200' },
+  venue: { icon: (props: any) => <AppIcon icon="Building2" {...props} />, label: 'Venue', color: 'bg-amber-50 text-amber-600 border-amber-200' },
 };
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
@@ -234,21 +234,21 @@ export default function ManageWhatsNewClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <LayoutTemplate className="w-5 h-5 text-green-500" />
+              <AppIcon icon="LayoutTemplate" className="w-5 h-5 text-green-500" />
             </div>
             Yang Terbaru
           </h1>
           <p className="text-slate-500 font-medium mt-1 ml-13">Kelola konten yang tampil di carousel "Yang Terbaru"</p>
         </div>
         <button onClick={handleAdd} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(99,102,241,0.5)] hover:-translate-y-0.5">
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           <span className="hidden sm:inline">Tambah Item</span>
         </button>
       </div>
 
       <div className="bg-gradient-to-r from-green-50 to-violet-50 rounded-[1.5rem] p-5 border border-green-100 flex gap-4">
         <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm flex-shrink-0">
-          <Sparkles className="w-6 h-6 text-green-500" />
+          <AppIcon icon="Sparkles" className="w-6 h-6 text-green-500" />
         </div>
         <div>
           <h3 className="font-bold text-green-900 mb-1">Tentang Yang Terbaru</h3>
@@ -314,11 +314,11 @@ export default function ManageWhatsNewClient() {
                 
                 <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-100">
                   <Button variant="outline" className="flex-1 rounded-xl h-10 border-slate-200 font-bold text-slate-600 bg-white hover:bg-slate-50 hover:text-green-600" onClick={() => handleEdit(item)}>
-                    <Edit2 className="w-4 h-4 mr-2" />
+                    <AppIcon icon="Edit2" className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
                   <Button variant="outline" className="w-10 h-10 rounded-xl border-slate-200 bg-white hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 p-0 flex items-center justify-center transition-colors" onClick={() => handleDelete(item.id)}>
-                    <Trash2 className="w-4 h-4" />
+                    <AppIcon icon="Trash2" className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
@@ -330,7 +330,7 @@ export default function ManageWhatsNewClient() {
       {items.length === 0 && (
         <div className="text-center py-16 bg-white/60 backdrop-blur-xl border border-white/80 rounded-[1.5rem] shadow-sm">
           <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100">
-            <Sparkles className="w-8 h-8 text-slate-300" />
+            <AppIcon icon="Sparkles" className="w-8 h-8 text-slate-300" />
           </div>
           <p className="font-bold text-slate-600 mb-1">Belum ada item</p>
           <p className="text-sm font-medium text-slate-500">Tambah item untuk ditampilkan di carousel "Yang Terbaru"</p>
@@ -343,14 +343,14 @@ export default function ManageWhatsNewClient() {
             <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-white/50">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center border border-green-100">
-                  <Sparkles className="w-5 h-5 text-green-500" />
+                  <AppIcon icon="Sparkles" className="w-5 h-5 text-green-500" />
                 </div>
                 <div>
                   <h2 className="text-xl font-bold text-slate-800">{selectedItem ? 'Edit Item' : 'Tambah Item Baru'}</h2>
                 </div>
               </div>
               <button onClick={() => setShowModal(false)} className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
-                <X className="w-5 h-5 text-slate-400" />
+                <AppIcon icon="X" className="w-5 h-5 text-slate-400" />
               </button>
             </div>
 
@@ -364,25 +364,25 @@ export default function ManageWhatsNewClient() {
                   <SelectContent className="rounded-xl border-slate-100 shadow-xl">
                     <SelectItem value="animal" className="font-medium rounded-lg">
                       <div className="flex items-center gap-2">
-                        <PawPrint className="w-4 h-4 text-emerald-600" />
+                        <AppIcon icon="PawPrint" className="w-4 h-4 text-emerald-600" />
                         <span>Satwa</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="event" className="font-medium rounded-lg">
                       <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-emerald-600" />
+                        <AppIcon icon="Calendar" className="w-4 h-4 text-emerald-600" />
                         <span>Event</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="news" className="font-medium rounded-lg">
                       <div className="flex items-center gap-2">
-                        <Newspaper className="w-4 h-4 text-blue-600" />
+                        <AppIcon icon="Newspaper" className="w-4 h-4 text-blue-600" />
                         <span>Berita</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="venue" className="font-medium rounded-lg">
                       <div className="flex items-center gap-2">
-                        <Building2 className="w-4 h-4 text-amber-600" />
+                        <AppIcon icon="Building2" className="w-4 h-4 text-amber-600" />
                         <span>Venue</span>
                       </div>
                     </SelectItem>
@@ -392,7 +392,7 @@ export default function ManageWhatsNewClient() {
 
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-sm font-bold text-slate-800 border-b border-slate-100 pb-2">
-                  <Globe className="w-4 h-4 text-green-500" />
+                  <AppIcon icon="Globe" className="w-4 h-4 text-green-500" />
                   Konten Multibahasa
                 </div>
                 
@@ -431,7 +431,7 @@ export default function ManageWhatsNewClient() {
                     <img src={formData.image_url} alt="Preview" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                       <button type="button" onClick={() => setFormData(prev => ({ ...prev, image_url: '' }))} className="w-10 h-10 bg-rose-500 text-white rounded-xl flex items-center justify-center hover:bg-rose-600 transition-transform hover:scale-110 shadow-lg">
-                        <X className="w-5 h-5" />
+                        <AppIcon icon="X" className="w-5 h-5" />
                       </button>
                     </div>
                   </div>
@@ -441,11 +441,11 @@ export default function ManageWhatsNewClient() {
                   <div className="flex gap-2">
                     <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" disabled={uploading} />
                     <Button type="button" variant="outline" className="flex-1 rounded-xl h-12 border-slate-200 bg-slate-50 hover:bg-slate-100 hover:text-green-600 font-bold border-dashed border-2" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
-                      {uploading ? <Loader2 className="w-5 h-5 animate-spin mr-2 text-green-500" /> : <Upload className="w-5 h-5 mr-2 text-slate-400" />}
+                      {uploading ? <AppIcon icon="Loader2" className="w-5 h-5 animate-spin mr-2 text-green-500" /> : <AppIcon icon="Upload" className="w-5 h-5 mr-2 text-slate-400" />}
                       {uploading ? 'Mengupload...' : 'Upload Gambar'}
                     </Button>
                     <Button type="button" variant="outline" className="w-12 h-12 rounded-xl border-slate-200 bg-slate-50 hover:bg-slate-100 p-0 flex items-center justify-center" onClick={() => { const url = prompt('Masukkan URL gambar:'); if (url) setFormData(prev => ({ ...prev, image_url: url })); }} title="Masukkan URL gambar">
-                      <ImageIcon className="w-5 h-5 text-slate-400" />
+                      <AppIcon icon="Image" className="w-5 h-5 text-slate-400" />
                     </Button>
                   </div>
                 )}

@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useVenueHeroSettings, VenueHeroSettings } from '@/hooks/useVenueHeroSettings';
 import { toast } from 'sonner';
-import { Loader2, Sparkles, CheckCircle2, PartyPopper, Filter } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 interface VenueHeroSettingsModalProps {
   isOpen: boolean;
@@ -50,7 +50,7 @@ export function VenueHeroSettingsModal({ isOpen, onClose }: VenueHeroSettingsMod
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-6 rounded-3xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-emerald-600" />
+            <AppIcon icon="Sparkles" className="w-5 h-5 text-emerald-600" />
             Pengaturan Konten Halaman Sewa Tempat
           </DialogTitle>
           <DialogDescription className="text-xs text-muted-foreground">
@@ -138,7 +138,7 @@ export function VenueHeroSettingsModal({ isOpen, onClose }: VenueHeroSettingsMod
               {/* Highlights 1, 2, 3 */}
               <div className="border border-border/60 rounded-2xl p-4 space-y-3 bg-muted/20">
                 <Label className="text-xs font-bold flex items-center gap-1.5 text-primary">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <AppIcon icon="CheckCircle2" className="w-3.5 h-3.5" />
                   Pill Keunggulan (Highlights Header)
                 </Label>
                 
@@ -201,7 +201,7 @@ export function VenueHeroSettingsModal({ isOpen, onClose }: VenueHeroSettingsMod
             <div className="space-y-4 pt-1">
               <div className="p-3 bg-emerald-50/50 border border-emerald-200/60 rounded-2xl">
                 <Label className="text-xs font-bold text-emerald-900 flex items-center gap-1.5 mb-1">
-                  <Filter className="w-3.5 h-3.5 text-emerald-600" />
+                  <AppIcon icon="Filter" className="w-3.5 h-3.5 text-emerald-600" />
                   Pengaturan Label Filter Kategori (Pill Bar)
                 </Label>
                 <p className="text-[11px] text-emerald-800/80">
@@ -295,7 +295,7 @@ export function VenueHeroSettingsModal({ isOpen, onClose }: VenueHeroSettingsMod
               {/* 4 Cards Form */}
               <div className="space-y-3 pt-2">
                 <Label className="text-xs font-bold flex items-center gap-1.5 text-primary">
-                  <PartyPopper className="w-3.5 h-3.5" />
+                  <AppIcon icon="PartyPopper" className="w-3.5 h-3.5" />
                   Daftar 4 Kartu Kegiatan
                 </Label>
 
@@ -387,7 +387,7 @@ export function VenueHeroSettingsModal({ isOpen, onClose }: VenueHeroSettingsMod
             <Button type="submit" disabled={isSubmitting} className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin mr-2" />
+                  <AppIcon icon="Loader2" className="w-3.5 h-3.5 animate-spin mr-2" />
                   Menyimpan...
                 </>
               ) : (

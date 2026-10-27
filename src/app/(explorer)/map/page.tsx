@@ -2,39 +2,7 @@
 
 import { useState, useRef, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { 
-  MapPin, 
-  Loader2, 
-  ImageOff, 
-  Info, 
-  ZoomIn, 
-  ZoomOut, 
-  RotateCcw, 
-  Download, 
-  PawPrint, 
-  Compass, 
-  Sparkles, 
-  Layers, 
-  ChevronRight, 
-  Crosshair, 
-  Search, 
-  X, 
-  Footprints, 
-  Maximize2, 
-  Minimize2, 
-  Navigation,
-  Map as MapIcon,
-  Bath,
-  Train,
-  Ticket,
-  Utensils,
-  HeartPulse,
-  Car,
-  Check,
-  ChevronDown,
-  Milestone,
-  Route as RouteIcon
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -714,7 +682,7 @@ function ExplorerMapContent() {
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
               }`}
             >
-              <Navigation className="w-3.5 h-3.5 flex-shrink-0" />
+              <AppIcon icon="Navigation" className="w-3.5 h-3.5 flex-shrink-0" />
               <span className="hidden sm:inline whitespace-nowrap">{language === 'en' ? 'Interactive GPS' : 'Interaktif GPS'}</span>
               <span className="sm:hidden font-bold">GPS</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping flex-shrink-0" />
@@ -727,7 +695,7 @@ function ExplorerMapContent() {
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
               }`}
             >
-              <MapIcon className="w-3.5 h-3.5 flex-shrink-0" />
+              <AppIcon icon="Map" className="w-3.5 h-3.5 flex-shrink-0" />
               <span className="hidden sm:inline">Brosur</span>
             </button>
           </div>
@@ -743,7 +711,7 @@ function ExplorerMapContent() {
               }`}
               title="Perencana Rute Pejalan Kaki Titik A ke B"
             >
-              <Milestone className={`w-3.5 h-3.5 flex-shrink-0 ${isNavigatingActive ? 'text-white' : 'text-primary'}`} />
+              <AppIcon icon="Milestone" className={`w-3.5 h-3.5 flex-shrink-0 ${isNavigatingActive ? 'text-white' : 'text-primary'}`} />
               <span className="whitespace-nowrap">{language === 'en' ? 'Route' : 'Rute'}</span>
               {isNavigatingActive && (
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
@@ -755,7 +723,7 @@ function ExplorerMapContent() {
                 className="w-7.5 h-7.5 sm:w-9 sm:h-9 rounded-full bg-red-500/15 hover:bg-red-500/25 text-red-600 dark:text-red-400 border border-red-500/30 flex items-center justify-center text-xs font-bold transition-all active:scale-90 flex-shrink-0 touch-manipulation cursor-pointer"
                 title="Hentikan Rute Navigasi"
               >
-                <X className="w-3.5 h-3.5" />
+                <AppIcon icon="X" className="w-3.5 h-3.5" />
               </button>
             )}
           </div>
@@ -773,9 +741,9 @@ function ExplorerMapContent() {
                     className="inline-flex items-center justify-center w-7.5 h-7.5 sm:w-auto sm:h-9 sm:gap-1.5 sm:px-3 rounded-full bg-card hover:bg-muted text-foreground border border-border/80 text-xs font-bold shadow-2xs transition-all active:scale-90 flex-shrink-0 touch-manipulation cursor-pointer"
                     title="Pilih Lapisan Peta"
                   >
-                    <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+                    <AppIcon icon="Layers" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
                     <span className="hidden sm:inline whitespace-nowrap">{language === 'en' ? 'Layers' : 'Lapisan'}</span>
-                    <ChevronDown className="hidden sm:block w-3 h-3 text-muted-foreground flex-shrink-0" />
+                    <AppIcon icon="ChevronDown" className="hidden sm:block w-3 h-3 text-muted-foreground flex-shrink-0" />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-52 p-1.5 rounded-2xl border-border/80 shadow-xl bg-card">
@@ -787,7 +755,7 @@ function ExplorerMapContent() {
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
                       <span>Peta Wisata Ragunan</span>
                     </div>
-                    {activeBasemap === 'osmHot' && <Check className="w-3.5 h-3.5 text-primary" />}
+                    {activeBasemap === 'osmHot' && <AppIcon icon="Check" className="w-3.5 h-3.5 text-primary" />}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => handleBasemapSelect('osmStandard')}
@@ -797,7 +765,7 @@ function ExplorerMapContent() {
                       <span className="w-2 h-2 rounded-full bg-slate-500" />
                       <span>Peta Jalan Standar</span>
                     </div>
-                    {activeBasemap === 'osmStandard' && <Check className="w-3.5 h-3.5 text-primary" />}
+                    {activeBasemap === 'osmStandard' && <AppIcon icon="Check" className="w-3.5 h-3.5 text-primary" />}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => handleBasemapSelect('satellite')}
@@ -807,7 +775,7 @@ function ExplorerMapContent() {
                       <span className="w-2 h-2 rounded-full bg-sky-500" />
                       <span>Citra Satelit HD</span>
                     </div>
-                    {activeBasemap === 'satellite' && <Check className="w-3.5 h-3.5 text-primary" />}
+                    {activeBasemap === 'satellite' && <AppIcon icon="Check" className="w-3.5 h-3.5 text-primary" />}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -824,7 +792,7 @@ function ExplorerMapContent() {
                 }`}
                 title={isParkingSaved ? 'Hapus titik parkir' : 'Ingat & Pandu ke Posisi Parkir'}
               >
-                <Car className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isParkingSaved ? 'text-white' : 'text-sky-600 dark:text-sky-400'}`} />
+                <AppIcon icon="Car" className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isParkingSaved ? 'text-white' : 'text-sky-600 dark:text-sky-400'}`} />
               </button>
             )}
 
@@ -835,7 +803,7 @@ function ExplorerMapContent() {
                 className="inline-flex items-center justify-center w-7.5 h-7.5 sm:w-9 sm:h-9 rounded-full bg-card hover:bg-muted text-foreground border border-border/80 text-xs font-semibold shadow-2xs transition-all active:scale-90 flex-shrink-0 touch-manipulation cursor-pointer"
                 title="Unduh Peta HD"
               >
-                <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 dark:text-emerald-400" />
+                <AppIcon icon="Download" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 dark:text-emerald-400" />
               </button>
             )}
 
@@ -846,9 +814,9 @@ function ExplorerMapContent() {
               title={isFullscreen ? 'Keluar Layar Penuh' : 'Mode Layar Penuh'}
             >
               {isFullscreen ? (
-                <Minimize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
+                <AppIcon icon="Minimize2" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
               ) : (
-                <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
+                <AppIcon icon="Maximize2" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
               )}
             </button>
           </div>
@@ -857,7 +825,7 @@ function ExplorerMapContent() {
         {/* Baris 2: Search Bar with Autocomplete Suggestions */}
         <div className="px-2 sm:px-4 pb-1 sm:pb-1.5 relative">
           <div className="relative w-full">
-            <Search className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground pointer-events-none" />
+            <AppIcon icon="Search" className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
@@ -871,7 +839,7 @@ function ExplorerMapContent() {
                 className="absolute right-2 sm:right-2.5 top-1/2 -translate-y-1/2 w-5.5 h-5.5 flex items-center justify-center text-muted-foreground hover:text-foreground rounded-full hover:bg-muted touch-manipulation cursor-pointer"
                 title="Hapus pencarian"
               >
-                <X className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <AppIcon icon="X" className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               </button>
             )}
           </div>
@@ -903,7 +871,7 @@ function ExplorerMapContent() {
                     </div>
                   </div>
                   <span className="text-[10px] font-bold text-primary flex items-center gap-1 flex-shrink-0 bg-primary/10 px-2 py-0.5 rounded-full">
-                    <Navigation className="w-3 h-3" />
+                    <AppIcon icon="Navigation" className="w-3 h-3" />
                     <span>{language === 'en' ? 'View' : 'Lihat'}</span>
                   </span>
                 </button>
@@ -915,14 +883,14 @@ function ExplorerMapContent() {
         {/* Baris 3: Category Filter Pills */}
         <div className="px-2 sm:px-4 pb-1 sm:pb-1.5 border-t border-border/50 pt-1 sm:pt-1.5 flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar touch-pan-x">
           {[
-            { key: 'all',     labelMobile: 'Semua',    labelFull: language === 'en' ? 'All' : 'Semua Titik',       icon: <Compass className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
-            { key: 'animal',  labelMobile: 'Satwa',    labelFull: language === 'en' ? 'Fauna' : 'Satwa / Fauna',   icon: <PawPrint className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
-            { key: 'toilet',  labelMobile: 'Toilet',   labelFull: language === 'en' ? 'Restrooms' : 'Toilet',      icon: <Bath className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
-            { key: 'musholla',labelMobile: 'Musholla', labelFull: language === 'en' ? 'Mosque' : 'Musholla',       icon: <Compass className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
-            { key: 'tram',    labelMobile: 'Halte',    labelFull: language === 'en' ? 'Tram' : 'Halte Kereta',    icon: <Train className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
-            { key: 'ticket',  labelMobile: 'Loket',    labelFull: language === 'en' ? 'Gates' : 'Loket & Gerbang', icon: <Ticket className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
-            { key: 'kuliner', labelMobile: 'Kuliner',  labelFull: language === 'en' ? 'Food' : 'Pujasera',        icon: <Utensils className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
-            { key: 'medical', labelMobile: 'P3K',      labelFull: language === 'en' ? 'First Aid' : 'Pos Medis',  icon: <HeartPulse className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
+            { key: 'all',     labelMobile: 'Semua',    labelFull: language === 'en' ? 'All' : 'Semua Titik',       icon: <AppIcon icon="Compass" className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
+            { key: 'animal',  labelMobile: 'Satwa',    labelFull: language === 'en' ? 'Fauna' : 'Satwa / Fauna',   icon: <AppIcon icon="PawPrint" className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
+            { key: 'toilet',  labelMobile: 'Toilet',   labelFull: language === 'en' ? 'Restrooms' : 'Toilet',      icon: <AppIcon icon="Bath" className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
+            { key: 'musholla',labelMobile: 'Musholla', labelFull: language === 'en' ? 'Mosque' : 'Musholla',       icon: <AppIcon icon="Compass" className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
+            { key: 'tram',    labelMobile: 'Halte',    labelFull: language === 'en' ? 'Tram' : 'Halte Kereta',    icon: <AppIcon icon="Train" className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
+            { key: 'ticket',  labelMobile: 'Loket',    labelFull: language === 'en' ? 'Gates' : 'Loket & Gerbang', icon: <AppIcon icon="Ticket" className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
+            { key: 'kuliner', labelMobile: 'Kuliner',  labelFull: language === 'en' ? 'Food' : 'Pujasera',        icon: <AppIcon icon="Utensils" className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
+            { key: 'medical', labelMobile: 'P3K',      labelFull: language === 'en' ? 'First Aid' : 'Pos Medis',  icon: <AppIcon icon="HeartPulse" className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> },
           ].map((item) => (
             <button
               key={item.key}
@@ -963,7 +931,7 @@ function ExplorerMapContent() {
                 onClick={() => setIsFullscreen(false)}
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-primary text-primary-foreground text-xs font-bold shadow-sm active:scale-95"
               >
-                <Minimize2 className="w-3 h-3" />
+                <AppIcon icon="Minimize2" className="w-3 h-3" />
                 <span>{language === 'en' ? 'Close' : 'Tutup'}</span>
               </button>
             </div>
@@ -993,7 +961,7 @@ function ExplorerMapContent() {
           <div className="bg-card rounded-3xl shadow-card border border-border/80 overflow-hidden">
             {loading ? (
               <div className="flex flex-col items-center justify-center h-96 bg-muted/30">
-                <Loader2 className="w-12 h-12 text-primary animate-spin mb-4" />
+                <AppIcon icon="Loader2" className="w-12 h-12 text-primary animate-spin mb-4" />
                 <p className="text-muted-foreground text-sm">
                   {language === 'en' ? 'Loading map...' : 'Memuat peta kawasan...'}
                 </p>
@@ -1003,12 +971,12 @@ function ExplorerMapContent() {
                 {/* Illustrated Map Sub-Info Bar */}
                 <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground pb-2 border-b border-border/50">
                   <div className="flex items-center gap-1.5">
-                    <MapIcon className="w-4 h-4 text-primary" />
+                    <AppIcon icon="Map" className="w-4 h-4 text-primary" />
                     <span>{language === 'en' ? 'Official Illustrated Layout of TM Ragunan' : 'Peta Brosur Ilustrasi Resmi Kawasan Ragunan'}</span>
                   </div>
                   {effectiveLocation && !isWithinZoo(effectiveLocation.latitude, effectiveLocation.longitude) && (
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 text-[11px] font-bold">
-                      <MapPin className="w-3 h-3 text-amber-600" />
+                      <AppIcon icon="MapPin" className="w-3 h-3 text-amber-600" />
                       <span>{language === 'en' ? 'Simulated at North Gate (Outside Zoo)' : 'Simulasi di Pintu Utama (Lokasi di Luar Kawasan)'}</span>
                     </span>
                   )}
@@ -1042,7 +1010,7 @@ function ExplorerMapContent() {
                             }`}
                             title={effectiveLocation ? 'Lokasi Aktif' : 'Aktifkan GPS'}
                           >
-                            <Crosshair className={`w-4 h-4 ${effectiveLocation ? 'animate-pulse' : ''}`} />
+                            <AppIcon icon="Crosshair" className={`w-4 h-4 ${effectiveLocation ? 'animate-pulse' : ''}`} />
                           </button>
 
                           <div className="w-full h-px bg-border/60 my-0.5" />
@@ -1052,21 +1020,21 @@ function ExplorerMapContent() {
                             aria-label="Zoom in"
                             className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-background hover:bg-muted flex items-center justify-center text-foreground hover:text-primary transition-all shadow-2xs touch-manipulation active:scale-90 cursor-pointer"
                           >
-                            <ZoomIn className="w-4 h-4" />
+                            <AppIcon icon="ZoomIn" className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => zoomOut()}
                             aria-label="Zoom out"
                             className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-background hover:bg-muted flex items-center justify-center text-foreground hover:text-primary transition-all shadow-2xs touch-manipulation active:scale-90 cursor-pointer"
                           >
-                            <ZoomOut className="w-4 h-4" />
+                            <AppIcon icon="ZoomOut" className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => resetTransform()}
                             aria-label="Reset zoom"
                             className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-background hover:bg-muted flex items-center justify-center text-foreground hover:text-primary transition-all shadow-2xs touch-manipulation active:scale-90 cursor-pointer"
                           >
-                            <RotateCcw className="w-4 h-4" />
+                            <AppIcon icon="RotateCcw" className="w-4 h-4" />
                           </button>
                         </div>
 
@@ -1197,7 +1165,7 @@ function ExplorerMapContent() {
                 {/* Legend */}
                 <div className="p-3.5 bg-muted/40 rounded-2xl border border-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <Info className="w-4 h-4 text-primary flex-shrink-0" />
+                    <AppIcon icon="Info" className="w-4 h-4 text-primary flex-shrink-0" />
                     <span>
                       {language === 'en'
                         ? 'Displaying official animal zones, feeder spots, shelters, and park gates.'
@@ -1219,7 +1187,7 @@ function ExplorerMapContent() {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center h-96 bg-muted/30 p-8">
-                <ImageOff className="w-16 h-16 text-muted-foreground/30 mb-4" />
+                <AppIcon icon="ImageOff" className="w-16 h-16 text-muted-foreground/30 mb-4" />
                 <p className="text-center text-muted-foreground">
                   {language === 'en' 
                     ? 'Map image not available. Please check manager settings.' 
@@ -1235,7 +1203,7 @@ function ExplorerMapContent() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
+                  <AppIcon icon="MapPin" className="w-5 h-5 text-primary" />
                   <span>{language === 'en' ? 'Direct Zone Directory' : 'Daftar Zona Kandang & Fasilitas'}</span>
                 </h2>
                 <p className="text-xs text-muted-foreground mt-0.5">
@@ -1276,13 +1244,13 @@ function ExplorerMapContent() {
                         className="w-7 h-7 rounded-xl flex items-center justify-center text-white flex-shrink-0 shadow-xs group-hover:scale-110 transition-transform"
                         style={{ backgroundColor: marker.color }}
                       >
-                        {marker.type === 'toilet' && <Bath className="w-3.5 h-3.5" />}
-                        {marker.type === 'musholla' && <Compass className="w-3.5 h-3.5" />}
-                        {marker.type === 'tram' && <Train className="w-3.5 h-3.5" />}
-                        {marker.type === 'ticket' && <Ticket className="w-3.5 h-3.5" />}
-                        {marker.type === 'kuliner' && <Utensils className="w-3.5 h-3.5" />}
-                        {marker.type === 'medical' && <HeartPulse className="w-3.5 h-3.5" />}
-                        {(marker.type === 'animal' || !marker.type) && <PawPrint className="w-3.5 h-3.5" />}
+                        {marker.type === 'toilet' && <AppIcon icon="Bath" className="w-3.5 h-3.5" />}
+                        {marker.type === 'musholla' && <AppIcon icon="Compass" className="w-3.5 h-3.5" />}
+                        {marker.type === 'tram' && <AppIcon icon="Train" className="w-3.5 h-3.5" />}
+                        {marker.type === 'ticket' && <AppIcon icon="Ticket" className="w-3.5 h-3.5" />}
+                        {marker.type === 'kuliner' && <AppIcon icon="Utensils" className="w-3.5 h-3.5" />}
+                        {marker.type === 'medical' && <AppIcon icon="HeartPulse" className="w-3.5 h-3.5" />}
+                        {(marker.type === 'animal' || !marker.type) && <AppIcon icon="PawPrint" className="w-3.5 h-3.5" />}
                       </div>
                       <div className="min-w-0">
                         <span className="block text-xs sm:text-sm font-semibold truncate text-foreground group-hover:text-primary transition-colors">
@@ -1290,14 +1258,14 @@ function ExplorerMapContent() {
                         </span>
                         {distLabel && (
                           <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-                            <Footprints className="w-2.5 h-2.5 text-primary" />
+                            <AppIcon icon="Footprints" className="w-2.5 h-2.5 text-primary" />
                             <span>{distLabel}</span>
                           </span>
                         )}
                       </div>
                     </div>
 
-                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                    <AppIcon icon="ChevronRight" className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
                   </button>
                 );
               })}
@@ -1352,7 +1320,7 @@ function ExplorerMapContent() {
         <div className="fixed bottom-20 md:bottom-4 left-1/2 -translate-x-1/2 z-40 max-w-sm w-[calc(100%-20px)] p-2.5 px-3.5 rounded-2xl bg-[#0e261c]/95 dark:bg-[#07150f]/95 backdrop-blur-xl border border-emerald-500/40 text-white shadow-2xl flex items-center justify-between gap-2.5 animate-in slide-in-from-bottom-2">
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 animate-pulse">
-              <Navigation className="w-4 h-4" />
+              <AppIcon icon="Navigation" className="w-4 h-4" />
             </div>
             <div className="min-w-0">
               <div className="text-xs font-extrabold truncate text-emerald-300">
@@ -1390,7 +1358,7 @@ export default function ExplorerMap() {
   return (
     <Suspense fallback={
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-10 h-10 text-primary animate-spin" />
+        <AppIcon icon="Loader2" className="w-10 h-10 text-primary animate-spin" />
       </div>
     }>
       <ExplorerMapContent />

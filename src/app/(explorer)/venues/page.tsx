@@ -5,12 +5,7 @@ import { useVenues, type Venue } from '@/hooks/useVenues';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-  MapPin, Users, Clock, Calendar as CalendarIcon, Wifi, Car, Music, Utensils, Building2,
-  MessageCircle, X, ZoomIn, ZoomOut, RotateCcw, Phone, Image as ImageIcon,
-  ChevronRight, ArrowRight, CheckCircle2, Search, ArrowUpDown, Sparkles, Filter, Check,
-  Trees, PartyPopper, Camera, HeartHandshake, ShieldCheck, HelpCircle, AlertCircle, ClipboardList
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import {
   Carousel,
   CarouselContent,
@@ -45,10 +40,10 @@ import { eachDayOfInterval, isSameDay } from 'date-fns';
 import { id as idLocale } from 'date-fns/locale';
 
 const facilityIcons: Record<string, React.ElementType> = {
-  'WiFi': Wifi,
-  'Parkir': Car,
-  'Sound System': Music,
-  'Catering': Utensils,
+  'WiFi': (props: any) => <AppIcon icon="solar:wifi-bold-duotone" {...props} />,
+  'Parkir': (props: any) => <AppIcon icon="solar:car-bold-duotone" {...props} />,
+  'Sound System': (props: any) => <AppIcon icon="solar:music-notes-bold-duotone" {...props} />,
+  'Catering': (props: any) => <AppIcon icon="solar:cup-hot-bold-duotone" {...props} />,
 };
 
 const placeholderImage = 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=60';
@@ -143,7 +138,7 @@ export default function Venues() {
   };
 
   const getFacilityIcon = (facility: string) => {
-    return (facilityIcons[facility] || Building2) as any;
+    return (facilityIcons[facility] || ((props: any) => <AppIcon icon="solar:buildings-bold-duotone" {...props} />)) as any;
   };
 
   const getVenueImages = (venue: Venue): string[] => {
@@ -206,14 +201,14 @@ export default function Venues() {
             
             <div className="max-w-2xl">
               <div className="flex items-center gap-2 text-xs text-emerald-300/80 mb-2.5 font-medium">
-                <Building2 className="w-3.5 h-3.5" />
+                <AppIcon icon="Building2" className="w-3.5 h-3.5" />
                 <span>Fasilitas</span>
-                <ChevronRight className="w-3 h-3 text-emerald-400/50" />
+                <AppIcon icon="ChevronRight" className="w-3 h-3 text-emerald-400/50" />
                 <span className="text-white font-semibold">{language === 'id' ? 'Sewa Tempat' : 'Venue Rental'}</span>
               </div>
 
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-emerald-200 text-xs font-semibold backdrop-blur-sm mb-3.5">
-                <Building2 className="w-3.5 h-3.5 text-emerald-300" />
+                <AppIcon icon="Building2" className="w-3.5 h-3.5 text-emerald-300" />
                 <span>{heroSettings.badge_text}</span>
               </div>
 
@@ -228,9 +223,9 @@ export default function Venues() {
               {/* Quick Key Highlights */}
               <div className="flex flex-wrap gap-2 sm:gap-2.5">
                 {[
-                  { icon: <Users className="w-3.5 h-3.5 text-emerald-300" />, label: heroSettings.highlight_1 },
-                  { icon: <Trees className="w-3.5 h-3.5 text-emerald-300" />, label: heroSettings.highlight_2 },
-                  { icon: <Car className="w-3.5 h-3.5 text-emerald-300" />, label: heroSettings.highlight_3 },
+                  { icon: <AppIcon icon="Users" className="w-3.5 h-3.5 text-emerald-300" />, label: heroSettings.highlight_1 },
+                  { icon: <AppIcon icon="Trees" className="w-3.5 h-3.5 text-emerald-300" />, label: heroSettings.highlight_2 },
+                  { icon: <AppIcon icon="Car" className="w-3.5 h-3.5 text-emerald-300" />, label: heroSettings.highlight_3 },
                 ].filter(item => item.label && item.label.trim() !== '').map((item, idx) => (
                   <div key={idx} className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-white/10 border border-white/15 text-[11px] sm:text-xs text-white backdrop-blur-md">
                     {item.icon}
@@ -259,7 +254,7 @@ export default function Venues() {
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BC5A] text-white py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all shadow-lg hover:shadow-xl active:scale-98"
                   >
-                    <MessageCircle className="w-4 h-4" />
+                    <AppIcon icon="MessageCircle" className="w-4 h-4" />
                     {language === 'id' ? 'Hubungi Pengelola via WhatsApp' : 'Contact via WhatsApp'}
                   </a>
                 )}
@@ -275,7 +270,7 @@ export default function Venues() {
         <div className="bg-card border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm">
           <div className="text-center max-w-xl mx-auto mb-5 sm:mb-6">
             <h2 className="text-sm sm:text-base md:text-lg font-bold text-foreground flex items-center justify-center gap-2">
-              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <AppIcon icon="CheckCircle2" className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               {language === 'id' ? 'Alur Pengajuan Sewa Tempat' : 'Reservation Workflow'}
             </h2>
             <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">
@@ -323,7 +318,7 @@ export default function Venues() {
             
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+              <AppIcon icon="Search" className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
               <input
                 type="text"
                 placeholder={language === 'id' ? 'Cari nama lokasi atau fasilitas...' : 'Search location name or facility...'}
@@ -333,7 +328,7 @@ export default function Venues() {
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors">
-                  <X className="w-4 h-4" />
+                  <AppIcon icon="X" className="w-4 h-4" />
                 </button>
               )}
             </div>
@@ -345,7 +340,7 @@ export default function Venues() {
                 className="w-full sm:w-auto flex items-center justify-between sm:justify-start gap-2 px-3.5 py-2 sm:py-2.5 bg-muted/50 border border-border rounded-xl hover:bg-muted transition-colors text-xs sm:text-sm whitespace-nowrap"
               >
                 <div className="flex items-center gap-2">
-                  <ArrowUpDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
+                  <AppIcon icon="ArrowUpDown" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
                   <span className="font-medium">
                     {sortBy === 'name' ? (language === 'id' ? 'Nama (A-Z)' : 'Name (A-Z)') :
                      sortBy === 'capacity' ? (language === 'id' ? 'Kapasitas (Terbesar)' : 'Capacity (Highest)') :
@@ -372,7 +367,7 @@ export default function Venues() {
                         }`}
                       >
                         <span>{item.label}</span>
-                        {sortBy === item.id && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
+                        {sortBy === item.id && <AppIcon icon="Check" className="w-4 h-4 text-white stroke-[2.5]" />}
                       </button>
                     ))}
                   </div>
@@ -425,7 +420,7 @@ export default function Venues() {
         ) : filteredAndSortedVenues.length === 0 ? (
           <div className="text-center py-16 sm:py-20 bg-card border border-border rounded-2xl sm:rounded-3xl px-4">
             <div className="w-16 h-16 sm:w-20 sm:h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <Building2 className="w-8 h-8 sm:w-10 sm:h-10 text-muted-foreground/40" />
+              <AppIcon icon="Building2" className="w-8 h-8 sm:w-10 sm:h-10 text-muted-foreground/40" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-foreground mb-1">
               {language === 'id' ? 'Lokasi Tidak Ditemukan' : 'No Venues Found'}
@@ -481,7 +476,7 @@ export default function Venues() {
                       {venue.has_panorama && (
                         <div className="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3">
                           <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] font-bold bg-emerald-600 text-white backdrop-blur-md flex items-center gap-1 shadow-md">
-                            <ImageIcon className="w-3 h-3" /> 360° Panorama
+                            <AppIcon icon="Image" className="w-3 h-3" /> 360° Panorama
                           </span>
                         </div>
                       )}
@@ -504,7 +499,7 @@ export default function Venues() {
                       <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2 border-t border-border/50">
                         {venue.capacity && (
                           <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-1 rounded-xl bg-primary/10 text-primary text-[11px] sm:text-xs font-bold">
-                            <Users className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                            <AppIcon icon="Users" className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                             <span>{venue.capacity} {language === 'id' ? 'Orang' : 'Guests'}</span>
                           </div>
                         )}
@@ -534,7 +529,7 @@ export default function Venues() {
                       {language === 'id' ? 'Lihat Detail & Jadwal Lokasi' : 'View Details & Schedule'}
                     </span>
                     <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all duration-300">
-                      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      <AppIcon icon="ArrowRight" className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </div>
                   </div>
                 </div>
@@ -549,7 +544,7 @@ export default function Venues() {
         <div className="bg-gradient-to-br from-emerald-900/10 via-primary/5 to-teal-900/10 border border-primary/20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8">
           <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-primary/15 text-primary border border-primary/20">
-              <ClipboardList className="w-3.5 h-3.5" />
+              <AppIcon icon="ClipboardList" className="w-3.5 h-3.5" />
               <span>{heroSettings.events_badge}</span>
             </span>
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mt-2">
@@ -562,10 +557,10 @@ export default function Venues() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {[
-              { icon: <PartyPopper className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />, title: heroSettings.event_1_title, desc: heroSettings.event_1_desc },
-              { icon: <HeartHandshake className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />, title: heroSettings.event_2_title, desc: heroSettings.event_2_desc },
-              { icon: <Trees className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />, title: heroSettings.event_3_title, desc: heroSettings.event_3_desc },
-              { icon: <Camera className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />, title: heroSettings.event_4_title, desc: heroSettings.event_4_desc },
+              { icon: <AppIcon icon="PartyPopper" className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />, title: heroSettings.event_1_title, desc: heroSettings.event_1_desc },
+              { icon: <AppIcon icon="HeartHandshake" className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />, title: heroSettings.event_2_title, desc: heroSettings.event_2_desc },
+              { icon: <AppIcon icon="Trees" className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />, title: heroSettings.event_3_title, desc: heroSettings.event_3_desc },
+              { icon: <AppIcon icon="Camera" className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />, title: heroSettings.event_4_title, desc: heroSettings.event_4_desc },
             ].map((item, idx) => (
               <div key={idx} className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 text-center hover:border-primary/40 hover:shadow-md transition-all flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 text-left sm:text-center">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 sm:mx-auto sm:mb-3">
@@ -586,7 +581,7 @@ export default function Venues() {
         <section className="container mx-auto px-4 pb-8 sm:pb-16">
           <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-emerald-900 via-green-900 to-teal-950 text-white p-6 sm:p-8 md:p-10 text-center relative overflow-hidden shadow-xl">
             <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/15 rounded-2xl flex items-center justify-center mx-auto mb-3.5 backdrop-blur-sm border border-white/20">
-              <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+              <AppIcon icon="MessageCircle" className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
             </div>
             <h3 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-white mb-2">
               {language === 'id' ? 'Butuh Informasi Lebih Lanjut?' : 'Need More Information?'}
@@ -602,7 +597,7 @@ export default function Venues() {
                   href={`tel:${phoneNumber.replace(/[^\d+]/g, '')}`}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-emerald-950 hover:bg-emerald-50 px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl transition-all font-bold text-xs sm:text-sm shadow-md"
                 >
-                  <Phone className="w-4 h-4 text-emerald-700" />
+                  <AppIcon icon="Phone" className="w-4 h-4 text-emerald-700" />
                   {language === 'id' ? 'Telepon Kantor Pengelola' : 'Call Office'}
                 </a>
               )}
@@ -613,7 +608,7 @@ export default function Venues() {
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BC5A] text-white px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl transition-all font-bold text-xs sm:text-sm shadow-md"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <AppIcon icon="MessageCircle" className="w-4 h-4" />
                   Hubungi WhatsApp
                 </a>
               )}
@@ -667,7 +662,7 @@ export default function Venues() {
                                     className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                                   />
                                   <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors">
-                                    <ZoomIn className="w-7 h-7 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md" />
+                                    <AppIcon icon="ZoomIn" className="w-7 h-7 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md" />
                                   </div>
                                 </div>
                               </CarouselItem>
@@ -719,7 +714,7 @@ export default function Venues() {
                         onClick={() => setShowPanorama(true)}
                         className="w-full flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all text-xs font-bold shadow-md"
                       >
-                        <ImageIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                        <AppIcon icon="Image" className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         {language === 'id' ? 'Lihat Virtual Tour 360°' : 'View 360° Virtual Tour'}
                       </button>
                     )}
@@ -743,7 +738,7 @@ export default function Venues() {
                       {selectedVenue.capacity && (
                         <div className="flex items-center gap-2.5 p-2.5 sm:p-3 bg-muted/40 border border-border/60 rounded-xl sm:rounded-2xl">
                           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-primary/15 flex items-center justify-center flex-shrink-0">
-                            <Users className="w-4 h-4 text-primary" />
+                            <AppIcon icon="Users" className="w-4 h-4 text-primary" />
                           </div>
                           <div>
                             <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">
@@ -759,7 +754,7 @@ export default function Venues() {
                       {selectedVenue.price_per_day && (
                         <div className="flex items-center gap-2.5 p-2.5 sm:p-3 bg-muted/40 border border-border/60 rounded-xl sm:rounded-2xl">
                           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-primary/15 flex items-center justify-center flex-shrink-0">
-                            <CalendarIcon className="w-4 h-4 text-primary" />
+                            <AppIcon icon="Calendar" className="w-4 h-4 text-primary" />
                           </div>
                           <div>
                             <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">
@@ -775,7 +770,7 @@ export default function Venues() {
                       {selectedVenue.phone_number && (
                         <div className="col-span-2 sm:col-span-1 flex items-center gap-2.5 p-2.5 sm:p-3 bg-muted/40 border border-border/60 rounded-xl sm:rounded-2xl">
                           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-primary/15 flex items-center justify-center flex-shrink-0">
-                            <Phone className="w-4 h-4 text-primary" />
+                            <AppIcon icon="Phone" className="w-4 h-4 text-primary" />
                           </div>
                           <div className="min-w-0">
                             <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">
@@ -819,7 +814,7 @@ export default function Venues() {
                     <div className="border border-border/70 rounded-xl sm:rounded-2xl overflow-hidden bg-card shadow-sm">
                       <div className="px-3.5 py-2.5 bg-muted/40 border-b border-border flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <CalendarIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
+                          <AppIcon icon="Calendar" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                           <h4 className="font-bold text-xs sm:text-sm text-foreground">
                             {language === 'id' ? 'Cek Kalender Ketersediaan' : 'Check Calendar Availability'}
                           </h4>
@@ -924,7 +919,7 @@ export default function Venues() {
                             rel="noopener noreferrer"
                             className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BC5A] text-white px-4 py-2.5 sm:py-3 rounded-xl transition-all font-bold text-xs sm:text-sm shadow-md hover:shadow-lg active:scale-98"
                           >
-                            <MessageCircle className="w-4 h-4" />
+                            <AppIcon icon="MessageCircle" className="w-4 h-4" />
                             {selectedBookingDate
                               ? (language === 'id' ? 'Ajukan Tanggal Ini via WhatsApp' : 'Request Date via WhatsApp')
                               : 'Hubungi WhatsApp Pengelola'}
@@ -936,7 +931,7 @@ export default function Venues() {
                             href={`tel:${selectedVenue.phone_number}`}
                             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 px-4 py-2.5 sm:py-3 rounded-xl transition-all font-semibold text-xs sm:text-sm"
                           >
-                            <Phone className="w-4 h-4" />
+                            <AppIcon icon="Phone" className="w-4 h-4" />
                             {language === 'id' ? 'Telepon Kantor' : 'Call Office'}
                           </a>
                         )}
@@ -960,7 +955,7 @@ export default function Venues() {
                 onClick={() => setZoomModalOpen(false)}
                 className="absolute top-3 right-3 z-50 bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition-colors"
               >
-                <X className="w-4 h-4 sm:w-5 sm:h-5" />
+                <AppIcon icon="X" className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
               <TransformWrapper initialScale={1} minScale={0.5} maxScale={4} centerOnInit>
@@ -974,13 +969,13 @@ export default function Venues() {
 
                     <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 bg-black/60 backdrop-blur-sm rounded-full px-2.5 py-1.5">
                       <button onClick={() => zoomOut()} className="text-white hover:text-primary p-1 rounded-full hover:bg-white/10 transition-colors">
-                        <ZoomOut className="w-4 h-4" />
+                        <AppIcon icon="ZoomOut" className="w-4 h-4" />
                       </button>
                       <button onClick={() => resetTransform()} className="text-white hover:text-primary p-1 rounded-full hover:bg-white/10 transition-colors">
-                        <RotateCcw className="w-3.5 h-3.5" />
+                        <AppIcon icon="RotateCcw" className="w-3.5 h-3.5" />
                       </button>
                       <button onClick={() => zoomIn()} className="text-white hover:text-primary p-1 rounded-full hover:bg-white/10 transition-colors">
-                        <ZoomIn className="w-4 h-4" />
+                        <AppIcon icon="ZoomIn" className="w-4 h-4" />
                       </button>
                     </div>
 

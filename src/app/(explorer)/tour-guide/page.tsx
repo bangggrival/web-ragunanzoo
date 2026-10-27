@@ -15,7 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Users, Clock, Star, Phone, Calendar as CalendarIcon, MessageCircle, Search, CheckCircle, Camera, GraduationCap, Loader2, MapPin } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { format } from 'date-fns';
 import { id as localeId } from 'date-fns/locale';
 import { toast } from 'sonner';
@@ -40,9 +40,9 @@ const specializationLabels: Record<string, { id: string; en: string }> = {
 };
 
 const packageIcons: Record<string, React.ReactNode> = {
-  Users: <Users className="w-6 h-6" />,
-  GraduationCap: <GraduationCap className="w-6 h-6" />,
-  Camera: <Camera className="w-6 h-6" />,
+  Users: <AppIcon icon="solar:users-group-two-rounded-bold-duotone" className="w-6 h-6" />,
+  GraduationCap: <AppIcon icon="solar:square-academic-cap-bold-duotone" className="w-6 h-6" />,
+  Camera: <AppIcon icon="solar:camera-bold-duotone" className="w-6 h-6" />,
 };
 
 export default function TourGuidePage() {
@@ -168,7 +168,7 @@ export default function TourGuidePage() {
   if (loadingGuides || loadingPackages) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <AppIcon icon="Loader2" className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -194,7 +194,7 @@ export default function TourGuidePage() {
                 onClick={() => setShowBookingModal(true)}
                 className="w-full sm:w-auto"
               >
-                <CalendarIcon className="w-4 sm:w-5 h-4 sm:h-5 mr-2" />
+                <AppIcon icon="Calendar" className="w-4 sm:w-5 h-4 sm:h-5 mr-2" />
                 {language === 'id' ? 'Booking Sekarang' : 'Book Now'}
               </Button>
               <Button 
@@ -203,7 +203,7 @@ export default function TourGuidePage() {
                 className="bg-white/10 border-white/30 hover:bg-white/20 w-full sm:w-auto"
                 onClick={() => setShowStatusModal(true)}
               >
-                <Search className="w-4 sm:w-5 h-4 sm:h-5 mr-2" />
+                <AppIcon icon="Search" className="w-4 sm:w-5 h-4 sm:h-5 mr-2" />
                 {language === 'id' ? 'Cek Status Booking' : 'Check Booking Status'}
               </Button>
             </div>
@@ -216,17 +216,17 @@ export default function TourGuidePage() {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-4 sm:mb-8 h-auto">
             <TabsTrigger value="guides" className="text-xs sm:text-sm py-2 sm:py-2.5 flex-col sm:flex-row gap-1 sm:gap-2">
-              <Users className="w-4 h-4" />
+              <AppIcon icon="Users" className="w-4 h-4" />
               <span className="hidden sm:inline">{language === 'id' ? 'Pemandu' : 'Guides'}</span>
               <span className="sm:hidden text-[10px]">{language === 'id' ? 'Pemandu' : 'Guides'}</span>
             </TabsTrigger>
             <TabsTrigger value="packages" className="text-xs sm:text-sm py-2 sm:py-2.5 flex-col sm:flex-row gap-1 sm:gap-2">
-              <MapPin className="w-4 h-4" />
+              <AppIcon icon="MapPin" className="w-4 h-4" />
               <span className="hidden sm:inline">{language === 'id' ? 'Paket Tur' : 'Tour Packages'}</span>
               <span className="sm:hidden text-[10px]">{language === 'id' ? 'Paket' : 'Packages'}</span>
             </TabsTrigger>
             <TabsTrigger value="gallery" className="text-xs sm:text-sm py-2 sm:py-2.5 flex-col sm:flex-row gap-1 sm:gap-2">
-              <Camera className="w-4 h-4" />
+              <AppIcon icon="Camera" className="w-4 h-4" />
               <span className="hidden sm:inline">{language === 'id' ? 'Galeri' : 'Gallery'}</span>
               <span className="sm:hidden text-[10px]">{language === 'id' ? 'Galeri' : 'Gallery'}</span>
             </TabsTrigger>
@@ -255,7 +255,7 @@ export default function TourGuidePage() {
                         <div className="flex-1 min-w-0">
                           <h3 className="font-bold text-base sm:text-lg truncate">{guide.name}</h3>
                           <div className="flex items-center gap-1 text-yellow-500 mb-1 sm:mb-2">
-                            <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
+                            <AppIcon icon="Star" className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
                             <span className="text-xs sm:text-sm font-medium">{guide.rating || 5.0}</span>
                             <span className="text-[10px] sm:text-xs text-muted-foreground">({guide.total_reviews || 0})</span>
                           </div>
@@ -290,7 +290,7 @@ export default function TourGuidePage() {
                       </p>
                       {selectedGuide?.id === guide.id && (
                         <Badge className="mt-2 sm:mt-3 bg-primary text-xs">
-                          <CheckCircle className="w-3 h-3 mr-1" />
+                          <AppIcon icon="CheckCircle" className="w-3 h-3 mr-1" />
                           {language === 'id' ? 'Dipilih' : 'Selected'}
                         </Badge>
                       )}
@@ -335,17 +335,17 @@ export default function TourGuidePage() {
                       </p>
                       <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                         <div className="flex items-center gap-2">
-                          <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
+                          <AppIcon icon="Clock" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
                           <span>{pkg.duration_hours} {language === 'id' ? 'jam' : 'hours'}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
+                          <AppIcon icon="Users" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
                           <span>{language === 'id' ? 'Maks' : 'Max'} {pkg.max_participants} {language === 'id' ? 'peserta' : 'participants'}</span>
                         </div>
                       </div>
                       {selectedPackage?.id === pkg.id && (
                         <Badge className="mt-3 sm:mt-4 bg-primary text-xs">
-                          <CheckCircle className="w-3 h-3 mr-1" />
+                          <AppIcon icon="CheckCircle" className="w-3 h-3 mr-1" />
                           {language === 'id' ? 'Dipilih' : 'Selected'}
                         </Badge>
                       )}
@@ -417,7 +417,7 @@ export default function TourGuidePage() {
                 {language === 'id' ? 'Booking Online' : 'Book Online'}
               </Button>
               <Button variant="outline" onClick={handleWhatsAppBooking} className="h-9 sm:h-10">
-                <MessageCircle className="w-4 h-4" />
+                <AppIcon icon="MessageCircle" className="w-4 h-4" />
               </Button>
             </div>
           </div>
@@ -429,7 +429,7 @@ export default function TourGuidePage() {
         <DialogContent className="max-w-lg p-0 gap-0 max-h-[90vh] flex flex-col overflow-hidden">
           <DialogHeader className="px-6 pt-6 pb-4 border-b bg-muted/30 flex-shrink-0">
             <DialogTitle className="flex items-center gap-2">
-              <CalendarIcon className="w-5 h-5 text-primary" />
+              <AppIcon icon="Calendar" className="w-5 h-5 text-primary" />
               {language === 'id' ? 'Form Booking Tur' : 'Tour Booking Form'}
             </DialogTitle>
             <DialogDescription>
@@ -442,7 +442,7 @@ export default function TourGuidePage() {
               {/* Pilihan Tur Section */}
               <div className="bg-card rounded-lg border p-5">
                 <h3 className="font-semibold text-base flex items-center gap-2 mb-4">
-                  <MapPin className="w-4 h-4 text-primary" />
+                  <AppIcon icon="MapPin" className="w-4 h-4 text-primary" />
                   {language === 'id' ? 'Pilihan Tur' : 'Tour Selection'}
                 </h3>
                 <div className="space-y-4">
@@ -487,7 +487,7 @@ export default function TourGuidePage() {
               {/* Jadwal Section */}
               <div className="bg-card rounded-lg border p-5">
                 <h3 className="font-semibold text-base flex items-center gap-2 mb-4">
-                  <Clock className="w-4 h-4 text-primary" />
+                  <AppIcon icon="Clock" className="w-4 h-4 text-primary" />
                   {language === 'id' ? 'Jadwal' : 'Schedule'}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -498,7 +498,7 @@ export default function TourGuidePage() {
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button variant="outline" className="w-full justify-start h-11">
-                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          <AppIcon icon="Calendar" className="mr-2 h-4 w-4" />
                           {bookingDate ? format(bookingDate, 'dd MMM yyyy', { locale: localeId }) : (language === 'id' ? 'Pilih tanggal' : 'Select date')}
                         </Button>
                       </PopoverTrigger>
@@ -551,7 +551,7 @@ export default function TourGuidePage() {
               {/* Data Pemesan Section */}
               <div className="bg-card rounded-lg border p-5">
                 <h3 className="font-semibold text-base flex items-center gap-2 mb-4">
-                  <Users className="w-4 h-4 text-primary" />
+                  <AppIcon icon="Users" className="w-4 h-4 text-primary" />
                   {language === 'id' ? 'Data Pemesan' : 'Customer Information'}
                 </h3>
                 <div className="space-y-4">
@@ -572,7 +572,7 @@ export default function TourGuidePage() {
                         {language === 'id' ? 'Nomor Telepon' : 'Phone Number'} <span className="text-destructive">*</span>
                       </Label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <AppIcon icon="Phone" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                         <Input 
                           value={customerPhone} 
                           onChange={(e) => setCustomerPhone(e.target.value)} 
@@ -640,11 +640,11 @@ export default function TourGuidePage() {
               onClick={handleBooking}
               disabled={createBooking.isPending}
             >
-              {createBooking.isPending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+              {createBooking.isPending ? <AppIcon icon="Loader2" className="w-4 h-4 mr-2 animate-spin" /> : null}
               {language === 'id' ? 'Kirim Booking' : 'Submit Booking'}
             </Button>
             <Button variant="outline" onClick={handleWhatsAppBooking}>
-              <MessageCircle className="w-4 h-4 mr-2" />
+              <AppIcon icon="MessageCircle" className="w-4 h-4 mr-2" />
               WhatsApp
             </Button>
           </div>
@@ -668,7 +668,7 @@ export default function TourGuidePage() {
                   placeholder="TUR-XXXXXX-XXXX"
                 />
                 <Button onClick={() => checkStatus()} disabled={!trackingCode || loadingStatus}>
-                  {loadingStatus ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
+                  {loadingStatus ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : <AppIcon icon="Search" className="w-4 h-4" />}
                 </Button>
               </div>
             </div>
@@ -711,7 +711,7 @@ export default function TourGuidePage() {
                       variant="outline"
                       onClick={() => window.open(`https://wa.me/${(bookingStatus.guide as any).phone}`, '_blank')}
                     >
-                      <Phone className="w-4 h-4 mr-2" />
+                      <AppIcon icon="Phone" className="w-4 h-4 mr-2" />
                       {language === 'id' ? 'Hubungi Pemandu' : 'Contact Guide'}
                     </Button>
                   )}

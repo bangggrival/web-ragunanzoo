@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { PawPrint, MapPin, Info, Gamepad2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useAnimals } from '@/hooks/useAnimals';
 import { useCategories } from '@/hooks/useCategories';
 import { useState, useMemo } from 'react';
@@ -78,7 +78,7 @@ export default function CategoryDetail() {
         <div className="bg-card rounded-2xl border border-border p-4 md:p-6 mb-6">
           <div className="flex items-start gap-3 mb-4">
             <div className="p-2 bg-primary/10 rounded-lg">
-              <Info className="w-5 h-5 text-primary" />
+              <AppIcon icon="Info" className="w-5 h-5 text-primary" />
             </div>
             <div>
               <h2 className="font-bold text-lg mb-1">
@@ -96,7 +96,7 @@ export default function CategoryDetail() {
               onClick={() => setShowQuiz(true)}
               className="w-full flex items-center justify-center gap-2 py-3 bg-secondary text-secondary-foreground rounded-xl font-semibold hover:bg-secondary/90 transition-colors"
             >
-              <Gamepad2 className="w-5 h-5" />
+              <AppIcon icon="Gamepad2" className="w-5 h-5" />
               {language === 'en' ? 'Take the Quiz!' : 'Main Kuis!'}
             </button>
             <p className="text-center text-xs text-muted-foreground mt-2">
@@ -146,7 +146,7 @@ export default function CategoryDetail() {
 
         {!loading && categoryAnimals.length === 0 && (
           <div className="text-center py-12">
-            <PawPrint className="w-12 h-12 md:w-16 md:h-16 text-muted-foreground/30 mx-auto mb-4" />
+            <AppIcon icon="PawPrint" className="w-12 h-12 md:w-16 md:h-16 text-muted-foreground/30 mx-auto mb-4" />
             <p className="text-muted-foreground text-sm md:text-base">
               {language === 'en' ? 'No animals in this category yet' : 'Belum ada satwa dalam kategori ini'}
             </p>

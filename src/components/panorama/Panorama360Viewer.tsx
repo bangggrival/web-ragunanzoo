@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Viewer } from '@photo-sphere-viewer/core';
 import '@photo-sphere-viewer/core/index.css';
-import { X, Maximize2, Minimize2, RotateCcw } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 interface Panorama360ViewerProps {
   src: string;
@@ -90,14 +90,14 @@ export default function Panorama360Viewer({
             className="p-2 bg-black/40 hover:bg-black/60 rounded-full text-white transition-colors"
             title="Reset posisi"
           >
-            <RotateCcw className="w-4 h-4" />
+            <AppIcon name="solar:restart-bold" className="w-4 h-4" />
           </button>
           <button
             onClick={toggleFullscreen}
             className="p-2 bg-black/40 hover:bg-black/60 rounded-full text-white transition-colors"
             title={isFullscreen ? 'Keluar layar penuh' : 'Layar penuh'}
           >
-            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+            {isFullscreen ? <AppIcon name="solar:minimize-square-3-linear" className="w-4 h-4" /> : <AppIcon name="solar:maximize-square-3-linear" className="w-4 h-4" />}
           </button>
           {onClose && (
             <button
@@ -105,7 +105,7 @@ export default function Panorama360Viewer({
               className="p-2 bg-black/40 hover:bg-black/60 rounded-full text-white transition-colors"
               title="Tutup"
             >
-              <X className="w-4 h-4" />
+              <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
             </button>
           )}
         </div>

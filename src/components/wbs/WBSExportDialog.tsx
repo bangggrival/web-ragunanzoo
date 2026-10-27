@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { format, subDays, subMonths, startOfMonth, endOfMonth, startOfYear, endOfYear, isAfter, isBefore } from 'date-fns';
 import { id as localeId } from 'date-fns/locale';
-import { CalendarIcon, FileText, Image, Loader2, Shield } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -119,7 +119,7 @@ export function WBSExportDialog({ open, onOpenChange, submissions }: WBSExportDi
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <FileText className="w-5 h-5" />
+            <AppIcon name="solar:document-text-bold-duotone" className="w-5 h-5" />
             Export PDF Laporan WBS
           </DialogTitle>
           <DialogDescription>
@@ -158,7 +158,7 @@ export function WBSExportDialog({ open, onOpenChange, submissions }: WBSExportDi
                           !startDate && 'text-muted-foreground'
                         )}
                       >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        <AppIcon name="solar:calendar-bold-duotone" className="mr-2 h-4 w-4" />
                         {startDate ? format(startDate, 'dd MMM yyyy', { locale: localeId }) : 'Pilih'}
                       </Button>
                     </PopoverTrigger>
@@ -184,7 +184,7 @@ export function WBSExportDialog({ open, onOpenChange, submissions }: WBSExportDi
                           !endDate && 'text-muted-foreground'
                         )}
                       >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        <AppIcon name="solar:calendar-bold-duotone" className="mr-2 h-4 w-4" />
                         {endDate ? format(endDate, 'dd MMM yyyy', { locale: localeId }) : 'Pilih'}
                       </Button>
                     </PopoverTrigger>
@@ -229,7 +229,7 @@ export function WBSExportDialog({ open, onOpenChange, submissions }: WBSExportDi
                   onCheckedChange={(checked) => setIncludeDetails(checked === true)}
                 />
                 <label htmlFor="includeDetails" className="text-sm cursor-pointer flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-muted-foreground" />
+                  <AppIcon name="solar:document-text-bold-duotone" className="w-4 h-4 text-muted-foreground" />
                   Sertakan halaman detail lengkap
                 </label>
               </div>
@@ -241,7 +241,7 @@ export function WBSExportDialog({ open, onOpenChange, submissions }: WBSExportDi
                   onCheckedChange={(checked) => setIncludeImages(checked === true)}
                 />
                 <label htmlFor="includeImages" className="text-sm cursor-pointer flex items-center gap-2">
-                  <Image className="w-4 h-4 text-muted-foreground" />
+                  <AppIcon name="solar:gallery-bold-duotone" className="w-4 h-4 text-muted-foreground" />
                   Sertakan gambar bukti
                 </label>
               </div>
@@ -272,7 +272,7 @@ export function WBSExportDialog({ open, onOpenChange, submissions }: WBSExportDi
                   onCheckedChange={(checked) => setIncludeWatermark(checked === true)}
                 />
                 <label htmlFor="includeWatermark" className="text-sm cursor-pointer flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-muted-foreground" />
+                  <AppIcon name="solar:shield-check-bold" className="w-4 h-4 text-muted-foreground" />
                   Watermark "RAHASIA" di setiap halaman
                 </label>
               </div>
@@ -290,12 +290,12 @@ export function WBSExportDialog({ open, onOpenChange, submissions }: WBSExportDi
           >
             {isExporting ? (
               <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                <AppIcon name="solar:spinner-linear" className="w-4 h-4 mr-2 animate-spin" />
                 Mengexport...
               </>
             ) : (
               <>
-                <FileText className="w-4 h-4 mr-2" />
+                <AppIcon name="solar:document-text-bold-duotone" className="w-4 h-4 mr-2" />
                 Export PDF
               </>
             )}

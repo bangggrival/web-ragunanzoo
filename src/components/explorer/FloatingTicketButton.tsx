@@ -1,11 +1,10 @@
 import React from 'react';
-import { Ticket as DefaultTicketIcon, icons } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { useFooterInView } from '@/hooks/useFooterInView';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
-import type { LucideIcon } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 const FloatingTicketButton = React.forwardRef<HTMLAnchorElement, React.HTMLAttributes<HTMLAnchorElement>>(
   (props, ref) => {
@@ -68,8 +67,8 @@ const FloatingTicketButton = React.forwardRef<HTMLAnchorElement, React.HTMLAttri
     const externalUrl = settings?.ticket_external_url || 'https://ragunanzoo.agathis.fun/';
     
     const customIconUrl = settings?.floating_ticket_custom_icon_url;
-    const iconName = settings?.floating_ticket_icon || 'Ticket';
-    const IconComponent = (icons[iconName as keyof typeof icons] as LucideIcon) || DefaultTicketIcon;
+    const iconName = settings?.floating_ticket_icon || 'solar:ticket-bold-duotone';
+    const resolvedIcon = customIconUrl || (iconName === 'Ticket' ? 'solar:ticket-bold-duotone' : iconName);
     
     const iconSize = settings?.floating_ticket_icon_size || 'medium';
     const iconSizeClasses: Record<string, string> = {
@@ -126,15 +125,10 @@ const FloatingTicketButton = React.forwardRef<HTMLAnchorElement, React.HTMLAttri
           {/* Ticket Icon & Label */}
           <div className="flex items-center gap-2 md:gap-3 pl-2.5 md:pl-3">
             <div className="bg-white/20 p-1 md:p-1.5 rounded-lg flex items-center justify-center">
-              {customIconUrl ? (
-                <img 
-                  src={customIconUrl} 
-                  alt="Ticket icon" 
-                  className={`${currentIconSize} object-contain`}
-                />
-              ) : (
-                <IconComponent className={currentIconSize} />
-              )}
+              <AppIcon 
+                name={resolvedIcon} 
+                className={currentIconSize} 
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-[8px] md:text-[10px] opacity-85 leading-tight font-medium uppercase tracking-wider">

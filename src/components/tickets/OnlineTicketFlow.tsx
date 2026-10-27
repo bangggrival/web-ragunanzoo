@@ -1,38 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import {
-  Globe,
-  Calendar as CalendarIcon,
-  Users,
-  Trees,
-  Car,
-  Bike,
-  Bus,
-  Mail,
-  User,
-  Phone,
-  QrCode,
-  CheckCircle,
-  ArrowRight,
-  RotateCcw,
-  Sparkles,
-  Ticket,
-  ShieldCheck,
-  Send,
-  Plus,
-  Minus,
-  ArrowLeft,
-  AlertTriangle,
-  Clock,
-  Download,
-  Copy,
-  Check,
-  Printer,
-  Share2,
-  ExternalLink,
-  CheckCircle2,
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { QRCodeSVG } from 'qrcode.react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTicketContent } from '@/hooks/useTicketContent';
@@ -172,7 +141,7 @@ export default function OnlineTicketFlow({
       nameId: 'Tiket Masuk Dewasa',
       nameEn: 'Adult Admission Ticket',
       price: settings?.adult_price ?? 4000,
-      icon: <Users className="w-4 h-4 text-emerald-500" />,
+      icon: <AppIcon name="solar:users-group-two-rounded-bold-duotone" className="w-4 h-4 text-emerald-500" />,
     },
     {
       id: 'anak',
@@ -180,7 +149,7 @@ export default function OnlineTicketFlow({
       nameId: 'Tiket Masuk Anak (3–12 thn)',
       nameEn: 'Child Admission Ticket (3-12 yrs)',
       price: settings?.child_price ?? 3000,
-      icon: <Users className="w-4 h-4 text-emerald-400" />,
+      icon: <AppIcon name="fluent-emoji-flat:baby" className="w-4 h-4 text-emerald-400" />,
     },
 
     // 2. Tiket Wahana
@@ -190,7 +159,7 @@ export default function OnlineTicketFlow({
       nameId: `Pusat Primata Schmutzer (${isWeekend ? 'Akhir Pekan' : 'Hari Kerja'})`,
       nameEn: `Schmutzer Primate Center (${isWeekend ? 'Weekend' : 'Weekday'})`,
       price: schmutzerPrice,
-      icon: <Trees className="w-4 h-4 text-amber-500" />,
+      icon: <AppIcon name="fluent-emoji-flat:monkey-face" className="w-4 h-4" />,
     },
     {
       id: 'taman_anak',
@@ -198,7 +167,7 @@ export default function OnlineTicketFlow({
       nameId: 'Taman Satwa Anak',
       nameEn: 'Children Zoo Park',
       price: 2500,
-      icon: <Sparkles className="w-4 h-4 text-pink-500" />,
+      icon: <AppIcon name="solar:stars-minimalistic-bold" className="w-4 h-4 text-pink-500" />,
     },
 
     // 3. Tiket Kendaraan
@@ -208,7 +177,7 @@ export default function OnlineTicketFlow({
       nameId: 'Kendaraan Gol I (Bus Besar / Truk)',
       nameEn: 'Vehicle Cat I (Large Tour Bus)',
       price: settings?.parking_bus ?? 15000,
-      icon: <Bus className="w-4 h-4 text-blue-600" />,
+      icon: <AppIcon name="fluent-emoji-flat:bus" className="w-4 h-4 text-blue-600" />,
     },
     {
       id: 'gol2',
@@ -216,7 +185,7 @@ export default function OnlineTicketFlow({
       nameId: 'Kendaraan Gol II (Bus Sedang / Elf / Truk Kecil)',
       nameEn: 'Vehicle Cat II (Medium Bus / Minivan)',
       price: 10000,
-      icon: <Bus className="w-4 h-4 text-blue-500" />,
+      icon: <AppIcon name="fluent-emoji-flat:minibus" className="w-4 h-4 text-blue-500" />,
     },
     {
       id: 'gol3',
@@ -224,7 +193,7 @@ export default function OnlineTicketFlow({
       nameId: 'Kendaraan Gol III (Mobil Sedan / Minibus / SUV)',
       nameEn: 'Vehicle Cat III (Car / Sedan / SUV)',
       price: settings?.parking_car ?? 10000,
-      icon: <Car className="w-4 h-4 text-sky-500" />,
+      icon: <AppIcon name="fluent-emoji-flat:automobile" className="w-4 h-4 text-sky-500" />,
     },
     {
       id: 'motor',
@@ -232,7 +201,7 @@ export default function OnlineTicketFlow({
       nameId: 'Sepeda Motor & Roda Tiga',
       nameEn: 'Motorcycle & 3-Wheeler',
       price: settings?.parking_motor ?? 5000,
-      icon: <Bike className="w-4 h-4 text-indigo-500" />,
+      icon: <AppIcon name="fluent-emoji-flat:motorcycle" className="w-4 h-4 text-indigo-500" />,
     },
     {
       id: 'sepeda',
@@ -240,7 +209,7 @@ export default function OnlineTicketFlow({
       nameId: 'Sepeda Gowes',
       nameEn: 'Bicycle Pass',
       price: settings?.parking_bike ?? 1000,
-      icon: <Bike className="w-4 h-4 text-teal-500" />,
+      icon: <AppIcon name="fluent-emoji-flat:bicycle" className="w-4 h-4 text-teal-500" />,
     },
   ];
 
@@ -462,7 +431,7 @@ export default function OnlineTicketFlow({
         <div className="relative z-10 flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1 flex-wrap">
-              <Globe className="w-5 h-5 text-sky-200" />
+              <AppIcon name="solar:global-bold-duotone" className="w-5 h-5 text-sky-200" />
               <h3 className="font-extrabold text-base md:text-lg tracking-tight">
                 {isEN ? 'Interactive E-Ticket Flow Simulation' : 'Simulasi Alur Pemesanan E-Tiket'}
               </h3>
@@ -481,7 +450,7 @@ export default function OnlineTicketFlow({
               onClick={reset}
               className="flex-shrink-0 flex items-center gap-1.5 text-white/90 hover:text-white text-xs font-bold border border-white/30 px-3 py-1.5 rounded-full hover:bg-white/10 transition-all active:scale-95"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <AppIcon name="solar:restart-bold" className="w-3.5 h-3.5" />
               <span>{isEN ? 'Restart' : 'Reset'}</span>
             </button>
           )}
@@ -512,7 +481,7 @@ export default function OnlineTicketFlow({
                     : 'text-white/50'
                 }`}
               >
-                {isDone ? <Check className="w-3 h-3 text-emerald-300" /> : null}
+                {isDone ? <AppIcon name="solar:check-read-linear" className="w-3 h-3 text-emerald-300" /> : null}
                 <span>{s.label}</span>
               </div>
             );
@@ -525,7 +494,7 @@ export default function OnlineTicketFlow({
         {/* Banner Edukatif & Tautan Portal Resmi */}
         <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs animate-fade-in">
           <div className="flex items-start gap-2.5">
-            <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+            <AppIcon name="solar:danger-triangle-bold" className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
             <div>
               <p className="font-bold text-foreground">
                 {isEN ? 'Educational Simulation Feature' : 'Fitur Simulasi & Estimasi Edukatif'}
@@ -551,7 +520,7 @@ export default function OnlineTicketFlow({
         {isPrefilled && step === 'form' && (
           <div className="p-3.5 rounded-2xl bg-sky-50 dark:bg-sky-950/50 border border-sky-200 dark:border-sky-800 flex items-center justify-between gap-3 animate-fade-in">
             <div className="flex items-center gap-2.5">
-              <Sparkles className="w-4 h-4 text-sky-600 dark:text-sky-400 flex-shrink-0" />
+              <AppIcon name="solar:stars-minimalistic-bold" className="w-4 h-4 text-sky-600 dark:text-sky-400 flex-shrink-0" />
               <p className="text-xs text-sky-900 dark:text-sky-200">
                 {isEN
                   ? 'Ticket counts have been prefilled automatically from your visit simulator!'
@@ -574,7 +543,7 @@ export default function OnlineTicketFlow({
           <div className="space-y-4 animate-fade-in">
             <div className="bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800 rounded-2xl p-4 flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300 flex items-center justify-center flex-shrink-0">
-                <Globe className="w-5 h-5" />
+                <AppIcon name="solar:global-bold-duotone" className="w-5 h-5" />
               </div>
               <div className="space-y-1">
                 <p className="font-bold text-sm text-sky-900 dark:text-sky-200">
@@ -611,7 +580,7 @@ export default function OnlineTicketFlow({
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-sm shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
             >
               <span>{isEN ? 'Start Simulation Flow' : 'Mulai Simulasi Alur'}</span>
-              <ArrowRight className="w-4 h-4" />
+              <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -623,7 +592,7 @@ export default function OnlineTicketFlow({
             <div className="bg-card border border-border/80 p-4 rounded-2xl space-y-2.5 shadow-2xs">
               <div className="flex items-center justify-between">
                 <label className="flex items-center gap-2 font-bold text-xs text-foreground">
-                  <CalendarIcon className="w-4 h-4 text-sky-600" />
+                  <AppIcon name="solar:calendar-bold-duotone" className="w-4 h-4 text-sky-600" />
                   <span>1. {isEN ? 'Select Visit Date' : 'Pilih Tanggal Kedatangan'}</span>
                 </label>
                 {isWeekend && (
@@ -644,7 +613,7 @@ export default function OnlineTicketFlow({
               {/* Monday Alert */}
               {isMonday && (
                 <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-2 text-xs text-amber-700 dark:text-amber-300">
-                  <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <AppIcon name="solar:danger-triangle-bold" className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-bold">Perhatian: Hari Senin adalah Hari Libur Satwa!</p>
                     <p className="text-[11px] text-amber-600/90 mt-0.5">
@@ -658,14 +627,14 @@ export default function OnlineTicketFlow({
             {/* Step 2: Ticket Categories Selector */}
             <div className="space-y-3">
               <p className="font-bold text-xs text-foreground flex items-center gap-1.5">
-                <Ticket className="w-4 h-4 text-sky-600" />
+                <AppIcon name="solar:ticket-bold-duotone" className="w-4 h-4 text-sky-600" />
                 <span>2. {isEN ? 'Customize Ticket Quantities' : 'Pilih Jumlah Tiket & Wahana'}</span>
               </p>
 
               {/* Group 1: Tiket Pengunjung */}
               <div className="bg-card border border-border/80 p-3.5 rounded-2xl space-y-2.5 shadow-2xs">
                 <p className="text-[11px] font-extrabold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:users-group-two-rounded-bold-duotone" className="w-3.5 h-3.5" />
                   <span>Tiket Masuk Pengunjung</span>
                 </p>
                 <div className="space-y-2">
@@ -683,7 +652,7 @@ export default function OnlineTicketFlow({
                           onClick={() => updateCart(item.id, -1)}
                           className="w-7 h-7 rounded-lg bg-card border border-border hover:bg-muted text-foreground font-bold text-sm flex items-center justify-center transition-colors active:scale-90"
                         >
-                          <Minus className="w-3.5 h-3.5" />
+                          <AppIcon name="solar:minus-linear" className="w-3.5 h-3.5" />
                         </button>
                         <span className="font-extrabold text-sm w-5 text-center text-foreground">
                           {cart[item.id] || 0}
@@ -692,7 +661,7 @@ export default function OnlineTicketFlow({
                           onClick={() => updateCart(item.id, 1)}
                           className="w-7 h-7 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm flex items-center justify-center transition-colors active:scale-90"
                         >
-                          <Plus className="w-3.5 h-3.5" />
+                          <AppIcon name="solar:add-linear" className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
@@ -703,7 +672,7 @@ export default function OnlineTicketFlow({
               {/* Group 2: Tiket Wahana */}
               <div className="bg-card border border-border/80 p-3.5 rounded-2xl space-y-2.5 shadow-2xs">
                 <p className="text-[11px] font-extrabold text-amber-600 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <Trees className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:trees-bold-duotone" className="w-3.5 h-3.5" />
                   <span>Wahana & Atraksi Satwa</span>
                 </p>
                 <div className="space-y-2">
@@ -721,7 +690,7 @@ export default function OnlineTicketFlow({
                           onClick={() => updateCart(item.id, -1)}
                           className="w-7 h-7 rounded-lg bg-card border border-border hover:bg-muted text-foreground font-bold text-sm flex items-center justify-center transition-colors active:scale-90"
                         >
-                          <Minus className="w-3.5 h-3.5" />
+                          <AppIcon name="solar:minus-linear" className="w-3.5 h-3.5" />
                         </button>
                         <span className="font-extrabold text-sm w-5 text-center text-foreground">
                           {cart[item.id] || 0}
@@ -730,7 +699,7 @@ export default function OnlineTicketFlow({
                           onClick={() => updateCart(item.id, 1)}
                           className="w-7 h-7 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm flex items-center justify-center transition-colors active:scale-90"
                         >
-                          <Plus className="w-3.5 h-3.5" />
+                          <AppIcon name="solar:add-linear" className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
@@ -741,7 +710,7 @@ export default function OnlineTicketFlow({
               {/* Group 3: Tiket Kendaraan */}
               <div className="bg-card border border-border/80 p-3.5 rounded-2xl space-y-2.5 shadow-2xs">
                 <p className="text-[11px] font-extrabold text-sky-600 dark:text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <Car className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:wheel-bold-duotone" className="w-3.5 h-3.5" />
                   <span>Parkir Kendaraan</span>
                 </p>
                 <div className="space-y-2">
@@ -759,7 +728,7 @@ export default function OnlineTicketFlow({
                           onClick={() => updateCart(item.id, -1)}
                           className="w-7 h-7 rounded-lg bg-card border border-border hover:bg-muted text-foreground font-bold text-sm flex items-center justify-center transition-colors active:scale-90"
                         >
-                          <Minus className="w-3.5 h-3.5" />
+                          <AppIcon name="solar:minus-linear" className="w-3.5 h-3.5" />
                         </button>
                         <span className="font-extrabold text-sm w-5 text-center text-foreground">
                           {cart[item.id] || 0}
@@ -768,7 +737,7 @@ export default function OnlineTicketFlow({
                           onClick={() => updateCart(item.id, 1)}
                           className="w-7 h-7 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm flex items-center justify-center transition-colors active:scale-90"
                         >
-                          <Plus className="w-3.5 h-3.5" />
+                          <AppIcon name="solar:add-linear" className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
@@ -789,7 +758,7 @@ export default function OnlineTicketFlow({
                 className="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 disabled:opacity-50 text-white font-extrabold text-xs flex items-center gap-2 shadow-md active:scale-95 transition-all"
               >
                 <span>{isEN ? 'Continue to Contact' : 'Lanjut Isi Data'}</span>
-                <ArrowRight className="w-4 h-4" />
+                <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -800,7 +769,7 @@ export default function OnlineTicketFlow({
           <div className="space-y-4 animate-fade-in">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300 flex items-center justify-center flex-shrink-0">
-                <User className="w-5 h-5" />
+                <AppIcon name="solar:user-bold-duotone" className="w-5 h-5" />
               </div>
               <div>
                 <h4 className="font-bold text-sm text-foreground">
@@ -817,7 +786,7 @@ export default function OnlineTicketFlow({
             <div className="bg-card border border-border/80 p-4 rounded-2xl space-y-3.5 shadow-2xs">
               <div>
                 <label className="block text-xs font-bold text-foreground mb-1.5 flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5 text-sky-600" />
+                  <AppIcon name="solar:user-bold-duotone" className="w-3.5 h-3.5 text-sky-600" />
                   <span>Nama Lengkap Pemesan</span>
                 </label>
                 <input
@@ -831,7 +800,7 @@ export default function OnlineTicketFlow({
 
               <div>
                 <label className="block text-xs font-bold text-foreground mb-1.5 flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5 text-sky-600" />
+                  <AppIcon name="solar:letter-bold-duotone" className="w-3.5 h-3.5 text-sky-600" />
                   <span>Alamat Email Aktif</span>
                 </label>
                 <input
@@ -845,7 +814,7 @@ export default function OnlineTicketFlow({
 
               <div>
                 <label className="block text-xs font-bold text-foreground mb-1.5 flex items-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-sky-600" />
+                  <AppIcon name="solar:phone-bold-duotone" className="w-3.5 h-3.5 text-sky-600" />
                   <span>Nomor Telepon / WhatsApp</span>
                 </label>
                 <input
@@ -860,7 +829,7 @@ export default function OnlineTicketFlow({
 
             {/* Verification Security Notice */}
             <div className="bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800 rounded-xl px-3.5 py-3 flex items-start gap-2.5 text-xs text-sky-800 dark:text-sky-300">
-              <ShieldCheck className="w-4 h-4 flex-shrink-0 mt-0.5 text-sky-600" />
+              <AppIcon name="solar:shield-check-bold-duotone" className="w-4 h-4 flex-shrink-0 mt-0.5 text-sky-600" />
               <p>
                 Pastikan email <strong>{contact.email}</strong> dan nomor HP ditulis dengan benar agar QR Tiket sampai tepat waktu.
               </p>
@@ -872,7 +841,7 @@ export default function OnlineTicketFlow({
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 disabled:opacity-50 text-white font-extrabold text-sm shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
             >
               <span>{isEN ? `Proceed to QRIS Payment (${formatRp(totalPrice)})` : `Lanjut ke Pembayaran QRIS (${formatRp(totalPrice)})`}</span>
-              <ArrowRight className="w-4 h-4" />
+              <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -882,7 +851,7 @@ export default function OnlineTicketFlow({
           <div className="space-y-4 animate-fade-in">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-300 flex items-center justify-center flex-shrink-0">
-                <QrCode className="w-5 h-5" />
+                <AppIcon name="solar:qr-code-bold-duotone" className="w-5 h-5" />
               </div>
               <div>
                 <h4 className="font-bold text-sm text-foreground">
@@ -898,7 +867,7 @@ export default function OnlineTicketFlow({
 
             {/* Countdown Badge */}
             <div className="flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 text-xs font-bold w-fit mx-auto">
-              <Clock className="w-4 h-4 text-amber-600 animate-pulse" />
+              <AppIcon name="solar:clock-circle-bold-duotone" className="w-4 h-4 text-amber-600 animate-pulse" />
               <span>Selesaikan dalam: {formatTimer(qrisTimeLeft)}</span>
             </div>
 
@@ -941,7 +910,7 @@ export default function OnlineTicketFlow({
                 <span>Memverifikasi Pembayaran Otomatis...</span>
               ) : (
                 <>
-                  <CheckCircle className="w-4 h-4" />
+                  <AppIcon name="solar:check-circle-bold-duotone" className="w-4 h-4" />
                   <span>{isEN ? 'Simulate Payment Success (Demo)' : 'Simulasikan Pembayaran Berhasil (Demo)'}</span>
                 </>
               )}
@@ -954,7 +923,7 @@ export default function OnlineTicketFlow({
           <div className="space-y-5 animate-fade-in">
             <div className="text-center py-2">
               <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 flex items-center justify-center mx-auto mb-2.5 ring-4 ring-emerald-200 dark:ring-emerald-800 shadow-md">
-                <CheckCircle2 className="w-8 h-8" />
+                <AppIcon name="solar:check-circle-bold-duotone" className="w-8 h-8" />
               </div>
               <h4 className="font-black text-lg text-foreground">
                 {isEN ? 'E-Ticket Simulation Completed!' : 'Simulasi E-Ticket Pass Selesai!'}
@@ -974,7 +943,7 @@ export default function OnlineTicketFlow({
               {/* Card Header */}
               <div className="flex items-center justify-between border-b border-white/15 pb-3">
                 <div className="flex items-center gap-2">
-                  <Ticket className="w-5 h-5 text-sky-400" />
+                  <AppIcon name="solar:ticket-bold-duotone" className="w-5 h-5 text-sky-400" />
                   <div>
                     <p className="text-xs font-black tracking-wider text-amber-300 uppercase">
                       {isEN ? '[ SIMULATION PASS PREVIEW ]' : '[ CONTOH SIMULASI VOUCHER ]'}
@@ -1005,7 +974,7 @@ export default function OnlineTicketFlow({
                       className="p-1 hover:bg-white/10 rounded-md transition-colors"
                       title="Salin kode booking"
                     >
-                      {isCopied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-white/70" />}
+                      {isCopied ? <AppIcon name="solar:check-read-linear" className="w-3.5 h-3.5 text-emerald-400" /> : <AppIcon name="solar:copy-bold-duotone" className="w-3.5 h-3.5 text-white/70" />}
                     </button>
                   </p>
                   <p className="text-xs text-white/90 font-medium">Pemesan: <strong>{contact.name}</strong></p>
@@ -1035,7 +1004,7 @@ export default function OnlineTicketFlow({
             {/* Official Portal Direct CTA Banner */}
             <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-center space-y-2.5">
               <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400">
-                <AlertTriangle className="w-4 h-4" />
+                <AppIcon name="solar:danger-triangle-bold" className="w-4 h-4" />
                 <span>{isEN ? 'Notice: This voucher is for educational simulation only' : 'Perhatian: Voucher ini merupakan hasil simulasi estimasi'}</span>
               </div>
               <p className="text-[11px] text-muted-foreground max-w-md mx-auto leading-relaxed">
@@ -1059,7 +1028,7 @@ export default function OnlineTicketFlow({
                 onClick={handleDownloadTicketPass}
                 className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm active:scale-95 transition-all"
               >
-                <Download className="w-4 h-4" />
+                <AppIcon name="solar:download-square-bold-duotone" className="w-4 h-4" />
                 <span>{isEN ? 'Download Simulation Pass (PNG)' : 'Unduh Contoh Voucher Simulasi (PNG)'}</span>
               </button>
 
@@ -1067,7 +1036,7 @@ export default function OnlineTicketFlow({
                 onClick={handleShareWhatsApp}
                 className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm active:scale-95 transition-all"
               >
-                <Share2 className="w-4 h-4" />
+                <AppIcon name="solar:share-bold-duotone" className="w-4 h-4" />
                 <span>{isEN ? 'Share Estimate via WhatsApp' : 'Kirim Estimasi ke WhatsApp'}</span>
               </button>
             </div>
@@ -1081,7 +1050,7 @@ export default function OnlineTicketFlow({
               onClick={back}
               className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-foreground transition-colors"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <AppIcon name="solar:arrow-left-linear" className="w-3.5 h-3.5" />
               <span>{isEN ? 'Back' : 'Kembali'}</span>
             </button>
           </div>

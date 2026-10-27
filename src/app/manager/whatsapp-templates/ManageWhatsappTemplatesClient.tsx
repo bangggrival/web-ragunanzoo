@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { MessageCircle, Plus, Edit2, Trash2, X, Globe, GripVertical } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -162,14 +162,14 @@ export default function ManageWhatsappTemplatesClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <MessageCircle className="w-5 h-5 text-green-500" />
+              <AppIcon icon="MessageCircle" className="w-5 h-5 text-green-500" />
             </div>
             Template WhatsApp
           </h1>
           <p className="text-slate-500 font-medium mt-1 ml-13">Kelola template pesan untuk tombol chat WhatsApp</p>
         </div>
         <Button onClick={handleAdd} className="rounded-xl bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white font-bold shadow-lg shadow-green-500/20 px-6">
-          <Plus className="w-5 h-5 mr-2" />
+          <AppIcon icon="Plus" className="w-5 h-5 mr-2" />
           Tambah Template
         </Button>
       </div>
@@ -177,7 +177,7 @@ export default function ManageWhatsappTemplatesClient() {
       {/* Info Card */}
       <div className="bg-green-50/50 border border-green-100 p-5 rounded-[1.5rem] shadow-sm flex items-start gap-4">
         <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-          <MessageCircle className="w-5 h-5 text-green-600" />
+          <AppIcon icon="MessageCircle" className="w-5 h-5 text-green-600" />
         </div>
         <div>
           <h3 className="font-bold text-green-900">Cara Kerja Template</h3>
@@ -210,7 +210,7 @@ export default function ManageWhatsappTemplatesClient() {
           >
             <div className="flex items-start gap-4">
               <div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 mt-1">
-                <GripVertical className="w-4 h-4" />
+                <AppIcon icon="GripVertical" className="w-4 h-4" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-2">
@@ -240,7 +240,7 @@ export default function ManageWhatsappTemplatesClient() {
                   className="w-9 h-9 rounded-xl border-slate-200 text-slate-600 hover:text-green-600 hover:bg-green-50 hover:border-green-200"
                   onClick={() => handleEdit(item)}
                 >
-                  <Edit2 className="w-4 h-4" />
+                  <AppIcon icon="Edit2" className="w-4 h-4" />
                 </Button>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
@@ -249,7 +249,7 @@ export default function ManageWhatsappTemplatesClient() {
                       size="icon"
                       className="w-9 h-9 rounded-xl border-slate-200 text-slate-600 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-200"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <AppIcon icon="Trash2" className="w-4 h-4" />
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent className="rounded-[2rem]">
@@ -270,7 +270,7 @@ export default function ManageWhatsappTemplatesClient() {
         {templates.length === 0 && (
           <div className="text-center py-16 bg-white/60 backdrop-blur-xl border border-white/80 rounded-[1.5rem] shadow-sm">
             <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-100">
-              <MessageCircle className="w-8 h-8 text-slate-300" />
+              <AppIcon icon="MessageCircle" className="w-8 h-8 text-slate-300" />
             </div>
             <p className="text-slate-500 font-medium">Belum ada template pesan.</p>
             <p className="text-sm text-slate-400 mt-1">
@@ -288,7 +288,7 @@ export default function ManageWhatsappTemplatesClient() {
             <div className="px-6 py-5 border-b border-slate-100 bg-white/50 flex-shrink-0 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                  <MessageCircle className="w-5 h-5 text-green-500" />
+                  <AppIcon icon="MessageCircle" className="w-5 h-5 text-green-500" />
                 </div>
                 <div>
                   <h2 className="text-xl font-bold text-slate-800">
@@ -303,7 +303,7 @@ export default function ManageWhatsappTemplatesClient() {
                 onClick={() => setShowModal(false)} 
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition-colors"
               >
-                <X className="w-5 h-5" />
+                <AppIcon icon="X" className="w-5 h-5" />
               </button>
             </div>
 
@@ -313,7 +313,7 @@ export default function ManageWhatsappTemplatesClient() {
                 {/* Bilingual Content Section */}
                 <div className="space-y-4">
                   <h3 className="font-bold text-sm text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-green-500" />
+                    <AppIcon icon="Globe" className="w-4 h-4 text-green-500" />
                     Konten Multibahasa
                   </h3>
                   
@@ -371,7 +371,7 @@ export default function ManageWhatsappTemplatesClient() {
                 {/* Settings Section */}
                 <div className="space-y-4 pt-4 border-t border-slate-100">
                   <h3 className="font-bold text-sm text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                    <MessageCircle className="w-4 h-4 text-green-500" />
+                    <AppIcon icon="MessageCircle" className="w-4 h-4 text-green-500" />
                     Pengaturan
                   </h3>
 

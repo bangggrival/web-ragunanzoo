@@ -1,10 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-  <circle cx="24" cy="24" r="22" fill="#C27835" fill-opacity="0.12"/>
-  <circle cx="24" cy="24" r="21" stroke="#C27835" stroke-opacity="0.25" stroke-width="1.5"/>
-  <!-- Camel Hump & Body -->
-  <path d="M12 30C12 25 15 20 20 20C23 20 24 23 26 23C28 23 30 18 34 18C37 18 39 22 39 27C39 33 34 35 25 35C16 35 12 34 12 30Z" fill="#C27835" fill-opacity="0.35"/>
-  <!-- Camel Head & Neck -->
-  <path d="M14 27L17 15C17 15 16 11 20 11C23 11 24 13 22 15L20 24" stroke="#0B4635" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Legs Base -->
-  <path d="M17 35V40M22 35V39M28 35V39M33 35V40" stroke="#0B4635" stroke-width="2" stroke-linecap="round"/>
+  <!-- Outer brand halo -->
+  <circle cx="24" cy="24" r="22" fill="#C27835" fill-opacity="0.14"/>
+  <circle cx="24" cy="24" r="21" stroke="#C27835" stroke-opacity="0.3" stroke-width="1.5"/>
+
+  <!-- Camel Body Silhouette with Prominent Hump -->
+  <path d="M12 30C12 26 15 23 18 24C19 21 22 17 26 17C29 17 31 20 33 24C36 24 38 27 38 31C38 34 35 36 26 36C17 36 12 34 12 30Z" fill="#C27835" fill-opacity="0.35"/>
+  <!-- Hump Core & Backline -->
+  <path d="M19 24C21 19 24 16 26 16C29 16 31 20 33 24" stroke="#0B4635" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Graceful S-Curved Neck and Head -->
+  <path d="M15 28C14 22 15 15 19 13C22 11 25 12 25 14C24 16 21 17 20 22C19 26 18 29 18 29" fill="#0B4635"/>
+  <!-- Camel Head Profile -->
+  <path d="M18 13L24 11C26 11 27 13 25 15L20 16Z" fill="#0B4635"/>
+  <!-- Small Alert Ear -->
+  <path d="M18 12L17 9L19 11Z" fill="#C27835"/>
+  <circle cx="21" cy="13" r="0.9" fill="#FDE68A"/>
+
+  <!-- Anatomically Jointed Legs with Padded Feet -->
+  <!-- Front Foreleg -->
+  <path d="M19 33L19 37L18 41H21" stroke="#0B4635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Front Background Leg -->
+  <path d="M22 33L22 36L21 39H23" stroke="#0B4635" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.6"/>
+  <!-- Hind Leg with Hock Joint -->
+  <path d="M33 32L34 36L33 41H36" stroke="#0B4635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Hind Background Leg -->
+  <path d="M30 33L31 36L30 39H32" stroke="#0B4635" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.6"/>
+
+  <!-- Slender Tail with Hair Tuft -->
+  <path d="M38 31C39 34 38 37 37 38" stroke="#0B4635" stroke-width="1.5" stroke-linecap="round"/>
 </svg>

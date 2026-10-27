@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Book, ChevronRight, LockKeyhole, Star, FileText, History, Library, CheckCircle2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { usePurchases } from '@/hooks/usePurchases';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -47,7 +47,7 @@ export default function MyLibraryPage() {
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
           <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-            <Star className="w-6 h-6 text-amber-500 fill-amber-500" />
+            <AppIcon icon="Star" className="w-6 h-6 text-amber-500 fill-amber-500" />
           </div>
           <div>
             <h1 className="text-3xl font-black text-slate-800">
@@ -69,7 +69,7 @@ export default function MyLibraryPage() {
                 : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'
             }`}
           >
-            <Library className="w-4 h-4" />
+            <AppIcon icon="Library" className="w-4 h-4" />
             {language === 'en' ? 'My Collection' : 'Koleksi Buku'}
           </button>
           <button
@@ -80,7 +80,7 @@ export default function MyLibraryPage() {
                 : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'
             }`}
           >
-            <History className="w-4 h-4" />
+            <AppIcon icon="History" className="w-4 h-4" />
             {language === 'en' ? 'Transaction History' : 'Riwayat Transaksi'}
           </button>
         </div>
@@ -90,7 +90,7 @@ export default function MyLibraryPage() {
             {successPurchases.length === 0 ? (
               <div className="bg-white rounded-[2rem] border border-slate-200 p-12 text-center shadow-sm">
                 <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <LockKeyhole className="w-10 h-10 text-slate-300" />
+                  <AppIcon icon="LockKeyhole" className="w-10 h-10 text-slate-300" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-800 mb-3">
                   {language === 'en' ? 'No Premium Books Yet' : 'Belum Ada Buku Premium'}
@@ -124,7 +124,7 @@ export default function MyLibraryPage() {
                           <img src={book.cover_url} alt={title} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-amber-100 to-amber-50">
-                            <Book className="w-6 h-6 text-amber-300" />
+                            <AppIcon icon="Book" className="w-6 h-6 text-amber-300" />
                           </div>
                         )}
                       </div>
@@ -145,7 +145,7 @@ export default function MyLibraryPage() {
                       </div>
                       
                       <div className="hidden sm:flex flex-col items-end gap-2 pr-4">
-                        <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
+                        <AppIcon icon="ChevronRight" className="w-5 h-5 text-slate-300 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
                       </div>
                     </div>
                   );
@@ -160,7 +160,7 @@ export default function MyLibraryPage() {
             {purchases.length === 0 ? (
               <div className="p-12 text-center">
                 <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <History className="w-10 h-10 text-slate-300" />
+                  <AppIcon icon="History" className="w-10 h-10 text-slate-300" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-800 mb-3">
                   {language === 'en' ? 'No Transactions Found' : 'Belum Ada Riwayat Transaksi'}
@@ -209,7 +209,7 @@ export default function MyLibraryPage() {
                           <td className="p-4 whitespace-nowrap">
                             {purchase.status === 'success' ? (
                               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-green-50 text-green-700 rounded-lg text-xs font-bold border border-green-200">
-                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                <AppIcon icon="CheckCircle2" className="w-3.5 h-3.5" />
                                 Lunas
                               </span>
                             ) : (

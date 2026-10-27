@@ -8,22 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogBody } from '@/components/ui/dialog';
-import { 
-  Plus, 
-  Save, 
-  Loader2,
-  Trash2,
-  Edit2,
-  GripVertical,
-  Link as LinkIcon,
-  ExternalLink,
-  Smartphone,
-  Monitor,
-  AlertCircle,
-  Info,
-  ChevronDown,
-  LayoutTemplate
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { z } from 'zod';
 import {
   DndContext,
@@ -95,7 +80,7 @@ function SortableNavbarItem({
     opacity: isDragging ? 0.8 : 1,
   };
 
-  const IconComponent = iconMap[item.icon as keyof typeof iconMap] || LinkIcon;
+  const IconComponent = iconMap[item.icon as keyof typeof iconMap] || allIcons['Link'];
   const isExternal = item.path.startsWith('http') || (item.path_en && item.path_en.startsWith('http'));
   const isHome = item.path === '/';
   const parentItem = item.parent_id ? allItems.find(i => i.id === item.parent_id) : null;
@@ -121,7 +106,7 @@ function SortableNavbarItem({
             {...listeners}
             className="mt-1 text-slate-300 cursor-grab active:cursor-grabbing hover:text-slate-500 transition-colors touch-none"
           >
-            <GripVertical className="w-5 h-5" />
+            <AppIcon icon="GripVertical" className="w-5 h-5" />
           </div>
 
           <div className={`
@@ -144,13 +129,13 @@ function SortableNavbarItem({
               )}
               {isExternal && (
                 <Badge variant="outline" className="text-[10px] px-2 h-5 gap-1 font-bold uppercase tracking-wider text-amber-600 border-amber-200 bg-amber-50">
-                  <ExternalLink className="w-3 h-3" />
+                  <AppIcon icon="ExternalLink" className="w-3 h-3" />
                   Eksternal
                 </Badge>
               )}
               {item.is_dropdown && (
                 <Badge variant="secondary" className="text-[10px] px-2 h-5 gap-1 font-bold uppercase tracking-wider bg-green-50 text-green-600">
-                  <ChevronDown className="w-3 h-3" />
+                  <AppIcon icon="ChevronDown" className="w-3 h-3" />
                   Dropdown ({childCount})
                 </Badge>
               )}
@@ -180,14 +165,14 @@ function SortableNavbarItem({
               onClick={() => onEdit(item)}
               className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors"
             >
-              <Edit2 className="w-4 h-4" />
+              <AppIcon icon="Edit2" className="w-4 h-4" />
             </button>
             {!item.is_system && (
               <button 
                 onClick={() => onDelete(item)}
                 className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
               >
-                <Trash2 className="w-4 h-4" />
+                <AppIcon icon="Trash2" className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -214,7 +199,7 @@ function SortableNavbarItem({
               className="data-[state=checked]:bg-green-500"
             />
             <span className="text-sm font-bold text-slate-500 flex items-center gap-1.5">
-              <Monitor className="w-4 h-4" />
+              <AppIcon icon="Monitor" className="w-4 h-4" />
               Top Nav
             </span>
           </label>
@@ -227,7 +212,7 @@ function SortableNavbarItem({
               className="data-[state=checked]:bg-violet-500"
             />
             <span className="text-sm font-bold text-slate-500 flex items-center gap-1.5">
-              <Smartphone className="w-4 h-4" />
+              <AppIcon icon="Smartphone" className="w-4 h-4" />
               Bottom Nav
             </span>
           </label>
@@ -241,7 +226,7 @@ function SortableNavbarItem({
                 className="data-[state=checked]:bg-blue-500"
               />
               <span className="text-sm font-bold text-slate-500 flex items-center gap-1.5">
-                <ChevronDown className="w-4 h-4" />
+                <AppIcon icon="ChevronDown" className="w-4 h-4" />
                 Dropdown
               </span>
             </label>
@@ -481,14 +466,14 @@ export default function ManageExplorerNavbarClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <LayoutTemplate className="w-5 h-5 text-green-500" />
+              <AppIcon icon="LayoutTemplate" className="w-5 h-5 text-green-500" />
             </div>
             Menu Navigasi
           </h1>
           <p className="text-slate-500 font-medium mt-1 ml-13">Kelola struktur menu yang tampil di halaman pengunjung</p>
         </div>
         <button onClick={openAddDialog} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(99,102,241,0.5)] hover:-translate-y-0.5">
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           Tambah Menu Baru
         </button>
       </div>
@@ -496,11 +481,11 @@ export default function ManageExplorerNavbarClient() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-            <LinkIcon className="w-16 h-16 text-slate-800" />
+            <AppIcon icon="Link" className="w-16 h-16 text-slate-800" />
           </div>
           <div className="flex items-center gap-2 mb-2 relative z-10">
             <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-              <LinkIcon className="w-4 h-4 text-slate-600" />
+              <AppIcon icon="Link" className="w-4 h-4 text-slate-600" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Aktif</span>
           </div>
@@ -509,11 +494,11 @@ export default function ManageExplorerNavbarClient() {
 
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-            <Monitor className="w-16 h-16 text-green-800" />
+            <AppIcon icon="Monitor" className="w-16 h-16 text-green-800" />
           </div>
           <div className="flex items-center gap-2 mb-2 relative z-10">
             <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-              <Monitor className="w-4 h-4 text-green-500" />
+              <AppIcon icon="Monitor" className="w-4 h-4 text-green-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Di Top Nav</span>
           </div>
@@ -522,11 +507,11 @@ export default function ManageExplorerNavbarClient() {
 
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-            <Smartphone className="w-16 h-16 text-green-800" />
+            <AppIcon icon="Smartphone" className="w-16 h-16 text-green-800" />
           </div>
           <div className="flex items-center gap-2 mb-2 relative z-10">
             <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-              <Smartphone className="w-4 h-4 text-green-500" />
+              <AppIcon icon="Smartphone" className="w-4 h-4 text-green-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Di Bottom Nav</span>
           </div>
@@ -537,7 +522,7 @@ export default function ManageExplorerNavbarClient() {
       <div className="bg-white/60 backdrop-blur-2xl rounded-[1.5rem] border border-white/80 shadow-sm p-6">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100">
-            <GripVertical className="w-5 h-5 text-slate-400" />
+            <AppIcon icon="GripVertical" className="w-5 h-5 text-slate-400" />
           </div>
           <div>
             <h2 className="text-lg font-bold text-slate-800">Struktur Navigasi</h2>
@@ -565,7 +550,7 @@ export default function ManageExplorerNavbarClient() {
         {items.length === 0 && (
           <div className="text-center py-16 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200 mt-4">
             <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-slate-100">
-              <LinkIcon className="w-8 h-8 text-slate-300" />
+              <AppIcon icon="Link" className="w-8 h-8 text-slate-300" />
             </div>
             <p className="font-bold text-slate-600 mb-1">Belum ada menu</p>
             <p className="text-sm text-slate-500">Klik "Tambah Menu Baru" untuk memulai.</p>
@@ -575,7 +560,7 @@ export default function ManageExplorerNavbarClient() {
 
       <div className="bg-blue-50/50 border border-blue-100 rounded-[1.5rem] p-6 flex gap-4">
         <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-          <Info className="w-6 h-6 text-blue-600" />
+          <AppIcon icon="Info" className="w-6 h-6 text-blue-600" />
         </div>
         <div>
           <h3 className="font-bold text-blue-900 mb-2">Panduan Pengaturan Navigasi</h3>
@@ -593,7 +578,7 @@ export default function ManageExplorerNavbarClient() {
           <DialogHeader className="p-6 border-b border-slate-100">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                {editingItem ? <Edit2 className="w-5 h-5 text-green-500" /> : <Plus className="w-5 h-5 text-green-500" />}
+                {editingItem ? <AppIcon icon="Edit2" className="w-5 h-5 text-green-500" /> : <AppIcon icon="Plus" className="w-5 h-5 text-green-500" />}
               </div>
               {editingItem ? 'Edit Menu' : 'Tambah Menu Baru'}
             </DialogTitle>
@@ -647,7 +632,7 @@ export default function ManageExplorerNavbarClient() {
           <DialogFooter className="p-5 border-t border-slate-100 bg-slate-50/80 rounded-b-[2rem]">
             <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-xl border-slate-200 font-bold bg-white hover:bg-slate-50">Batal</Button>
             <Button onClick={handleSaveItem} disabled={saving} className="rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-600/20 px-6">
-              {saving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+              {saving ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin mr-2" /> : null}
               {editingItem ? 'Simpan Perubahan' : 'Tambah Menu'}
             </Button>
           </DialogFooter>

@@ -2,23 +2,7 @@
 
 import React, { useRef } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { 
-  Ticket, 
-  Users, 
-  Baby, 
-  Car, 
-  Bike, 
-  Bus, 
-  Footprints, 
-  MapPin, 
-  Calendar, 
-  Printer, 
-  Share2, 
-  Sparkles, 
-  CheckCircle2, 
-  ShieldCheck,
-  Compass
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -105,7 +89,7 @@ export default function InstantTicketPreview({
       >
         {/* Subtle Watermark Silhouette */}
         <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 opacity-5 pointer-events-none">
-          <Ticket className="w-80 h-80 text-emerald-400" />
+          <AppIcon name="solar:ticket-bold-duotone" className="w-80 h-80 text-emerald-400" />
         </div>
 
         {/* Top Header of Ticket */}
@@ -151,7 +135,7 @@ export default function InstantTicketPreview({
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3 rounded-2xl bg-white/5 border border-white/10 text-xs">
               <div>
                 <p className="text-[10px] text-white/60 uppercase font-semibold flex items-center gap-1">
-                  <Calendar className="w-3 h-3 text-emerald-400" />
+                  <AppIcon name="solar:calendar-bold-duotone" className="w-3 h-3 text-emerald-400" />
                   <span>{isEn ? 'Visit Date' : 'Tanggal Kunjungan'}</span>
                 </p>
                 <p className="font-bold text-white mt-0.5 truncate">{todayFormatted}</p>
@@ -159,7 +143,7 @@ export default function InstantTicketPreview({
 
               <div>
                 <p className="text-[10px] text-white/60 uppercase font-semibold flex items-center gap-1">
-                  <Users className="w-3 h-3 text-emerald-400" />
+                  <AppIcon name="solar:users-group-two-rounded-bold-duotone" className="w-3 h-3 text-emerald-400" />
                   <span>{isEn ? 'Visitors' : 'Pengunjung'}</span>
                 </p>
                 <p className="font-bold text-white mt-0.5">
@@ -169,7 +153,7 @@ export default function InstantTicketPreview({
 
               <div className="col-span-2 sm:col-span-1">
                 <p className="text-[10px] text-white/60 uppercase font-semibold flex items-center gap-1">
-                  <MapPin className="w-3 h-3 text-emerald-400" />
+                  <AppIcon name="solar:map-point-bold-duotone" className="w-3 h-3 text-emerald-400" />
                   <span>{isEn ? 'Entry Gate' : 'Pintu Masuk'}</span>
                 </p>
                 <p className="font-bold text-white mt-0.5">Pintu Utara / Barat</p>
@@ -272,7 +256,7 @@ export default function InstantTicketPreview({
               onClick={handleShareWhatsApp}
               className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600/80 hover:bg-emerald-600 text-white text-xs font-bold transition-all hover:scale-105 active:scale-95 shadow-md"
             >
-              <Share2 className="w-3.5 h-3.5" />
+              <AppIcon name="solar:share-bold" className="w-3.5 h-3.5" />
               <span>{isEn ? 'Share WhatsApp' : 'Bagikan ke WA'}</span>
             </button>
 
@@ -281,7 +265,7 @@ export default function InstantTicketPreview({
               onClick={handlePrint}
               className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-md"
             >
-              <Printer className="w-3.5 h-3.5" />
+              <AppIcon name="solar:printer-bold-duotone" className="w-3.5 h-3.5" />
               <span>{isEn ? 'Print / Save Slip' : 'Cetak / Simpan Slip'}</span>
             </button>
           </div>
@@ -299,7 +283,7 @@ export default function InstantTicketPreview({
           </span>
         </div>
         <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-          <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+          <AppIcon name="solar:shield-check-bold" className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           <span>
             {isEn
               ? 'Official DKI Jakarta Regional Regulation tariff. Free entry for seniors and disabled visitors with verified ID.'

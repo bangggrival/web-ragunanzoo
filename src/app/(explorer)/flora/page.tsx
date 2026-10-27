@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Leaf, Search, MapPin, X, ArrowUpDown, ChevronRight, Star, Grid3X3, List, TrendingUp, Sparkles, Brain, Check } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { usePlants } from '@/hooks/usePlants';
 import { useCategories } from '@/hooks/useCategories';
 import { useState, useMemo, useEffect, useRef } from 'react';
@@ -81,7 +81,7 @@ export default function Flora() {
       {/* ══════════ HERO HEADER ══════════ */}
       <AtmosphericHeader
         theme="flora"
-        icon={<Leaf className="w-5 h-5 md:w-6 md:h-6 text-lime-300" />}
+        icon={<AppIcon icon="Leaf" className="w-5 h-5 md:w-6 md:h-6 text-lime-300" />}
         title={t('flora_collection')}
         description={
           language === 'en'
@@ -89,22 +89,22 @@ export default function Flora() {
             : 'Jelajahi koleksi tumbuhan beragam, pohon peneduh purba, dan flora tropis penghuni Ragunan Zoo'
         }
         breadcrumbs={[
-          { label: language === 'en' ? 'Explore' : 'Jelajahi', icon: <Leaf className="w-3 h-3" /> },
+          { label: language === 'en' ? 'Explore' : 'Jelajahi', icon: <AppIcon icon="Leaf" className="w-3 h-3" /> },
           { label: language === 'en' ? 'Flora Collection' : 'Koleksi Flora' },
         ]}
         stats={
           !loading
             ? [
                 {
-                  icon: <Leaf className="w-3.5 h-3.5" />,
+                  icon: <AppIcon icon="Leaf" className="w-3.5 h-3.5" />,
                   label: `${plants.length} ${language === 'en' ? 'Species' : 'Spesies'}`,
                 },
                 {
-                  icon: <Grid3X3 className="w-3.5 h-3.5" />,
+                  icon: <AppIcon icon="Grid3X3" className="w-3.5 h-3.5" />,
                   label: `${availableCategories.length} ${language === 'en' ? 'Categories' : 'Kategori'}`,
                 },
                 {
-                  icon: <Star className="w-3.5 h-3.5" />,
+                  icon: <AppIcon icon="Star" className="w-3.5 h-3.5" />,
                   label: `${plants.filter(p => p.is_featured).length} ${language === 'en' ? 'Featured' : 'Pilihan'}`,
                 },
               ]
@@ -126,11 +126,11 @@ export default function Flora() {
                   : 'bg-white/15 text-white group-hover:bg-lime-400 group-hover:text-lime-950'
               }`}
             >
-              <Brain className="w-5 h-5" />
+              <AppIcon icon="Brain" className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-white flex items-center gap-1.5">
-                <Leaf className="w-4 h-4 text-lime-300 shrink-0" />
+                <AppIcon icon="Leaf" className="w-4 h-4 text-lime-300 shrink-0" />
                 <span>{language === 'en' ? 'Plant Quiz!' : 'Kuis Flora!'}</span>
               </p>
               <p className="text-xs text-white/70">
@@ -138,8 +138,8 @@ export default function Flora() {
               </p>
             </div>
             <div className="flex items-center gap-1 text-white/70 group-hover:text-white transition-colors">
-              <Sparkles className="w-4 h-4 text-lime-300" />
-              <ChevronRight
+              <AppIcon icon="Sparkles" className="w-4 h-4 text-lime-300" />
+              <AppIcon icon="ChevronRight"
                 className={`w-4 h-4 transition-transform duration-200 ${
                   showQuiz ? 'rotate-90 text-lime-300' : 'group-hover:translate-x-0.5'
                 }`}
@@ -165,7 +165,7 @@ export default function Flora() {
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
           <div className="flex-1">
             <h2 className="text-base md:text-lg font-bold text-foreground flex items-center gap-2">
-              <Leaf className="w-4 h-4 text-primary" />
+              <AppIcon icon="Leaf" className="w-4 h-4 text-primary" />
               {language === 'en' ? 'Browse by Category' : 'Pilih Kategori'}
             </h2>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -177,7 +177,7 @@ export default function Flora() {
           <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 w-full sm:w-auto">
             {/* Search Input Box */}
             <div className="relative w-full sm:w-56 md:w-64 h-10 flex-shrink-0">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+              <AppIcon icon="Search" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
               <input
                 type="text"
                 placeholder={language === 'en' ? 'Search plants...' : 'Cari tumbuhan...'}
@@ -191,7 +191,7 @@ export default function Flora() {
                   className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1 transition-colors"
                   aria-label="Clear search"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <AppIcon icon="X" className="w-3.5 h-3.5" />
                 </button>
               )}
             </div>
@@ -206,7 +206,7 @@ export default function Flora() {
                   }`} 
                   aria-label="Grid view"
                 >
-                  <Grid3X3 className="w-4 h-4" />
+                  <AppIcon icon="Grid3X3" className="w-4 h-4" />
                 </button>
                 <button 
                   onClick={() => setViewMode('list')} 
@@ -215,7 +215,7 @@ export default function Flora() {
                   }`} 
                   aria-label="List view"
                 >
-                  <List className="w-4 h-4" />
+                  <AppIcon icon="List" className="w-4 h-4" />
                 </button>
               </div>
 
@@ -225,7 +225,7 @@ export default function Flora() {
                   onClick={() => setShowSortMenu(!showSortMenu)}
                   className="flex items-center gap-1.5 h-10 px-3.5 bg-card border border-border rounded-xl hover:bg-muted hover:border-primary/40 transition-colors text-sm font-semibold whitespace-nowrap shadow-2xs text-foreground"
                 >
-                  <ArrowUpDown className="w-4 h-4 text-primary" />
+                  <AppIcon icon="ArrowUpDown" className="w-4 h-4 text-primary" />
                   <span>{getSortLabel(sortBy)}</span>
                 </button>
                 {showSortMenu && (
@@ -243,10 +243,10 @@ export default function Flora() {
                           }`}
                         >
                           <div className="flex items-center gap-2">
-                            {option === 'popularity' ? <TrendingUp className="w-4 h-4" /> : <ArrowUpDown className="w-4 h-4" />}
+                            {option === 'popularity' ? <AppIcon icon="TrendingUp" className="w-4 h-4" /> : <AppIcon icon="ArrowUpDown" className="w-4 h-4" />}
                             <span>{getSortLabel(option)}</span>
                           </div>
-                          {sortBy === option && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
+                          {sortBy === option && <AppIcon icon="Check" className="w-4 h-4 text-white stroke-[2.5]" />}
                         </button>
                       ))}
                     </div>
@@ -277,7 +277,7 @@ export default function Flora() {
                 ? 'bg-primary text-white shadow-md'
                 : 'bg-primary/10 text-primary group-hover:bg-primary/20 group-hover:scale-110'
             }`}>
-              <Leaf className="w-7 h-7 md:w-8 md:h-8" />
+              <AppIcon icon="Leaf" className="w-7 h-7 md:w-8 md:h-8" />
             </div>
             <div className="text-center w-full">
               <p className={`font-bold text-xs md:text-sm leading-tight ${selectedCategoryId === null ? 'text-primary' : 'text-foreground group-hover:text-primary'} transition-colors`}>
@@ -354,7 +354,7 @@ export default function Flora() {
               onClick={() => { setSelectedCategoryId(null); setSearchQuery(''); }}
               className="flex items-center gap-1 text-xs text-primary hover:underline font-medium"
             >
-              <X className="w-3 h-3" />
+              <AppIcon icon="X" className="w-3 h-3" />
               {language === 'en' ? 'Clear' : 'Hapus'}
             </button>
           </div>
@@ -420,7 +420,7 @@ export default function Flora() {
                       metaLabel={plant.location || undefined}
                       aspectRatio="square"
                       actionText={language === 'en' ? 'Species Info' : 'Info Spesies'}
-                      actionIcon={<Leaf className="w-3.5 h-3.5" />}
+                      actionIcon={<AppIcon icon="Leaf" className="w-3.5 h-3.5" />}
                     />
                   </div>
                 );
@@ -447,7 +447,7 @@ export default function Flora() {
 
                     {plant.is_featured && (
                       <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-400 text-amber-950 shadow-sm backdrop-blur-md">
-                        <Sparkles className="w-2.5 h-2.5 fill-amber-900 text-amber-900" />
+                        <AppIcon icon="Sparkles" className="w-2.5 h-2.5 fill-amber-900 text-amber-900" />
                         <span>Unggulan</span>
                       </div>
                     )}
@@ -492,13 +492,13 @@ export default function Flora() {
                     <div className="flex items-center justify-between pt-3 mt-3 border-t border-border/50 text-xs">
                       {plant.location ? (
                         <div className="flex items-center gap-1.5 text-muted-foreground">
-                          <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                          <AppIcon icon="MapPin" className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                           <span className="truncate font-medium">{plant.location}</span>
                         </div>
                       ) : <div />}
 
                       <span className="text-[11px] font-semibold text-primary inline-flex items-center gap-1">
-                        <Leaf className="w-3 h-3 text-emerald-500" />
+                        <AppIcon icon="Leaf" className="w-3 h-3 text-emerald-500" />
                         <span>{language === 'en' ? 'Species Details →' : 'Lihat Detail Flora →'}</span>
                       </span>
                     </div>
@@ -512,7 +512,7 @@ export default function Flora() {
         {!loading && filteredAndSortedPlants.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center mb-4">
-              <Leaf className="w-9 h-9 text-muted-foreground/40" />
+              <AppIcon icon="Leaf" className="w-9 h-9 text-muted-foreground/40" />
             </div>
             <h3 className="font-semibold text-foreground mb-1">
               {t('no_plants_found')}

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCw } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { Button } from '@/components/ui/button';
 
@@ -86,7 +86,7 @@ export default function ImageLightbox({
         className="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
         aria-label="Close lightbox"
       >
-        <X className="w-6 h-6 text-white" />
+        <AppIcon name="solar:close-circle-bold" className="w-6 h-6 text-white" />
       </button>
 
       {/* Controls */}
@@ -104,14 +104,14 @@ export default function ImageLightbox({
             className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
             aria-label="Previous image"
           >
-            <ChevronLeft className="w-8 h-8 text-white" />
+            <AppIcon name="solar:alt-arrow-left-linear" className="w-8 h-8 text-white" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); goToNext(); }}
             className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
             aria-label="Next image"
           >
-            <ChevronRight className="w-8 h-8 text-white" />
+            <AppIcon name="solar:alt-arrow-right-linear" className="w-8 h-8 text-white" />
           </button>
         </>
       )}
@@ -138,7 +138,7 @@ export default function ImageLightbox({
                   className="text-white hover:bg-white/20 h-8 w-8"
                   onClick={() => zoomOut()}
                 >
-                  <ZoomOut className="w-4 h-4" />
+                  <AppIcon name="solar:magnifer-zoom-out-linear" className="w-4 h-4" />
                 </Button>
                 <Button
                   variant="ghost"
@@ -154,7 +154,7 @@ export default function ImageLightbox({
                   className="text-white hover:bg-white/20 h-8 w-8"
                   onClick={() => zoomIn()}
                 >
-                  <ZoomIn className="w-4 h-4" />
+                  <AppIcon name="solar:magnifer-zoom-in-linear" className="w-4 h-4" />
                 </Button>
                 <div className="w-px h-4 bg-white/30" />
                 <Button
@@ -163,7 +163,7 @@ export default function ImageLightbox({
                   className="text-white hover:bg-white/20 h-8 w-8"
                   onClick={rotate}
                 >
-                  <RotateCw className="w-4 h-4" />
+                  <AppIcon name="solar:restart-linear" className="w-4 h-4" />
                 </Button>
               </div>
 

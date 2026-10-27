@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
 import { useTrivia, TriviaQuestion } from '@/hooks/useTrivia';
-import { Plus, Edit2, Trash2, BookOpen } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { toast } from 'sonner';
 
 export default function ManageTriviaClient() {
@@ -84,7 +84,7 @@ export default function ManageTriviaClient() {
           onClick={handleAdd}
           className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
         >
-          <Plus className="w-4 h-4" />
+          <AppIcon icon="Plus" className="w-4 h-4" />
           <span>Tambah Fakta</span>
         </button>
       </div>
@@ -119,8 +119,8 @@ export default function ManageTriviaClient() {
                     <td className="px-6 py-4 text-muted-foreground">{item.text_en}</td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-2">
-                        <button onClick={() => handleEdit(item)} className="p-2 text-muted-foreground hover:text-primary rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
-                        <button onClick={() => handleDelete(item.id)} className="p-2 text-muted-foreground hover:text-destructive rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
+                        <button onClick={() => handleEdit(item)} className="p-2 text-muted-foreground hover:text-primary rounded-lg transition-colors"><AppIcon icon="Edit2" className="w-4 h-4" /></button>
+                        <button onClick={() => handleDelete(item.id)} className="p-2 text-muted-foreground hover:text-destructive rounded-lg transition-colors"><AppIcon icon="Trash2" className="w-4 h-4" /></button>
                       </div>
                     </td>
                   </tr>

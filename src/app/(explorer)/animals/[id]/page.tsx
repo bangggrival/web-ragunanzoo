@@ -2,22 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  MapPin, 
-  Leaf, 
-  Camera, 
-  Share2, 
-  Volume2, 
-  GraduationCap, 
-  Tag, 
-  ShieldCheck, 
-  PawPrint, 
-  Sparkles, 
-  Compass, 
-  ArrowUpRight,
-  ExternalLink,
-  ChevronRight
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Animal } from '@/hooks/useAnimals';
@@ -175,7 +160,7 @@ export default function AnimalDetail() {
     return (
       <div className="container mx-auto px-4 py-20 text-center max-w-md">
         <div className="w-20 h-20 rounded-3xl bg-muted flex items-center justify-center mx-auto mb-4">
-          <PawPrint className="w-10 h-10 text-muted-foreground/50" />
+          <AppIcon icon="PawPrint" className="w-10 h-10 text-muted-foreground/50" />
         </div>
         <h2 className="text-xl font-bold text-foreground mb-1">
           {language === 'en' ? 'Animal Not Found' : 'Satwa Tidak Ditemukan'}
@@ -242,7 +227,7 @@ export default function AnimalDetail() {
       {/* ══════════ ATMOSPHERIC HERO HEADER (Single Unified Heading) ══════════ */}
       <AtmosphericHeader
         theme="fauna"
-        icon={<PawPrint className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" />}
+        icon={<AppIcon icon="PawPrint" className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" />}
         title={animalName}
         description={animal.latin_name ? `Nama Ilmiah: ${animal.latin_name}` : undefined}
         backPath="/fauna"
@@ -260,7 +245,7 @@ export default function AnimalDetail() {
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/12 hover:bg-white/20 border border-white/20 text-white text-xs md:text-sm font-semibold backdrop-blur-md shadow-sm transition-all hover:scale-105 active:scale-95"
               title={language === 'en' ? 'Share this animal' : 'Bagikan profil satwa ini'}
             >
-              <Share2 className="w-4 h-4 text-emerald-300" />
+              <AppIcon icon="Share2" className="w-4 h-4 text-emerald-300" />
               <span>{language === 'en' ? 'Share' : 'Bagikan'}</span>
             </button>
           </div>
@@ -284,7 +269,7 @@ export default function AnimalDetail() {
                 />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center text-white/30 gap-2">
-                  <PawPrint className="w-20 h-20 stroke-[1.2]" />
+                  <AppIcon icon="PawPrint" className="w-20 h-20 stroke-[1.2]" />
                   <span className="text-xs text-white/50">{animalName}</span>
                 </div>
               )}
@@ -313,7 +298,7 @@ export default function AnimalDetail() {
               {animal.is_featured && (
                 <div className="absolute top-3 right-3">
                   <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-extrabold bg-amber-400 text-amber-950 shadow-sm backdrop-blur-md">
-                    <Sparkles className="w-3.5 h-3.5 fill-amber-950 text-amber-950" />
+                    <AppIcon icon="Sparkles" className="w-3.5 h-3.5 fill-amber-950 text-amber-950" />
                     <span>Ikonik</span>
                   </span>
                 </div>
@@ -322,13 +307,13 @@ export default function AnimalDetail() {
               {/* Floating Badge: Conservation Status (Bottom Left) */}
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-md border border-white/20">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <AppIcon icon="ShieldCheck" className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{conservationStatus}</span>
                 </span>
 
                 {animal.zone && (
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/20 text-white text-[11px] font-medium backdrop-blur-md">
-                    <MapPin className="w-3 h-3 text-primary-foreground" />
+                    <AppIcon icon="MapPin" className="w-3 h-3 text-primary-foreground" />
                     <span>{animal.zone}</span>
                   </span>
                 )}
@@ -351,7 +336,7 @@ export default function AnimalDetail() {
                   title={showAudioButton ? 'Putar Suara Satwa' : 'Suara satwa belum tersedia'}
                 >
                   <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                    <Volume2 className="w-4 h-4" />
+                    <AppIcon icon="Volume2" className="w-4 h-4" />
                   </div>
                   <span className="text-[11px] truncate">
                     {language === 'en' ? 'Listen Sound' : 'Suara Satwa'}
@@ -371,7 +356,7 @@ export default function AnimalDetail() {
                   title={showARButton ? 'Lihat 3D / AR' : 'Model AR belum tersedia'}
                 >
                   <div className="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center">
-                    <Camera className="w-4 h-4" />
+                    <AppIcon icon="Camera" className="w-4 h-4" />
                   </div>
                   <span className="text-[11px] truncate">
                     {language === 'en' ? 'AR Camera' : 'Lihat 3D/AR'}
@@ -386,7 +371,7 @@ export default function AnimalDetail() {
                   title="Kuis Edukasi Satwa"
                 >
                   <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                    <GraduationCap className="w-4 h-4" />
+                    <AppIcon icon="GraduationCap" className="w-4 h-4" />
                   </div>
                   <span className="text-[11px] truncate">
                     {language === 'en' ? 'Play Quiz' : 'Kuis Satwa'}
@@ -413,7 +398,7 @@ export default function AnimalDetail() {
               <div className="p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs flex flex-col justify-between hover:border-primary/40 transition-colors">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-3.5 h-3.5" />
+                    <AppIcon icon="MapPin" className="w-3.5 h-3.5" />
                   </div>
                   <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">
                     {language === 'en' ? 'Location' : 'Kandang / Zona'}
@@ -428,7 +413,7 @@ export default function AnimalDetail() {
                     className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
                   >
                     <span>{language === 'en' ? 'View on Map & Route' : 'Buka di Peta & Navigasi'}</span>
-                    <ArrowUpRight className="w-3 h-3" />
+                    <AppIcon icon="ArrowUpRight" className="w-3 h-3" />
                   </Link>
                 </div>
               </div>
@@ -437,7 +422,7 @@ export default function AnimalDetail() {
               <div className="p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs flex flex-col justify-between hover:border-emerald-500/40 transition-colors">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
-                    <Leaf className="w-3.5 h-3.5" />
+                    <AppIcon icon="Leaf" className="w-3.5 h-3.5" />
                   </div>
                   <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">
                     {language === 'en' ? 'Natural Habitat' : 'Habitat Alami'}
@@ -457,7 +442,7 @@ export default function AnimalDetail() {
               <div className="p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs flex flex-col justify-between hover:border-amber-500/40 transition-colors">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0">
-                    <PawPrint className="w-3.5 h-3.5" />
+                    <AppIcon icon="PawPrint" className="w-3.5 h-3.5" />
                   </div>
                   <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">
                     {language === 'en' ? 'Animal Class' : 'Kelompok Satwa'}
@@ -477,7 +462,7 @@ export default function AnimalDetail() {
               <div className="p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs flex flex-col justify-between hover:border-teal-500/40 transition-colors">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="w-7 h-7 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center flex-shrink-0">
-                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <AppIcon icon="ShieldCheck" className="w-3.5 h-3.5" />
                   </div>
                   <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">
                     {language === 'en' ? 'IUCN Status' : 'Status Konservasi'}
@@ -499,7 +484,7 @@ export default function AnimalDetail() {
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <h2 className="text-base md:text-lg font-bold text-foreground flex items-center gap-2">
-                    <PawPrint className="w-4 h-4 text-primary" />
+                    <AppIcon icon="PawPrint" className="w-4 h-4 text-primary" />
                     <span>{language === 'en' ? 'About This Species' : 'Tentang Satwa Ini'}</span>
                   </h2>
                   <span className="text-xs text-muted-foreground font-medium">
@@ -515,7 +500,7 @@ export default function AnimalDetail() {
 
               <div className="pt-4 mt-4 border-t border-border/60 flex items-center justify-between text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  <AppIcon icon="ShieldCheck" className="w-4 h-4 text-emerald-500" />
                   <span>{language === 'en' ? 'Official Ragunan Conservation Record' : 'Catatan Resmi Konservasi Ragunan'}</span>
                 </span>
                 <Link href="/fauna" className="text-primary font-semibold hover:underline">
@@ -548,7 +533,7 @@ export default function AnimalDetail() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-lg md:text-xl font-bold text-foreground flex items-center gap-2">
-                  <PawPrint className="w-5 h-5 text-primary" />
+                  <AppIcon icon="PawPrint" className="w-5 h-5 text-primary" />
                   <span>{language === 'en' ? 'Discover More Wildlife' : 'Jelajahi Satwa Lainnya di Ragunan'}</span>
                 </h2>
                 <p className="text-xs text-muted-foreground mt-0.5">
@@ -561,7 +546,7 @@ export default function AnimalDetail() {
                 className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
               >
                 <span>{language === 'en' ? 'View Catalog' : 'Katalog Lengkap'}</span>
-                <ChevronRight className="w-3.5 h-3.5" />
+                <AppIcon icon="ChevronRight" className="w-3.5 h-3.5" />
               </Link>
             </div>
 
@@ -584,7 +569,7 @@ export default function AnimalDetail() {
                     badgeText={rel.status || undefined}
                     badgeVariant="emerald"
                     metaLabel={rel.location || rel.zone || undefined}
-                    metaIcon={<MapPin className="w-3 h-3 text-white/90" />}
+                    metaIcon={<AppIcon icon="MapPin" className="w-3 h-3 text-white/90" />}
                     aspectRatio="square"
                   />
                 );

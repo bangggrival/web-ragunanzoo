@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSystemConfigs } from '@/hooks/useSystemConfigs';
 import { useFeatureFlags } from '@/hooks/useFeatureFlags';
-import { Save, Bot, Camera, Volume2, Sparkles, Sliders } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 
@@ -90,7 +90,7 @@ export default function ManageSystemConfigsClient() {
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-6">
         <div className="p-2 bg-primary/10 rounded-lg">
-          <Sliders className="w-6 h-6 text-primary" />
+          <AppIcon icon="Sliders" className="w-6 h-6 text-primary" />
         </div>
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Pengaturan Sistem & Fitur</h1>
@@ -102,7 +102,7 @@ export default function ManageSystemConfigsClient() {
       <div className="bg-card border rounded-xl shadow-sm p-6 space-y-6">
         <div className="border-b pb-3">
           <h2 className="text-lg font-semibold flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-amber-500" />
+            <AppIcon icon="Sparkles" className="w-5 h-5 text-amber-500" />
             Kontrol Fitur Interaktif (Feature Flags)
           </h2>
           <p className="text-sm text-muted-foreground mt-1">
@@ -116,7 +116,7 @@ export default function ManageSystemConfigsClient() {
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className={`p-2.5 rounded-lg ${arEnabled ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-muted text-muted-foreground'}`}>
-                  <Camera className="w-5 h-5" />
+                  <AppIcon icon="Camera" className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-sm">Fitur AR & 3D Viewer</h3>
@@ -139,7 +139,7 @@ export default function ManageSystemConfigsClient() {
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className={`p-2.5 rounded-lg ${audioEnabled ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-muted text-muted-foreground'}`}>
-                  <Volume2 className="w-5 h-5" />
+                  <AppIcon icon="Volume2" className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-sm">Fitur Suara Satwa & Audio Guide</h3>
@@ -162,7 +162,7 @@ export default function ManageSystemConfigsClient() {
       {/* Chatbot Config Section */}
       <div className="bg-card border rounded-xl shadow-sm p-6">
         <h2 className="text-lg font-semibold mb-4 border-b pb-2 flex items-center gap-2">
-          <Bot className="w-5 h-5 text-primary" />
+          <AppIcon icon="Bot" className="w-5 h-5 text-primary" />
           Konfigurasi Teks Chatbot
         </h2>
         <p className="text-sm text-muted-foreground mb-6">Setiap baris baru (enter) akan dianggap sebagai variasi teks yang berbeda. Sistem akan memilih salah satu baris secara acak setiap kali Chatbot muncul.</p>
@@ -233,7 +233,7 @@ export default function ManageSystemConfigsClient() {
               disabled={loading}
               className="flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-medium disabled:opacity-50"
             >
-              <Save className="w-4 h-4" />
+              <AppIcon icon="Save" className="w-4 h-4" />
               {loading ? 'Menyimpan...' : 'Simpan Konfigurasi'}
             </button>
           </div>

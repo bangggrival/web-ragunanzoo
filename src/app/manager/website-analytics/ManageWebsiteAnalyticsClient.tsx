@@ -2,10 +2,7 @@
 
 import { useState } from 'react';
 import { useWebsiteAnalytics } from '@/hooks/useWebsiteAnalytics';
-import { 
-  Eye, Users, Globe, Smartphone, Monitor, Tablet, 
-  TrendingUp, Clock, RefreshCw, BarChart3, LayoutTemplate
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { format, formatDistanceToNow } from 'date-fns';
 import { id } from 'date-fns/locale';
 import { 
@@ -19,11 +16,11 @@ const COLORS = ['#6366f1', '#14b8a6', '#f59e0b', '#8b5cf6', '#ec4899'];
 const DeviceIcon = ({ device }: { device: string }) => {
   switch (device) {
     case 'mobile':
-      return <Smartphone className="w-4 h-4" />;
+      return <AppIcon icon="Smartphone" className="w-4 h-4" />;
     case 'tablet':
-      return <Tablet className="w-4 h-4" />;
+      return <AppIcon icon="Tablet" className="w-4 h-4" />;
     default:
-      return <Monitor className="w-4 h-4" />;
+      return <AppIcon icon="Monitor" className="w-4 h-4" />;
   }
 };
 
@@ -48,7 +45,7 @@ export default function ManageWebsiteAnalyticsClient() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] bg-white/60 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-sm">
         <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 border border-slate-100">
-          <BarChart3 className="w-8 h-8 text-slate-300" />
+          <AppIcon icon="BarChart3" className="w-8 h-8 text-slate-300" />
         </div>
         <h3 className="text-lg font-bold text-slate-700 mb-1">Tidak Ada Data</h3>
         <p className="text-slate-500 font-medium">Belum ada data analitik yang tersedia untuk periode ini.</p>
@@ -67,7 +64,7 @@ export default function ManageWebsiteAnalyticsClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <LayoutTemplate className="w-5 h-5 text-green-500" />
+              <AppIcon icon="LayoutTemplate" className="w-5 h-5 text-green-500" />
             </div>
             Website Analytics
           </h1>
@@ -90,7 +87,7 @@ export default function ManageWebsiteAnalyticsClient() {
             disabled={isRefetching}
             className="w-11 h-11 bg-white/80 backdrop-blur-md border border-white rounded-xl shadow-sm flex items-center justify-center text-slate-600 hover:text-green-600 hover:bg-white transition-all disabled:opacity-50"
           >
-            <RefreshCw className={`w-5 h-5 ${isRefetching ? 'animate-spin text-green-500' : ''}`} />
+            <AppIcon icon="RefreshCw" className={`w-5 h-5 ${isRefetching ? 'animate-spin text-green-500' : ''}`} />
           </button>
         </div>
       </div>
@@ -98,11 +95,11 @@ export default function ManageWebsiteAnalyticsClient() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
           <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity pointer-events-none transform translate-x-2 -translate-y-2">
-            <Eye className="w-24 h-24 text-green-900" />
+            <AppIcon icon="Eye" className="w-24 h-24 text-green-900" />
           </div>
           <div className="flex items-center gap-3 mb-4 relative z-10">
             <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center border border-green-100">
-              <Eye className="w-5 h-5 text-green-500" />
+              <AppIcon icon="Eye" className="w-5 h-5 text-green-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Views</span>
           </div>
@@ -111,11 +108,11 @@ export default function ManageWebsiteAnalyticsClient() {
 
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
           <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity pointer-events-none transform translate-x-2 -translate-y-2">
-            <Globe className="w-24 h-24 text-teal-900" />
+            <AppIcon icon="Globe" className="w-24 h-24 text-teal-900" />
           </div>
           <div className="flex items-center gap-3 mb-4 relative z-10">
             <div className="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center border border-teal-100">
-              <Globe className="w-5 h-5 text-teal-500" />
+              <AppIcon icon="Globe" className="w-5 h-5 text-teal-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Sesi Unik</span>
           </div>
@@ -124,11 +121,11 @@ export default function ManageWebsiteAnalyticsClient() {
 
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
           <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity pointer-events-none transform translate-x-2 -translate-y-2">
-            <Users className="w-24 h-24 text-amber-900" />
+            <AppIcon icon="Users" className="w-24 h-24 text-amber-900" />
           </div>
           <div className="flex items-center gap-3 mb-4 relative z-10">
             <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center border border-amber-100">
-              <Users className="w-5 h-5 text-amber-500" />
+              <AppIcon icon="Users" className="w-5 h-5 text-amber-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">User Login</span>
           </div>
@@ -137,11 +134,11 @@ export default function ManageWebsiteAnalyticsClient() {
 
         <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-5 rounded-[1.5rem] shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
           <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity pointer-events-none transform translate-x-2 -translate-y-2">
-            <TrendingUp className="w-24 h-24 text-rose-900" />
+            <AppIcon icon="TrendingUp" className="w-24 h-24 text-rose-900" />
           </div>
           <div className="flex items-center gap-3 mb-4 relative z-10">
             <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center border border-rose-100">
-              <TrendingUp className="w-5 h-5 text-rose-500" />
+              <AppIcon icon="TrendingUp" className="w-5 h-5 text-rose-500" />
             </div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Hari Ini</span>
           </div>
@@ -305,7 +302,7 @@ export default function ManageWebsiteAnalyticsClient() {
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-slate-800 truncate mb-1" title={view.page_path}>{view.page_path}</p>
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                          <Clock className="w-3 h-3" />
+                          <AppIcon icon="Clock" className="w-3 h-3" />
                           {formatDistanceToNow(new Date(view.created_at), { addSuffix: true, locale: id })}
                         </div>
                       </div>

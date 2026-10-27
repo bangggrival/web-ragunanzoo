@@ -1,25 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  GraduationCap, 
-  FlaskConical, 
-  Stethoscope, 
-  Mic, 
-  CheckCircle2, 
-  Download, 
-  Info, 
-  Clock, 
-  AlertCircle, 
-  FileText, 
-  Check, 
-  ArrowRight, 
-  Sparkles, 
-  ShieldCheck, 
-  BookOpen, 
-  HelpCircle,
-  Building2
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -51,7 +33,7 @@ export default function InteractiveRequirementsGuide({
       desc: isEn 
         ? 'Practical field learning program for vocational schools (SMK) and university students in animal conservation & park management.'
         : 'Program praktik kerja lapangan untuk siswa SMK dan mahasiswa di bidang konservasi satwa, edukasi, pakan, dan manajemen kebun binatang.',
-      icon: GraduationCap,
+      icon: 'solar:diploma-bold-duotone',
       duration: isEn ? '1 - 3 Months' : 'Minimal 1 Bulan s/d 3 Bulan',
       schedule: isEn ? 'Mon - Fri, 07:30 - 15:00 WIB' : 'Senin - Jumat, 07.30 - 15.00 WIB',
       quota: isEn ? '20 participants/period' : '20 peserta / periode',
@@ -79,7 +61,7 @@ export default function InteractiveRequirementsGuide({
       desc: isEn 
         ? 'Research facility for undergraduate (S1), master (S2), doctoral (S3) theses, and scientific journals.'
         : 'Layanan fasilitas penelitian skripsi, tesis, disertasi, dan publikasi jurnal ilmiah bidang biologi satwa, botani, kedokteran hewan, dan lanskap.',
-      icon: FlaskConical,
+      icon: 'solar:test-tube-minimalistic-bold-duotone',
       duration: isEn ? 'Flexible (Based on Approved Proposal)' : 'Fleksibel (Sesuai Proposal Disetujui)',
       schedule: isEn ? 'During operating & research hours' : 'Mengikuti jadwal pengamatan satwa',
       quota: isEn ? 'Quota verified by research division' : 'Disesuaikan dengan daya dukung satwa/laboratorium',
@@ -105,7 +87,7 @@ export default function InteractiveRequirementsGuide({
       desc: isEn 
         ? 'Professional veterinary clinical internship in wild animal surgery, pathology, quarantine, and preventive medicine.'
         : 'Program kepaniteraan klinik profesi dokter hewan (PPDH) di Pusat Kesehatan Hewan Ragunan, laboratorium patologi, dan karantina satwa.',
-      icon: Stethoscope,
+      icon: 'solar:stethoscope-bold-duotone',
       duration: isEn ? '4 - 8 Weeks' : '4 s/d 8 Minggu',
       schedule: isEn ? 'Clinical shift rotation' : 'Rotasi shift klinik dan piket rawat inap',
       quota: isEn ? '10 veterinary students/batch' : '10 mahasiswa koas / gelombang',
@@ -129,7 +111,7 @@ export default function InteractiveRequirementsGuide({
       desc: isEn 
         ? 'Official interview and educational journalistic coverage services for TV, press, and verified media crews.'
         : 'Layanan izin wawancara narasumber dan peliputan jurnalistik edukasi konservasi satwa bagi pers, stasiun televisi, dan media terverifikasi.',
-      icon: Mic,
+      icon: 'solar:microphone-3-bold-duotone',
       duration: isEn ? '1 - 3 Hours per session' : '1 s/d 3 Jam per sesi kegiatan',
       schedule: isEn ? 'By confirmed appointment' : 'Sesuai kesepakatan jadwal Humas',
       quota: isEn ? 'Confirmed media crew only' : 'Kru media terdaftar',
@@ -184,7 +166,6 @@ export default function InteractiveRequirementsGuide({
       {/* Category Tabs Pill Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 rounded-2xl bg-muted/80 border border-border/70">
         {programs.map((p) => {
-          const PIcon = p.icon;
           const isActive = activeCategory === p.id;
           return (
             <button
@@ -196,7 +177,7 @@ export default function InteractiveRequirementsGuide({
                   : 'text-muted-foreground hover:text-foreground hover:bg-card/50'
               }`}
             >
-              <PIcon className="w-4 h-4 text-primary" />
+              <AppIcon name={p.icon} className="w-4 h-4 text-primary" />
               <span>{p.shortTitle}</span>
             </button>
           );
@@ -212,7 +193,7 @@ export default function InteractiveRequirementsGuide({
                 {isEn ? 'Official Public Service' : 'Standar Layanan Publik UP TMR'}
               </Badge>
               <span className="text-xs text-emerald-700 dark:text-emerald-400 font-extrabold flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" />
+                <AppIcon name="solar:check-circle-bold" className="w-3.5 h-3.5" />
                 {isEn ? 'Free (Rp 0)' : 'Gratis (Rp 0)'}
               </span>
             </div>
@@ -231,7 +212,7 @@ export default function InteractiveRequirementsGuide({
                 className="px-5 py-3 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 hover:scale-[1.02]"
               >
                 <span>{isEn ? 'Apply for This Program' : 'Daftar Program Ini'}</span>
-                <ArrowRight className="w-4 h-4" />
+                <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -241,7 +222,7 @@ export default function InteractiveRequirementsGuide({
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-muted/40 border border-border/70 text-xs">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-              <Clock className="w-4 h-4" />
+              <AppIcon name="solar:clock-circle-bold-duotone" className="w-4 h-4" />
             </div>
             <div>
               <p className="text-muted-foreground font-medium">{isEn ? 'Duration' : 'Durasi Kegiatan'}</p>
@@ -251,7 +232,7 @@ export default function InteractiveRequirementsGuide({
 
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-              <Building2 className="w-4 h-4" />
+              <AppIcon name="solar:buildings-2-bold-duotone" className="w-4 h-4" />
             </div>
             <div>
               <p className="text-muted-foreground font-medium">{isEn ? 'Work Schedule' : 'Jadwal & Waktu'}</p>
@@ -261,7 +242,7 @@ export default function InteractiveRequirementsGuide({
 
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-4 h-4" />
+              <AppIcon name="solar:shield-check-bold-duotone" className="w-4 h-4" />
             </div>
             <div>
               <p className="text-muted-foreground font-medium">{isEn ? 'Quota' : 'Kapasitas Kuota'}</p>
@@ -276,7 +257,7 @@ export default function InteractiveRequirementsGuide({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/70 pb-4">
           <div>
             <h3 className="text-lg sm:text-xl font-bold text-foreground flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
+              <AppIcon name="solar:check-circle-bold" className="w-5 h-5 text-primary" />
               <span>{isEn ? 'Document Checklist & Readiness Meter' : 'Ceklis Kelengkapan Dokumen Persyaratan'}</span>
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
@@ -318,7 +299,7 @@ export default function InteractiveRequirementsGuide({
                       ? 'bg-emerald-600 text-white'
                       : 'border-2 border-muted-foreground/40 bg-card'
                   }`}>
-                    {isChecked && <Check className="w-4 h-4" />}
+                    {isChecked && <AppIcon name="solar:check-read-linear" className="w-4 h-4" />}
                   </div>
                   <div>
                     <p className={`text-xs sm:text-sm font-semibold leading-relaxed ${
@@ -349,7 +330,7 @@ export default function InteractiveRequirementsGuide({
         {readinessPercent === 100 ? (
           <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm">
-              <Sparkles className="w-5 h-5 text-emerald-600 shrink-0" />
+              <AppIcon name="solar:stars-minimalistic-bold" className="w-5 h-5 text-emerald-600 shrink-0" />
               <span className="font-bold">
                 {isEn 
                   ? 'All required documents prepared! You are ready to submit.' 
@@ -367,7 +348,7 @@ export default function InteractiveRequirementsGuide({
           </div>
         ) : (
           <div className="text-xs text-muted-foreground flex items-center gap-2">
-            <Info className="w-4 h-4 text-primary shrink-0" />
+            <AppIcon name="solar:info-circle-bold-duotone" className="w-4 h-4 text-primary shrink-0" />
             <span>
               {isEn 
                 ? 'Tip: Submit applications at least 10 business days before your intended start date.' 
@@ -380,7 +361,7 @@ export default function InteractiveRequirementsGuide({
       {/* Official Downloadable Templates Section */}
       <div className="rounded-3xl bg-card border border-border/80 p-6 md:p-8 shadow-sm space-y-4">
         <h3 className="text-lg sm:text-xl font-bold text-foreground flex items-center gap-2">
-          <Download className="w-5 h-5 text-primary" />
+          <AppIcon name="solar:download-bold" className="w-5 h-5 text-primary" />
           <span>{isEn ? 'Official Document Templates' : 'Unduh Format Surat & Formulir Resmi'}</span>
         </h3>
         <p className="text-xs sm:text-sm text-muted-foreground">
@@ -395,7 +376,7 @@ export default function InteractiveRequirementsGuide({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <Badge variant="outline" className="text-[10px] font-mono">DOC / PDF</Badge>
-                <FileText className="w-4 h-4 text-primary" />
+                <AppIcon name="solar:document-text-bold-duotone" className="w-4 h-4 text-primary" />
               </div>
               <h4 className="font-bold text-xs sm:text-sm text-foreground">
                 Surat Pernyataan Penelitian Bermaterai
@@ -408,7 +389,7 @@ export default function InteractiveRequirementsGuide({
               onClick={() => handleDownloadTemplate('Surat_Pernyataan_Penelitian_Ragunan')}
               className="mt-4 w-full py-2 px-3 rounded-xl bg-card hover:bg-primary/10 hover:text-primary border border-border/80 text-xs font-bold text-foreground transition-colors flex items-center justify-center gap-1.5"
             >
-              <Download className="w-3.5 h-3.5" />
+              <AppIcon name="solar:download-bold" className="w-3.5 h-3.5" />
               <span>{isEn ? 'Download Template' : 'Unduh Format'}</span>
             </button>
           </div>
@@ -417,7 +398,7 @@ export default function InteractiveRequirementsGuide({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <Badge variant="outline" className="text-[10px] font-mono">DOC / PDF</Badge>
-                <GraduationCap className="w-4 h-4 text-emerald-600" />
+                <AppIcon name="solar:diploma-bold-duotone" className="w-4 h-4 text-emerald-600" />
               </div>
               <h4 className="font-bold text-xs sm:text-sm text-foreground">
                 Formulir Permohonan Magang / PKL
@@ -430,7 +411,7 @@ export default function InteractiveRequirementsGuide({
               onClick={() => handleDownloadTemplate('Formulir_Magang_PKL_Ragunan')}
               className="mt-4 w-full py-2 px-3 rounded-xl bg-card hover:bg-primary/10 hover:text-primary border border-border/80 text-xs font-bold text-foreground transition-colors flex items-center justify-center gap-1.5"
             >
-              <Download className="w-3.5 h-3.5" />
+              <AppIcon name="solar:download-bold" className="w-3.5 h-3.5" />
               <span>{isEn ? 'Download Template' : 'Unduh Format'}</span>
             </button>
           </div>
@@ -439,7 +420,7 @@ export default function InteractiveRequirementsGuide({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <Badge variant="outline" className="text-[10px] font-mono">PDF</Badge>
-                <BookOpen className="w-4 h-4 text-blue-600" />
+                <AppIcon name="solar:book-bookmark-bold-duotone" className="w-4 h-4 text-blue-600" />
               </div>
               <h4 className="font-bold text-xs sm:text-sm text-foreground">
                 Buku Pedoman & Tata Tertib Peserta
@@ -452,7 +433,7 @@ export default function InteractiveRequirementsGuide({
               onClick={() => handleDownloadTemplate('Pedoman_Tata_Tertib_Ragunan')}
               className="mt-4 w-full py-2 px-3 rounded-xl bg-card hover:bg-primary/10 hover:text-primary border border-border/80 text-xs font-bold text-foreground transition-colors flex items-center justify-center gap-1.5"
             >
-              <Download className="w-3.5 h-3.5" />
+              <AppIcon name="solar:download-bold" className="w-3.5 h-3.5" />
               <span>{isEn ? 'Download SOP' : 'Unduh Pedoman'}</span>
             </button>
           </div>
@@ -466,7 +447,7 @@ export default function InteractiveRequirementsGuide({
         {/* Rules Card */}
         <div className="rounded-3xl bg-card border border-border/80 p-6 shadow-sm space-y-4">
           <h3 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-primary" />
+            <AppIcon name="solar:shield-check-bold-duotone" className="w-5 h-5 text-primary" />
             <span>{isEn ? 'Code of Conduct & Obligations' : 'Tata Tertib & Kewajiban Peserta'}</span>
           </h3>
           <ul className="space-y-2.5 text-xs text-muted-foreground">
@@ -484,7 +465,7 @@ export default function InteractiveRequirementsGuide({
         {/* FAQ Accordion */}
         <div className="rounded-3xl bg-card border border-border/80 p-6 shadow-sm space-y-4">
           <h3 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
-            <HelpCircle className="w-5 h-5 text-primary" />
+            <AppIcon name="solar:question-circle-bold-duotone" className="w-5 h-5 text-primary" />
             <span>{isEn ? 'Frequently Asked Questions' : 'Pertanyaan Umum (FAQ)'}</span>
           </h3>
           

@@ -3,7 +3,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Calendar } from '@/components/ui/calendar';
 import { id as idLocale, enUS } from 'date-fns/locale';
-import { Calendar as CalendarIcon } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import AvailabilityCalendar from './AvailabilityCalendar';
 
 interface KoasFormData {
@@ -116,7 +116,7 @@ export default function KoasFormFields({ formData, language, onInputChange }: Ko
       <div className="grid md:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label className="flex items-center gap-2">
-            <CalendarIcon className="w-4 h-4 text-accent-foreground" />
+            <AppIcon name="solar:calendar-bold-duotone" className="w-4 h-4 text-accent-foreground" />
             {txt.startDate} *
           </Label>
           <p className="text-xs text-muted-foreground mb-2">{txt.availabilityNote}</p>

@@ -10,14 +10,7 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from 'recharts';
-import { 
-  TrendingUp, 
-  Eye, 
-  Users, 
-  Calendar, 
-  Sparkles,
-  ArrowUpRight
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { cn } from '@/lib/utils';
 
 interface AnalyticsChartProps {
@@ -64,7 +57,7 @@ export default function DashboardAnalyticsChart({ totalViews = 155 }: AnalyticsC
           <div className="flex items-center gap-2">
             <h3 className="font-bold text-lg text-foreground">Tren Trafik & Pengunjung</h3>
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold">
-              <TrendingUp className="w-3 h-3" />
+              <AppIcon name="solar:chart-2-bold" className="w-3 h-3" />
               +14.2% minggu ini
             </span>
           </div>
@@ -84,7 +77,7 @@ export default function DashboardAnalyticsChart({ totalViews = 155 }: AnalyticsC
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <Eye className="w-3.5 h-3.5" />
+            <AppIcon name="solar:eye-bold-duotone" className="w-3.5 h-3.5" />
             Tayangan
           </button>
           <button
@@ -96,7 +89,7 @@ export default function DashboardAnalyticsChart({ totalViews = 155 }: AnalyticsC
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <Users className="w-3.5 h-3.5" />
+            <AppIcon name="solar:users-group-two-rounded-bold-duotone" className="w-3.5 h-3.5" />
             Interaksi
           </button>
         </div>

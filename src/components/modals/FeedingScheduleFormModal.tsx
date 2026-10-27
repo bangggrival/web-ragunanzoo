@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Utensils, Image as ImageIcon, FolderOpen, Save } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { FeedingSchedule } from '@/hooks/useFeedingSchedules';
 import GalleryPicker from '@/components/gallery/GalleryPicker';
 
@@ -82,7 +82,7 @@ export default function FeedingScheduleFormModal({ isOpen, onClose, schedule, on
         <div className="flex items-center justify-between p-6 border-b">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-primary/10 rounded-lg">
-              <Utensils className="w-5 h-5 text-primary" />
+              <AppIcon name="solar:dish-bold-duotone" className="w-5 h-5 text-primary" />
             </div>
             <h2 className="text-xl font-bold">{schedule ? 'Edit Jadwal Makan' : 'Tambah Jadwal Makan'}</h2>
           </div>
@@ -90,7 +90,7 @@ export default function FeedingScheduleFormModal({ isOpen, onClose, schedule, on
             onClick={onClose}
             className="p-2 hover:bg-muted rounded-full transition-colors"
           >
-            <X className="w-5 h-5" />
+            <AppIcon name="solar:close-circle-bold" className="w-5 h-5" />
           </button>
         </div>
 
@@ -111,7 +111,7 @@ export default function FeedingScheduleFormModal({ isOpen, onClose, schedule, on
                   onClick={() => setShowGallery(true)}
                   className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-muted transition-colors text-sm"
                 >
-                  <FolderOpen className="w-4 h-4" />
+                  <AppIcon name="solar:folder-with-files-bold-duotone" className="w-4 h-4" />
                   Pilih dari Galeri
                 </button>
               </div>
@@ -203,7 +203,7 @@ export default function FeedingScheduleFormModal({ isOpen, onClose, schedule, on
             disabled={loading}
             className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
           >
-            <Save className="w-4 h-4" />
+            <AppIcon name="solar:diskette-bold-duotone" className="w-4 h-4" />
             {loading ? 'Menyimpan...' : 'Simpan Jadwal'}
           </button>
         </div>

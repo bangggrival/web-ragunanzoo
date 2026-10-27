@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader2 } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 
 export default function ManagerLoading() {
   return (
@@ -10,7 +10,7 @@ export default function ManagerLoading() {
         
         {/* Main spinner container */}
         <div className="relative bg-white/80 backdrop-blur-xl border border-white/60 p-5 rounded-2xl shadow-xl shadow-slate-200/50 flex flex-col items-center">
-          <Loader2 className="w-10 h-10 text-green-600 animate-spin" />
+          <AppIcon icon="solar:spinner-linear" className="w-10 h-10 text-green-600 animate-spin" />
         </div>
       </div>
       

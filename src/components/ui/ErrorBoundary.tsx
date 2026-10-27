@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 
 interface Props {
@@ -44,7 +44,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="min-h-[300px] w-full flex items-center justify-center p-6 bg-slate-50/50 rounded-2xl border border-slate-100 my-4">
           <div className="text-center max-w-md space-y-4 animate-fade-in">
             <div className="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto shadow-sm">
-              <AlertTriangle className="w-7 h-7" />
+              <AppIcon name="solar:danger-triangle-bold-duotone" className="w-7 h-7" />
             </div>
             
             <div className="space-y-1">
@@ -68,14 +68,14 @@ export class ErrorBoundary extends Component<Props, State> {
                 variant="outline"
                 className="gap-2 rounded-xl text-slate-700 border-slate-200 hover:bg-slate-100"
               >
-                <RefreshCw className="w-4 h-4" />
+                <AppIcon name="solar:restart-linear" className="w-4 h-4" />
                 Coba Lagi
               </Button>
               <Button
                 onClick={() => window.location.href = '/'}
                 className="gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20"
               >
-                <Home className="w-4 h-4" />
+                <AppIcon name="solar:home-smile-bold-duotone" className="w-4 h-4" />
                 Beranda
               </Button>
             </div>

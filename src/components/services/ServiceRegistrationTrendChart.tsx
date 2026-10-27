@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from 'recharts';
-import { TrendingUp, PieChart as PieChartIcon } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { ServiceRegistration } from '@/hooks/useServiceRegistrations';
 import { format, parseISO, startOfMonth, subMonths } from 'date-fns';
 import { id as localeId } from 'date-fns/locale';
@@ -80,7 +80,7 @@ export function ServiceRegistrationTrendChart({ registrations }: ServiceRegistra
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="w-5 h-5" />
+            <AppIcon name="solar:chart-2-bold-duotone" className="w-5 h-5 text-emerald-600" />
             Tren Pendaftaran 6 Bulan Terakhir
           </CardTitle>
           <CardDescription>Jumlah pendaftaran per program per bulan</CardDescription>
@@ -147,7 +147,7 @@ export function ServiceRegistrationTrendChart({ registrations }: ServiceRegistra
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <PieChartIcon className="w-5 h-5" />
+            <AppIcon name="solar:pie-chart-2-bold-duotone" className="w-5 h-5 text-blue-600" />
             Distribusi Status Pendaftaran
           </CardTitle>
           <CardDescription>Persentase status pendaftaran saat ini</CardDescription>

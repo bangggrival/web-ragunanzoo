@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useConfirm } from '@/hooks/useConfirm';
-import { Plus, Pencil, Trash2, Image as ImageIcon, FileText, Tag, Settings, GripVertical, ArrowRight, DollarSign } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -24,10 +24,10 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 
 const contentTypes = [
-  { value: 'info', label: 'Informasi', icon: FileText },
-  { value: 'promo', label: 'Promo', icon: Tag },
-  { value: 'payment_method', label: 'Metode Pembayaran', icon: Settings },
-  { value: 'rule', label: 'Peraturan', icon: FileText },
+  { value: 'info', label: 'Informasi', icon: (props: any) => <AppIcon icon="FileText" {...props} /> },
+  { value: 'promo', label: 'Promo', icon: (props: any) => <AppIcon icon="Tag" {...props} /> },
+  { value: 'payment_method', label: 'Metode Pembayaran', icon: (props: any) => <AppIcon icon="Settings" {...props} /> },
+  { value: 'rule', label: 'Peraturan', icon: (props: any) => <AppIcon icon="FileText" {...props} /> },
 ];
 
 export default function ManageTicketContentClient() {
@@ -228,7 +228,7 @@ export default function ManageTicketContentClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <FileText className="w-5 h-5 text-green-500" />
+              <AppIcon icon="FileText" className="w-5 h-5 text-green-500" />
             </div>
             Kelola Halaman Tiket
           </h1>
@@ -239,9 +239,9 @@ export default function ManageTicketContentClient() {
           href="/manager/tariffs"
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 hover:bg-emerald-100 transition-all font-bold text-xs shadow-2xs self-start sm:self-auto"
         >
-          <DollarSign className="w-4 h-4 text-emerald-600" />
+          <AppIcon icon="DollarSign" className="w-4 h-4 text-emerald-600" />
           <span>Atur Tarif & Harga Tiket</span>
-          <ArrowRight className="w-3.5 h-3.5 ml-1" />
+          <AppIcon icon="ArrowRight" className="w-3.5 h-3.5 ml-1" />
         </Link>
       </div>
 
@@ -262,7 +262,7 @@ export default function ManageTicketContentClient() {
           className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm self-start sm:self-auto flex-shrink-0"
         >
           <span>Buka Panel Tarif</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+          <AppIcon icon="ArrowRight" className="w-3.5 h-3.5" />
         </Link>
       </div>
 
@@ -275,10 +275,10 @@ export default function ManageTicketContentClient() {
         <TabsContent value="content" className="space-y-6">
           <div className="flex justify-between items-center bg-white/60 backdrop-blur-xl border border-white/80 p-4 rounded-[1.5rem] shadow-sm">
             <h2 className="font-bold text-slate-800 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-green-500" /> Daftar Konten Tiket
+              <AppIcon icon="FileText" className="w-5 h-5 text-green-500" /> Daftar Konten Tiket
             </h2>
             <Button onClick={() => handleOpenDialog()} className="rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-600/20 px-6">
-              <Plus className="w-4 h-4 mr-2" />
+              <AppIcon icon="Plus" className="w-4 h-4 mr-2" />
               Tambah Konten
             </Button>
           </div>
@@ -286,10 +286,10 @@ export default function ManageTicketContentClient() {
           <div className="grid gap-4">
             {contents.length === 0 ? (
               <div className="bg-white/60 backdrop-blur-xl border border-white/80 rounded-[1.5rem] shadow-sm p-12 text-center">
-                <ImageIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                <AppIcon icon="Image" className="w-12 h-12 text-slate-300 mx-auto mb-4" />
                 <p className="text-slate-500 font-medium">Belum ada konten tiket.</p>
                 <Button className="mt-4 rounded-xl" onClick={() => handleOpenDialog()}>
-                  <Plus className="w-4 h-4 mr-2" />
+                  <AppIcon icon="Plus" className="w-4 h-4 mr-2" />
                   Tambah Konten Pertama
                 </Button>
               </div>
@@ -298,7 +298,7 @@ export default function ManageTicketContentClient() {
                 <div key={content.id} className={`bg-white/60 backdrop-blur-xl border border-white/80 rounded-[1.5rem] p-5 shadow-sm hover:shadow-md transition-all ${!content.is_active ? 'opacity-50' : ''}`}>
                   <div className="flex items-start gap-4">
                     <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 text-slate-400 mt-1 cursor-move">
-                      <GripVertical className="w-4 h-4" />
+                      <AppIcon icon="GripVertical" className="w-4 h-4" />
                     </div>
                     {content.image_url ? (
                       <img
@@ -308,7 +308,7 @@ export default function ManageTicketContentClient() {
                       />
                     ) : (
                       <div className="w-24 h-24 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-center">
-                        <ImageIcon className="w-8 h-8 text-slate-300" />
+                        <AppIcon icon="Image" className="w-8 h-8 text-slate-300" />
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
@@ -332,10 +332,10 @@ export default function ManageTicketContentClient() {
                     </div>
                     <div className="flex flex-col gap-2">
                       <Button variant="outline" size="icon" className="w-9 h-9 rounded-xl border-slate-200 text-slate-600 hover:text-green-600 hover:bg-green-50" onClick={() => handleOpenDialog(content)}>
-                        <Pencil className="w-4 h-4" />
+                        <AppIcon icon="Pencil" className="w-4 h-4" />
                       </Button>
                       <Button variant="outline" size="icon" className="w-9 h-9 rounded-xl border-slate-200 text-slate-600 hover:text-rose-600 hover:bg-rose-50" onClick={() => handleDelete(content.id)}>
-                        <Trash2 className="w-4 h-4" />
+                        <AppIcon icon="Trash2" className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
@@ -348,7 +348,7 @@ export default function ManageTicketContentClient() {
         <TabsContent value="settings" className="space-y-6">
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm space-y-6">
             <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-4">
-              <ImageIcon className="w-5 h-5 text-green-500" /> Pengaturan Hero
+              <AppIcon icon="Image" className="w-5 h-5 text-green-500" /> Pengaturan Hero
             </h3>
             
             <div className="space-y-3">
@@ -401,7 +401,7 @@ export default function ManageTicketContentClient() {
 
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm space-y-6">
             <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-4">
-              <Settings className="w-5 h-5 text-green-500" /> Judul Section Tiket
+              <AppIcon icon="Settings" className="w-5 h-5 text-green-500" /> Judul Section Tiket
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -566,7 +566,7 @@ export default function ManageTicketContentClient() {
 
           <div className="bg-slate-50/50 backdrop-blur-xl border border-slate-200/80 p-6 rounded-[1.5rem] shadow-sm space-y-6">
             <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2 border-b border-slate-200 pb-4">
-              <Settings className="w-5 h-5 text-slate-500" /> Pengaturan Umum
+              <AppIcon icon="Settings" className="w-5 h-5 text-slate-500" /> Pengaturan Umum
             </h3>
             
             <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
@@ -623,7 +623,7 @@ export default function ManageTicketContentClient() {
           <DialogHeader className="px-6 py-5 border-b border-slate-100 bg-white/50 flex-shrink-0">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                <FileText className="w-5 h-5 text-green-500" />
+                <AppIcon icon="FileText" className="w-5 h-5 text-green-500" />
               </div>
               {editingContent ? 'Edit Konten' : 'Tambah Konten Baru'}
             </DialogTitle>

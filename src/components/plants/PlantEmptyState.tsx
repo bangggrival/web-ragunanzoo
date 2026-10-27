@@ -1,4 +1,4 @@
-import { Leaf } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface PlantEmptyStateProps {
@@ -11,7 +11,7 @@ export default function PlantEmptyState({ hasFilters }: PlantEmptyStateProps) {
   return (
     <div className="text-center py-16">
       <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-4">
-        <Leaf className="w-10 h-10 text-muted-foreground/40" />
+        <AppIcon name="fluent-emoji-flat:herb" className="w-10 h-10 opacity-60" />
       </div>
       <h3 className="text-lg font-semibold text-muted-foreground mb-1">
         {hasFilters 

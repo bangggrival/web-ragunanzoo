@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { ShieldCheck, AlertTriangle, Info, HelpCircle, Leaf } from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export interface IucnConservationMeterProps {
@@ -133,7 +133,7 @@ export default function IucnConservationMeter({
   if (compact) {
     return (
       <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border shadow-2xs backdrop-blur-md ${currentCategory.bgColor} ${currentCategory.borderColor} ${currentCategory.textColor} ${className}`}>
-        <ShieldCheck className="w-3.5 h-3.5" />
+        <AppIcon name="solar:shield-check-bold-duotone" className="w-3.5 h-3.5" />
         <span className="font-extrabold">{currentCategory.code}</span>
         <span className="opacity-80">·</span>
         <span>{isEn ? currentCategory.labelEn : currentCategory.labelId}</span>
@@ -150,7 +150,7 @@ export default function IucnConservationMeter({
             className="w-8 h-8 rounded-xl flex items-center justify-center text-white shadow-xs"
             style={{ backgroundColor: currentCategory.color }}
           >
-            <ShieldCheck className="w-4 h-4" />
+            <AppIcon name="solar:shield-check-bold-duotone" className="w-4 h-4" />
           </div>
           <div>
             <h3 className="text-xs sm:text-sm font-bold text-foreground">
@@ -220,7 +220,7 @@ export default function IucnConservationMeter({
 
       {/* Education & Description Box */}
       <div className={`mt-2 p-3 rounded-2xl border ${currentCategory.bgColor} ${currentCategory.borderColor} flex items-start gap-2.5`}>
-        <Info className={`w-4 h-4 mt-0.5 flex-shrink-0 ${currentCategory.textColor}`} />
+        <AppIcon name="solar:info-circle-bold-duotone" className={`w-4 h-4 mt-0.5 flex-shrink-0 ${currentCategory.textColor}`} />
         <div className="text-xs leading-relaxed">
           <p className={`font-semibold ${currentCategory.textColor}`}>
             {isEn ? currentCategory.labelEn : currentCategory.labelId}:{' '}
@@ -229,7 +229,7 @@ export default function IucnConservationMeter({
             </span>
           </p>
           <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground">
-            <Leaf className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+            <AppIcon name="fluent-emoji-flat:herb" className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
             <span>
               {isEn
                 ? 'Protected in Taman Margasatwa Ragunan under Indonesian Conservation Law (UU No. 5/1990)'

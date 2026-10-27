@@ -1,5 +1,5 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ChevronDown, Check } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,7 +31,7 @@ export default function LanguageSelector() {
             className="w-4.5 h-3.5 object-cover rounded-xs transition-transform duration-200 group-hover:scale-110 shadow-2xs"
           />
           <span className="hidden sm:inline transition-colors duration-200 group-hover:text-primary font-bold">{currentLabel}</span>
-          <ChevronDown className="w-3.5 h-3.5 text-muted-foreground transition-transform duration-200 group-hover:rotate-180 group-hover:text-primary" />
+          <AppIcon name="solar:alt-arrow-down-linear" className="w-3.5 h-3.5 text-muted-foreground transition-transform duration-200 group-hover:rotate-180 group-hover:text-primary" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
@@ -55,7 +55,7 @@ export default function LanguageSelector() {
             />
             <span>Indonesia</span>
           </div>
-          {language === 'id' && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
+          {language === 'id' && <AppIcon name="solar:check-read-bold" className="w-4 h-4 text-white" />}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setLanguage('en')}
@@ -73,7 +73,7 @@ export default function LanguageSelector() {
             />
             <span>English</span>
           </div>
-          {language === 'en' && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
+          {language === 'en' && <AppIcon name="solar:check-read-bold" className="w-4 h-4 text-white" />}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

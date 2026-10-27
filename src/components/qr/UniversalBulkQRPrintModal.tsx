@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { X, Printer, QrCode, Check, Download, Layers } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
@@ -211,7 +211,7 @@ export default function UniversalBulkQRPrintModal({
         <div className="flex items-center justify-between p-5 border-b border-border bg-slate-50/70 dark:bg-slate-800/50">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-              <QrCode className="w-5 h-5" />
+              <AppIcon name="solar:qr-code-bold-duotone" className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-lg text-foreground">{title}</h3>
@@ -225,7 +225,7 @@ export default function UniversalBulkQRPrintModal({
             onClick={onClose}
             className="p-2 rounded-xl text-muted-foreground hover:bg-slate-200 dark:hover:bg-slate-800 hover:text-foreground transition-colors"
           >
-            <X className="w-5 h-5" />
+            <AppIcon name="solar:close-circle-bold" className="w-5 h-5" />
           </button>
         </div>
 
@@ -251,7 +251,7 @@ export default function UniversalBulkQRPrintModal({
               disabled={selectedItems.length === 0}
               className="rounded-xl text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 btn-interactive"
             >
-              <Printer className="w-4 h-4" />
+              <AppIcon name="solar:printer-bold-duotone" className="w-4 h-4" />
               Cetak / Simpan PDF ({selectedItems.length})
             </Button>
           </div>

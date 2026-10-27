@@ -1,13 +1,4 @@
-import {
-  Layers,
-  Utensils,
-  Bath,
-  Building2,
-  Train,
-  Ticket,
-  HeartPulse,
-  LucideIcon
-} from 'lucide-react';
+
 
 export interface GpsPoi {
   id: string;
@@ -55,19 +46,19 @@ export interface TramRoutePoint {
 export interface CategoryOption {
   value: string;
   label: string;
-  icon: LucideIcon;
+  icon: string;
   color: string;
 }
 
 export const CATEGORY_OPTIONS: CategoryOption[] = [
-  { value: 'all', label: 'Semua Kategori', icon: Layers, color: '#4b5563' },
-  { value: 'animal', label: 'Satwa / Fauna', icon: Utensils, color: '#16a34a' },
-  { value: 'toilet', label: 'Toilet & Sanitasi', icon: Bath, color: '#0284c7' },
-  { value: 'musholla', label: 'Musholla & Ibadah', icon: Building2, color: '#059669' },
-  { value: 'tram', label: 'Halte Kereta Wisata', icon: Train, color: '#ca8a04' },
-  { value: 'ticket', label: 'Pintu Masuk & Loket', icon: Ticket, color: '#15803d' },
-  { value: 'kuliner', label: 'Pujasera & Kafe', icon: Utensils, color: '#d97706' },
-  { value: 'medical', label: 'Pos Medis & P3K', icon: HeartPulse, color: '#dc2626' }
+  { value: 'all', label: 'Semua Kategori', icon: 'solar:layers-bold-duotone', color: '#4b5563' },
+  { value: 'animal', label: 'Satwa / Fauna', icon: 'fluent-emoji-flat:lion', color: '#16a34a' },
+  { value: 'toilet', label: 'Toilet & Sanitasi', icon: 'solar:bath-bold-duotone', color: '#0284c7' },
+  { value: 'musholla', label: 'Musholla & Ibadah', icon: 'solar:city-bold-duotone', color: '#059669' },
+  { value: 'tram', label: 'Halte Kereta Wisata', icon: 'solar:bus-bold-duotone', color: '#ca8a04' },
+  { value: 'ticket', label: 'Pintu Masuk & Loket', icon: 'solar:ticket-bold-duotone', color: '#15803d' },
+  { value: 'kuliner', label: 'Pujasera & Kafe', icon: 'solar:cup-hot-bold-duotone', color: '#d97706' },
+  { value: 'medical', label: 'Pos Medis & P3K', icon: 'solar:health-bold-duotone', color: '#dc2626' }
 ];
 
 export const PRESET_COLORS = [

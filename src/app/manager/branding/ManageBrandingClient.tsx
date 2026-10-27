@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
-import { Upload, Loader2, Image as ImageIcon, Save, Eye, LayoutTemplate } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -201,9 +201,9 @@ function ImageUploadCard({
           className="flex-1 h-10 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
         >
           {uploading ? (
-            <Loader2 className="w-4 h-4 animate-spin text-green-500" />
+            <AppIcon icon="Loader2" className="w-4 h-4 animate-spin text-green-500" />
           ) : (
-            <Upload className="w-4 h-4 text-slate-400" />
+            <AppIcon icon="Upload" className="w-4 h-4 text-slate-400" />
           )}
           {uploading ? 'Mengupload...' : 'Ganti Gambar'}
         </button>
@@ -213,7 +213,7 @@ function ImageUploadCard({
             title="Reset ke default"
             className="w-10 h-10 bg-rose-50 text-rose-500 hover:bg-rose-100 rounded-xl flex items-center justify-center transition-colors"
           >
-            <ImageIcon className="w-4 h-4" />
+            <AppIcon icon="Image" className="w-4 h-4" />
           </button>
         )}
       </div>
@@ -363,7 +363,7 @@ export default function ManageBrandingClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <LayoutTemplate className="w-5 h-5 text-green-500" />
+              <AppIcon icon="LayoutTemplate" className="w-5 h-5 text-green-500" />
             </div>
             Pengaturan Branding
           </h1>
@@ -392,7 +392,7 @@ export default function ManageBrandingClient() {
               disabled={saving} 
               className="h-11 sm:h-auto px-6 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
             >
-              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+              {saving ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : <AppIcon icon="Save" className="w-4 h-4" />}
               {saving ? 'Menyimpan...' : 'Simpan Nama'}
             </button>
           </div>
@@ -477,7 +477,7 @@ export default function ManageBrandingClient() {
             <div className="flex flex-col bg-slate-50/50 rounded-[1.5rem] p-6 border border-slate-100">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-                  <Eye className="w-4 h-4 text-green-500" />
+                  <AppIcon icon="Eye" className="w-4 h-4 text-green-500" />
                 </div>
                 <h3 className="font-bold text-lg text-slate-800">Preview Animasi</h3>
               </div>
@@ -520,7 +520,7 @@ export default function ManageBrandingClient() {
             disabled={savingFooter} 
             className="h-11 px-6 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
           >
-            {savingFooter ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            {savingFooter ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : <AppIcon icon="Save" className="w-4 h-4" />}
             {savingFooter ? 'Menyimpan...' : 'Simpan Footer'}
           </button>
         </div>

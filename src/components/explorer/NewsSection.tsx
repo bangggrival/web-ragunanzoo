@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, Newspaper, Calendar, Clock, Eye, Sparkles, Filter } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useNews, News } from '@/hooks/useNews';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { toast } from 'sonner';
@@ -96,7 +96,7 @@ const NewsSection = React.forwardRef<HTMLElement, NewsSectionProps>(
 
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground tracking-tight flex items-center gap-2.5">
               <span>{t('latest_news')}</span>
-              <Sparkles className="w-6 h-6 text-amber-500 hidden sm:inline-block" />
+              <AppIcon name="solar:stars-bold" className="w-6 h-6 text-amber-500 hidden sm:inline-block" />
             </h2>
             <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm font-medium mt-1 max-w-xl">
               {language === 'en'
@@ -111,7 +111,7 @@ const NewsSection = React.forwardRef<HTMLElement, NewsSectionProps>(
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card border border-border hover:border-primary text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 hover:text-slate-950 hover:bg-primary transition-all duration-300 shadow-sm group"
             >
               <span>{t('see_all')}</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <AppIcon name="solar:arrow-right-linear" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
@@ -119,7 +119,7 @@ const NewsSection = React.forwardRef<HTMLElement, NewsSectionProps>(
         {/* Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar">
           <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 mr-2 flex-shrink-0">
-            <Filter className="w-3.5 h-3.5 text-primary" />
+            <AppIcon name="solar:filter-bold-duotone" className="w-3.5 h-3.5 text-primary" />
             {language === 'en' ? 'Filter:' : 'Kategori:'}
           </span>
           {categories.map((cat) => (
@@ -156,7 +156,7 @@ const NewsSection = React.forwardRef<HTMLElement, NewsSectionProps>(
                   />
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-green-700 via-emerald-800 to-slate-900 flex items-center justify-center">
-                    <Newspaper className="w-20 h-20 text-white/20" />
+                    <AppIcon name="solar:newspaper-bold-duotone" className="w-20 h-20 text-white/20" />
                   </div>
                 )}
 
@@ -176,18 +176,18 @@ const NewsSection = React.forwardRef<HTMLElement, NewsSectionProps>(
                 <div className="relative z-10 p-6 sm:p-8 text-white">
                   <div className="flex items-center gap-4 text-xs text-green-200 font-bold mb-2">
                     <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-primary" />
+                      <AppIcon name="solar:calendar-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                       {formatDate(spotlightArticle.created_at)}
                     </span>
                     {spotlightArticle.read_time && (
                       <span className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-primary" />
+                        <AppIcon name="solar:clock-circle-bold" className="w-3.5 h-3.5 text-primary" />
                         {spotlightArticle.read_time}
                       </span>
                     )}
                     {spotlightArticle.views_count && (
                       <span className="flex items-center gap-1.5 hidden sm:flex">
-                        <Eye className="w-3.5 h-3.5 text-amber-400" />
+                        <AppIcon name="solar:eye-bold" className="w-3.5 h-3.5 text-amber-400" />
                         {spotlightArticle.views_count} views
                       </span>
                     )}
@@ -226,7 +226,7 @@ const NewsSection = React.forwardRef<HTMLElement, NewsSectionProps>(
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-primary/15 to-secondary/15 flex items-center justify-center">
-                          <Newspaper className="w-9 h-9 text-primary/40" />
+                          <AppIcon name="solar:newspaper-bold-duotone" className="w-9 h-9 text-primary/40" />
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
@@ -243,12 +243,12 @@ const NewsSection = React.forwardRef<HTMLElement, NewsSectionProps>(
                       <div>
                         <div className="flex items-center flex-wrap gap-2 sm:gap-3 text-[11px] text-muted-foreground mb-1.5 font-medium">
                           <span className="flex items-center gap-1 text-primary font-semibold">
-                            <Calendar className="w-3 h-3 text-primary" />
+                            <AppIcon name="solar:calendar-bold-duotone" className="w-3 h-3 text-primary" />
                             {formatDate(item.created_at)}
                           </span>
                           {item.read_time && (
                             <span className="flex items-center gap-1">
-                              <Clock className="w-3 h-3 text-muted-foreground" />
+                              <AppIcon name="solar:clock-circle-bold" className="w-3 h-3 text-muted-foreground" />
                               {item.read_time}
                             </span>
                           )}
@@ -271,12 +271,12 @@ const NewsSection = React.forwardRef<HTMLElement, NewsSectionProps>(
                         <div className="flex items-center gap-2">
                           {item.views_count && (
                             <span className="text-[10px] text-muted-foreground font-medium flex items-center gap-1">
-                              <Eye className="w-3 h-3" />
+                              <AppIcon name="solar:eye-bold" className="w-3 h-3" />
                               {item.views_count}
                             </span>
                           )}
                           <div className="w-6 h-6 rounded-full bg-muted/80 group-hover:bg-primary text-muted-foreground group-hover:text-primary-foreground flex items-center justify-center transition-all duration-300 shadow-2xs group-hover:scale-110">
-                            <ArrowUpRight className="w-3.5 h-3.5" />
+                            <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5" />
                           </div>
                         </div>
                       </div>

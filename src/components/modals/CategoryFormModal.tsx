@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { X, Leaf, PawPrint, Loader2, FolderTree } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { useCategories, type Category } from '@/hooks/useCategories';
 import { FAUNA_ICONS, FLORA_ICONS } from '@/utils/animalIcons';
+import CategoryIcon from '@/components/ui/CategoryIcon';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 const formSchema = z.object({
   name_id: z.string().min(1, 'Nama wajib diisi'),
@@ -140,12 +141,12 @@ export default function CategoryFormModal({ isOpen, onClose, category, onSuccess
         <div className="manager-modal-header shrink-0">
           <div className="manager-modal-title">
             <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-              <FolderTree className="w-4 h-4 text-primary" />
+              <AppIcon name="solar:folder-with-files-bold-duotone" className="w-4 h-4 text-primary" />
             </div>
             <span>{category ? 'Edit Kategori' : 'Tambah Kategori'}</span>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-muted rounded-lg transition-colors">
-            <X className="w-5 h-5 text-muted-foreground" />
+            <AppIcon name="solar:close-circle-bold" className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 
@@ -164,7 +165,7 @@ export default function CategoryFormModal({ isOpen, onClose, category, onSuccess
                     : 'bg-muted/30 border-manager-border hover:bg-muted/50'
                 }`}
               >
-                <PawPrint className="w-4 h-4" />
+                <AppIcon name="fluent-emoji-flat:paw-prints" className="w-4 h-4" />
                 <span className="text-sm font-medium">Fauna (Hewan)</span>
               </button>
               <button
@@ -176,7 +177,7 @@ export default function CategoryFormModal({ isOpen, onClose, category, onSuccess
                     : 'bg-muted/30 border-manager-border hover:bg-muted/50'
                 }`}
               >
-                <Leaf className="w-4 h-4" />
+                <AppIcon name="fluent-emoji-flat:herb" className="w-4 h-4" />
                 <span className="text-sm font-medium">Flora (Tumbuhan)</span>
               </button>
             </div>
@@ -185,27 +186,29 @@ export default function CategoryFormModal({ isOpen, onClose, category, onSuccess
           {/* Icon */}
           <div className="manager-form-section">
             <p className="manager-form-section-title">
-              Pilih Ikon Vektor Duotone Nature / Emoji
+              Pilih Ikon Satwa / Flora (Iconify & Vektor)
             </p>
 
             <div className="mb-3">
               <p className="text-xs font-semibold text-muted-foreground mb-1.5">
-                {selectedType === 'fauna' ? 'Ikon Vektor Duotone Satwa (SVG):' : 'Ikon Vektor Duotone Botani/Flora (SVG):'}
+                {selectedType === 'fauna' ? 'Koleksi Ikon Satwa (Iconify & Tim Desain):' : 'Koleksi Ikon Botani/Flora (Iconify & Tim Desain):'}
               </p>
               <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2.5 p-3 border border-manager-border rounded-xl max-h-48 overflow-y-auto bg-muted/20">
                 {(selectedType === 'fauna' ? FAUNA_ICONS : FLORA_ICONS).map((iconMeta) => (
                   <button
                     key={iconMeta.key}
                     type="button"
-                    onClick={() => form.setValue('icon', iconMeta.key)}
+                    onClick={() => form.setValue('icon', iconMeta.iconifyIcon || iconMeta.key)}
                     title={`${iconMeta.nameId} (${iconMeta.nameEn})`}
                     className={`p-2 rounded-2xl transition-all flex flex-col items-center justify-center gap-1 ${
-                      selectedIcon === iconMeta.key
+                      selectedIcon === (iconMeta.iconifyIcon || iconMeta.key) || selectedIcon === iconMeta.key
                         ? 'bg-primary/20 ring-2 ring-primary scale-105 shadow-sm'
                         : 'hover:bg-muted bg-card shadow-2xs hover:scale-105'
                     }`}
                   >
-                    <img src={iconMeta.svgPath} alt={iconMeta.nameId} className="w-10 h-10 object-contain" />
+                    <div className="w-10 h-10 flex items-center justify-center">
+                      <CategoryIcon icon={iconMeta.iconifyIcon || iconMeta.key} categoryName={iconMeta.nameId} type={selectedType} className="w-10 h-10 object-contain" />
+                    </div>
                     <span className="text-[10px] font-medium text-foreground/75 truncate max-w-[56px] text-center">
                       {iconMeta.nameId}
                     </span>
@@ -214,7 +217,26 @@ export default function CategoryFormModal({ isOpen, onClose, category, onSuccess
               </div>
             </div>
 
-            <p className="text-xs font-semibold text-muted-foreground mb-1.5">Emoji Alternatif:</p>
+            {/* Direct Iconify Key Input */}
+            <div className="mb-3">
+              <p className="text-xs font-semibold text-muted-foreground mb-1">
+                Kustom Iconify Key (Opsional):
+              </p>
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 border border-border">
+                  <AppIcon icon={selectedIcon} className="w-5 h-5 text-primary" fallback={<AppIcon name="fluent-emoji-flat:paw-prints" className="w-4 h-4" />} />
+                </div>
+                <input
+                  type="text"
+                  placeholder="e.g. fluent-emoji-flat:tiger atau /icons/categories/komodo.svg"
+                  value={selectedIcon || ''}
+                  onChange={(e) => form.setValue('icon', e.target.value)}
+                  className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-manager-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+              </div>
+            </div>
+
+            <p className="text-xs font-semibold text-muted-foreground mb-1.5">Emoji Cepat:</p>
             <div className="flex flex-wrap gap-1.5 p-3 border border-manager-border rounded-lg max-h-24 overflow-y-auto bg-muted/20">
               {EMOJI_OPTIONS.map((emoji) => (
                 <button
@@ -227,7 +249,7 @@ export default function CategoryFormModal({ isOpen, onClose, category, onSuccess
                       : 'hover:bg-muted'
                   }`}
                 >
-                  {emoji}
+                  <AppIcon icon={emoji} className="w-6 h-6" fallback={<span>{emoji}</span>} />
                 </button>
               ))}
             </div>
@@ -341,7 +363,7 @@ export default function CategoryFormModal({ isOpen, onClose, category, onSuccess
           >
             {isLoading ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
                 Menyimpan...
               </>
             ) : (

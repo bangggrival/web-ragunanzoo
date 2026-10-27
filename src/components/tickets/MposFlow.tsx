@@ -1,27 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Smartphone,
-  Users,
-  QrCode,
-  FileText,
-  DoorOpen,
-  CheckCircle,
-  ArrowRight,
-  ChevronRight,
-  RotateCcw,
-  UserCheck,
-  ScanLine,
-  ReceiptText,
-  MonitorSmartphone,
-  Info,
-  Sparkles,
-  ArrowLeft,
-  Banknote,
-  Volume2,
-  CheckCircle2,
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTicketContent } from '@/hooks/useTicketContent';
 
@@ -53,7 +33,7 @@ function ProgressStepper({ currentStep, steps }: { currentStep: MposStep; steps:
                 }`}
               >
                 {isDone ? (
-                  <CheckCircle className="w-4 h-4" />
+                  <AppIcon name="solar:check-circle-bold-duotone" className="w-4 h-4" />
                 ) : (
                   <span className="text-[10px] font-extrabold">{step.icon}</span>
                 )}
@@ -140,7 +120,7 @@ export default function MposFlow() {
         <div className="relative z-10 flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <MonitorSmartphone className="w-5 h-5" />
+              <AppIcon name="solar:devices-bold-duotone" className="w-5 h-5" />
               <h3 className="font-extrabold text-base md:text-lg tracking-tight">
                 {isEN ? 'MPoS Ticket Purchase Guide' : 'Panduan Beli Tiket via MPoS'}
               </h3>
@@ -156,7 +136,7 @@ export default function MposFlow() {
               onClick={reset}
               className="flex-shrink-0 flex items-center gap-1 text-white/80 hover:text-white text-xs font-bold border border-white/30 px-2.5 py-1.5 rounded-full hover:bg-white/10 transition-all"
             >
-              <RotateCcw className="w-3 h-3" />
+              <AppIcon name="solar:restart-bold" className="w-3 h-3" />
               {isEN ? 'Restart' : 'Ulangi'}
             </button>
           )}
@@ -179,7 +159,7 @@ export default function MposFlow() {
             {/* What is MPoS */}
             <div className="bg-violet-50 dark:bg-violet-950/50 border border-violet-200 dark:border-violet-800 rounded-2xl px-4 py-4 flex items-start gap-3">
               <div className="w-9 h-9 rounded-xl bg-violet-100 dark:bg-violet-900 text-violet-600 dark:text-violet-300 flex items-center justify-center flex-shrink-0">
-                <MonitorSmartphone className="w-5 h-5" />
+                <AppIcon name="solar:devices-bold-duotone" className="w-5 h-5" />
               </div>
               <div>
                 <p className="font-bold text-sm text-violet-700 dark:text-violet-300 mb-1">
@@ -196,7 +176,7 @@ export default function MposFlow() {
             {/* Pricing Info */}
             <div className="bg-muted/50 rounded-2xl px-4 py-3">
               <p className="font-bold text-sm text-foreground mb-2 flex items-center gap-1.5">
-                <Banknote className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <AppIcon name="solar:money-bag-bold-duotone" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>{isEN ? 'Ticket Prices (Weekday)' : 'Harga Tiket (Hari Biasa)'}</span>
               </p>
               <div className="grid grid-cols-2 gap-2 text-xs">
@@ -219,7 +199,7 @@ export default function MposFlow() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white font-extrabold text-sm shadow-md hover:shadow-violet-300/40 dark:hover:shadow-violet-900/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
             >
               {isEN ? 'Start the Guide' : 'Mulai Panduan'}
-              <ArrowRight className="w-4 h-4" />
+              <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -227,7 +207,7 @@ export default function MposFlow() {
         {/* ─── ARRIVE ─── */}
         {step === 'arrive' && (
           <StepCard
-            icon={<DoorOpen className="w-6 h-6" />}
+            icon={<AppIcon name="solar:login-2-bold-duotone" className="w-6 h-6" />}
             iconBg="bg-violet-100 text-violet-600 dark:bg-violet-900 dark:text-violet-300"
             title={isEN ? 'Arrive at Ragunan Zoo' : 'Tiba di Taman Margasatwa Ragunan'}
             description={isEN
@@ -235,7 +215,7 @@ export default function MposFlow() {
               : 'Selamat datang! Arahkan langkah Anda menuju pintu masuk utama, kemudian cari loket tiket terdekat. Loket tersedia di setiap pintu masuk utama.'}
           >
             <div className="bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 rounded-xl px-3 py-2.5 flex items-start gap-2 text-xs">
-              <Info className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
+              <AppIcon name="solar:info-circle-bold-duotone" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
               <p className="text-emerald-700 dark:text-emerald-300">
                 {isEN
                   ? 'Tip: Ragunan has 3 main gates. Each gate has a MPoS ticket counter.'
@@ -249,7 +229,7 @@ export default function MposFlow() {
         {/* ─── COUNTER ─── */}
         {step === 'counter' && (
           <StepCard
-            icon={<Users className="w-6 h-6" />}
+            icon={<AppIcon name="solar:users-group-two-rounded-bold-duotone" className="w-6 h-6" />}
             iconBg="bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300"
             title={isEN ? 'Tell the officer the number of visitors' : 'Sebutkan jumlah pengunjung kepada petugas'}
             description={isEN
@@ -258,7 +238,7 @@ export default function MposFlow() {
           >
             <div className="bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 rounded-xl px-3 py-2.5 text-xs text-blue-700 dark:text-blue-300">
               <p className="font-semibold mb-1 flex items-center gap-1.5">
-                <Volume2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                <AppIcon name="solar:volume-loud-bold" className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
                 <span>{isEN ? 'Example:' : 'Contoh ucapan:'}</span>
               </p>
               <p className="italic">
@@ -274,7 +254,7 @@ export default function MposFlow() {
         {/* ─── INPUT VISITORS ─── */}
         {step === 'input_visitors' && (
           <StepCard
-            icon={<UserCheck className="w-6 h-6" />}
+            icon={<AppIcon name="solar:user-check-rounded-bold-duotone" className="w-6 h-6" />}
             iconBg="bg-amber-100 text-amber-600 dark:bg-amber-900 dark:text-amber-300"
             title={isEN ? 'Officer inputs & verifies visitor count' : 'Petugas memasukkan & memverifikasi jumlah pengunjung'}
             description={isEN
@@ -316,7 +296,7 @@ export default function MposFlow() {
             </div>
 
             <div className="bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 rounded-xl px-3 py-2.5 flex items-start gap-2 text-xs">
-              <CheckCircle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+              <AppIcon name="solar:check-circle-bold-duotone" className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
               <p className="text-amber-700 dark:text-amber-300">
                 {isEN
                   ? 'Confirm that the number on the screen matches your group before proceeding.'
@@ -330,7 +310,7 @@ export default function MposFlow() {
         {/* ─── QRIS ─── */}
         {step === 'qris' && (
           <StepCard
-            icon={<QrCode className="w-6 h-6" />}
+            icon={<AppIcon name="solar:qr-code-bold-duotone" className="w-6 h-6" />}
             iconBg="bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-300"
             title={isEN ? 'Officer shows QRIS — Scan & Pay!' : 'Petugas menampilkan QRIS — Scan & Bayar!'}
             description={isEN
@@ -358,7 +338,7 @@ export default function MposFlow() {
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center shadow-lg">
-                    <QrCode className="w-5 h-5 text-white" />
+                    <AppIcon name="solar:qr-code-bold-duotone" className="w-5 h-5 text-white" />
                   </div>
                 </div>
                 <p className="text-[10px] text-center text-muted-foreground mt-2 font-bold">QRIS — {formatRp(totalPrice)}</p>
@@ -367,7 +347,7 @@ export default function MposFlow() {
 
             <div className="bg-sky-50 dark:bg-sky-950/50 border border-sky-200 dark:border-sky-800 rounded-xl px-3 py-2.5">
               <p className="text-xs font-bold text-sky-700 dark:text-sky-300 mb-1.5 flex items-center gap-1.5">
-                <Smartphone className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400 shrink-0" />
+                <AppIcon name="solar:smartphone-bold-duotone" className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400 shrink-0" />
                 <span>{isEN ? 'Compatible apps:' : 'Aplikasi yang bisa digunakan:'}</span>
               </p>
               <div className="flex flex-wrap gap-1.5">
@@ -383,7 +363,7 @@ export default function MposFlow() {
         {/* ─── PAYMENT SUCCESS ─── */}
         {step === 'payment_success' && (
           <StepCard
-            icon={<ScanLine className="w-6 h-6" />}
+            icon={<AppIcon name="solar:scanner-bold-duotone" className="w-6 h-6" />}
             iconBg="bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-300"
             title={isEN ? 'Payment Successful!' : 'Pembayaran Berhasil!'}
             description={isEN
@@ -392,12 +372,12 @@ export default function MposFlow() {
           >
             <div className="flex justify-center">
               <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 flex items-center justify-center ring-4 ring-emerald-200 dark:ring-emerald-800 shadow-lg">
-                <CheckCircle className="w-8 h-8" />
+                <AppIcon name="solar:check-circle-bold-duotone" className="w-8 h-8" />
               </div>
             </div>
             <div className="bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 rounded-xl px-3 py-2.5 text-xs text-emerald-700 dark:text-emerald-300">
               <p className="font-semibold flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <AppIcon name="solar:check-circle-bold-duotone" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>{isEN ? 'Total paid:' : 'Total dibayarkan:'} <span className="font-extrabold">{formatRp(totalPrice)}</span></span>
               </p>
               <p className="mt-0.5 text-emerald-600/70 dark:text-emerald-400/70">{isEN ? 'Please wait for your printed receipt.' : 'Harap tunggu struk tiket dicetak oleh petugas.'}</p>
@@ -409,7 +389,7 @@ export default function MposFlow() {
         {/* ─── STRUK ─── */}
         {step === 'struk' && (
           <StepCard
-            icon={<ReceiptText className="w-6 h-6" />}
+            icon={<AppIcon name="solar:bill-list-bold-duotone" className="w-6 h-6" />}
             iconBg="bg-orange-100 text-orange-600 dark:bg-orange-900 dark:text-orange-300"
             title={isEN ? 'Receive your receipt — this is your ticket!' : 'Terima struk — ini adalah tiket masuk Anda!'}
             description={isEN
@@ -440,7 +420,7 @@ export default function MposFlow() {
             </div>
 
             <div className="bg-orange-50 dark:bg-orange-950/50 border border-orange-200 dark:border-orange-800 rounded-xl px-3 py-2.5 flex items-start gap-2 text-xs">
-              <FileText className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400 flex-shrink-0 mt-0.5" />
+              <AppIcon name="solar:document-text-bold-duotone" className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400 flex-shrink-0 mt-0.5" />
               <p className="text-orange-700 dark:text-orange-300">
                 {isEN
                   ? 'Keep the receipt throughout your visit. The officer at the gate will check it before you enter.'
@@ -456,7 +436,7 @@ export default function MposFlow() {
           <div className="space-y-4">
             <div className="text-center py-2">
               <div className="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 flex items-center justify-center mx-auto mb-3 ring-4 ring-emerald-200 dark:ring-emerald-800 shadow-lg">
-                <DoorOpen className="w-9 h-9" />
+                <AppIcon name="solar:login-2-bold-duotone" className="w-9 h-9" />
               </div>
               <h4 className="font-extrabold text-lg text-foreground">
                 {isEN ? 'Show your receipt at the gate!' : 'Tunjukkan struk di Gate Masuk!'}
@@ -471,10 +451,10 @@ export default function MposFlow() {
             <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-2xl p-5 text-white text-center overflow-hidden relative shadow-lg">
               <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(60deg, transparent, transparent 15px, rgba(255,255,255,.1) 15px, rgba(255,255,255,.1) 30px)' }} />
               <div className="relative z-10 flex items-center justify-center gap-3">
-                <ReceiptText className="w-9 h-9 animate-bounce" />
-                <ChevronRight className="w-5 h-5 opacity-60" />
+                <AppIcon name="solar:bill-list-bold-duotone" className="w-9 h-9 animate-bounce" />
+                <AppIcon name="solar:alt-arrow-right-linear" className="w-5 h-5 opacity-60" />
                 <div className="w-12 h-12 rounded-xl bg-white/20 border-2 border-white/40 flex items-center justify-center">
-                  <DoorOpen className="w-6 h-6" />
+                  <AppIcon name="solar:login-2-bold-duotone" className="w-6 h-6" />
                 </div>
               </div>
               <p className="font-extrabold text-lg tracking-wide mt-3">TUNJUKKAN STRUK</p>
@@ -485,7 +465,7 @@ export default function MposFlow() {
 
             <div className="bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 rounded-2xl px-4 py-3 space-y-2">
               <p className="font-bold text-sm text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <AppIcon name="solar:check-circle-bold-duotone" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>{isEN ? 'Entry checklist' : 'Checklist Masuk'}</span>
               </p>
               {[
@@ -494,7 +474,7 @@ export default function MposFlow() {
                 isEN ? `${visitorCount} visitor(s) may enter at once` : `${visitorCount} pengunjung dapat masuk bersamaan`,
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300">
-                  <CheckCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                  <AppIcon name="solar:check-circle-bold-duotone" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </div>
               ))}
@@ -502,7 +482,7 @@ export default function MposFlow() {
 
             <div className="text-center">
               <p className="text-xs text-muted-foreground font-medium inline-flex items-center justify-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <AppIcon name="solar:stars-minimalistic-bold" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>{isEN ? 'Welcome to Ragunan Zoo! Enjoy your visit!' : 'Selamat datang di Taman Margasatwa Ragunan! Selamat menikmati!'}</span>
               </p>
             </div>
@@ -516,7 +496,7 @@ export default function MposFlow() {
               onClick={back}
               className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-foreground transition-colors"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <AppIcon name="solar:arrow-left-linear" className="w-3.5 h-3.5" />
               <span>{isEN ? 'Back' : 'Kembali'}</span>
             </button>
             <span className="text-[10px] text-muted-foreground font-medium">
@@ -582,7 +562,7 @@ function NextButton({
       className={`w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-white font-extrabold text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ${colorMap[color]}`}
     >
       {label}
-      <ArrowRight className="w-4 h-4" />
+      <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
     </button>
   );
 }

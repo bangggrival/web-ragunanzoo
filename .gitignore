@@ -38,11 +38,18 @@ bun.lockb
 # Archives & Temporary files
 *.tar.gz
 *.deb
+*.zip
+*.bak
+*.tmp
 token.txt
 psql_local/
 pgsql/
 sshpass_local/
+*.sql
+!server/init_database.sql
+db_backup.sql
 ragunan_zoo_backup.sql
 *.docx
 *.doc
 scratch/
+

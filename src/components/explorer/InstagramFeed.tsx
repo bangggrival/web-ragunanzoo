@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Instagram, ExternalLink, Heart, MessageCircle, Video, Layers } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -46,7 +46,7 @@ export default function InstagramFeed() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 sm:mb-8 px-1">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center flex-shrink-0 shadow-md">
-              <Instagram className="w-5 h-5" />
+              <AppIcon name="fa6-brands:instagram" className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -74,9 +74,9 @@ export default function InstagramFeed() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:opacity-90 text-white text-xs font-extrabold transition-all shadow-md hover:shadow-lg hover:scale-105 self-start sm:self-auto"
           >
-            <Instagram className="w-4 h-4" />
+            <AppIcon name="fa6-brands:instagram" className="w-4 h-4 text-white" />
             <span>{language === 'en' ? 'Follow on Instagram' : 'Ikuti di Instagram'}</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5" />
           </a>
         </div>
 
@@ -120,11 +120,11 @@ export default function InstagramFeed() {
                   <div className="absolute top-3 right-3 z-10">
                     <div className="w-7 h-7 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-sm">
                       {isVideo ? (
-                        <Video className="w-3.5 h-3.5 text-rose-400" />
+                        <AppIcon name="solar:videocamera-record-bold" className="w-3.5 h-3.5 text-rose-400" />
                       ) : isCarousel ? (
-                        <Layers className="w-3.5 h-3.5 text-amber-300" />
+                        <AppIcon name="solar:layers-bold" className="w-3.5 h-3.5 text-amber-300" />
                       ) : (
-                        <Instagram className="w-3.5 h-3.5 text-white" />
+                        <AppIcon name="fa6-brands:instagram" className="w-3.5 h-3.5 text-white" />
                       )}
                     </div>
                   </div>
@@ -141,15 +141,15 @@ export default function InstagramFeed() {
                       <div className="flex items-center justify-between text-[11px] font-bold text-white/80 pt-2 border-t border-white/20">
                         <div className="flex items-center gap-3">
                           <span className="flex items-center gap-1">
-                            <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500" />
+                            <AppIcon name="solar:heart-bold" className="w-3.5 h-3.5 text-rose-500" />
                             {post.likes_count || '1.2k'}
                           </span>
                           <span className="flex items-center gap-1">
-                            <MessageCircle className="w-3.5 h-3.5 fill-white text-white" />
+                            <AppIcon name="solar:chat-round-dots-bold" className="w-3.5 h-3.5 text-white" />
                             {post.comments_count || '45'}
                           </span>
                         </div>
-                        <ExternalLink className="w-3.5 h-3.5 text-white/80" />
+                        <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5 text-white/80" />
                       </div>
                     </div>
                   </div>

@@ -9,7 +9,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { FileText, AlertCircle, ChevronLeft, ChevronRight, Expand, ArrowLeft } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useState } from 'react';
 import ImageLightbox from '@/components/ui/ImageLightbox';
 import BackButton from '@/components/ui/BackButton';
@@ -53,7 +53,7 @@ export default function CustomPage() {
         <Card className="max-w-lg mx-auto">
           <CardContent className="p-8 text-center">
             <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertCircle className="w-8 h-8 text-muted-foreground" />
+              <AppIcon icon="AlertCircle" className="w-8 h-8 text-muted-foreground" />
             </div>
             <h1 className="text-xl font-bold mb-2">
               {language === 'id' ? 'Halaman Tidak Ditemukan' : 'Page Not Found'}
@@ -65,7 +65,7 @@ export default function CustomPage() {
             </p>
             <Button asChild variant="outline">
               <Link href="/">
-                <ArrowLeft className="w-4 h-4 mr-2" />
+                <AppIcon icon="ArrowLeft" className="w-4 h-4 mr-2" />
                 {language === 'id' ? 'Kembali ke Beranda' : 'Back to Home'}
               </Link>
             </Button>
@@ -97,7 +97,7 @@ export default function CustomPage() {
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 bg-primary/10 rounded-lg">
-            <FileText className="w-6 h-6 text-primary" />
+            <AppIcon icon="FileText" className="w-6 h-6 text-primary" />
           </div>
           <h1 className="text-2xl md:text-3xl font-bold text-foreground">
             {title}
@@ -123,7 +123,7 @@ export default function CustomPage() {
               {/* Zoom Indicator */}
               <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 text-white px-4 py-2 rounded-full flex items-center gap-2">
-                  <Expand className="w-4 h-4" />
+                  <AppIcon icon="Expand" className="w-4 h-4" />
                   <span className="text-sm">Klik untuk memperbesar</span>
                 </div>
               </div>
@@ -137,14 +137,14 @@ export default function CustomPage() {
                   className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"
                   aria-label="Previous image"
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <AppIcon icon="ChevronLeft" className="w-5 h-5" />
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); nextImage(); }}
                   className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"
                   aria-label="Next image"
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <AppIcon icon="ChevronRight" className="w-5 h-5" />
                 </button>
 
                 {/* Indicators */}

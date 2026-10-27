@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { supabase } from '@/integrations/supabase/client';
-import { Book, ChevronLeft, CreditCard, LockKeyhole, Loader2, Star, CheckCircle2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Book as BookType } from '@/hooks/useBooks';
 import { usePurchases } from '@/hooks/usePurchases';
@@ -101,7 +101,7 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
         <div className="text-center">
-          <Book className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+          <AppIcon icon="Book" className="w-16 h-16 text-slate-300 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-slate-800 mb-2">Buku Tidak Ditemukan</h1>
           <button onClick={() => router.push('/library')} className="text-primary hover:underline">
             Kembali ke Perpustakaan
@@ -116,12 +116,12 @@ export default function CheckoutPage() {
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
         <div className="bg-white p-8 md:p-12 rounded-[2rem] border border-slate-200 shadow-xl max-w-md w-full text-center animate-in zoom-in duration-500">
           <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 className="w-12 h-12 text-green-500" />
+            <AppIcon icon="CheckCircle2" className="w-12 h-12 text-green-500" />
           </div>
           <h2 className="text-2xl font-black text-slate-800 mb-2">Pembayaran Berhasil!</h2>
           <p className="text-slate-500 mb-8">E-Book telah ditambahkan ke Koleksi Anda.</p>
           <div className="w-full flex justify-center">
-            <Loader2 className="w-6 h-6 text-green-500 animate-spin" />
+            <AppIcon icon="Loader2" className="w-6 h-6 text-green-500 animate-spin" />
           </div>
           <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mt-4">Mengarahkan...</p>
         </div>
@@ -136,7 +136,7 @@ export default function CheckoutPage() {
           onClick={() => router.push(`/library/${book.id}`)}
           className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors mb-8"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <AppIcon icon="ChevronLeft" className="w-4 h-4" />
           {language === 'en' ? 'Back to Book Details' : 'Kembali ke Detail Buku'}
         </button>
 
@@ -156,12 +156,12 @@ export default function CheckoutPage() {
                       <img src={book.cover_url} alt={getTitle(book)} className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-amber-100 to-amber-50">
-                        <Book className="w-8 h-8 text-amber-300" />
+                        <AppIcon icon="Book" className="w-8 h-8 text-amber-300" />
                       </div>
                     )}
                   </div>
                   <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-gradient-to-r from-amber-400 to-amber-500 rounded-md shadow flex items-center">
-                    <Star className="w-2.5 h-2.5 text-white fill-white mr-1" />
+                    <AppIcon icon="Star" className="w-2.5 h-2.5 text-white fill-white mr-1" />
                     <span className="text-[9px] font-bold text-white tracking-wider">PREMIUM</span>
                   </div>
                 </div>
@@ -200,7 +200,7 @@ export default function CheckoutPage() {
               <div className="p-4 border-2 border-primary bg-primary/5 rounded-2xl flex items-center gap-4 cursor-pointer relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full" />
                 <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center border border-slate-100 flex-shrink-0">
-                  <CreditCard className="w-6 h-6 text-primary" />
+                  <AppIcon icon="CreditCard" className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <p className="font-bold text-slate-800">Ragunan Pay (Mockup)</p>
@@ -247,19 +247,19 @@ export default function CheckoutPage() {
               >
                 {isProcessing ? (
                   <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <AppIcon icon="Loader2" className="w-5 h-5 animate-spin" />
                     Memproses...
                   </>
                 ) : (
                   <>
-                    <LockKeyhole className="w-5 h-5" />
+                    <AppIcon icon="LockKeyhole" className="w-5 h-5" />
                     Bayar Sekarang
                   </>
                 )}
               </button>
 
               <div className="mt-6 flex items-center justify-center gap-2 text-xs font-medium text-slate-400 text-center">
-                <LockKeyhole className="w-3 h-3" />
+                <AppIcon icon="LockKeyhole" className="w-3 h-3" />
                 Pembayaran Anda aman dan terenkripsi
               </div>
             </div>

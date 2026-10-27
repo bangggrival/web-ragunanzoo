@@ -1,11 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { 
-  Image as ImageIcon, Upload, Trash2, Search, Grid3X3, List, 
-  Edit2, X, Save, Loader2, Copy, Check, FolderOpen,
-  Filter
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { MediaItem, MEDIA_CATEGORIES } from '@/hooks/useMediaGallery';
 import { cn } from '@/lib/utils';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -357,14 +353,14 @@ export default function ManageGalleryClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <FolderOpen className="w-5 h-5 text-green-500" />
+              <AppIcon icon="FolderOpen" className="w-5 h-5 text-green-500" />
             </div>
             Galeri Media
           </h1>
           <p className="text-slate-500 font-medium mt-1 ml-13">Kelola semua gambar yang digunakan di website</p>
         </div>
         <label className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-5 py-2.5 rounded-xl cursor-pointer hover:opacity-90 transition-all duration-300 font-semibold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(99,102,241,0.5)] hover:-translate-y-0.5">
-          {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}
+          {uploading ? <AppIcon icon="Loader2" className="w-5 h-5 animate-spin" /> : <AppIcon icon="Upload" className="w-5 h-5" />}
           <span>Upload Gambar</span>
           <input
             type="file"
@@ -394,7 +390,7 @@ export default function ManageGalleryClient() {
 
       <div className="flex flex-wrap items-center gap-3 p-2 bg-white/60 backdrop-blur-xl rounded-[1.5rem] border border-white/80 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)]">
         <div className="relative flex-1 min-w-[200px] ml-2">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <AppIcon icon="Search" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
             value={searchQuery}
@@ -407,7 +403,7 @@ export default function ManageGalleryClient() {
         <div className="w-px h-8 bg-slate-200 hidden sm:block"></div>
 
         <div className="flex items-center gap-2 pr-2">
-          <Filter className="w-4 h-4 text-slate-400 hidden sm:block" />
+          <AppIcon icon="Filter" className="w-4 h-4 text-slate-400 hidden sm:block" />
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
@@ -428,7 +424,7 @@ export default function ManageGalleryClient() {
               viewMode === 'grid' ? 'bg-white shadow-sm text-green-600' : 'text-slate-400 hover:text-slate-600'
             )}
           >
-            <Grid3X3 className="w-4 h-4" />
+            <AppIcon icon="Grid3X3" className="w-4 h-4" />
           </button>
           <button
             onClick={() => setViewMode('list')}
@@ -437,7 +433,7 @@ export default function ManageGalleryClient() {
               viewMode === 'list' ? 'bg-white shadow-sm text-green-600' : 'text-slate-400 hover:text-slate-600'
             )}
           >
-            <List className="w-4 h-4" />
+            <AppIcon icon="List" className="w-4 h-4" />
           </button>
         </div>
       </div>
@@ -445,12 +441,12 @@ export default function ManageGalleryClient() {
       {filteredMedia.length === 0 ? (
         <div className="text-center py-20 bg-white/60 backdrop-blur-xl border border-slate-200/60 rounded-[2rem]">
           <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-slate-100 shadow-inner">
-            <ImageIcon className="w-10 h-10 text-slate-300" />
+            <AppIcon icon="Image" className="w-10 h-10 text-slate-300" />
           </div>
           <h3 className="text-xl font-bold text-slate-800 mb-2">Belum ada gambar</h3>
           <p className="text-slate-500 mb-8 max-w-md mx-auto">Upload gambar untuk mulai mengisi galeri media. Mendukung JPG, PNG, WEBP, GIF, dan SVG.</p>
           <label className="inline-flex items-center gap-2 bg-slate-800 text-white px-6 py-3 rounded-xl cursor-pointer hover:bg-slate-700 transition-all font-semibold shadow-lg shadow-slate-800/20">
-            <Upload className="w-4 h-4" />
+            <AppIcon icon="Upload" className="w-4 h-4" />
             <span>Upload Sekarang</span>
             <input
               type="file"
@@ -486,21 +482,21 @@ export default function ManageGalleryClient() {
                       className="flex-1 py-1.5 bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-lg transition-colors flex items-center justify-center"
                       title="Salin URL"
                     >
-                      {copiedUrl === item.file_url ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-white" />}
+                      {copiedUrl === item.file_url ? <AppIcon icon="Check" className="w-4 h-4 text-green-400" /> : <AppIcon icon="Copy" className="w-4 h-4 text-white" />}
                     </button>
                     <button
                       onClick={() => setEditingItem(item)}
                       className="flex-1 py-1.5 bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-lg transition-colors flex items-center justify-center"
                       title="Edit"
                     >
-                      <Edit2 className="w-4 h-4 text-white" />
+                      <AppIcon icon="Edit2" className="w-4 h-4 text-white" />
                     </button>
                     <button
                       onClick={() => setDeleteItem(item)}
                       className="flex-1 py-1.5 bg-rose-500/80 hover:bg-rose-500 backdrop-blur-md rounded-lg transition-colors flex items-center justify-center"
                       title="Hapus"
                     >
-                      <Trash2 className="w-4 h-4 text-white" />
+                      <AppIcon icon="Trash2" className="w-4 h-4 text-white" />
                     </button>
                   </div>
                 </div>
@@ -563,21 +559,21 @@ export default function ManageGalleryClient() {
                         className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors"
                         title="Salin URL"
                       >
-                        {copiedUrl === item.file_url ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                        {copiedUrl === item.file_url ? <AppIcon icon="Check" className="w-4 h-4 text-green-500" /> : <AppIcon icon="Copy" className="w-4 h-4" />}
                       </button>
                       <button
                         onClick={() => setEditingItem(item)}
                         className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors"
                         title="Edit"
                       >
-                        <Edit2 className="w-4 h-4" />
+                        <AppIcon icon="Edit2" className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => setDeleteItem(item)}
                         className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                         title="Hapus"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <AppIcon icon="Trash2" className="w-4 h-4" />
                       </button>
                     </div>
                   </td>
@@ -626,20 +622,20 @@ export default function ManageGalleryClient() {
                       className="px-3 py-1.5 text-xs font-bold rounded-lg text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 transition-colors flex items-center gap-1.5"
                       title="Salin URL"
                     >
-                      {copiedUrl === item.file_url ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
+                      {copiedUrl === item.file_url ? <AppIcon icon="Check" className="w-3 h-3 text-green-500" /> : <AppIcon icon="Copy" className="w-3 h-3" />}
                       Salin
                     </button>
                     <button
                       onClick={() => setEditingItem(item)}
                       className="px-3 py-1.5 text-xs font-bold rounded-lg text-green-600 bg-green-50 hover:bg-green-100 transition-colors flex items-center gap-1.5"
                     >
-                      <Edit2 className="w-3 h-3" /> Edit
+                      <AppIcon icon="Edit2" className="w-3 h-3" /> Edit
                     </button>
                     <button
                       onClick={() => setDeleteItem(item)}
                       className="px-3 py-1.5 text-xs font-bold rounded-lg text-rose-600 bg-rose-50 hover:bg-rose-100 transition-colors flex items-center gap-1.5"
                     >
-                      <Trash2 className="w-3 h-3" /> Hapus
+                      <AppIcon icon="Trash2" className="w-3 h-3" /> Hapus
                     </button>
                   </div>
                 </div>
@@ -705,7 +701,7 @@ function EditMediaModal({
         <div className="flex items-center justify-between p-5 border-b border-slate-100">
           <h3 className="font-bold text-lg text-slate-800">Edit Detail Gambar</h3>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-500 transition-colors">
-            <X className="w-5 h-5" />
+            <AppIcon icon="X" className="w-5 h-5" />
           </button>
         </div>
 
@@ -764,7 +760,7 @@ function EditMediaModal({
             disabled={saving}
             className="flex items-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:opacity-50 font-bold shadow-lg shadow-green-600/20 transition-all"
           >
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            {saving ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : <AppIcon icon="Save" className="w-4 h-4" />}
             Simpan
           </button>
         </div>

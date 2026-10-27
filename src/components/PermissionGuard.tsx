@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserPermissions, MANAGER_PAGES, PermissionKey } from '@/hooks/useUserPermissions';
 import { useAuth } from '@/hooks/useAuth';
-import { Lock } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 interface PermissionGuardProps {
   children: ReactNode;
@@ -41,7 +41,7 @@ export default function PermissionGuard({ children, permissionKey }: PermissionG
       <div className="min-h-[400px] flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-8">
           <div className="w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Lock className="w-8 h-8 text-destructive" />
+            <AppIcon name="solar:lock-bold-duotone" className="w-8 h-8 text-destructive" />
           </div>
           <h2 className="text-xl font-bold text-foreground mb-2">Sesi Tidak Ditemukan</h2>
           <p className="text-muted-foreground mb-6">
@@ -66,7 +66,7 @@ export default function PermissionGuard({ children, permissionKey }: PermissionG
       <div className="min-h-[400px] flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-8">
           <div className="w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Lock className="w-8 h-8 text-destructive" />
+            <AppIcon name="solar:lock-bold-duotone" className="w-8 h-8 text-destructive" />
           </div>
           <h2 className="text-xl font-bold text-foreground mb-2">Akses Ditolak</h2>
           <p className="text-muted-foreground mb-6">

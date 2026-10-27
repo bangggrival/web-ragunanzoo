@@ -1,12 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Outer brand halo -->
   <circle cx="24" cy="24" r="22" fill="#0B4635" fill-opacity="0.12"/>
   <circle cx="24" cy="24" r="21" stroke="#0B4635" stroke-opacity="0.25" stroke-width="1.5"/>
-  <!-- Komodo Lizard Body Contour -->
-  <path d="M12 28C14 20 22 18 31 21L37 22C39 23 39 26 36 27L29 27C21 27 15 32 12 28Z" fill="#0B4635" fill-opacity="0.35"/>
-  <!-- Head & Jaws -->
-  <path d="M30 21L40 23C41 24 40 26 37 27L30 26Z" fill="#0B4635"/>
-  <!-- Yellow Forked Tongue -->
-  <path d="M40 24.5L44 24.5M44 24.5L46 23M44 24.5L46 26" stroke="#FDE68A" stroke-width="1.5" stroke-linecap="round"/>
-  <!-- Claws -->
-  <path d="M21 28L18 34M29 27L32 34" stroke="#0B4635" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Long sweeping Komodo tail and powerful muscular torso -->
+  <path d="M8 17C8 14 10 12 13 14C17 17 15 24 18 27C21 30 26 29 32 27L38 24C41 23 43 25 41 27L34 30C26 33 20 33 16 30C12 27 10 21 8 17Z" fill="#0B4635" fill-opacity="0.35"/>
+  
+  <!-- Komodo Dorsal Spine & Muscular Body Core -->
+  <path d="M17 26C20 28 26 27 33 24C38 22 41 23 42 25C40 28 35 30 29 31C23 32 18 30 17 26Z" fill="#0B4635"/>
+
+  <!-- Heavy Predatory Head -->
+  <path d="M33 23L42 22C43.5 22.5 44 24 42.5 25.5L35 28L33 23Z" fill="#0B4635"/>
+  <!-- Keen Eye & Nostril -->
+  <circle cx="39.5" cy="23" r="1" fill="#FDE68A"/>
+  <circle cx="42" cy="23.5" r="0.6" fill="#0B4635"/>
+
+  <!-- Iconic Yellow Forked Tongue -->
+  <path d="M43 24.5L46.5 24.5M46.5 24.5L48 23M46.5 24.5L48 26" stroke="#F59E0B" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- Splayed Clawed Foreleg with Talons -->
+  <path d="M30 27L32 34L35 34M32 34L33 36M32 34L31 36" stroke="#0B4635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Strong Hind Leg with Claws -->
+  <path d="M19 28L17 35L14 36M17 35L16 37M17 35L18 37" stroke="#0B4635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Armor Scale Ridges along back -->
+  <path d="M22 23L23 21M26 22L27 20M30 21L31 19M16 23L17 21" stroke="#C27835" stroke-width="1.5" stroke-linecap="round"/>
 </svg>

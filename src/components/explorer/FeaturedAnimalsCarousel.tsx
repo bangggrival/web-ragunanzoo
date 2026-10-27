@@ -4,17 +4,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { 
-  Sparkles, 
-  ChevronLeft, 
-  ChevronRight, 
-  ArrowUpRight, 
-  MapPin, 
-  Volume2, 
-  Pause,
-  ExternalLink,
-  Box
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LazyImage from '@/components/ui/LazyImage';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -142,7 +132,7 @@ export default function FeaturedAnimalsCarousel({ animals, loading }: FeaturedAn
         <div className="flex items-center justify-between gap-2 mb-4 sm:mb-6 px-1">
           <div className="flex items-center gap-2.5 sm:gap-3">
             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-primary/15 text-primary flex items-center justify-center flex-shrink-0 shadow-sm">
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+              <AppIcon name="solar:stars-bold" className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
               <h3 className="text-base sm:text-xl md:text-2xl font-extrabold text-foreground tracking-tight">
@@ -163,7 +153,7 @@ export default function FeaturedAnimalsCarousel({ animals, loading }: FeaturedAn
                 className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-card hover:bg-muted border border-border text-foreground flex items-center justify-center shadow-sm transition-all duration-200 hover:scale-105 active:scale-95 group"
                 aria-label="Previous animal"
               >
-                <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+                <AppIcon name="solar:alt-arrow-left-linear" className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
               </button>
 
               <button
@@ -172,7 +162,7 @@ export default function FeaturedAnimalsCarousel({ animals, loading }: FeaturedAn
                 className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-card hover:bg-muted border border-border text-foreground flex items-center justify-center shadow-sm transition-all duration-200 hover:scale-105 active:scale-95 group"
                 aria-label="Next animal"
               >
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                <AppIcon name="solar:alt-arrow-right-linear" className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
             </div>
 
@@ -181,7 +171,7 @@ export default function FeaturedAnimalsCarousel({ animals, loading }: FeaturedAn
               className="inline-flex items-center gap-1 sm:gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-card hover:bg-muted border border-border text-foreground text-[11px] sm:text-xs font-bold transition-all shadow-sm hover:shadow"
             >
               <span>{t('view_all_animals')}</span>
-              <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <AppIcon name="solar:arrow-right-up-linear" className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </Link>
           </div>
         </div>
@@ -227,7 +217,7 @@ export default function FeaturedAnimalsCarousel({ animals, loading }: FeaturedAn
                       <div className="flex items-center gap-1.5 shrink-0">
                         {animal.model_url && (
                           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-cyan-500/85 backdrop-blur-md text-white text-[10px] font-extrabold border border-white/20 shadow-xs pointer-events-none shrink-0">
-                            <Box className="w-2.5 h-2.5" />
+                            <AppIcon name="solar:box-minimalistic-bold-duotone" className="w-2.5 h-2.5" />
                             <span>3D</span>
                           </span>
                         )}
@@ -245,12 +235,12 @@ export default function FeaturedAnimalsCarousel({ animals, loading }: FeaturedAn
                           >
                             {isPlayingThis ? (
                               <>
-                                <Pause className="w-3 h-3 text-amber-950 animate-pulse" />
+                                <AppIcon name="solar:pause-bold" className="w-3 h-3 text-amber-950 animate-pulse" />
                                 <span>Suara</span>
                               </>
                             ) : (
                               <>
-                                <Volume2 className="w-3 h-3 text-amber-400" />
+                                <AppIcon name="solar:volume-loud-bold" className="w-3 h-3 text-amber-400" />
                                 <span>Suara</span>
                               </>
                             )}
@@ -262,7 +252,7 @@ export default function FeaturedAnimalsCarousel({ animals, loading }: FeaturedAn
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-400 text-amber-950 text-[10px] font-extrabold tracking-wider uppercase shadow-md backdrop-blur-md pointer-events-none">
-                            <Sparkles className="w-2.5 h-2.5 fill-amber-900 text-amber-900" />
+                            <AppIcon name="solar:stars-bold" className="w-2.5 h-2.5 fill-amber-900 text-amber-900" />
                             <span>Ikonik</span>
                           </span>
                         )}
@@ -284,7 +274,7 @@ export default function FeaturedAnimalsCarousel({ animals, loading }: FeaturedAn
                       {/* Location Indicator */}
                       {animal.location && (
                         <p className="text-[11px] text-white/80 line-clamp-1 flex items-center gap-1 mt-1 font-medium">
-                          <MapPin className="w-3 h-3 text-primary-foreground/90 flex-shrink-0" />
+                          <AppIcon name="solar:map-point-bold" className="w-3 h-3 text-primary-foreground/90 flex-shrink-0" />
                           <span className="truncate">{animal.location}</span>
                         </p>
                       )}
@@ -297,7 +287,7 @@ export default function FeaturedAnimalsCarousel({ animals, loading }: FeaturedAn
 
                         {/* Rotating Arrow Indicator */}
                         <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/20 group-hover:bg-primary text-white flex items-center justify-center transition-all duration-300 shadow-2xs group-hover:scale-110">
-                          <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-45" />
+                          <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-45" />
                         </div>
                       </div>
                     </div>

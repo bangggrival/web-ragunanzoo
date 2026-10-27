@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import PermissionGuard from '@/components/PermissionGuard';
 import QRCodeBulkGenerator from '@/components/qr/QRCodeBulkGenerator';
-import { QrCode, Printer, Building2, PawPrint, Layers, ArrowLeft } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -19,12 +19,12 @@ function ManageQRGeneratorClient() {
               href="/manager" 
               className="text-muted-foreground hover:text-foreground text-xs font-semibold inline-flex items-center gap-1"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <AppIcon icon="ArrowLeft" className="w-3.5 h-3.5" />
               <span>Dashboard Manager</span>
             </Link>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground flex items-center gap-2.5">
-            <QrCode className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
+            <AppIcon icon="QrCode" className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
             <span>Generator QR Code Massal Ragunan</span>
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground mt-1">
@@ -37,7 +37,7 @@ function ManageQRGeneratorClient() {
             onClick={() => setModalOpen(true)}
             className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-md"
           >
-            <Printer className="w-4 h-4" />
+            <AppIcon icon="Printer" className="w-4 h-4" />
             <span>Buka Studio Cetak QR</span>
           </Button>
         </div>
@@ -50,7 +50,7 @@ function ManageQRGeneratorClient() {
           className="p-5 rounded-2xl bg-card border border-border hover:border-emerald-500/50 transition-all cursor-pointer shadow-xs group"
         >
           <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-            <PawPrint className="w-5 h-5" />
+            <AppIcon icon="PawPrint" className="w-5 h-5" />
           </div>
           <h3 className="font-bold text-sm text-foreground mb-1">Label Kandang Satwa</h3>
           <p className="text-xs text-muted-foreground leading-relaxed">
@@ -63,7 +63,7 @@ function ManageQRGeneratorClient() {
           className="p-5 rounded-2xl bg-card border border-border hover:border-sky-500/50 transition-all cursor-pointer shadow-xs group"
         >
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-            <Building2 className="w-5 h-5" />
+            <AppIcon icon="Building2" className="w-5 h-5" />
           </div>
           <h3 className="font-bold text-sm text-foreground mb-1">Titik Fasilitas Ragunan</h3>
           <p className="text-xs text-muted-foreground leading-relaxed">
@@ -76,7 +76,7 @@ function ManageQRGeneratorClient() {
           className="p-5 rounded-2xl bg-card border border-border hover:border-amber-500/50 transition-all cursor-pointer shadow-xs group"
         >
           <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-            <Layers className="w-5 h-5" />
+            <AppIcon icon="Layers" className="w-5 h-5" />
           </div>
           <h3 className="font-bold text-sm text-foreground mb-1">Pilihan Format Lembar A4</h3>
           <p className="text-xs text-muted-foreground leading-relaxed">

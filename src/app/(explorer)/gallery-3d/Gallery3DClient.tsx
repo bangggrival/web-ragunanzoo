@@ -4,7 +4,7 @@ import { useState, Suspense, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html, Float, useGLTF, Center } from '@react-three/drei';
-import { Box, Loader2, ChevronLeft, ChevronRight, Info, RotateCcw, ZoomIn, ZoomOut, X, Maximize2, ShieldAlert, MapPin } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useAnimals } from '@/hooks/useAnimals';
 import { useFeatureFlags } from '@/hooks/useFeatureFlags';
 import * as THREE from 'three';
@@ -102,8 +102,8 @@ function LoadingFallback() {
     <Html center>
       <div className="flex flex-col items-center gap-3 text-white">
         <div className="relative">
-          <Loader2 className="w-12 h-12 animate-spin text-primary" />
-          <Box className="w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white" />
+          <AppIcon icon="Loader2" className="w-12 h-12 animate-spin text-primary" />
+          <AppIcon icon="Box" className="w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white" />
         </div>
         <p className="font-medium">Memuat Model 3D...</p>
       </div>
@@ -236,20 +236,20 @@ function GalleryCard({ animal, onClick }: GalleryCardProps) {
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-            <Box className="w-16 h-16 text-muted-foreground" />
+            <AppIcon icon="Box" className="w-16 h-16 text-muted-foreground" />
           </div>
         )}
         
         {/* 3D Badge */}
         <div className="absolute top-3 right-3 bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-          <Box className="w-3 h-3" />
+          <AppIcon icon="Box" className="w-3 h-3" />
           3D
         </div>
         
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
           <span className="text-white font-medium text-sm flex items-center gap-2">
-            <Maximize2 className="w-4 h-4" />
+            <AppIcon icon="Maximize2" className="w-4 h-4" />
             Lihat Model 3D
           </span>
         </div>
@@ -339,13 +339,13 @@ function ViewerModal({ animal, onClose, onPrev, onNext, hasPrev, hasNext }: View
               showInfo ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'
             }`}
           >
-            <Info className="w-5 h-5" />
+            <AppIcon icon="Info" className="w-5 h-5" />
           </button>
           <button
             onClick={onClose}
             className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
           >
-            <X className="w-5 h-5" />
+            <AppIcon icon="X" className="w-5 h-5" />
           </button>
         </div>
       </div>
@@ -356,7 +356,7 @@ function ViewerModal({ animal, onClose, onPrev, onNext, hasPrev, hasNext }: View
           onClick={onPrev}
           className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <AppIcon icon="ChevronLeft" className="w-6 h-6" />
         </button>
       )}
       
@@ -365,7 +365,7 @@ function ViewerModal({ animal, onClose, onPrev, onNext, hasPrev, hasNext }: View
           onClick={onNext}
           className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
         >
-          <ChevronRight className="w-6 h-6" />
+          <AppIcon icon="ChevronRight" className="w-6 h-6" />
         </button>
       )}
 
@@ -375,7 +375,7 @@ function ViewerModal({ animal, onClose, onPrev, onNext, hasPrev, hasNext }: View
           <p className="text-white font-medium text-sm leading-relaxed">{animal.description}</p>
           {animal.zone && (
             <p className="text-secondary text-xs mt-2 flex items-center gap-1">
-              <MapPin className="w-3 h-3 text-secondary shrink-0" />
+              <AppIcon icon="MapPin" className="w-3 h-3 text-secondary shrink-0" />
               <span>{animal.zone}</span>
             </p>
           )}
@@ -407,7 +407,7 @@ function ViewerModal({ animal, onClose, onPrev, onNext, hasPrev, hasNext }: View
             onClick={handleZoomOut}
             className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
           >
-            <ZoomOut className="w-5 h-5" />
+            <AppIcon icon="ZoomOut" className="w-5 h-5" />
           </button>
           
           <button
@@ -418,7 +418,7 @@ function ViewerModal({ animal, onClose, onPrev, onNext, hasPrev, hasNext }: View
                 : 'bg-white/20 text-white hover:bg-white/30'
             }`}
           >
-            <RotateCcw className="w-4 h-4" />
+            <AppIcon icon="RotateCcw" className="w-4 h-4" />
             {autoRotate ? 'Auto Putar: ON' : 'Auto Putar: OFF'}
           </button>
 
@@ -433,7 +433,7 @@ function ViewerModal({ animal, onClose, onPrev, onNext, hasPrev, hasNext }: View
             onClick={handleZoomIn}
             className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
           >
-            <ZoomIn className="w-5 h-5" />
+            <AppIcon icon="ZoomIn" className="w-5 h-5" />
           </button>
         </div>
 
@@ -474,8 +474,8 @@ export default function Gallery3D() {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
-              <Loader2 className="w-12 h-12 animate-spin text-primary" />
-              <Box className="w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-muted-foreground" />
+              <AppIcon icon="Loader2" className="w-12 h-12 animate-spin text-primary" />
+              <AppIcon icon="Box" className="w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-muted-foreground" />
             </div>
             <p className="text-muted-foreground">Memuat galeri 3D...</p>
           </div>
@@ -489,7 +489,7 @@ export default function Gallery3D() {
       <div className="container mx-auto px-4 py-16 text-center">
         <div className="max-w-md mx-auto p-8 rounded-2xl bg-card border shadow-sm">
           <div className="w-16 h-16 bg-amber-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4 text-amber-600 dark:text-amber-400">
-            <ShieldAlert className="w-8 h-8" />
+            <AppIcon icon="ShieldAlert" className="w-8 h-8" />
           </div>
           <h2 className="text-xl font-bold mb-2">Fitur Galeri 3D & AR Nonaktif</h2>
           <p className="text-sm text-muted-foreground mb-6">
@@ -509,7 +509,7 @@ export default function Gallery3D() {
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center">
-            <Box className="w-6 h-6 text-white" />
+            <AppIcon icon="Box" className="w-6 h-6 text-white" />
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-foreground">Galeri 3D Satwa</h1>
@@ -520,7 +520,7 @@ export default function Gallery3D() {
         {/* Instructions */}
         <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-4 flex items-start gap-3">
           <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-            <Info className="w-4 h-4 text-primary" />
+            <AppIcon icon="Info" className="w-4 h-4 text-primary" />
           </div>
           <div>
             <p className="font-medium text-foreground">Cara Menggunakan</p>
@@ -535,7 +535,7 @@ export default function Gallery3D() {
       {/* Gallery Grid */}
       {animalsWithModels.length === 0 ? (
         <div className="text-center py-16">
-          <Box className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+          <AppIcon icon="Box" className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-foreground mb-2">Belum Ada Model 3D</h3>
           <p className="text-muted-foreground mb-4">Model 3D satwa sedang dalam pengembangan.</p>
           <Link 

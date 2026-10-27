@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
-import { Plus, Edit, Trash2, History, Leaf, TreePine, TreeDeciduous, Calendar, GripVertical, ImageIcon, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { cn } from '@/lib/utils';
 import { ZooHistory, deleteHistoryAction, upsertHistoryAction } from './actions';
 import { toast } from 'sonner';
@@ -182,10 +182,10 @@ export default function ManageHistoryClient() {
   return (
     <div className="animate-fade-in space-y-6 relative min-h-[calc(100vh-8rem)]">
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-0 left-0 w-64 h-64 opacity-5"><TreePine className="w-full h-full text-green-600" /></div>
-        <div className="absolute top-20 right-10 w-48 h-48 opacity-5"><TreeDeciduous className="w-full h-full text-green-600" /></div>
-        <div className="absolute bottom-10 left-1/4 w-56 h-56 opacity-5"><Leaf className="w-full h-full text-green-600" /></div>
-        <div className="absolute bottom-0 right-0 w-72 h-72 opacity-5"><TreePine className="w-full h-full text-green-600" /></div>
+        <div className="absolute top-0 left-0 w-64 h-64 opacity-5"><AppIcon icon="TreePine" className="w-full h-full text-green-600" /></div>
+        <div className="absolute top-20 right-10 w-48 h-48 opacity-5"><AppIcon icon="TreeDeciduous" className="w-full h-full text-green-600" /></div>
+        <div className="absolute bottom-10 left-1/4 w-56 h-56 opacity-5"><AppIcon icon="Leaf" className="w-full h-full text-green-600" /></div>
+        <div className="absolute bottom-0 right-0 w-72 h-72 opacity-5"><AppIcon icon="TreePine" className="w-full h-full text-green-600" /></div>
         <div className="absolute inset-0 bg-gradient-to-b from-green-50/50 via-transparent to-green-50/50" />
       </div>
 
@@ -193,7 +193,7 @@ export default function ManageHistoryClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <History className="w-5 h-5 text-green-500" />
+              <AppIcon icon="History" className="w-5 h-5 text-green-500" />
             </div>
             Sejarah Kebun Binatang
           </h1>
@@ -201,7 +201,7 @@ export default function ManageHistoryClient() {
         </div>
         
         <button onClick={handleOpenCreate} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-teal-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(16,185,129,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(16,185,129,0.5)] hover:-translate-y-0.5">
-          <Plus className="w-5 h-5" />
+          <AppIcon icon="Plus" className="w-5 h-5" />
           Tambah Sejarah
         </button>
       </div>
@@ -209,12 +209,12 @@ export default function ManageHistoryClient() {
       {historyItems.length === 0 ? (
         <div className="bg-white/60 backdrop-blur-2xl border border-white/80 p-12 text-center rounded-[2rem] shadow-sm mt-8">
           <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-100">
-            <History className="w-10 h-10 text-green-300" />
+            <AppIcon icon="History" className="w-10 h-10 text-green-300" />
           </div>
           <h3 className="font-bold text-xl text-slate-800 mb-2">Belum ada sejarah</h3>
           <p className="text-slate-500 text-sm max-w-sm mx-auto mb-8">Mulai catat perjalanan sejarah kebun binatang dengan menambahkan timeline pertama Anda.</p>
           <button onClick={handleOpenCreate} className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-green-600/20 inline-flex items-center gap-2 transition-all">
-            <Plus className="w-5 h-5" />
+            <AppIcon icon="Plus" className="w-5 h-5" />
             Tambah Sejarah Pertama
           </button>
         </div>
@@ -234,12 +234,12 @@ export default function ManageHistoryClient() {
                   )}>
                     <div className="relative bg-gradient-to-br from-green-50/50 to-transparent p-5">
                       <div className="absolute top-2 right-2 opacity-5 text-green-800 pointer-events-none transition-transform duration-500 group-hover:scale-110">
-                        <TreePine className="w-16 h-16" />
+                        <AppIcon icon="TreePine" className="w-16 h-16" />
                       </div>
                       <div className="flex items-center gap-3 relative z-10">
                         {item.year && (
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-green-100 text-green-700 font-bold text-sm border border-green-200/50 shadow-sm">
-                            <Calendar className="w-3.5 h-3.5" />
+                            <AppIcon icon="Calendar" className="w-3.5 h-3.5" />
                             {item.year}
                           </span>
                         )}
@@ -270,10 +270,10 @@ export default function ManageHistoryClient() {
                         </div>
                         <div className="flex items-center gap-2">
                           <button onClick={() => handleOpenEdit(item)} className="flex-1 h-9 px-3 text-sm font-bold text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl flex items-center justify-center gap-1.5 transition-colors">
-                            <Edit className="w-4 h-4" /> Edit
+                            <AppIcon icon="Edit" className="w-4 h-4" /> Edit
                           </button>
                           <button onClick={() => setDeleteId(item.id)} className="w-9 h-9 text-rose-500 bg-rose-50 hover:bg-rose-100 border border-rose-100 rounded-xl flex items-center justify-center transition-colors">
-                            <Trash2 className="w-4 h-4" />
+                            <AppIcon icon="Trash2" className="w-4 h-4" />
                           </button>
                         </div>
                       </div>
@@ -292,7 +292,7 @@ export default function ManageHistoryClient() {
           <DialogHeader className="p-6 border-b border-slate-100">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                <History className="w-5 h-5 text-green-500" />
+                <AppIcon icon="History" className="w-5 h-5 text-green-500" />
               </div>
               {editingId ? 'Edit Sejarah' : 'Tambah Sejarah Baru'}
             </DialogTitle>
@@ -301,11 +301,11 @@ export default function ManageHistoryClient() {
           <div className="p-6 space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2"><Calendar className="w-3.5 h-3.5" /> Tahun</Label>
+                <Label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2"><AppIcon icon="Calendar" className="w-3.5 h-3.5" /> Tahun</Label>
                 <Input type="number" placeholder="1864" value={formData.year} onChange={(e) => setFormData({ ...formData, year: e.target.value })} className="bg-slate-50 border-slate-200 rounded-xl focus-visible:ring-green-500" />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2"><GripVertical className="w-3.5 h-3.5" /> Urutan Tampil</Label>
+                <Label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2"><AppIcon icon="GripVertical" className="w-3.5 h-3.5" /> Urutan Tampil</Label>
                 <Input type="number" placeholder="0" value={formData.order_index} onChange={(e) => setFormData({ ...formData, order_index: parseInt(e.target.value) || 0 })} className="bg-slate-50 border-slate-200 rounded-xl focus-visible:ring-green-500" />
               </div>
             </div>
@@ -339,7 +339,7 @@ export default function ManageHistoryClient() {
             </div>
 
             <div className="space-y-1.5 pt-2">
-              <Label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2"><ImageIcon className="w-3.5 h-3.5" /> URL Gambar</Label>
+              <Label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2"><AppIcon icon="ImageIcon" className="w-3.5 h-3.5" /> URL Gambar</Label>
               <Input type="url" placeholder="https://..." value={formData.image_url} onChange={(e) => setFormData({ ...formData, image_url: e.target.value })} className="bg-slate-50 border-slate-200 rounded-xl focus-visible:ring-green-500" />
               {formData.image_url && (
                 <div className="mt-3 rounded-xl overflow-hidden border border-slate-200 max-w-xs shadow-sm">
@@ -360,7 +360,7 @@ export default function ManageHistoryClient() {
           <DialogFooter className="p-5 border-t border-slate-100 bg-slate-50/80 rounded-b-[2rem]">
             <Button variant="outline" onClick={() => setIsDialogOpen(false)} className="rounded-xl border-slate-200 font-bold bg-white hover:bg-slate-50">Batal</Button>
             <Button onClick={handleSubmit} disabled={loading || !formData.title_id || !formData.content_id} className="rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-600/20 px-6">
-              {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+              {loading ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin mr-2" /> : null}
               {editingId ? 'Simpan Perubahan' : 'Tambah Sejarah'}
             </Button>
           </DialogFooter>
@@ -376,7 +376,7 @@ export default function ManageHistoryClient() {
           <AlertDialogFooter className="mt-6">
             <AlertDialogCancel className="rounded-xl font-bold border-slate-200">Batal</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete} className="rounded-xl font-bold bg-rose-500 hover:bg-rose-600 text-white shadow-lg shadow-rose-500/20">
-              {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null} Hapus
+              {loading ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin mr-2" /> : null} Hapus
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

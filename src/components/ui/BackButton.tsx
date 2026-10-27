@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft } from 'lucide-react';
+import { AppIcon } from './AppIcon';
 import { useRouter } from 'next/navigation';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
@@ -42,7 +42,7 @@ export default function BackButton({
           className
         )}
       >
-        <ArrowLeft className="w-4 h-4" />
+        <AppIcon name="solar:arrow-left-linear" className="w-4 h-4" />
         {displayLabel}
       </button>
     );
@@ -58,7 +58,7 @@ export default function BackButton({
           className
         )}
       >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+        <AppIcon name="solar:arrow-left-linear" className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
         {displayLabel}
       </button>
     );
@@ -71,7 +71,7 @@ export default function BackButton({
       onClick={handleBack}
       className={cn("-ml-2", className)}
     >
-      <ArrowLeft className="w-4 h-4 mr-1" />
+      <AppIcon name="solar:arrow-left-linear" className="w-4 h-4 mr-1" />
       {displayLabel}
     </Button>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertCircle } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -37,7 +37,7 @@ export function GpsClosureModal({
       <DialogContent className="max-w-md rounded-[2rem]">
         <DialogHeader>
           <DialogTitle className="text-lg font-bold flex items-center gap-2 text-red-600">
-            <AlertCircle className="w-5 h-5" />
+            <AppIcon icon="AlertCircle" className="w-5 h-5" />
             Tutup Sementara Zona / Fasilitas
           </DialogTitle>
           <DialogDescription>

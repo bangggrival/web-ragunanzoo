@@ -1,12 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { 
-  FileText, CheckCircle, Calendar, Download, Info, 
-  MapPin, Mail, Phone, Globe, Clock, ChevronDown, 
-  MessageSquare, FileSearch, CheckSquare, FileCheck, Play,
-  ArrowRight, Search, Sparkles
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -29,31 +24,31 @@ export default function LayananMagangPage() {
       id: 1,
       title: "Konsultasi",
       description: "Konsultasi awal dengan Pengelola Pendidikan dan Kerja Sama UP TMR, paling lambat 1 bulan sebelum waktu pelaksanaan.",
-      icon: MessageSquare,
+      icon: "solar:chat-square-bold-duotone",
     },
     {
       id: 2,
       title: "Permohonan",
       description: "Mengajukan dokumen persyaratan lengkap, paling lambat 10 hari sebelum waktu pelaksanaan.",
-      icon: FileSearch,
+      icon: "solar:document-text-bold-duotone",
     },
     {
       id: 3,
       title: "Proses Administrasi",
       description: "Dokumen diproses maksimal 7 hari kerja.",
-      icon: Clock,
+      icon: "solar:clock-circle-bold-duotone",
     },
     {
       id: 4,
       title: "Penerbitan Surat Keterangan",
       description: "Surat Keterangan & Surat Balasan untuk kampus/sekolah dapat diambil sebelum kegiatan dimulai.",
-      icon: FileCheck,
+      icon: "solar:check-circle-bold-duotone",
     },
     {
       id: 5,
       title: "Pelaksanaan",
       description: "Peserta melaksanakan kegiatan sesuai aturan yang berlaku.",
-      icon: Play,
+      icon: "solar:play-bold-duotone",
     },
   ];
 
@@ -84,9 +79,9 @@ export default function LayananMagangPage() {
                     size="lg" 
                     className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold border-0 shadow-lg flex items-center gap-2"
                   >
-                    <Sparkles className="w-4 h-4" />
+                    <AppIcon icon="Sparkles" className="w-4 h-4" />
                     <span>Daftar Online Sekarang</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <AppIcon icon="ArrowRight" className="w-4 h-4" />
                   </Button>
                 </Link>
 
@@ -96,7 +91,7 @@ export default function LayananMagangPage() {
                     variant="outline"
                     className="bg-white/10 hover:bg-white/20 text-white border-white/30 font-bold backdrop-blur-sm flex items-center gap-2"
                   >
-                    <Search className="w-4 h-4" />
+                    <AppIcon icon="Search" className="w-4 h-4" />
                     <span>Lacak Status Pengajuan</span>
                   </Button>
                 </Link>
@@ -108,7 +103,7 @@ export default function LayananMagangPage() {
                   className="text-white hover:bg-white/10 flex items-center gap-1.5 text-sm"
                 >
                   <span>Lihat Alur & Dokumen</span>
-                  <ChevronDown className="h-4 w-4" />
+                  <AppIcon icon="ChevronDown" className="h-4 w-4" />
                 </Button>
               </div>
             </div>
@@ -124,7 +119,7 @@ export default function LayananMagangPage() {
           <Card id="alur-pengajuan" className="mb-12 shadow-md border-0 scroll-mt-24">
             <CardHeader className="bg-white rounded-t-xl pb-0 pt-8 px-6 md:px-10">
               <CardTitle className="text-2xl text-green-900 flex items-center">
-                <CheckCircle className="mr-3 h-6 w-6 text-green-600" />
+                <AppIcon icon="CheckCircle" className="mr-3 h-6 w-6 text-green-600" />
                 Alur Pengajuan
               </CardTitle>
               <CardDescription className="text-base mt-2">
@@ -139,7 +134,7 @@ export default function LayananMagangPage() {
                     <div key={step.id} className="relative flex flex-col md:flex-row gap-4 md:gap-8 group">
                       <div className="flex items-center md:items-start shrink-0">
                         <div className="w-14 h-14 rounded-full bg-green-50 border-4 border-white shadow-sm flex items-center justify-center text-green-600 relative z-10 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300">
-                          <step.icon className="h-6 w-6" />
+                          <AppIcon icon={step.icon} className="h-6 w-6" />
                         </div>
                         <div className="h-0.5 flex-1 bg-green-100 mx-4 md:hidden"></div>
                         <div className="text-4xl font-bold text-green-100 md:hidden">{step.id}</div>
@@ -166,7 +161,7 @@ export default function LayananMagangPage() {
         <AnimatedSection animation="fade-in-up" delay={200}>
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
-              <FileText className="mr-3 h-6 w-6 text-green-600" />
+              <AppIcon icon="FileText" className="mr-3 h-6 w-6 text-green-600" />
               Pilih Jenis Layanan & Persyaratan
             </h2>
             
@@ -187,7 +182,7 @@ export default function LayananMagangPage() {
                     
                     <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-md">
                       <p className="text-orange-800 flex items-start">
-                        <Info className="h-5 w-5 mr-2 shrink-0 mt-0.5" />
+                        <AppIcon icon="Info" className="h-5 w-5 mr-2 shrink-0 mt-0.5" />
                         <span><strong>Penting:</strong> UP TMR berhak menolak permohonan bila topik penelitian tidak relevan dengan tugas & fungsi UP TMR.</span>
                       </p>
                     </div>
@@ -206,7 +201,7 @@ export default function LayananMagangPage() {
                           "Lembar Konsultasi (ditandatangani Pengelola Pendidikan dan Kerjasama antar LK maksimal 1 bulan sebelum penelitian)"
                         ].map((item, i) => (
                           <li key={i} className="flex items-start bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-3 shrink-0 mt-0.5" />
+                            <AppIcon icon="CheckCircle" className="h-5 w-5 text-green-500 mr-3 shrink-0 mt-0.5" />
                             <span className="text-slate-700 text-sm leading-relaxed">{item}</span>
                           </li>
                         ))}
@@ -234,14 +229,14 @@ export default function LayananMagangPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                       <div className="space-y-4">
                         <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl flex items-center">
-                          <Clock className="h-8 w-8 text-blue-500 mr-4" />
+                          <AppIcon icon="Clock" className="h-8 w-8 text-blue-500 mr-4" />
                           <div>
                             <p className="text-sm text-blue-800 font-medium">Durasi Pelaksanaan</p>
                             <p className="text-lg font-bold text-blue-900">Minimal 1 Bulan</p>
                           </div>
                         </div>
                         <div className="bg-purple-50 border border-purple-100 p-4 rounded-xl flex items-center">
-                          <Calendar className="h-8 w-8 text-purple-500 mr-4" />
+                          <AppIcon icon="Calendar" className="h-8 w-8 text-purple-500 mr-4" />
                           <div>
                             <p className="text-sm text-purple-800 font-medium">Jadwal Kegiatan</p>
                             <p className="text-lg font-bold text-purple-900">Senin - Jumat, 07.30 - 15.00 WIB</p>
@@ -252,7 +247,7 @@ export default function LayananMagangPage() {
                       {/* Calendar Availability (Matching Sewa Tempat) */}
                       <div className="p-4 border border-slate-100 rounded-xl bg-white shadow-sm">
                         <h4 className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                          <Calendar className="w-5 h-5 text-green-600" />
+                          <AppIcon icon="Calendar" className="w-5 h-5 text-green-600" />
                           Ilustrasi Jadwal Magang
                         </h4>
                         <div className="flex justify-center bg-slate-50/50 p-2 rounded-lg border border-slate-100 max-w-sm mx-auto">
@@ -292,7 +287,7 @@ export default function LayananMagangPage() {
                           "Lembar Konsultasi (ditandatangani maksimal 1 bulan sebelum kegiatan)"
                         ].map((item, i) => (
                           <li key={i} className="flex items-start bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-3 shrink-0 mt-0.5" />
+                            <AppIcon icon="CheckCircle" className="h-5 w-5 text-green-500 mr-3 shrink-0 mt-0.5" />
                             <span className="text-slate-700 text-sm leading-relaxed">{item}</span>
                           </li>
                         ))}
@@ -345,7 +340,7 @@ export default function LayananMagangPage() {
         <AnimatedSection animation="fade-in-up" delay={300}>
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
-              <Download className="mr-3 h-6 w-6 text-green-600" />
+              <AppIcon icon="Download" className="mr-3 h-6 w-6 text-green-600" />
               Unduh Formulir & Dokumen
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -362,7 +357,7 @@ export default function LayananMagangPage() {
                 </CardHeader>
                 <CardFooter>
                   <Button variant="outline" className="w-full border-green-200 text-green-700 hover:bg-green-50">
-                    <Download className="mr-2 h-4 w-4" />
+                    <AppIcon icon="Download" className="mr-2 h-4 w-4" />
                     Unduh Format Surat
                   </Button>
                 </CardFooter>
@@ -380,7 +375,7 @@ export default function LayananMagangPage() {
                 </CardHeader>
                 <CardFooter>
                   <Button variant="outline" className="w-full border-green-200 text-green-700 hover:bg-green-50">
-                    <Download className="mr-2 h-4 w-4" />
+                    <AppIcon icon="Download" className="mr-2 h-4 w-4" />
                     Unduh Formulir
                   </Button>
                 </CardFooter>
@@ -396,7 +391,7 @@ export default function LayananMagangPage() {
             
             <div className="lg:col-span-2">
               <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
-                <Info className="mr-3 h-6 w-6 text-green-600" />
+                <AppIcon icon="Info" className="mr-3 h-6 w-6 text-green-600" />
                 Pertanyaan Umum (FAQ)
               </h2>
               <Accordion type="single" collapsible className="w-full bg-white rounded-xl shadow-sm border border-slate-100 px-4">
@@ -429,7 +424,7 @@ export default function LayananMagangPage() {
 
             <div>
               <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
-                <Phone className="mr-3 h-6 w-6 text-green-600" />
+                <AppIcon icon="Phone" className="mr-3 h-6 w-6 text-green-600" />
                 Informasi Kontak
               </h2>
               <Card className="border-0 shadow-md bg-green-900 text-white">
@@ -440,23 +435,23 @@ export default function LayananMagangPage() {
                   
                   <div className="space-y-4">
                     <div className="flex items-start">
-                      <MapPin className="h-5 w-5 text-green-400 mr-3 shrink-0 mt-0.5" />
+                      <AppIcon icon="MapPin" className="h-5 w-5 text-green-400 mr-3 shrink-0 mt-0.5" />
                       <span className="text-sm">Jalan Harsono RM No. 1, Ragunan, Pasar Minggu, Jakarta Selatan 12550</span>
                     </div>
                     <div className="flex items-center">
-                      <Mail className="h-5 w-5 text-green-400 mr-3 shrink-0" />
+                      <AppIcon icon="Mail" className="h-5 w-5 text-green-400 mr-3 shrink-0" />
                       <a href="mailto:ragunanzoo@jakarta.go.id" className="text-sm hover:text-green-300 transition-colors">
                         ragunanzoo@jakarta.go.id
                       </a>
                     </div>
                     <div className="flex items-center">
-                      <Phone className="h-5 w-5 text-green-400 mr-3 shrink-0" />
+                      <AppIcon icon="Phone" className="h-5 w-5 text-green-400 mr-3 shrink-0" />
                       <a href="tel:+622178847114" className="text-sm hover:text-green-300 transition-colors">
                         +6221 78847114
                       </a>
                     </div>
                     <div className="flex items-center">
-                      <Globe className="h-5 w-5 text-green-400 mr-3 shrink-0" />
+                      <AppIcon icon="Globe" className="h-5 w-5 text-green-400 mr-3 shrink-0" />
                       <a href="https://ragunanzoo.jakarta.go.id" target="_blank" rel="noreferrer" className="text-sm hover:text-green-300 transition-colors">
                         ragunanzoo.jakarta.go.id
                       </a>

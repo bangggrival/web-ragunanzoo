@@ -1,9 +1,4 @@
 @echo off
-echo ===================================================
-echo Menghentikan PostgreSQL Portable Lokal...
-echo ===================================================
-
-.\pgsql\bin\pg_ctl.exe -D .\pgsql\data stop
-powershell -Command "Stop-Process -Name postgres -Force -ErrorAction SilentlyContinue"
-echo PostgreSQL telah dihentikan.
+echo Menghentikan PostgreSQL pada port 5433...
+powershell -Command "Get-Process postgres -ErrorAction SilentlyContinue | Where-Object { $_.Path -like '*pgsql*' } | Stop-Process -Force; Write-Host 'PostgreSQL dihentikan.'"
 pause

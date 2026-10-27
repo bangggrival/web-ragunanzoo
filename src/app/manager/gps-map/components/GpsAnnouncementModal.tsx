@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -38,7 +38,7 @@ export function GpsAnnouncementModal({
       <DialogContent className="max-w-md rounded-[2rem]">
         <DialogHeader>
           <DialogTitle className="text-lg font-bold flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-amber-600" />
+            <AppIcon icon="Sparkles" className="w-5 h-5 text-amber-600" />
             Pengumuman Khusus Lokasi
           </DialogTitle>
           <DialogDescription>

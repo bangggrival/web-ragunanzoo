@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  MapPin,
-  Utensils,
-  Bath,
-  AlertTriangle,
-  Info
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { GpsPoi } from '../types';
 
 interface GpsAnalyticsTabProps {
@@ -19,7 +13,7 @@ export function GpsAnalyticsTab({ pois }: GpsAnalyticsTabProps) {
         <div className="bg-white/70 backdrop-blur-xl border border-white/80 p-5 rounded-[2rem] shadow-sm space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-600">Total Titik Lokasi</span>
-            <span className="p-2 bg-emerald-100 text-emerald-700 rounded-xl"><MapPin className="w-5 h-5" /></span>
+            <span className="p-2 bg-emerald-100 text-emerald-700 rounded-xl"><AppIcon icon="MapPin" className="w-5 h-5" /></span>
           </div>
           <div className="text-3xl font-bold text-gray-900">{pois.length}</div>
           <div className="text-xs text-gray-500">Satwa dan fasilitas terdaftar</div>
@@ -28,7 +22,7 @@ export function GpsAnalyticsTab({ pois }: GpsAnalyticsTabProps) {
         <div className="bg-white/70 backdrop-blur-xl border border-white/80 p-5 rounded-[2rem] shadow-sm space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-600">Satwa / Fauna</span>
-            <span className="p-2 bg-amber-100 text-amber-700 rounded-xl"><Utensils className="w-5 h-5" /></span>
+            <span className="p-2 bg-amber-100 text-amber-700 rounded-xl"><AppIcon icon="Utensils" className="w-5 h-5" /></span>
           </div>
           <div className="text-3xl font-bold text-gray-900">{pois.filter(p => p.category === 'animal').length}</div>
           <div className="text-xs text-gray-500">Dengan atraksi feeding & edukasi</div>
@@ -37,7 +31,7 @@ export function GpsAnalyticsTab({ pois }: GpsAnalyticsTabProps) {
         <div className="bg-white/70 backdrop-blur-xl border border-white/80 p-5 rounded-[2rem] shadow-sm space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-600">Fasilitas Publik</span>
-            <span className="p-2 bg-blue-100 text-blue-700 rounded-xl"><Bath className="w-5 h-5" /></span>
+            <span className="p-2 bg-blue-100 text-blue-700 rounded-xl"><AppIcon icon="Bath" className="w-5 h-5" /></span>
           </div>
           <div className="text-3xl font-bold text-gray-900">{pois.filter(p => p.category !== 'animal').length}</div>
           <div className="text-xs text-gray-500">Toilet, musholla, loket, kuliner</div>
@@ -46,7 +40,7 @@ export function GpsAnalyticsTab({ pois }: GpsAnalyticsTabProps) {
         <div className="bg-white/70 backdrop-blur-xl border border-white/80 p-5 rounded-[2rem] shadow-sm space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-600">Zona Ditutup</span>
-            <span className="p-2 bg-red-100 text-red-700 rounded-xl"><AlertTriangle className="w-5 h-5" /></span>
+            <span className="p-2 bg-red-100 text-red-700 rounded-xl"><AppIcon icon="AlertTriangle" className="w-5 h-5" /></span>
           </div>
           <div className="text-3xl font-bold text-red-600">{pois.filter(p => p.is_temporarily_closed).length}</div>
           <div className="text-xs text-gray-500">Sedang dalam pemeliharaan</div>
@@ -55,7 +49,7 @@ export function GpsAnalyticsTab({ pois }: GpsAnalyticsTabProps) {
 
       <div className="bg-white/70 backdrop-blur-xl border border-white/80 p-6 rounded-[2rem] shadow-sm space-y-4">
         <h3 className="font-semibold text-gray-900 text-lg flex items-center gap-2">
-          <Info className="w-5 h-5 text-emerald-600" />
+          <AppIcon icon="Info" className="w-5 h-5 text-emerald-600" />
           Panduan Sistem Koordinat GPS Peta Ragunan & Crowd Heatmap
         </h3>
         <div className="space-y-3 text-sm text-gray-600 leading-relaxed">

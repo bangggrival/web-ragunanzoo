@@ -3,7 +3,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
-import { Shield, Lock, Eye, FileText } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 export default function PrivacyPolicyPage() {
   const { language } = useLanguage();
@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
-            <Shield className="w-8 h-8 text-primary" />
+            <AppIcon icon="Shield" className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-4xl font-bold text-foreground mb-4">
             {language === 'en' ? 'Privacy Policy' : 'Kebijakan Privasi'}
@@ -34,7 +34,7 @@ export default function PrivacyPolicyPage() {
                 </p>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Eye className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Eye" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">1. Information We Collect</h2>
                 </div>
                 <p>We may collect information about you in a variety of ways. The information we may collect includes:</p>
@@ -44,7 +44,7 @@ export default function PrivacyPolicyPage() {
                 </ul>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <FileText className="w-6 h-6 text-primary" />
+                  <AppIcon icon="FileText" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">2. Use of Your Information</h2>
                 </div>
                 <p>Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Site to:</p>
@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
                 </ul>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Lock className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Lock" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">3. Data Security</h2>
                 </div>
                 <p>
@@ -79,7 +79,7 @@ export default function PrivacyPolicyPage() {
                 </p>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Eye className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Eye" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">1. Informasi yang Kami Kumpulkan</h2>
                 </div>
                 <p>Kami dapat mengumpulkan informasi tentang Anda dalam berbagai cara. Informasi yang mungkin kami kumpulkan meliputi:</p>
@@ -89,7 +89,7 @@ export default function PrivacyPolicyPage() {
                 </ul>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <FileText className="w-6 h-6 text-primary" />
+                  <AppIcon icon="FileText" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">2. Penggunaan Informasi Anda</h2>
                 </div>
                 <p>Memiliki informasi yang akurat tentang Anda memungkinkan kami untuk memberikan Anda pengalaman yang lancar, efisien, dan disesuaikan. Secara khusus, kami dapat menggunakan informasi yang dikumpulkan tentang Anda untuk:</p>
@@ -101,7 +101,7 @@ export default function PrivacyPolicyPage() {
                 </ul>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Lock className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Lock" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">3. Keamanan Data</h2>
                 </div>
                 <p>

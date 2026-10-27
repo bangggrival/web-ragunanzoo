@@ -2,27 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
-import { 
-  Settings, 
-  FileText, 
-  Users, 
-  MessageCircle, 
-  HelpCircle,
-  Plus,
-  Trash2,
-  Edit2,
-  Save,
-  X,
-  Upload,
-  Download,
-  Phone,
-  Mail,
-  AlertCircle,
-  GraduationCap,
-  FlaskConical,
-  Stethoscope,
-  Mic,
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -43,11 +23,11 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 
 const categoryConfig = {
-  pkl: { label: 'PKL / Magang', icon: GraduationCap, color: 'text-blue-600 bg-blue-100', border: 'border-blue-200' },
-  research: { label: 'Penelitian', icon: FlaskConical, color: 'text-purple-600 bg-purple-100', border: 'border-purple-200' },
-  koas: { label: 'Koas', icon: Stethoscope, color: 'text-orange-600 bg-orange-100', border: 'border-orange-200' },
-  interview: { label: 'Wawancara', icon: Mic, color: 'text-green-600 bg-green-100', border: 'border-green-200' },
-  general: { label: 'Umum', icon: HelpCircle, color: 'text-slate-600 bg-slate-100', border: 'border-slate-200' },
+  pkl: { label: 'PKL / Magang', icon: (props: any) => <AppIcon icon="GraduationCap" {...props} />, color: 'text-blue-600 bg-blue-100', border: 'border-blue-200' },
+  research: { label: 'Penelitian', icon: (props: any) => <AppIcon icon="FlaskConical" {...props} />, color: 'text-purple-600 bg-purple-100', border: 'border-purple-200' },
+  koas: { label: 'Koas', icon: (props: any) => <AppIcon icon="Stethoscope" {...props} />, color: 'text-orange-600 bg-orange-100', border: 'border-orange-200' },
+  interview: { label: 'Wawancara', icon: (props: any) => <AppIcon icon="Mic" {...props} />, color: 'text-green-600 bg-green-100', border: 'border-green-200' },
+  general: { label: 'Umum', icon: (props: any) => <AppIcon icon="HelpCircle" {...props} />, color: 'text-slate-600 bg-slate-100', border: 'border-slate-200' },
 };
 
 export default function ManageServiceSettingsClient() {
@@ -350,7 +330,7 @@ export default function ManageServiceSettingsClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <Settings className="w-5 h-5 text-green-500" />
+              <AppIcon icon="Settings" className="w-5 h-5 text-green-500" />
             </div>
             Pengaturan Layanan
           </h1>
@@ -363,19 +343,19 @@ export default function ManageServiceSettingsClient() {
       <Tabs defaultValue="contact" className="space-y-6">
         <TabsList className="grid w-full md:w-[500px] grid-cols-4 bg-slate-100 p-1 rounded-2xl border border-slate-200">
           <TabsTrigger value="contact" className="py-2.5 rounded-xl font-bold data-[state=active]:bg-white data-[state=active]:text-green-600 data-[state=active]:shadow-sm">
-            <Phone className="w-4 h-4 md:mr-2" />
+            <AppIcon icon="Phone" className="w-4 h-4 md:mr-2" />
             <span className="hidden md:inline">Kontak</span>
           </TabsTrigger>
           <TabsTrigger value="documents" className="py-2.5 rounded-xl font-bold data-[state=active]:bg-white data-[state=active]:text-green-600 data-[state=active]:shadow-sm">
-            <FileText className="w-4 h-4 md:mr-2" />
+            <AppIcon icon="FileText" className="w-4 h-4 md:mr-2" />
             <span className="hidden md:inline">Dokumen</span>
           </TabsTrigger>
           <TabsTrigger value="limits" className="py-2.5 rounded-xl font-bold data-[state=active]:bg-white data-[state=active]:text-green-600 data-[state=active]:shadow-sm">
-            <Users className="w-4 h-4 md:mr-2" />
+            <AppIcon icon="Users" className="w-4 h-4 md:mr-2" />
             <span className="hidden md:inline">Limit</span>
           </TabsTrigger>
           <TabsTrigger value="faq" className="py-2.5 rounded-xl font-bold data-[state=active]:bg-white data-[state=active]:text-green-600 data-[state=active]:shadow-sm">
-            <HelpCircle className="w-4 h-4 md:mr-2" />
+            <AppIcon icon="HelpCircle" className="w-4 h-4 md:mr-2" />
             <span className="hidden md:inline">FAQ</span>
           </TabsTrigger>
         </TabsList>
@@ -384,7 +364,7 @@ export default function ManageServiceSettingsClient() {
         <TabsContent value="contact" className="space-y-6">
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm space-y-6">
             <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-4">
-              <MessageCircle className="w-5 h-5 text-green-500" /> Kontak Admin
+              <AppIcon icon="MessageCircle" className="w-5 h-5 text-green-500" /> Kontak Admin
             </h3>
             <p className="text-sm font-medium text-slate-500">
               Informasi kontak yang akan ditampilkan di halaman layanan
@@ -393,7 +373,7 @@ export default function ManageServiceSettingsClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-1.5">
                 <Label htmlFor="whatsapp" className="text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
-                  <Phone className="w-3 h-3 text-green-500" />
+                  <AppIcon icon="Phone" className="w-3 h-3 text-green-500" />
                   Nomor WhatsApp
                 </Label>
                 <Input
@@ -409,7 +389,7 @@ export default function ManageServiceSettingsClient() {
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="email" className="text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
-                  <Mail className="w-3 h-3 text-rose-500" />
+                  <AppIcon icon="Mail" className="w-3 h-3 text-rose-500" />
                   Email Admin
                 </Label>
                 <Input
@@ -429,7 +409,7 @@ export default function ManageServiceSettingsClient() {
                 disabled={savingSettings}
                 className="rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-600/20 px-6"
               >
-                <Save className="w-4 h-4 mr-2" />
+                <AppIcon icon="Save" className="w-4 h-4 mr-2" />
                 {savingSettings ? 'Menyimpan...' : 'Simpan Kontak'}
               </Button>
             </div>
@@ -441,7 +421,7 @@ export default function ManageServiceSettingsClient() {
           {/* Template Files */}
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm space-y-6">
             <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-4">
-              <Download className="w-5 h-5 text-green-500" /> Template Dokumen
+              <AppIcon icon="Download" className="w-5 h-5 text-green-500" /> Template Dokumen
             </h3>
             <p className="text-sm font-medium text-slate-500">
               Upload template yang bisa diunduh pengunjung
@@ -460,7 +440,7 @@ export default function ManageServiceSettingsClient() {
                       rel="noopener noreferrer"
                       className="text-xs font-bold bg-white border border-green-200 text-green-600 hover:bg-green-50 px-3 py-1.5 rounded-lg flex items-center gap-2 transition-colors"
                     >
-                      <Download className="w-3 h-3" />
+                      <AppIcon icon="Download" className="w-3 h-3" />
                       Unduh
                     </a>
                   </div>
@@ -494,7 +474,7 @@ export default function ManageServiceSettingsClient() {
                       rel="noopener noreferrer"
                       className="text-xs font-bold bg-white border border-green-200 text-green-600 hover:bg-green-50 px-3 py-1.5 rounded-lg flex items-center gap-2 transition-colors"
                     >
-                      <Download className="w-3 h-3" />
+                      <AppIcon icon="Download" className="w-3 h-3" />
                       Unduh
                     </a>
                   </div>
@@ -521,7 +501,7 @@ export default function ManageServiceSettingsClient() {
           {/* Required Documents per Category */}
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm space-y-6">
             <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-4">
-              <FileText className="w-5 h-5 text-green-500" /> Dokumen yang Diperlukan
+              <AppIcon icon="FileText" className="w-5 h-5 text-green-500" /> Dokumen yang Diperlukan
             </h3>
             <p className="text-sm font-medium text-slate-500">
               Atur daftar dokumen yang harus disiapkan per kategori
@@ -556,7 +536,7 @@ export default function ManageServiceSettingsClient() {
                               className="h-8 w-8 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all"
                               onClick={() => removeDocument(category, index)}
                             >
-                              <Trash2 className="w-4 h-4" />
+                              <AppIcon icon="Trash2" className="w-4 h-4" />
                             </Button>
                           </div>
                         ))}
@@ -581,7 +561,7 @@ export default function ManageServiceSettingsClient() {
                           onClick={() => addDocument(category)}
                           className="h-11 w-11 p-0 rounded-xl border-slate-200 text-green-600 hover:bg-green-50 flex-shrink-0"
                         >
-                          <Plus className="w-5 h-5" />
+                          <AppIcon icon="Plus" className="w-5 h-5" />
                         </Button>
                       </div>
 
@@ -592,7 +572,7 @@ export default function ManageServiceSettingsClient() {
                           size="sm"
                           className="rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold px-5"
                         >
-                          <Save className="w-4 h-4 mr-2" />
+                          <AppIcon icon="Save" className="w-4 h-4 mr-2" />
                           Simpan
                         </Button>
                       </div>
@@ -608,7 +588,7 @@ export default function ManageServiceSettingsClient() {
         <TabsContent value="limits" className="space-y-6">
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm space-y-6">
             <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-4">
-              <Users className="w-5 h-5 text-green-500" /> Limit Penerimaan
+              <AppIcon icon="Users" className="w-5 h-5 text-green-500" /> Limit Penerimaan
             </h3>
             <p className="text-sm font-medium text-slate-500">
               Batasi jumlah pendaftaran aktif per kategori (kosongkan untuk tidak terbatas)
@@ -665,7 +645,7 @@ export default function ManageServiceSettingsClient() {
                 disabled={savingSettings}
                 className="rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-600/20 px-6"
               >
-                <Save className="w-4 h-4 mr-2" />
+                <AppIcon icon="Save" className="w-4 h-4 mr-2" />
                 {savingSettings ? 'Menyimpan...' : 'Simpan Limit'}
               </Button>
             </div>
@@ -678,14 +658,14 @@ export default function ManageServiceSettingsClient() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
               <div>
                 <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2">
-                  <HelpCircle className="w-5 h-5 text-green-500" /> FAQ Layanan
+                  <AppIcon icon="HelpCircle" className="w-5 h-5 text-green-500" /> FAQ Layanan
                 </h3>
                 <p className="text-sm font-medium text-slate-500 mt-1">
                   Pertanyaan yang sering diajukan, dikelompokkan per kategori
                 </p>
               </div>
               <Button onClick={() => { resetFaqForm(); setFaqModalOpen(true); }} className="rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-600/20">
-                <Plus className="w-4 h-4 mr-2" />
+                <AppIcon icon="Plus" className="w-4 h-4 mr-2" />
                 Tambah FAQ
               </Button>
             </div>
@@ -745,7 +725,7 @@ export default function ManageServiceSettingsClient() {
                                     className="h-8 w-8 rounded-lg text-slate-400 hover:text-green-600 hover:bg-green-50"
                                     onClick={() => openEditFaq(faq)}
                                   >
-                                    <Edit2 className="w-4 h-4" />
+                                    <AppIcon icon="Edit2" className="w-4 h-4" />
                                   </Button>
                                   <Button
                                     variant="ghost"
@@ -753,7 +733,7 @@ export default function ManageServiceSettingsClient() {
                                     className="h-8 w-8 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50"
                                     onClick={() => handleDeleteFaq(faq.id)}
                                   >
-                                    <Trash2 className="w-4 h-4" />
+                                    <AppIcon icon="Trash2" className="w-4 h-4" />
                                   </Button>
                                 </div>
                               </div>
@@ -776,7 +756,7 @@ export default function ManageServiceSettingsClient() {
           <DialogHeader className="px-6 py-5 border-b border-slate-100 bg-white/50 flex-shrink-0">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                <HelpCircle className="w-5 h-5 text-green-500" />
+                <AppIcon icon="HelpCircle" className="w-5 h-5 text-green-500" />
               </div>
               {editingFaq ? 'Edit FAQ' : 'Tambah FAQ Baru'}
             </DialogTitle>

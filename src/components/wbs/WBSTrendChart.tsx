@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { TrendingUp } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { WBSSubmission } from '@/hooks/useWBSSubmissions';
 import { format, parseISO, startOfMonth, subMonths } from 'date-fns';
 import { id as localeId } from 'date-fns/locale';
@@ -46,7 +46,7 @@ export function WBSTrendChart({ submissions }: WBSTrendChartProps) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <TrendingUp className="w-5 h-5" />
+          <AppIcon name="solar:chart-2-bold-duotone" className="w-5 h-5" />
           Tren Laporan 6 Bulan Terakhir
         </CardTitle>
         <CardDescription>Jumlah laporan WBS per bulan berdasarkan status</CardDescription>

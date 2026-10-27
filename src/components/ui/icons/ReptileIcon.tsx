@@ -1,7 +1,12 @@
 import React, { forwardRef } from 'react';
-import type { LucideProps, LucideIcon } from 'lucide-react';
 
-export const ReptileIcon: LucideIcon = forwardRef<SVGSVGElement, LucideProps>(
+export interface SvgIconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string;
+  size?: number | string;
+  strokeWidth?: number | string;
+}
+
+export const ReptileIcon = forwardRef<SVGSVGElement, SvgIconProps>(
   ({ color = 'currentColor', size = 24, strokeWidth = 2, className, ...props }, ref) => {
     return (
       <svg

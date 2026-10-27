@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -70,7 +70,7 @@ export function TablePagination({
           onClick={() => onPageChange(1)}
           disabled={currentPage === 1}
         >
-          <ChevronsLeft className="h-4 w-4" />
+          <AppIcon name="solar:double-alt-arrow-left-linear" className="h-4 w-4" />
         </Button>
         <Button
           variant="outline"
@@ -79,7 +79,7 @@ export function TablePagination({
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          <ChevronLeft className="h-4 w-4" />
+          <AppIcon name="solar:alt-arrow-left-linear" className="h-4 w-4" />
         </Button>
         
         <div className="flex items-center gap-1 mx-2">
@@ -129,7 +129,7 @@ export function TablePagination({
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages || totalPages === 0}
         >
-          <ChevronRight className="h-4 w-4" />
+          <AppIcon name="solar:alt-arrow-right-linear" className="h-4 w-4" />
         </Button>
         <Button
           variant="outline"
@@ -138,7 +138,7 @@ export function TablePagination({
           onClick={() => onPageChange(totalPages)}
           disabled={currentPage === totalPages || totalPages === 0}
         >
-          <ChevronsRight className="h-4 w-4" />
+          <AppIcon name="solar:double-alt-arrow-right-linear" className="h-4 w-4" />
         </Button>
       </div>
     </div>

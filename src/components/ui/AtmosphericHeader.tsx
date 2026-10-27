@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ChevronRight, ArrowLeft } from 'lucide-react';
+import { AppIcon } from './AppIcon';
 import { cn } from '@/lib/utils';
 import BackButton from './BackButton';
 
@@ -160,7 +160,7 @@ export default function AtmosphericHeader({
               const isLast = idx === breadcrumbs.length - 1;
               return (
                 <React.Fragment key={idx}>
-                  {idx > 0 && <ChevronRight className="w-3 h-3 text-white/40 flex-shrink-0" />}
+                  {idx > 0 && <AppIcon name="solar:alt-arrow-right-linear" className="w-3 h-3 text-white/40 flex-shrink-0" />}
                   {bc.href && !isLast ? (
                     <Link
                       href={bc.href}

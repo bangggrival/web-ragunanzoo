@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { X, Download, ExternalLink, ZoomIn, ZoomOut, RotateCw, MapPin, Shield, Info, Volume2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -77,21 +77,21 @@ export default function MediaLightboxModal({ media, onClose }: MediaLightboxModa
               className="p-1.5 hover:bg-white/20 rounded-xl transition-colors text-white"
               title="Zoom In"
             >
-              <ZoomIn className="w-4 h-4" />
+              <AppIcon name="solar:magnifer-zoom-in-bold" className="w-4 h-4" />
             </button>
             <button
               onClick={() => setZoom(prev => Math.max(prev - 0.25, 0.75))}
               className="p-1.5 hover:bg-white/20 rounded-xl transition-colors text-white"
               title="Zoom Out"
             >
-              <ZoomOut className="w-4 h-4" />
+              <AppIcon name="solar:magnifer-zoom-out-bold" className="w-4 h-4" />
             </button>
             <button
               onClick={() => setRotation(prev => (prev + 90) % 360)}
               className="p-1.5 hover:bg-white/20 rounded-xl transition-colors text-white"
               title="Putar Foto"
             >
-              <RotateCw className="w-4 h-4" />
+              <AppIcon name="solar:restart-bold" className="w-4 h-4" />
             </button>
           </div>
 
@@ -100,7 +100,7 @@ export default function MediaLightboxModal({ media, onClose }: MediaLightboxModa
               onClick={onClose}
               className="p-2 bg-black/50 backdrop-blur-md hover:bg-white/20 rounded-full text-white transition-colors border border-white/10"
             >
-              <X className="w-5 h-5" />
+              <AppIcon name="solar:close-circle-bold" className="w-5 h-5" />
             </button>
           </div>
 
@@ -126,7 +126,7 @@ export default function MediaLightboxModal({ media, onClose }: MediaLightboxModa
                 onClick={onClose}
                 className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
               >
-                <X className="w-5 h-5" />
+                <AppIcon name="solar:close-circle-bold" className="w-5 h-5" />
               </button>
             </div>
 
@@ -144,14 +144,14 @@ export default function MediaLightboxModal({ media, onClose }: MediaLightboxModa
             <div className="mt-4 pt-4 border-t border-white/10 space-y-2.5 text-xs text-slate-300">
               {media.zone && (
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  <AppIcon name="solar:map-point-bold-duotone" className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                   <span><strong>Zona:</strong> {media.zone}</span>
                 </div>
               )}
 
               {media.status && (
                 <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                  <AppIcon name="solar:shield-check-bold-duotone" className="w-4 h-4 text-amber-400 flex-shrink-0" />
                   <span><strong>Status:</strong> {media.status}</span>
                 </div>
               )}
@@ -178,7 +178,7 @@ export default function MediaLightboxModal({ media, onClose }: MediaLightboxModa
               onClick={handleDownload}
               className="w-full rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 flex items-center justify-center gap-2 shadow-lg btn-interactive"
             >
-              <Download className="w-4 h-4" />
+              <AppIcon name="solar:download-bold" className="w-4 h-4" />
               Unduh Foto Resolusi Penuh
             </Button>
             
@@ -188,7 +188,7 @@ export default function MediaLightboxModal({ media, onClose }: MediaLightboxModa
               rel="noopener noreferrer"
               className="w-full text-center py-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors flex items-center justify-center gap-1.5"
             >
-              <ExternalLink className="w-3.5 h-3.5" />
+              <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5" />
               Buka di Tab Baru
             </a>
           </div>

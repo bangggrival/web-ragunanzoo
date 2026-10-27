@@ -1,24 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import {
-  Wrench,
-  Power,
-  Upload,
-  X,
-  Save,
-  Eye,
-  EyeOff,
-  Clock,
-  Phone,
-  Mail,
-  Image as ImageIcon,
-  AlertTriangle,
-  CheckCircle2,
-  Loader2,
-  Trash2,
-  ExternalLink,
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useMaintenanceMode, MaintenanceConfig } from '@/hooks/useMaintenanceMode';
 import { toast } from 'sonner';
 
@@ -90,7 +73,7 @@ export default function ManageMaintenancePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <AppIcon icon="Loader2" className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -102,7 +85,7 @@ export default function ManageMaintenancePage() {
       {/* Header */}
       <div className="flex items-start gap-4">
         <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
-          <Wrench className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+          <AppIcon icon="Wrench" className="w-6 h-6 text-orange-600 dark:text-orange-400" />
         </div>
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Mode Maintenance</h1>
@@ -127,9 +110,9 @@ export default function ManageMaintenancePage() {
               className={`p-3 rounded-xl ${isActive ? 'bg-red-100 dark:bg-red-900/40' : 'bg-emerald-100 dark:bg-emerald-900/40'}`}
             >
               {isActive ? (
-                <AlertTriangle className="w-7 h-7 text-red-600 dark:text-red-400" />
+                <AppIcon icon="AlertTriangle" className="w-7 h-7 text-red-600 dark:text-red-400" />
               ) : (
-                <CheckCircle2 className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
+                <AppIcon icon="CheckCircle2" className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
               )}
             </div>
             <div>
@@ -164,9 +147,9 @@ export default function ManageMaintenancePage() {
             }`}
           >
             {saving ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" />
             ) : (
-              <Power className="w-4 h-4" />
+              <AppIcon icon="Power" className="w-4 h-4" />
             )}
             {isActive ? 'Nonaktifkan Maintenance' : 'Aktifkan Maintenance'}
           </button>
@@ -176,7 +159,7 @@ export default function ManageMaintenancePage() {
       {/* Active warning */}
       {isActive && (
         <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-300 dark:border-amber-700 rounded-xl">
-          <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+          <AppIcon icon="AlertTriangle" className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-amber-800 dark:text-amber-300">
             <span className="font-semibold">Perhatian:</span> Website saat ini dalam mode maintenance. Semua pengunjung (kecuali admin) akan diarahkan ke halaman maintenance.
             Anda bisa{' '}
@@ -186,7 +169,7 @@ export default function ManageMaintenancePage() {
               rel="noopener noreferrer"
               className="font-semibold underline underline-offset-2 inline-flex items-center gap-1"
             >
-              lihat tampilan maintenance <ExternalLink className="w-3 h-3" />
+              lihat tampilan maintenance <AppIcon icon="ExternalLink" className="w-3 h-3" />
             </a>
           </div>
         </div>
@@ -196,7 +179,7 @@ export default function ManageMaintenancePage() {
         {/* Form Settings */}
         <div className="bg-card border rounded-2xl shadow-sm p-6 space-y-5">
           <h2 className="text-base font-semibold flex items-center gap-2 border-b pb-3">
-            <Wrench className="w-4 h-4 text-muted-foreground" />
+            <AppIcon icon="Wrench" className="w-4 h-4 text-muted-foreground" />
             Konten Halaman Maintenance
           </h2>
 
@@ -233,7 +216,7 @@ export default function ManageMaintenancePage() {
           {/* Estimated done */}
           <div className="space-y-1.5">
             <label className="text-sm font-medium flex items-center gap-2" htmlFor="maint-eta">
-              <Clock className="w-3.5 h-3.5 text-muted-foreground" />
+              <AppIcon icon="Clock" className="w-3.5 h-3.5 text-muted-foreground" />
               Estimasi Selesai <span className="text-muted-foreground font-normal">(opsional)</span>
             </label>
             <input
@@ -253,7 +236,7 @@ export default function ManageMaintenancePage() {
           {/* Contact Phone */}
           <div className="space-y-1.5">
             <label className="text-sm font-medium flex items-center gap-2" htmlFor="maint-phone">
-              <Phone className="w-3.5 h-3.5 text-muted-foreground" /> Nomor Telepon Kontak
+              <AppIcon icon="Phone" className="w-3.5 h-3.5 text-muted-foreground" /> Nomor Telepon Kontak
             </label>
             <input
               id="maint-phone"
@@ -268,7 +251,7 @@ export default function ManageMaintenancePage() {
           {/* Contact Email */}
           <div className="space-y-1.5">
             <label className="text-sm font-medium flex items-center gap-2" htmlFor="maint-email">
-              <Mail className="w-3.5 h-3.5 text-muted-foreground" /> Email Kontak
+              <AppIcon icon="Mail" className="w-3.5 h-3.5 text-muted-foreground" /> Email Kontak
             </label>
             <input
               id="maint-email"
@@ -287,7 +270,7 @@ export default function ManageMaintenancePage() {
             disabled={saving}
             className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-primary-foreground rounded-lg font-semibold text-sm hover:bg-primary/90 disabled:opacity-60 transition-all"
           >
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            {saving ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : <AppIcon icon="Save" className="w-4 h-4" />}
             Simpan Pengaturan
           </button>
         </div>
@@ -296,7 +279,7 @@ export default function ManageMaintenancePage() {
         <div className="space-y-4">
           <div className="bg-card border rounded-2xl shadow-sm p-6 space-y-4">
             <h2 className="text-base font-semibold flex items-center gap-2 border-b pb-3">
-              <ImageIcon className="w-4 h-4 text-muted-foreground" />
+              <AppIcon icon="Image" className="w-4 h-4 text-muted-foreground" />
               Background Kustom
             </h2>
 
@@ -318,7 +301,7 @@ export default function ManageMaintenancePage() {
                     disabled={saving}
                     className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
                   >
-                    <Trash2 className="w-4 h-4" /> Hapus Background
+                    <AppIcon icon="Trash2" className="w-4 h-4" /> Hapus Background
                   </button>
                 </div>
                 <div className="absolute top-2 right-2">
@@ -329,7 +312,7 @@ export default function ManageMaintenancePage() {
               </div>
             ) : (
               <div className="rounded-xl overflow-hidden border-2 border-dashed border-muted aspect-video bg-muted/40 flex flex-col items-center justify-center gap-2 text-muted-foreground">
-                <ImageIcon className="w-10 h-10 opacity-30" />
+                <AppIcon icon="Image" className="w-10 h-10 opacity-30" />
                 <span className="text-sm font-medium">Belum ada background kustom</span>
                 <span className="text-xs">Menggunakan desain default</span>
               </div>
@@ -350,9 +333,9 @@ export default function ManageMaintenancePage() {
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border-2 border-dashed border-primary/40 text-primary rounded-lg font-semibold text-sm hover:bg-primary/5 hover:border-primary disabled:opacity-60 transition-all"
             >
               {uploadingBg ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" />
               ) : (
-                <Upload className="w-4 h-4" />
+                <AppIcon icon="Upload" className="w-4 h-4" />
               )}
               {uploadingBg ? 'Mengupload...' : config.background_image_url ? 'Ganti Background' : 'Upload Background'}
             </button>
@@ -364,7 +347,7 @@ export default function ManageMaintenancePage() {
           {/* Preview link */}
           <div className="bg-card border rounded-2xl shadow-sm p-5">
             <h2 className="text-sm font-semibold flex items-center gap-2 mb-3">
-              <Eye className="w-4 h-4 text-muted-foreground" />
+              <AppIcon icon="Eye" className="w-4 h-4 text-muted-foreground" />
               Preview Halaman Maintenance
             </h2>
             <p className="text-xs text-muted-foreground mb-3">
@@ -377,7 +360,7 @@ export default function ManageMaintenancePage() {
               id="btn-preview-maintenance"
               className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-secondary text-secondary-foreground rounded-lg text-sm font-medium hover:bg-secondary/80 transition-all"
             >
-              <ExternalLink className="w-4 h-4" />
+              <AppIcon icon="ExternalLink" className="w-4 h-4" />
               Buka Preview di Tab Baru
             </a>
           </div>

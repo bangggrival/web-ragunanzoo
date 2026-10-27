@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { useAvailabilityCalendar, ServiceAvailability } from '@/hooks/useServiceAvailability';
 import { id as idLocale, enUS } from 'date-fns/locale';
-import { Loader2, CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 interface AvailabilityCalendarProps {
   programType: 'pkl' | 'research' | 'koas' | 'interview';
@@ -101,7 +101,7 @@ export default function AvailabilityCalendar({
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <Loader2 className="w-6 h-6 animate-spin text-primary" />
+        <AppIcon name="solar:spinner-linear" className="w-6 h-6 animate-spin text-primary" />
         <span className="ml-2 text-sm text-muted-foreground">{t.loading}</span>
       </div>
     );
@@ -128,7 +128,7 @@ export default function AvailabilityCalendar({
       {selectedDate && (
         <div className="p-3 bg-primary/5 rounded-lg border border-primary/20">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-primary" />
+            <AppIcon name="solar:check-circle-bold" className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium">
               {selectedDate.toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', {
                 weekday: 'long',

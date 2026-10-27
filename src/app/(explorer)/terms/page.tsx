@@ -3,7 +3,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
-import { FileWarning, Ticket, Ban, Gavel } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 
 export default function TermsOfServicePage() {
   const { language } = useLanguage();
@@ -13,7 +13,7 @@ export default function TermsOfServicePage() {
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
-            <FileWarning className="w-8 h-8 text-primary" />
+            <AppIcon icon="FileWarning" className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-4xl font-bold text-foreground mb-4">
             {language === 'en' ? 'Terms of Service' : 'Syarat & Ketentuan'}
@@ -34,7 +34,7 @@ export default function TermsOfServicePage() {
                 </p>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Ticket className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Ticket" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">1. Ticketing & Admission</h2>
                 </div>
                 <ul>
@@ -45,7 +45,7 @@ export default function TermsOfServicePage() {
                 </ul>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Ban className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Ban" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">2. Park Rules & Animal Welfare</h2>
                 </div>
                 <p>To ensure the safety of our animals and all visitors, the following actions are strictly prohibited:</p>
@@ -58,7 +58,7 @@ export default function TermsOfServicePage() {
                 </ul>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Gavel className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Gavel" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">3. Liability</h2>
                 </div>
                 <p>
@@ -77,7 +77,7 @@ export default function TermsOfServicePage() {
                 </p>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Ticket className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Ticket" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">1. Tiket & Tiket Masuk</h2>
                 </div>
                 <ul>
@@ -88,7 +88,7 @@ export default function TermsOfServicePage() {
                 </ul>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Ban className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Ban" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">2. Aturan Taman & Kesejahteraan Satwa</h2>
                 </div>
                 <p>Untuk menjamin keamanan satwa kami dan seluruh pengunjung, tindakan berikut ini sangat dilarang keras:</p>
@@ -101,7 +101,7 @@ export default function TermsOfServicePage() {
                 </ul>
 
                 <div className="flex items-center gap-3 mt-8 mb-4">
-                  <Gavel className="w-6 h-6 text-primary" />
+                  <AppIcon icon="Gavel" className="w-6 h-6 text-primary" />
                   <h2 className="text-2xl font-semibold m-0">3. Tanggung Jawab</h2>
                 </div>
                 <p>

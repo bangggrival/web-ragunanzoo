@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
-import { Search, MapPin, Clock, CheckCircle2, AlertCircle, FileWarning, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 
 function TrackReportContent() {
@@ -75,11 +75,11 @@ function TrackReportContent() {
 
   const getStatusIcon = (status: string) => {
     switch (status?.toLowerCase()) {
-      case 'menunggu': return <Clock className="w-5 h-5 text-yellow-600" />;
-      case 'diproses': return <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />;
-      case 'selesai': return <CheckCircle2 className="w-5 h-5 text-green-600" />;
-      case 'ditolak': return <AlertCircle className="w-5 h-5 text-red-600" />;
-      default: return <AlertCircle className="w-5 h-5 text-gray-600" />;
+      case 'menunggu': return <AppIcon icon="Clock" className="w-5 h-5 text-yellow-600" />;
+      case 'diproses': return <AppIcon icon="Loader2" className="w-5 h-5 text-blue-600 animate-spin" />;
+      case 'selesai': return <AppIcon icon="CheckCircle2" className="w-5 h-5 text-green-600" />;
+      case 'ditolak': return <AppIcon icon="AlertCircle" className="w-5 h-5 text-red-600" />;
+      default: return <AppIcon icon="AlertCircle" className="w-5 h-5 text-gray-600" />;
     }
   };
 
@@ -109,7 +109,7 @@ function TrackReportContent() {
                     required
                   />
                   <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Search className="w-4 h-4 mr-2" />}
+                    {loading ? <AppIcon icon="Loader2" className="w-4 h-4 mr-2 animate-spin" /> : <AppIcon icon="Search" className="w-4 h-4 mr-2" />}
                     Cari Laporan
                   </Button>
                 </form>
@@ -151,21 +151,21 @@ function TrackReportContent() {
           <div className="md:col-span-2">
             {error && (
               <div className="bg-red-50 text-red-600 p-4 rounded-lg border border-red-100 flex items-center">
-                <AlertCircle className="w-5 h-5 mr-3" />
+                <AppIcon icon="AlertCircle" className="w-5 h-5 mr-3" />
                 {error}
               </div>
             )}
 
             {!report && !error && !loading && (
               <div className="text-center py-20 bg-muted/30 rounded-xl border border-dashed">
-                <FileWarning className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+                <AppIcon icon="FileWarning" className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-muted-foreground">Silakan masukkan nomor tiket</h3>
               </div>
             )}
 
             {loading && !report && (
               <div className="flex justify-center py-20">
-                <Loader2 className="w-10 h-10 animate-spin text-primary" />
+                <AppIcon icon="Loader2" className="w-10 h-10 animate-spin text-primary" />
               </div>
             )}
 
@@ -202,7 +202,7 @@ function TrackReportContent() {
                         <p className="font-medium flex items-center">
                           {report.location_name || 'Tidak ada spesifikasi lokasi'}
                           {report.latitude && (
-                            <MapPin className="w-4 h-4 ml-2 text-primary" />
+                            <AppIcon icon="MapPin" className="w-4 h-4 ml-2 text-primary" />
                           )}
                         </p>
                       </div>
@@ -228,7 +228,7 @@ function TrackReportContent() {
                       <div className="pt-4 border-t">
                         <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
                           <p className="text-sm font-semibold text-primary mb-2 flex items-center">
-                            <CheckCircle2 className="w-4 h-4 mr-2" />
+                            <AppIcon icon="CheckCircle2" className="w-4 h-4 mr-2" />
                             Tanggapan Petugas:
                           </p>
                           <p className="text-sm leading-relaxed">{report.admin_notes}</p>

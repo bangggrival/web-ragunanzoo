@@ -3,24 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  Newspaper, 
-  Calendar, 
-  Share2, 
-  Clock, 
-  Eye, 
-  ShieldCheck, 
-  ThumbsUp, 
-  ThumbsDown, 
-  MessageSquare, 
-  Bookmark, 
-  ArrowLeft, 
-  Check, 
-  Copy, 
-  ArrowRight,
-  Sparkles,
-  ExternalLink
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useNews, News } from '@/hooks/useNews';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -163,7 +146,7 @@ export default function NewsDetail() {
         </div>
         <div className="container mx-auto max-w-4xl px-4 py-20 text-center">
           <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-4 border border-border">
-            <Newspaper className="w-10 h-10 text-muted-foreground/40" />
+            <AppIcon icon="Newspaper" className="w-10 h-10 text-muted-foreground/40" />
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-2">
             {language === 'en' ? 'Article Not Found' : 'Berita Tidak Ditemukan'}
@@ -207,7 +190,7 @@ export default function NewsDetail() {
               href="/news"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-extrabold text-white transition-all backdrop-blur-md"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <AppIcon icon="ArrowLeft" className="w-4 h-4" />
               <span>{language === 'en' ? 'Back to Newsroom' : 'Portal Berita'}</span>
             </Link>
 
@@ -217,7 +200,7 @@ export default function NewsDetail() {
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-colors backdrop-blur-md"
                 title="Bagikan"
               >
-                <Share2 className="w-4 h-4" />
+                <AppIcon icon="Share2" className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -248,7 +231,7 @@ export default function NewsDetail() {
               <div>
                 <div className="flex items-center gap-1.5 font-black text-white text-sm">
                   <span>Redaksi Ragunan Zoo</span>
-                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  <AppIcon icon="ShieldCheck" className="w-4 h-4 text-primary" />
                 </div>
                 <span className="text-[11px] text-slate-200 font-medium">Taman Margasatwa Ragunan Official</span>
               </div>
@@ -256,17 +239,17 @@ export default function NewsDetail() {
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-bold text-white">
               <span className="flex items-center gap-1.5">
-                <Calendar className="w-4 h-4 text-primary" />
+                <AppIcon icon="Calendar" className="w-4 h-4 text-primary" />
                 {formatDate(article.created_at)}
               </span>
               {article.read_time && (
                 <span className="flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-primary" />
+                  <AppIcon icon="Clock" className="w-4 h-4 text-primary" />
                   {article.read_time}
                 </span>
               )}
               <span className="flex items-center gap-1.5">
-                <Eye className="w-4 h-4 text-amber-400" />
+                <AppIcon icon="Eye" className="w-4 h-4 text-amber-400" />
                 {article.views_count || 0} dibaca
               </span>
             </div>
@@ -291,7 +274,7 @@ export default function NewsDetail() {
             </div>
           ) : (
             <div className="w-full h-64 md:h-80 bg-gradient-to-br from-green-950 via-slate-900 to-slate-950 flex flex-col items-center justify-center text-white">
-              <Newspaper className="w-16 h-16 text-primary mb-2" />
+              <AppIcon icon="Newspaper" className="w-16 h-16 text-primary mb-2" />
               <span className="text-xs font-bold text-slate-200">Ragunan Zoo Information Center</span>
             </div>
           )}
@@ -302,7 +285,7 @@ export default function NewsDetail() {
             {/* Quick Share Action Buttons Bar */}
             <div className="flex flex-wrap items-center justify-between gap-3 mb-8 p-4 rounded-2xl bg-muted/50 border border-border">
               <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                <Share2 className="w-4 h-4 text-primary" />
+                <AppIcon icon="Share2" className="w-4 h-4 text-primary" />
                 <span>{language === 'en' ? 'Share this article:' : 'Bagikan berita ini:'}</span>
               </span>
 
@@ -311,7 +294,7 @@ export default function NewsDetail() {
                   onClick={handleShareWhatsApp}
                   className="px-3.5 py-1.5 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-colors"
                 >
-                  <MessageSquare className="w-3.5 h-3.5" />
+                  <AppIcon icon="MessageSquare" className="w-3.5 h-3.5" />
                   <span>WhatsApp</span>
                 </button>
 
@@ -319,7 +302,7 @@ export default function NewsDetail() {
                   onClick={handleCopyLink}
                   className="px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted border border-border text-foreground font-bold text-xs flex items-center gap-1.5 shadow-sm transition-colors"
                 >
-                  {copiedLink ? <Check className="w-3.5 h-3.5 text-primary" /> : <Copy className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />}
+                  {copiedLink ? <AppIcon icon="Check" className="w-3.5 h-3.5 text-primary" /> : <AppIcon icon="Copy" className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />}
                   <span>{copiedLink ? (language === 'en' ? 'Copied' : 'Tersalin') : (language === 'en' ? 'Copy Link' : 'Salin Tautan')}</span>
                 </button>
               </div>
@@ -341,7 +324,7 @@ export default function NewsDetail() {
 
                 {/* Callout Quote Box */}
                 <div className="my-8 p-6 rounded-2xl bg-gradient-to-br from-slate-950 via-green-950 to-slate-950 text-white shadow-lg border border-primary/30 relative overflow-hidden">
-                  <Sparkles className="w-8 h-8 text-primary mb-2" />
+                  <AppIcon icon="Sparkles" className="w-8 h-8 text-primary mb-2" />
                   <p className="font-bold text-sm sm:text-base italic text-slate-100 leading-relaxed mb-2">
                     "Kenyamanan satwa dan kualitas edukasi pengunjung adalah prioritas utama kami dalam mewujudkan Taman Margasatwa Ragunan yang ramah dan berstandar internasional."
                   </p>
@@ -376,7 +359,7 @@ export default function NewsDetail() {
                         : 'bg-card border border-border hover:border-primary text-foreground'
                     }`}
                   >
-                    <ThumbsUp className="w-4 h-4 text-slate-950" />
+                    <AppIcon icon="ThumbsUp" className="w-4 h-4 text-slate-950" />
                     <span>Ya, Sangat Membantu</span>
                   </button>
 
@@ -388,7 +371,7 @@ export default function NewsDetail() {
                         : 'bg-card border border-border hover:border-slate-400 text-foreground'
                     }`}
                   >
-                    <ThumbsDown className="w-4 h-4 text-slate-400" />
+                    <AppIcon icon="ThumbsDown" className="w-4 h-4 text-slate-400" />
                     <span>Kurang Membantu</span>
                   </button>
                 </div>
@@ -419,7 +402,7 @@ function RelatedNews({ currentId }: { currentId: number }) {
     <section className="mt-12">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-black text-foreground flex items-center gap-2">
-          <Newspaper className="w-5 h-5 text-primary" />
+          <AppIcon icon="Newspaper" className="w-5 h-5 text-primary" />
           <span>{language === 'en' ? 'Related Articles' : 'Berita & Informasi Terkait'}</span>
         </h3>
 
@@ -428,7 +411,7 @@ function RelatedNews({ currentId }: { currentId: number }) {
           className="text-xs font-extrabold text-slate-900 dark:text-slate-100 hover:text-primary flex items-center gap-1"
         >
           <span>{language === 'en' ? 'View All' : 'Lihat Semua'}</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+          <AppIcon icon="ArrowRight" className="w-3.5 h-3.5" />
         </Link>
       </div>
 
@@ -453,7 +436,7 @@ function RelatedNews({ currentId }: { currentId: number }) {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10">
-                      <Newspaper className="w-8 h-8 text-primary/30" />
+                      <AppIcon icon="Newspaper" className="w-8 h-8 text-primary/30" />
                     </div>
                   )}
                   {item.category && (
@@ -476,11 +459,11 @@ function RelatedNews({ currentId }: { currentId: number }) {
               <div className="px-4 pb-4 pt-1 flex items-center justify-between text-[11px] text-slate-950 dark:text-slate-100 group-hover:text-primary font-black">
                 <span className="group-hover:translate-x-1 transition-transform flex items-center gap-1">
                   {language === 'en' ? 'Read' : 'Baca'}
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <AppIcon icon="ArrowRight" className="w-3.5 h-3.5" />
                 </span>
                 {item.views_count && (
                   <span className="text-slate-600 dark:text-slate-400 font-semibold flex items-center gap-1">
-                    <Eye className="w-3 h-3 text-slate-500" />
+                    <AppIcon icon="Eye" className="w-3 h-3 text-slate-500" />
                     {item.views_count}
                   </span>
                 )}

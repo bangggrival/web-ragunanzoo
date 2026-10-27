@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  MapPin,
-  Crosshair,
-  Utensils,
-  Save,
-  ShieldCheck,
-  AlertTriangle
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -46,7 +39,7 @@ export function GpsPoiModal({
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto rounded-[2rem]">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-emerald-600" />
+            <AppIcon icon="MapPin" className="w-5 h-5 text-emerald-600" />
             {isEditing ? 'Edit Titik POI' : 'Tambah Titik POI Baru'}
           </DialogTitle>
           <DialogDescription>
@@ -117,7 +110,7 @@ export function GpsPoiModal({
           <div className="p-4 bg-emerald-50/60 rounded-2xl border border-emerald-200/60 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
-                <Crosshair className="w-4 h-4 text-emerald-700" />
+                <AppIcon icon="Crosshair" className="w-4 h-4 text-emerald-700" />
                 Koordinat Riil GPS (WGS84 Lat/Lng)
               </span>
               {pickedCoords && (
@@ -171,12 +164,12 @@ export function GpsPoiModal({
               <div className="flex items-center gap-1.5 text-[11px] font-medium pt-1">
                 {formData.lat >= -6.3250 && formData.lat <= -6.3000 && formData.lng >= 106.8100 && formData.lng <= 106.8350 ? (
                   <span className="text-emerald-700 flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <AppIcon icon="ShieldCheck" className="w-3.5 h-3.5 text-emerald-600" />
                     Koordinat valid di dalam kawasan Ragunan Zoo
                   </span>
                 ) : (
                   <span className="text-red-600 flex items-center gap-1 font-semibold">
-                    <AlertTriangle className="w-3.5 h-3.5 text-red-600" />
+                    <AppIcon icon="AlertTriangle" className="w-3.5 h-3.5 text-red-600" />
                     Peringatan: Koordinat berada di luar kawasan resmi Ragunan!
                   </span>
                 )}
@@ -225,7 +218,7 @@ export function GpsPoiModal({
           {formData.category === 'animal' && (
             <div className="p-4 bg-amber-50/60 rounded-2xl border border-amber-200/60 space-y-3">
               <div className="font-bold text-xs text-amber-900 flex items-center gap-1.5">
-                <Utensils className="w-4 h-4 text-amber-700" />
+                <AppIcon icon="Utensils" className="w-4 h-4 text-amber-700" />
                 Detail Khusus Satwa & Jadwal Makan (Feeding Show)
               </div>
 
@@ -339,7 +332,7 @@ export function GpsPoiModal({
               Batal
             </Button>
             <Button type="submit" className="rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white">
-              <Save className="w-4 h-4 mr-1.5" />
+              <AppIcon icon="Save" className="w-4 h-4 mr-1.5" />
               {isEditing ? 'Simpan Perubahan' : 'Tambahkan Titik'}
             </Button>
           </DialogFooter>

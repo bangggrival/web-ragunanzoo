@@ -2,30 +2,7 @@
 
 import { useMemo } from 'react';
 import Link from 'next/link';
-import { 
-  Users, 
-  Ticket, 
-  Activity, 
-  PawPrint, 
-  TrendingUp, 
-  Calendar, 
-  CheckCircle, 
-  Leaf, 
-  Newspaper, 
-  Eye, 
-  FileText, 
-  Compass, 
-  ArrowUpRight, 
-  Sparkles, 
-  ChevronRight,
-  Utensils,
-  Search,
-  Plus,
-  HeartPulse,
-  ShieldCheck,
-  Building2,
-  Clock
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useDashboardStats } from '@/hooks/useDashboardStats';
 import { useAuth } from '@/hooks/useAuth';
 import { SkeletonStatCard } from '@/components/ui/skeleton';
@@ -90,7 +67,7 @@ export default function ManagerDashboard() {
           <div className="space-y-2 max-w-2xl">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+                <AppIcon icon="Sparkles" className="w-3.5 h-3.5 text-emerald-300" />
                 Pusat Kendali Operasional
               </span>
 
@@ -108,7 +85,7 @@ export default function ManagerDashboard() {
 
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white flex items-center flex-wrap gap-2">
               <span>{greeting}, <span className="text-emerald-400">{displayName}</span>!</span>
-              <Leaf className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400 shrink-0 inline-block" />
+              <AppIcon icon="Leaf" className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400 shrink-0 inline-block" />
             </h1>
             <p className="text-sm text-slate-300 leading-relaxed">
               Pantau status koleksi satwa, flora, acara, permohonan PKL, dan analitik pengunjung Ragunan secara real-time.
@@ -121,7 +98,7 @@ export default function ManagerDashboard() {
               href="/manager/animals"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-xs transition-all backdrop-blur-md btn-interactive"
             >
-              <Plus className="w-3.5 h-3.5 text-emerald-400" />
+              <AppIcon icon="Plus" className="w-3.5 h-3.5 text-emerald-400" />
               Kelola Satwa
             </Link>
 
@@ -131,7 +108,7 @@ export default function ManagerDashboard() {
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-primary text-primary-foreground font-bold text-xs hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all btn-interactive"
             >
               Lihat Website Publik
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <AppIcon icon="ArrowUpRight" className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
@@ -145,7 +122,7 @@ export default function ManagerDashboard() {
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">Koleksi Satwa</span>
               <div className="w-9 h-9 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <PawPrint className="w-4 h-4" />
+                <AppIcon icon="PawPrint" className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-3">
@@ -171,7 +148,7 @@ export default function ManagerDashboard() {
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">Koleksi Flora</span>
               <div className="w-9 h-9 rounded-2xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Leaf className="w-4 h-4" />
+                <AppIcon icon="Leaf" className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-3">
@@ -192,7 +169,7 @@ export default function ManagerDashboard() {
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">Acara & Show</span>
               <div className="w-9 h-9 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Calendar className="w-4 h-4" />
+                <AppIcon icon="Calendar" className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-3">
@@ -213,7 +190,7 @@ export default function ManagerDashboard() {
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">Berita Publik</span>
               <div className="w-9 h-9 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Newspaper className="w-4 h-4" />
+                <AppIcon icon="Newspaper" className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-3">
@@ -234,7 +211,7 @@ export default function ManagerDashboard() {
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">Layanan & WBS</span>
               <div className="w-9 h-9 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <FileText className="w-4 h-4" />
+                <AppIcon icon="FileText" className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-3">
@@ -257,7 +234,7 @@ export default function ManagerDashboard() {
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">Trafik Website</span>
               <div className="w-9 h-9 rounded-2xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Eye className="w-4 h-4" />
+                <AppIcon icon="Eye" className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-3">
@@ -297,7 +274,7 @@ export default function ManagerDashboard() {
           </div>
 
           <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-semibold text-muted-foreground">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
+            <AppIcon icon="Sparkles" className="w-3.5 h-3.5 text-primary" />
             Pintasan Cepat
           </span>
         </div>
@@ -309,13 +286,13 @@ export default function ManagerDashboard() {
             className="flex items-center gap-3.5 p-4 rounded-2xl border border-border/80 bg-muted/20 hover:bg-muted/60 hover:border-emerald-500/40 transition-all group btn-interactive"
           >
             <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 shadow-2xs">
-              <PawPrint className="w-5 h-5" />
+              <AppIcon icon="PawPrint" className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">Kelola Satwa</p>
               <p className="text-xs text-muted-foreground truncate mt-0.5">Tambah/edit spesies & info nutrisi</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+            <AppIcon icon="ChevronRight" className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
           </Link>
 
           {/* Kelola Flora */}
@@ -324,13 +301,13 @@ export default function ManagerDashboard() {
             className="flex items-center gap-3.5 p-4 rounded-2xl border border-border/80 bg-muted/20 hover:bg-muted/60 hover:border-teal-500/40 transition-all group btn-interactive"
           >
             <div className="w-11 h-11 rounded-2xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 shadow-2xs">
-              <Leaf className="w-5 h-5" />
+              <AppIcon icon="Leaf" className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">Kelola Flora</p>
               <p className="text-xs text-muted-foreground truncate mt-0.5">Katalog pohon & konservasi botani</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+            <AppIcon icon="ChevronRight" className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
           </Link>
 
           {/* Jadwal Makan */}
@@ -339,13 +316,13 @@ export default function ManagerDashboard() {
             className="flex items-center gap-3.5 p-4 rounded-2xl border border-border/80 bg-muted/20 hover:bg-muted/60 hover:border-amber-500/40 transition-all group btn-interactive"
           >
             <div className="w-11 h-11 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 shadow-2xs">
-              <Utensils className="w-5 h-5" />
+              <AppIcon icon="Utensils" className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">Jadwal Makan</p>
               <p className="text-xs text-muted-foreground truncate mt-0.5">Feeding show satwa & atraksi keeper</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+            <AppIcon icon="ChevronRight" className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
           </Link>
 
           {/* Tarif & Tiket */}
@@ -354,13 +331,13 @@ export default function ManagerDashboard() {
             className="flex items-center gap-3.5 p-4 rounded-2xl border border-border/80 bg-muted/20 hover:bg-muted/60 hover:border-purple-500/40 transition-all group btn-interactive"
           >
             <div className="w-11 h-11 rounded-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 shadow-2xs">
-              <Ticket className="w-5 h-5" />
+              <AppIcon icon="Ticket" className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">Tarif & Tiket</p>
               <p className="text-xs text-muted-foreground truncate mt-0.5">Harga tiket masuk, wahana & JakCard</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+            <AppIcon icon="ChevronRight" className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
           </Link>
 
           {/* Permohonan PKL */}
@@ -369,13 +346,13 @@ export default function ManagerDashboard() {
             className="flex items-center gap-3.5 p-4 rounded-2xl border border-border/80 bg-muted/20 hover:bg-muted/60 hover:border-indigo-500/40 transition-all group btn-interactive"
           >
             <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 shadow-2xs">
-              <FileText className="w-5 h-5" />
+              <AppIcon icon="FileText" className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">Permohonan PKL/Riset</p>
               <p className="text-xs text-muted-foreground truncate mt-0.5">Verifikasi berkas & status magang</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+            <AppIcon icon="ChevronRight" className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
           </Link>
 
           {/* Pengaturan Sistem */}
@@ -384,13 +361,13 @@ export default function ManagerDashboard() {
             className="flex items-center gap-3.5 p-4 rounded-2xl border border-border/80 bg-muted/20 hover:bg-muted/60 hover:border-sky-500/40 transition-all group btn-interactive"
           >
             <div className="w-11 h-11 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 shadow-2xs">
-              <Compass className="w-5 h-5" />
+              <AppIcon icon="Compass" className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">Pengaturan Sistem</p>
               <p className="text-xs text-muted-foreground truncate mt-0.5">Maintenance mode, chatbot & cache</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+            <AppIcon icon="ChevronRight" className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
           </Link>
         </div>
       </div>

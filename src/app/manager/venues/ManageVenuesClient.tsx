@@ -1,26 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { 
-  Plus, 
-  Search, 
-  Edit, 
-  Trash2, 
-  Users, 
-  Calendar, 
-  MapPin, 
-  X, 
-  Upload, 
-  Loader2, 
-  Phone, 
-  ImageIcon, 
-  Sparkles,
-  CalendarDays,
-  LayoutGrid,
-  Download,
-  FileSpreadsheet,
-  FileText
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Venue, deleteVenueAction, upsertVenueAction } from './actions';
@@ -212,7 +193,7 @@ export default function ManageVenuesClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 dark:text-slate-100 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl flex items-center justify-center border border-emerald-100 dark:border-emerald-900/40">
-              <MapPin className="w-5 h-5 text-emerald-600" />
+              <AppIcon icon="MapPin" className="w-5 h-5 text-emerald-600" />
             </div>
             Kelola Sewa Tempat & Venue
           </h1>
@@ -230,7 +211,7 @@ export default function ManageVenuesClient() {
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <LayoutGrid className="w-3.5 h-3.5" />
+              <AppIcon icon="LayoutGrid" className="w-3.5 h-3.5" />
               <span>Daftar Venue</span>
             </button>
             <button
@@ -241,7 +222,7 @@ export default function ManageVenuesClient() {
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <CalendarDays className="w-3.5 h-3.5" />
+              <AppIcon icon="CalendarDays" className="w-3.5 h-3.5" />
               <span>Kalender Master</span>
             </button>
           </div>
@@ -252,7 +233,7 @@ export default function ManageVenuesClient() {
               <button 
                 className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all font-semibold shadow-2xs btn-interactive text-xs sm:text-sm"
               >
-                <Download className="w-4 h-4 text-emerald-600" />
+                <AppIcon icon="Download" className="w-4 h-4 text-emerald-600" />
                 <span>Ekspor</span>
               </button>
             </DropdownMenuTrigger>
@@ -261,14 +242,14 @@ export default function ManageVenuesClient() {
                 onClick={() => handleExport('excel')}
                 className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl cursor-pointer"
               >
-                <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+                <AppIcon icon="FileSpreadsheet" className="w-4 h-4 text-emerald-600" />
                 <span>Ekspor ke Excel (.xlsx)</span>
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => handleExport('pdf')}
                 className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl cursor-pointer"
               >
-                <FileText className="w-4 h-4 text-rose-600" />
+                <AppIcon icon="FileText" className="w-4 h-4 text-rose-600" />
                 <span>Cetak Dokumen PDF (.pdf)</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -278,7 +259,7 @@ export default function ManageVenuesClient() {
             onClick={() => setHeroModalOpen(true)}
             className="flex items-center justify-center gap-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-bold text-xs transition-all shadow-2xs"
           >
-            <Sparkles className="w-4 h-4 text-amber-500" />
+            <AppIcon icon="Sparkles" className="w-4 h-4 text-amber-500" />
             Pengaturan Header
           </button>
 
@@ -289,7 +270,7 @@ export default function ManageVenuesClient() {
             }}
             className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2.5 rounded-xl hover:opacity-90 font-bold text-xs transition-all shadow-md shadow-emerald-500/20"
           >
-            <Plus className="w-4 h-4" />
+            <AppIcon icon="Plus" className="w-4 h-4" />
             Tambah Tempat
           </button>
         </div>
@@ -340,7 +321,7 @@ export default function ManageVenuesClient() {
         <>
           {/* Search bar */}
           <div className="relative">
-            <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+            <AppIcon icon="Search" className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
             <input 
               type="text" 
               placeholder="Cari tempat berdasarkan nama atau deskripsi..."
@@ -381,11 +362,11 @@ export default function ManageVenuesClient() {
 
                     <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border text-xs">
                       <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <Users className="w-3.5 h-3.5 text-emerald-600" />
+                        <AppIcon icon="Users" className="w-3.5 h-3.5 text-emerald-600" />
                         <span>{venue.capacity ? `${venue.capacity} Orang` : '-'}</span>
                       </div>
                       <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <MapPin className="w-3.5 h-3.5 text-emerald-600" />
+                        <AppIcon icon="MapPin" className="w-3.5 h-3.5 text-emerald-600" />
                         <span className="truncate">Ragunan Zoo</span>
                       </div>
                     </div>
@@ -411,7 +392,7 @@ export default function ManageVenuesClient() {
                     }}
                     className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 font-bold text-xs rounded-xl hover:bg-emerald-100 transition-colors"
                   >
-                    <Calendar className="w-3.5 h-3.5" />
+                    <AppIcon icon="Calendar" className="w-3.5 h-3.5" />
                     <span>Kalender & Jadwal</span>
                   </button>
 
@@ -421,14 +402,14 @@ export default function ManageVenuesClient() {
                       className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors"
                       title="Edit Tempat"
                     >
-                      <Edit className="w-4 h-4" />
+                      <AppIcon icon="Edit" className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => setDeleteVenue(venue)}
                       className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
                       title="Hapus Tempat"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <AppIcon icon="Trash2" className="w-4 h-4" />
                     </button>
                   </div>
                 </div>

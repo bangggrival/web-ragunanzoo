@@ -9,6 +9,8 @@ export interface CategoryIconMeta {
   nameId: string;
   nameEn: string;
   svgPath: string;
+  iconifyIcon: string;
+  isCustomDesign?: boolean;
   categoryType: 'fauna' | 'flora';
   keywords: string[];
 }
@@ -23,6 +25,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Mamalia',
     nameEn: 'Mammals',
     svgPath: '/icons/categories/mamalia.svg',
+    iconifyIcon: 'fluent-emoji-flat:lion',
     categoryType: 'fauna',
     keywords: ['mamalia', 'mammal', 'mammals', 'hewan menyusui', 'satwa mamalia', '🦁', '🐯', '🐾', 'tiger']
   },
@@ -31,6 +34,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Primata',
     nameEn: 'Primates',
     svgPath: '/icons/categories/primata.svg',
+    iconifyIcon: 'fluent-emoji-flat:monkey-face',
     categoryType: 'fauna',
     keywords: ['primata', 'primate', 'primates', 'orangutan', 'orang utan', 'kera', 'monyet', 'gorila', 'gorilla', 'simpanse', 'bekantan', 'schmutzer', '🐒', '🦍', 'chimpanzee', 'squirrel_monkey']
   },
@@ -39,6 +43,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Burung',
     nameEn: 'Birds',
     svgPath: '/icons/categories/burung.svg',
+    iconifyIcon: 'fluent-emoji-flat:eagle',
     categoryType: 'fauna',
     keywords: ['burung', 'bird', 'birds', 'aves', 'unggas', 'kasuari', 'merak', 'kakatua', 'pelikan', 'elang', 'nuri', '🦅', '🦜', '🦩', 'cassowary']
   },
@@ -47,6 +52,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Reptil',
     nameEn: 'Reptiles',
     svgPath: '/icons/categories/reptil.svg',
+    iconifyIcon: 'fluent-emoji-flat:lizard',
     categoryType: 'fauna',
     keywords: ['reptil', 'reptile', 'reptiles', 'ular', 'snake', 'buaya', 'crocodile', 'komodo', 'biawak', 'kadal', 'kura-kura', 'turtle', '🦎', '🐊', '🐍', '🐢']
   },
@@ -55,6 +61,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Ikan & Akuatik',
     nameEn: 'Fish & Aquatic',
     svgPath: '/icons/categories/ikan.svg',
+    iconifyIcon: 'fluent-emoji-flat:tropical-fish',
     categoryType: 'fauna',
     keywords: ['ikan', 'fish', 'pisces', 'akuatik', 'aquatic', 'hiu', 'shark', 'air tawar', 'arowana', '🐟', 'bull_shark']
   },
@@ -63,6 +70,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Amfibi',
     nameEn: 'Amphibians',
     svgPath: '/icons/categories/amfibi.svg',
+    iconifyIcon: 'fluent-emoji-flat:frog',
     categoryType: 'fauna',
     keywords: ['amfibi', 'amphibian', 'amphibians', 'katak', 'kodok', 'frog', 'toad', 'salamander', '🐸']
   },
@@ -71,6 +79,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Serangga',
     nameEn: 'Insects',
     svgPath: '/icons/categories/serangga.svg',
+    iconifyIcon: 'fluent-emoji-flat:butterfly',
     categoryType: 'fauna',
     keywords: ['serangga', 'insect', 'insects', 'kupu-kupu', 'butterfly', 'lebah', 'kumbang', 'belalang', 'arthropoda', '🦋', '🐛', '🐝']
   },
@@ -81,6 +90,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Harimau',
     nameEn: 'Tiger',
     svgPath: '/icons/categories/harimau.svg',
+    iconifyIcon: 'fluent-emoji-flat:tiger-face',
     categoryType: 'fauna',
     keywords: ['harimau', 'tiger', 'macan', 'panthera tigris', 'harimau sumatera', 'panthera']
   },
@@ -89,6 +99,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Singa',
     nameEn: 'Lion',
     svgPath: '/icons/categories/singa.svg',
+    iconifyIcon: 'fluent-emoji-flat:lion',
     categoryType: 'fauna',
     keywords: ['singa', 'lion', 'panthera leo']
   },
@@ -97,6 +108,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Gajah',
     nameEn: 'Elephant',
     svgPath: '/icons/categories/gajah.svg',
+    iconifyIcon: 'fluent-emoji-flat:elephant',
     categoryType: 'fauna',
     keywords: ['gajah', 'elephant', 'elephas', 'gajah sumatera', 'elephant']
   },
@@ -105,6 +117,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Jerapah',
     nameEn: 'Giraffe',
     svgPath: '/icons/categories/jerapah.svg',
+    iconifyIcon: 'fluent-emoji-flat:giraffe',
     categoryType: 'fauna',
     keywords: ['jerapah', 'giraffe', 'giraffa']
   },
@@ -113,6 +126,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Unta',
     nameEn: 'Camel',
     svgPath: '/icons/categories/unta.svg',
+    iconifyIcon: 'fluent-emoji-flat:camel',
     categoryType: 'fauna',
     keywords: ['unta', 'camel', 'onta', 'camelus']
   },
@@ -121,6 +135,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Badak',
     nameEn: 'Rhino',
     svgPath: '/icons/categories/badak.svg',
+    iconifyIcon: 'fluent-emoji-flat:rhinoceros',
     categoryType: 'fauna',
     keywords: ['badak', 'rhino', 'rhinoceros', 'badak jawa', 'badak sumatera']
   },
@@ -129,6 +144,8 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Kasuari',
     nameEn: 'Cassowary',
     svgPath: '/icons/categories/kasuari.svg',
+    iconifyIcon: 'fluent-emoji-flat:peacock',
+    isCustomDesign: true, // Catatan: Satwa endemik/khusus difasilitasi dengan SVG tim desain internal
     categoryType: 'fauna',
     keywords: ['kasuari', 'cassowary', 'casuarius']
   },
@@ -137,6 +154,8 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Komodo',
     nameEn: 'Komodo Dragon',
     svgPath: '/icons/categories/komodo.svg',
+    iconifyIcon: 'fluent-emoji-flat:lizard',
+    isCustomDesign: true, // Catatan: Satwa endemik/khusus difasilitasi dengan SVG tim desain internal
     categoryType: 'fauna',
     keywords: ['komodo', 'komodo dragon', 'varanus komodoensis', 'biawak komodo']
   },
@@ -145,6 +164,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Rusa & Herbivora',
     nameEn: 'Deer & Herbivores',
     svgPath: '/icons/categories/rusa.svg',
+    iconifyIcon: 'fluent-emoji-flat:deer',
     categoryType: 'fauna',
     keywords: ['rusa', 'deer', 'kijang', 'totol', 'cervus', 'anoa', 'banteng', 'antilop']
   },
@@ -155,6 +175,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Pohon',
     nameEn: 'Trees',
     svgPath: '/icons/categories/pohon.svg',
+    iconifyIcon: 'fluent-emoji-flat:deciduous-tree',
     categoryType: 'flora',
     keywords: ['pohon', 'tree', 'trees', 'kayu', 'peneduh', 'beringin', 'baobab', 'mahoni', 'trembesi', 'jati', '🌳']
   },
@@ -163,6 +184,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Bunga',
     nameEn: 'Flowers',
     svgPath: '/icons/categories/bunga.svg',
+    iconifyIcon: 'fluent-emoji-flat:cherry-blossom',
     categoryType: 'flora',
     keywords: ['bunga', 'flower', 'flowers', 'hias', 'tanaman hias', 'mawar', 'melati', 'kembang', '🌸', '🌺', '🌻', '🌼', '💐']
   },
@@ -171,6 +193,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Anggrek',
     nameEn: 'Orchids',
     svgPath: '/icons/categories/anggrek.svg',
+    iconifyIcon: 'fluent-emoji-flat:lotus',
     categoryType: 'flora',
     keywords: ['anggrek', 'orchid', 'orchids', 'orchidaceae', 'dendrobium', 'phalaenopsis', 'vanda', 'katlea', '🪻', '🪷']
   },
@@ -179,6 +202,8 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Tanaman Langka',
     nameEn: 'Rare Plants',
     svgPath: '/icons/categories/tanaman-langka.svg',
+    iconifyIcon: 'fluent-emoji-flat:seedling',
+    isCustomDesign: true, // Spesies langka seperti Rafflesia difasilitasi dengan SVG kustom tim desain internal
     categoryType: 'flora',
     keywords: ['tanaman langka', 'rare plants', 'langka', 'dilindungi', 'rafflesia', 'bangkai', 'titan arum', 'amorphophallus', '🌿', '🌱']
   },
@@ -187,6 +212,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Tanaman Karnivora',
     nameEn: 'Carnivorous Plants',
     svgPath: '/icons/categories/tanaman-karnivora.svg',
+    iconifyIcon: 'fluent-emoji-flat:potted-plant',
     categoryType: 'flora',
     keywords: ['tanaman karnivora', 'carnivorous plants', 'karnivora', 'kantong semar', 'nepenthes', 'venus flytrap', 'drosera', '🪴']
   },
@@ -195,6 +221,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Bambu',
     nameEn: 'Bamboo',
     svgPath: '/icons/categories/bambu.svg',
+    iconifyIcon: 'fluent-emoji-flat:bamboo',
     categoryType: 'flora',
     keywords: ['bambu', 'bamboo', 'bambusoideae', 'buluh', 'pring', '🎋']
   },
@@ -203,6 +230,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Kaktus & Sukulen',
     nameEn: 'Cactus & Succulents',
     svgPath: '/icons/categories/kaktus.svg',
+    iconifyIcon: 'fluent-emoji-flat:cactus',
     categoryType: 'flora',
     keywords: ['kaktus', 'cactus', 'sukulen', 'succulent', 'arid', 'xerofit', '🌵']
   },
@@ -211,6 +239,7 @@ export const CATEGORY_ICONS: Record<string, CategoryIconMeta> = {
     nameId: 'Taman Palem',
     nameEn: 'Palm Garden',
     svgPath: '/icons/categories/taman-palem.svg',
+    iconifyIcon: 'fluent-emoji-flat:palm-tree',
     categoryType: 'flora',
     keywords: ['palem', 'palm', 'arecaceae', 'kelapa', 'kurma', 'pinang', 'taman palem', '🌴']
   }

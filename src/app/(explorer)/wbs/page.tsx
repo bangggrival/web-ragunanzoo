@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ShieldAlert, Send, AlertTriangle, CheckCircle2, User, Mail, Phone, Calendar, MapPin, FileText, Eye, EyeOff, Paperclip, UserX } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -81,7 +81,7 @@ export default function WBS() {
           <Card className="border-primary/30 bg-primary/5">
             <CardContent className="pt-8 text-center">
               <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle2 className="w-10 h-10 text-primary" />
+                <AppIcon icon="CheckCircle2" className="w-10 h-10 text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground mb-3">
                 {language === 'id' ? 'Laporan Terkirim!' : 'Report Submitted!'}
@@ -110,7 +110,7 @@ export default function WBS() {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <ShieldAlert className="w-8 h-8 text-primary" />
+            <AppIcon icon="ShieldAlert" className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-3xl font-bold text-foreground mb-2">
             {language === 'id' ? 'Whistleblowing System' : 'Whistleblowing System'}
@@ -126,7 +126,7 @@ export default function WBS() {
         <Card className="mb-6 border-secondary bg-secondary/10">
           <CardContent className="pt-4">
             <div className="flex gap-3">
-              <AlertTriangle className="w-5 h-5 text-foreground flex-shrink-0 mt-0.5" />
+              <AppIcon icon="AlertTriangle" className="w-5 h-5 text-foreground flex-shrink-0 mt-0.5" />
               <div className="text-sm text-foreground">
                 <p className="font-medium mb-1">
                   {language === 'id' ? 'Kerahasiaan Terjamin' : 'Confidentiality Guaranteed'}
@@ -145,7 +145,7 @@ export default function WBS() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />
+              <AppIcon icon="FileText" className="w-5 h-5" />
               {language === 'id' ? 'Form Pelaporan' : 'Report Form'}
             </CardTitle>
             <CardDescription>
@@ -171,7 +171,7 @@ export default function WBS() {
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel className="flex items-center gap-2">
-                          {field.value ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                          {field.value ? <AppIcon icon="EyeOff" className="w-4 h-4" /> : <AppIcon icon="Eye" className="w-4 h-4" />}
                           {language === 'id' ? 'Laporkan Secara Anonim' : 'Report Anonymously'}
                         </FormLabel>
                         <FormDescription>
@@ -193,7 +193,7 @@ export default function WBS() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2">
-                            <User className="w-4 h-4" />
+                            <AppIcon icon="User" className="w-4 h-4" />
                             {language === 'id' ? 'Nama Lengkap' : 'Full Name'}
                           </FormLabel>
                           <FormControl>
@@ -210,7 +210,7 @@ export default function WBS() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2">
-                            <Mail className="w-4 h-4" />
+                            <AppIcon icon="Mail" className="w-4 h-4" />
                             Email
                           </FormLabel>
                           <FormControl>
@@ -227,7 +227,7 @@ export default function WBS() {
                       render={({ field }) => (
                         <FormItem className="sm:col-span-2">
                           <FormLabel className="flex items-center gap-2">
-                            <Phone className="w-4 h-4" />
+                            <AppIcon icon="Phone" className="w-4 h-4" />
                             {language === 'id' ? 'Nomor Telepon' : 'Phone Number'}
                           </FormLabel>
                           <FormControl>
@@ -249,7 +249,7 @@ export default function WBS() {
                   {/* Identitas Yang Dilaporkan */}
                   <div className="p-4 rounded-lg border bg-muted/20 space-y-4">
                     <h4 className="font-medium flex items-center gap-2 text-foreground">
-                      <UserX className="w-4 h-4" />
+                      <AppIcon icon="UserX" className="w-4 h-4" />
                       {language === 'id' ? 'Identitas Yang Dilaporkan' : 'Reported Person Identity'}
                     </h4>
                     <div className="grid gap-4 sm:grid-cols-2">
@@ -321,7 +321,7 @@ export default function WBS() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4" />
+                            <AppIcon icon="Calendar" className="w-4 h-4" />
                             {language === 'id' ? 'Tanggal Kejadian' : 'Incident Date'}
                           </FormLabel>
                           <FormControl>
@@ -338,7 +338,7 @@ export default function WBS() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2">
-                            <MapPin className="w-4 h-4" />
+                            <AppIcon icon="MapPin" className="w-4 h-4" />
                             {language === 'id' ? 'Lokasi Kejadian' : 'Incident Location'}
                           </FormLabel>
                           <FormControl>
@@ -378,7 +378,7 @@ export default function WBS() {
                   {/* Evidence Upload */}
                   <div className="space-y-2">
                     <FormLabel className="flex items-center gap-2">
-                      <Paperclip className="w-4 h-4" />
+                      <AppIcon icon="Paperclip" className="w-4 h-4" />
                       {language === 'id' ? 'Bukti Pendukung' : 'Supporting Evidence'}
                     </FormLabel>
                     <WBSEvidenceUpload
@@ -403,7 +403,7 @@ export default function WBS() {
                     </>
                   ) : (
                     <>
-                      <Send className="w-4 h-4 mr-2" />
+                      <AppIcon icon="Send" className="w-4 h-4 mr-2" />
                       {language === 'id' ? 'Kirim Laporan' : 'Submit Report'}
                     </>
                   )}

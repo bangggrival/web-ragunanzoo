@@ -1,34 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  CreditCard,
-  CheckCircle,
-  XCircle,
-  AlertCircle,
-  ChevronRight,
-  DoorOpen,
-  Smartphone,
-  Banknote,
-  QrCode,
-  ShoppingBag,
-  ArrowRight,
-  RotateCcw,
-  Wallet,
-  Plus,
-  Ticket,
-  BadgeCheck,
-  WifiOff,
-  Lightbulb,
-  Sparkles,
-  ArrowLeft,
-  Info,
-  Users,
-  Building,
-  HelpCircle,
-  Check,
-  Compass
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTicketContent } from '@/hooks/useTicketContent';
 
@@ -90,7 +63,7 @@ function CardOption({
               recommended ? 'bg-emerald-500/15 text-emerald-600' : 'bg-muted text-muted-foreground'
             }`}
           >
-            <CreditCard className="w-5 h-5" />
+            <AppIcon name="solar:card-bold-duotone" className="w-5 h-5" />
           </div>
           <div>
             <p className="font-bold text-sm text-foreground">{title}</p>
@@ -205,7 +178,7 @@ export default function JakCardFlow({
         <div className="relative z-10 flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <CreditCard className="w-5 h-5 text-emerald-300" />
+              <AppIcon name="solar:card-bold-duotone" className="w-5 h-5 text-emerald-300" />
               <h3 className="font-extrabold text-base md:text-lg tracking-tight">
                 {isEN ? 'Comprehensive JakCard Admission Guide' : 'Panduan Terpadu Masuk dengan JakCard'}
               </h3>
@@ -224,7 +197,7 @@ export default function JakCardFlow({
               onClick={reset}
               className="flex-shrink-0 flex items-center gap-1.5 text-white/90 hover:text-white text-xs font-bold border border-white/30 px-3 py-1.5 rounded-full hover:bg-white/10 transition-all active:scale-95"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <AppIcon name="solar:restart-bold" className="w-3.5 h-3.5" />
               <span>{isEN ? 'Restart' : 'Ulangi'}</span>
             </button>
           )}
@@ -233,10 +206,10 @@ export default function JakCardFlow({
         {/* Section Navigation Tabs */}
         <div className="flex items-center gap-1 mt-4 pt-3 border-t border-white/15 overflow-x-auto no-scrollbar">
           {[
-            { id: 'wizard', label: isEN ? '1. Entry Flow Wizard' : '1. Simulasi Alur Masuk', icon: <DoorOpen className="w-3.5 h-3.5" /> },
-            { id: 'nfc', label: isEN ? '2. NFC Balance Check' : '2. Cek Saldo via NFC', icon: <Smartphone className="w-3.5 h-3.5" /> },
-            { id: 'locations', label: isEN ? '3. Top Up Locations' : '3. Lokasi Isi Saldo', icon: <Building className="w-3.5 h-3.5" /> },
-            { id: 'rules', label: isEN ? '4. Group Rules & FAQs' : '4. Aturan Rombongan & FAQ', icon: <Users className="w-3.5 h-3.5" /> },
+            { id: 'wizard', label: isEN ? '1. Entry Flow Wizard' : '1. Simulasi Alur Masuk', icon: <AppIcon name="solar:login-2-bold-duotone" className="w-3.5 h-3.5" /> },
+            { id: 'nfc', label: isEN ? '2. NFC Balance Check' : '2. Cek Saldo via NFC', icon: <AppIcon name="solar:smartphone-bold-duotone" className="w-3.5 h-3.5" /> },
+            { id: 'locations', label: isEN ? '3. Top Up Locations' : '3. Lokasi Isi Saldo', icon: <AppIcon name="solar:buildings-2-bold-duotone" className="w-3.5 h-3.5" /> },
+            { id: 'rules', label: isEN ? '4. Group Rules & FAQs' : '4. Aturan Rombongan & FAQ', icon: <AppIcon name="solar:users-group-two-rounded-bold-duotone" className="w-3.5 h-3.5" /> },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -260,7 +233,7 @@ export default function JakCardFlow({
         {calculatedTotal && calculatedTotal > 0 && (
           <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-center justify-between gap-3 animate-fade-in">
             <div className="flex items-center gap-2.5">
-              <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+              <AppIcon name="solar:stars-minimalistic-bold" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
               <div>
                 <p className="text-xs font-bold text-emerald-950 dark:text-emerald-200">
                   Estimasi Biaya dari Kalkulator: {formatRp(calculatedTotal)}
@@ -289,7 +262,7 @@ export default function JakCardFlow({
               <div className="space-y-4">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 flex items-center justify-center">
-                    <CreditCard className="w-4 h-4" />
+                    <AppIcon name="solar:card-bold-duotone" className="w-4 h-4" />
                   </div>
                   <p className="font-bold text-foreground text-sm md:text-base">
                     {isEN ? 'Do you already have a Bank DKI JakCard?' : 'Apakah Anda sudah memiliki Kartu JakCard?'}
@@ -297,7 +270,7 @@ export default function JakCardFlow({
                 </div>
 
                 <div className="bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-2xl p-4 flex items-start gap-3">
-                  <Info className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <AppIcon name="solar:info-circle-bold-duotone" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
                   <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">
                     {isEN
                       ? 'Ragunan Zoo uses JakCard (issued by Bank DKI) for all gate turnstiles and vehicle parking. Cards can be purchased directly at entrance counters or used with existing TransJakarta / MRT JakCards.'
@@ -311,7 +284,7 @@ export default function JakCardFlow({
                     className="group flex items-center gap-3 p-4 rounded-2xl bg-emerald-500/10 border-2 border-emerald-400/50 hover:border-emerald-500 hover:bg-emerald-500/15 hover:shadow-md active:scale-[0.98] transition-all text-left"
                   >
                     <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-300 flex items-center justify-center flex-shrink-0">
-                      <CheckCircle className="w-5 h-5" />
+                      <AppIcon name="solar:check-circle-bold-duotone" className="w-5 h-5" />
                     </div>
                     <div>
                       <p className="font-extrabold text-sm text-emerald-800 dark:text-emerald-300">
@@ -319,7 +292,7 @@ export default function JakCardFlow({
                       </p>
                       <p className="text-xs text-muted-foreground">Cek saldo & langsung ke gate</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 ml-auto text-emerald-500 group-hover:translate-x-1 transition-transform" />
+                    <AppIcon name="solar:arrow-right-linear" className="w-4 h-4 ml-auto text-emerald-500 group-hover:translate-x-1 transition-transform" />
                   </button>
 
                   <button
@@ -327,7 +300,7 @@ export default function JakCardFlow({
                     className="group flex items-center gap-3 p-4 rounded-2xl bg-amber-500/10 border-2 border-amber-400/50 hover:border-amber-500 hover:bg-amber-500/15 hover:shadow-md active:scale-[0.98] transition-all text-left"
                   >
                     <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 dark:bg-amber-900 dark:text-amber-300 flex items-center justify-center flex-shrink-0">
-                      <Plus className="w-5 h-5" />
+                      <AppIcon name="solar:add-linear" className="w-5 h-5" />
                     </div>
                     <div>
                       <p className="font-extrabold text-sm text-amber-800 dark:text-amber-300">
@@ -335,7 +308,7 @@ export default function JakCardFlow({
                       </p>
                       <p className="text-xs text-muted-foreground">Pilih paket kartu di loket</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 ml-auto text-amber-500 group-hover:translate-x-1 transition-transform" />
+                    <AppIcon name="solar:arrow-right-linear" className="w-4 h-4 ml-auto text-amber-500 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </div>
@@ -346,7 +319,7 @@ export default function JakCardFlow({
               <div className="space-y-4">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-300 flex items-center justify-center">
-                    <Wallet className="w-4 h-4" />
+                    <AppIcon name="solar:wallet-money-bold-duotone" className="w-4 h-4" />
                   </div>
                   <p className="font-bold text-foreground text-sm md:text-base">
                     {isEN ? 'Verify Your JakCard Balance' : 'Periksa Saldo Kartu JakCard Anda'}
@@ -355,7 +328,7 @@ export default function JakCardFlow({
 
                 <div className="bg-muted/50 rounded-2xl p-4 text-xs space-y-2 border border-border/80">
                   <p className="font-bold text-foreground flex items-center gap-1.5">
-                    <Lightbulb className="w-4 h-4 text-amber-500 shrink-0" />
+                    <AppIcon name="solar:lightbulb-bolt-bold-duotone" className="w-4 h-4 text-amber-500 shrink-0" />
                     <span>Tarif Masuk Resmi (Perda DKI Jakarta):</span>
                   </p>
                   <div className="grid grid-cols-2 gap-2 text-xs pt-1">
@@ -379,7 +352,7 @@ export default function JakCardFlow({
                     className="group flex items-center gap-3 p-4 rounded-2xl bg-emerald-500/10 border-2 border-emerald-400/50 hover:border-emerald-500 hover:bg-emerald-500/15 hover:shadow-md active:scale-[0.98] transition-all text-left"
                   >
                     <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-300 flex items-center justify-center flex-shrink-0">
-                      <BadgeCheck className="w-5 h-5" />
+                      <AppIcon name="solar:verified-check-bold" className="w-5 h-5" />
                     </div>
                     <div>
                       <p className="font-extrabold text-sm text-emerald-800 dark:text-emerald-300">
@@ -387,7 +360,7 @@ export default function JakCardFlow({
                       </p>
                       <p className="text-xs text-muted-foreground">Lanjut tap ke gate turnstile</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 ml-auto text-emerald-500 group-hover:translate-x-1 transition-transform" />
+                    <AppIcon name="solar:arrow-right-linear" className="w-4 h-4 ml-auto text-emerald-500 group-hover:translate-x-1 transition-transform" />
                   </button>
 
                   <button
@@ -395,7 +368,7 @@ export default function JakCardFlow({
                     className="group flex items-center gap-3 p-4 rounded-2xl bg-amber-500/10 border-2 border-amber-400/50 hover:border-amber-500 hover:bg-amber-500/15 hover:shadow-md active:scale-[0.98] transition-all text-left"
                   >
                     <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 dark:bg-amber-900 dark:text-amber-300 flex items-center justify-center flex-shrink-0">
-                      <Plus className="w-5 h-5" />
+                      <AppIcon name="solar:add-linear" className="w-5 h-5" />
                     </div>
                     <div>
                       <p className="font-extrabold text-sm text-amber-800 dark:text-amber-300">
@@ -403,7 +376,7 @@ export default function JakCardFlow({
                       </p>
                       <p className="text-xs text-muted-foreground">Lihat cara isi ulang saldo</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 ml-auto text-amber-500 group-hover:translate-x-1 transition-transform" />
+                    <AppIcon name="solar:arrow-right-linear" className="w-4 h-4 ml-auto text-amber-500 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </div>
@@ -414,7 +387,7 @@ export default function JakCardFlow({
               <div className="space-y-4">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-600 dark:bg-amber-900 dark:text-amber-300 flex items-center justify-center">
-                    <Plus className="w-4 h-4" />
+                    <AppIcon name="solar:add-linear" className="w-4 h-4" />
                   </div>
                   <p className="font-bold text-foreground text-sm md:text-base">
                     {isEN ? 'Official JakCard Starter Packages' : 'Pilihan Paket Perdana JakCard di Loket'}
@@ -447,7 +420,7 @@ export default function JakCardFlow({
             {flow === 'buy_card' && (
               <div className="space-y-4">
                 <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 flex items-center gap-3">
-                  <CreditCard className="w-8 h-8 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+                  <AppIcon name="solar:card-bold-duotone" className="w-8 h-8 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
                   <div>
                     <p className="font-extrabold text-sm text-emerald-800 dark:text-emerald-300">
                       Kartu JakCard Anda Siap Digunakan!
@@ -462,9 +435,9 @@ export default function JakCardFlow({
                   onClick={() => go('gate')}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-md active:scale-95 transition-all"
                 >
-                  <DoorOpen className="w-4 h-4" />
+                  <AppIcon name="solar:login-2-bold-duotone" className="w-4 h-4" />
                   <span>Lanjut ke Gate Masuk</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
                 </button>
               </div>
             )}
@@ -474,7 +447,7 @@ export default function JakCardFlow({
               <div className="space-y-4">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300 flex items-center justify-center">
-                    <Plus className="w-4 h-4" />
+                    <AppIcon name="solar:add-linear" className="w-4 h-4" />
                   </div>
                   <p className="font-bold text-foreground text-sm md:text-base">
                     Pilih Lokasi & Cara Isi Ulang (Top Up) Saldo
@@ -483,7 +456,7 @@ export default function JakCardFlow({
 
                 <div className="space-y-2.5">
                   <TopupChannel
-                    icon={<Banknote className="w-5 h-5" />}
+                    icon={<AppIcon name="solar:money-bag-bold-duotone" className="w-5 h-5" />}
                     name="Loket Gerbang Ragunan (Tunai / QRIS)"
                     desc="Langsung isi saldo di loket tiket pintu masuk Ragunan"
                     badge="Instan di Tempat"
@@ -491,7 +464,7 @@ export default function JakCardFlow({
                     onClick={() => go('topup_loket')}
                   />
                   <TopupChannel
-                    icon={<Smartphone className="w-5 h-5" />}
+                    icon={<AppIcon name="solar:smartphone-bold-duotone" className="w-5 h-5" />}
                     name="Aplikasi JakOne Mobile (NFC Smartphone)"
                     desc="Top up mandiri lewat HP tanpa perlu antre di loket"
                     badge="NFC HP"
@@ -499,7 +472,7 @@ export default function JakCardFlow({
                     onClick={() => go('topup_app')}
                   />
                   <TopupChannel
-                    icon={<Building className="w-5 h-5" />}
+                    icon={<AppIcon name="solar:buildings-2-bold-duotone" className="w-5 h-5" />}
                     name="Halte TransJakarta & TVM Ragunan"
                     desc="Bisa diisi di Halte Busway Koridor 6 dan mesin TVM otomatis"
                     badge="Tersedia 24 Jam"
@@ -539,9 +512,9 @@ export default function JakCardFlow({
                   onClick={() => go('gate')}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-md active:scale-95 transition-all"
                 >
-                  <DoorOpen className="w-4 h-4" />
+                  <AppIcon name="solar:login-2-bold-duotone" className="w-4 h-4" />
                   <span>Lanjut Menuju Pintu Gerbang Masuk</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
                 </button>
               </div>
             )}
@@ -575,9 +548,9 @@ export default function JakCardFlow({
                   onClick={() => go('gate')}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-md active:scale-95 transition-all"
                 >
-                  <DoorOpen className="w-4 h-4" />
+                  <AppIcon name="solar:login-2-bold-duotone" className="w-4 h-4" />
                   <span>Lanjut Menuju Pintu Gerbang Masuk</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
                 </button>
               </div>
             )}
@@ -587,7 +560,7 @@ export default function JakCardFlow({
               <div className="space-y-4">
                 <div className="relative bg-gradient-to-br from-emerald-600 to-teal-800 rounded-3xl p-5 text-white text-center shadow-xl space-y-3">
                   <div className="w-14 h-14 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center mx-auto shadow-inner">
-                    <DoorOpen className="w-7 h-7 text-white" />
+                    <AppIcon name="solar:login-2-bold-duotone" className="w-7 h-7 text-white" />
                   </div>
                   <div>
                     <h4 className="text-lg font-black tracking-tight">TAP KARTU DI TURNSTILE GATE</h4>
@@ -611,7 +584,7 @@ export default function JakCardFlow({
                   onClick={back}
                   className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:arrow-left-linear" className="w-3.5 h-3.5" />
                   <span>Kembali</span>
                 </button>
               </div>
@@ -623,7 +596,7 @@ export default function JakCardFlow({
         {sectionTab === 'nfc' && (
           <div className="space-y-4 animate-fade-in">
             <div className="p-4 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 flex items-start gap-3">
-              <Smartphone className="w-6 h-6 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" />
+              <AppIcon name="solar:smartphone-bold-duotone" className="w-6 h-6 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" />
               <div>
                 <p className="font-bold text-sm text-purple-900 dark:text-purple-200">
                   Cara Cek Saldo JakCard via Smartphone Ber-NFC
@@ -672,7 +645,7 @@ export default function JakCardFlow({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="p-4 rounded-2xl bg-card border border-border/80 space-y-1.5 shadow-2xs">
                 <p className="font-bold text-xs text-foreground flex items-center gap-1.5">
-                  <Compass className="w-4 h-4 text-emerald-600" />
+                  <AppIcon name="solar:compass-bold-duotone" className="w-4 h-4 text-emerald-600" />
                   <span>Loket Pintu Masuk Utama (Utara)</span>
                 </p>
                 <p className="text-[11px] text-muted-foreground">
@@ -682,7 +655,7 @@ export default function JakCardFlow({
 
               <div className="p-4 rounded-2xl bg-card border border-border/80 space-y-1.5 shadow-2xs">
                 <p className="font-bold text-xs text-foreground flex items-center gap-1.5">
-                  <Compass className="w-4 h-4 text-emerald-600" />
+                  <AppIcon name="solar:compass-bold-duotone" className="w-4 h-4 text-emerald-600" />
                   <span>Loket Pintu Masuk Barat (Kav Polri)</span>
                 </p>
                 <p className="text-[11px] text-muted-foreground">
@@ -692,7 +665,7 @@ export default function JakCardFlow({
 
               <div className="p-4 rounded-2xl bg-card border border-border/80 space-y-1.5 shadow-2xs">
                 <p className="font-bold text-xs text-foreground flex items-center gap-1.5">
-                  <Building className="w-4 h-4 text-sky-600" />
+                  <AppIcon name="solar:buildings-2-bold-duotone" className="w-4 h-4 text-sky-600" />
                   <span>Halte TransJakarta Ragunan</span>
                 </p>
                 <p className="text-[11px] text-muted-foreground">
@@ -702,7 +675,7 @@ export default function JakCardFlow({
 
               <div className="p-4 rounded-2xl bg-card border border-border/80 space-y-1.5 shadow-2xs">
                 <p className="font-bold text-xs text-foreground flex items-center gap-1.5">
-                  <Banknote className="w-4 h-4 text-amber-600" />
+                  <AppIcon name="solar:money-bag-bold-duotone" className="w-4 h-4 text-amber-600" />
                   <span>ATM Bank DKI & Minimarket Partner</span>
                 </p>
                 <p className="text-[11px] text-muted-foreground">
@@ -718,7 +691,7 @@ export default function JakCardFlow({
           <div className="space-y-4 animate-fade-in">
             <div className="p-4 rounded-2xl bg-card border border-border/80 space-y-3 shadow-2xs">
               <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-emerald-600" />
+                <AppIcon name="solar:users-group-two-rounded-bold-duotone" className="w-4 h-4 text-emerald-600" />
                 <h4 className="font-bold text-xs sm:text-sm text-foreground">
                   Aturan 1 Kartu untuk Rombongan (Multiple Tap)
                 </h4>
@@ -735,7 +708,7 @@ export default function JakCardFlow({
 
             <div className="space-y-2">
               <p className="font-bold text-xs text-foreground flex items-center gap-1.5">
-                <HelpCircle className="w-4 h-4 text-primary" />
+                <AppIcon name="solar:question-circle-bold-duotone" className="w-4 h-4 text-primary" />
                 <span>Pertanyaan yang Sering Diajukan (FAQ):</span>
               </p>
 

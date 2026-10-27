@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { PawPrint, Search, MapPin, X, ArrowUpDown, ChevronRight, Brain, Sparkles, Star, Grid3X3, List, TrendingUp, Leaf, ArrowUpRight, Gamepad2, Check, Volume2, VolumeX } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useAnimals, Animal } from '@/hooks/useAnimals';
 import { useCategories } from '@/hooks/useCategories';
 import { useState, useMemo, useEffect, useRef } from 'react';
@@ -110,7 +110,7 @@ export default function Animals() {
       {/* ══════════ HERO HEADER ══════════ */}
       <AtmosphericHeader
         theme="fauna"
-        icon={<PawPrint className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" />}
+        icon={<AppIcon icon="PawPrint" className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" />}
         title={language === 'en' ? 'Animals & Education' : 'Satwa & Edukasi'}
         description={
           language === 'en'
@@ -118,22 +118,22 @@ export default function Animals() {
             : 'Temukan dan kenali lebih dekat satwa-satwa luar biasa serta program konservasi penghuni Ragunan'
         }
         breadcrumbs={[
-          { label: language === 'en' ? 'Explore' : 'Jelajahi', icon: <Leaf className="w-3 h-3" /> },
+          { label: language === 'en' ? 'Explore' : 'Jelajahi', icon: <AppIcon icon="Leaf" className="w-3 h-3" /> },
           { label: language === 'en' ? 'Fauna Collection' : 'Koleksi Fauna' },
         ]}
         stats={
           !loading
             ? [
                 {
-                  icon: <PawPrint className="w-3.5 h-3.5" />,
+                  icon: <AppIcon icon="PawPrint" className="w-3.5 h-3.5" />,
                   label: `${animals.length} ${language === 'en' ? 'Species' : 'Spesies'}`,
                 },
                 {
-                  icon: <Grid3X3 className="w-3.5 h-3.5" />,
+                  icon: <AppIcon icon="Grid3X3" className="w-3.5 h-3.5" />,
                   label: `${availableCategories.length} ${language === 'en' ? 'Categories' : 'Kategori'}`,
                 },
                 {
-                  icon: <Star className="w-3.5 h-3.5" />,
+                  icon: <AppIcon icon="Star" className="w-3.5 h-3.5" />,
                   label: `${animals.filter(a => a.is_featured).length} ${language === 'en' ? 'Featured' : 'Ikonik'}`,
                 },
               ]
@@ -163,11 +163,11 @@ export default function Animals() {
                   : 'bg-white/15 text-white group-hover:bg-amber-400 group-hover:text-amber-950'
               }`}
             >
-              <Brain className="w-5 h-5" />
+              <AppIcon icon="Brain" className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-white flex items-center gap-1.5">
-                <Gamepad2 className="w-4 h-4 text-emerald-300 shrink-0" />
+                <AppIcon icon="Gamepad2" className="w-4 h-4 text-emerald-300 shrink-0" />
                 <span>{language === 'en' ? 'Animal Quiz!' : 'Kuis Satwa!'}</span>
               </p>
               <p className="text-xs text-white/70">
@@ -175,8 +175,8 @@ export default function Animals() {
               </p>
             </div>
             <div className="flex items-center gap-1 text-white/70 group-hover:text-white transition-colors">
-              <Sparkles className="w-4 h-4 text-amber-300" />
-              <ChevronRight
+              <AppIcon icon="Sparkles" className="w-4 h-4 text-amber-300" />
+              <AppIcon icon="ChevronRight"
                 className={`w-4 h-4 transition-transform duration-200 ${
                   showQuiz ? 'rotate-90 text-amber-300' : 'group-hover:translate-x-0.5'
                 }`}
@@ -205,7 +205,7 @@ export default function Animals() {
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
           <div className="flex-1">
             <h2 className="text-base md:text-lg font-bold text-foreground flex items-center gap-2">
-              <PawPrint className="w-4 h-4 text-primary" />
+              <AppIcon icon="PawPrint" className="w-4 h-4 text-primary" />
               {language === 'en' ? 'Browse by Category' : 'Pilih Kategori'}
             </h2>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -217,7 +217,7 @@ export default function Animals() {
           <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 w-full sm:w-auto">
             {/* Search Input Box */}
             <div className="relative w-full sm:w-56 md:w-64 h-10 flex-shrink-0">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+              <AppIcon icon="Search" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
               <input
                 type="text"
                 placeholder={language === 'en' ? 'Search animals...' : 'Cari satwa...'}
@@ -231,7 +231,7 @@ export default function Animals() {
                   className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1 transition-colors"
                   aria-label="Clear search"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <AppIcon icon="X" className="w-3.5 h-3.5" />
                 </button>
               )}
             </div>
@@ -246,7 +246,7 @@ export default function Animals() {
                   }`} 
                   aria-label="Grid view"
                 >
-                  <Grid3X3 className="w-4 h-4" />
+                  <AppIcon icon="Grid3X3" className="w-4 h-4" />
                 </button>
                 <button 
                   onClick={() => setViewMode('list')} 
@@ -255,7 +255,7 @@ export default function Animals() {
                   }`} 
                   aria-label="List view"
                 >
-                  <List className="w-4 h-4" />
+                  <AppIcon icon="List" className="w-4 h-4" />
                 </button>
               </div>
 
@@ -265,7 +265,7 @@ export default function Animals() {
                   onClick={() => setShowSortMenu(!showSortMenu)}
                   className="flex items-center gap-1.5 h-10 px-3.5 bg-card border border-border rounded-xl hover:bg-muted hover:border-primary/40 transition-colors text-sm font-semibold whitespace-nowrap shadow-2xs text-foreground"
                 >
-                  <ArrowUpDown className="w-4 h-4 text-primary" />
+                  <AppIcon icon="ArrowUpDown" className="w-4 h-4 text-primary" />
                   <span>{getSortLabel(sortBy)}</span>
                 </button>
                 {showSortMenu && (
@@ -283,10 +283,10 @@ export default function Animals() {
                           }`}
                         >
                           <div className="flex items-center gap-2">
-                            {option === 'popularity' ? <TrendingUp className="w-4 h-4" /> : <ArrowUpDown className="w-4 h-4" />}
+                            {option === 'popularity' ? <AppIcon icon="TrendingUp" className="w-4 h-4" /> : <AppIcon icon="ArrowUpDown" className="w-4 h-4" />}
                             <span>{getSortLabel(option)}</span>
                           </div>
-                          {sortBy === option && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
+                          {sortBy === option && <AppIcon icon="Check" className="w-4 h-4 text-white stroke-[2.5]" />}
                         </button>
                       ))}
                     </div>
@@ -317,7 +317,7 @@ export default function Animals() {
                 ? 'bg-primary text-white shadow-md'
                 : 'bg-primary/10 text-primary group-hover:bg-primary/20 group-hover:scale-110'
             }`}>
-              <PawPrint className="w-7 h-7 md:w-8 md:h-8" />
+              <AppIcon icon="PawPrint" className="w-7 h-7 md:w-8 md:h-8" />
             </div>
             <div className="text-center w-full">
               <p className={`font-bold text-xs md:text-sm leading-tight ${selectedCategoryId === null ? 'text-primary' : 'text-foreground group-hover:text-primary'} transition-colors`}>
@@ -394,7 +394,7 @@ export default function Animals() {
               onClick={() => { setSelectedCategoryId(null); setSearchQuery(''); }}
               className="flex items-center gap-1 text-xs text-primary hover:underline font-medium"
             >
-              <X className="w-3 h-3" />
+              <AppIcon icon="X" className="w-3 h-3" />
               {language === 'en' ? 'Clear' : 'Hapus'}
             </button>
           </div>
@@ -465,7 +465,7 @@ export default function Animals() {
                         <span className="w-0.5 h-3 bg-white rounded-full animate-pulse delay-150" />
                       </span>
                     ) : (
-                      <Volume2 className="w-3.5 h-3.5" />
+                      <AppIcon icon="Volume2" className="w-3.5 h-3.5" />
                     )}
                   </button>
                 );
@@ -487,7 +487,7 @@ export default function Animals() {
                       badgeText={animal.status || undefined}
                       badgeVariant={badgeVariant}
                       metaLabel={animal.zone || animal.location || animal.habitat || undefined}
-                      metaIcon={<MapPin className="w-3 h-3 text-white/90" />}
+                      metaIcon={<AppIcon icon="MapPin" className="w-3 h-3 text-white/90" />}
                       isFeatured={animal.is_featured}
                       quickAudioAction={quickAudioButton}
                       aspectRatio="standard"
@@ -516,7 +516,7 @@ export default function Animals() {
 
                     {animal.is_featured && (
                       <div className="absolute top-2 left-2 flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-400 text-amber-950 shadow-sm backdrop-blur-md">
-                        <Sparkles className="w-2.5 h-2.5 fill-amber-900 text-amber-900" />
+                        <AppIcon icon="Sparkles" className="w-2.5 h-2.5 fill-amber-900 text-amber-900" />
                         <span>Ikonik</span>
                       </div>
                     )}
@@ -567,7 +567,7 @@ export default function Animals() {
                     <div className="flex items-center justify-between pt-3 mt-3 border-t border-border/50 text-xs">
                       {animal.location ? (
                         <div className="flex items-center gap-1.5 text-muted-foreground">
-                          <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                          <AppIcon icon="MapPin" className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                           <span className="truncate font-medium">{animal.location}</span>
                         </div>
                       ) : <div />}
@@ -583,14 +583,14 @@ export default function Animals() {
                               : 'bg-muted/70 hover:bg-muted text-foreground border-border/60 hover:border-primary/40'
                           }`}
                         >
-                          <Volume2 className={`w-3.5 h-3.5 ${playingAnimalId === animal.id ? 'animate-pulse' : ''}`} />
+                          <AppIcon icon="Volume2" className={`w-3.5 h-3.5 ${playingAnimalId === animal.id ? 'animate-pulse' : ''}`} />
                           <span className="text-[11px]">{playingAnimalId === animal.id ? (language === 'en' ? 'Stop' : 'Hentikan') : (language === 'en' ? 'Listen' : 'Suara')}</span>
                         </button>
 
                         <div className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground group-hover:text-primary transition-colors">
                           <span>{language === 'en' ? 'See Detail' : 'Lihat Detail'}</span>
                           <div className="w-6 h-6 rounded-full bg-muted/80 group-hover:bg-primary text-muted-foreground group-hover:text-primary-foreground flex items-center justify-center transition-all duration-300 shadow-2xs group-hover:scale-110">
-                            <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-45" />
+                            <AppIcon icon="ArrowUpRight" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-45" />
                           </div>
                         </div>
                       </div>
@@ -605,7 +605,7 @@ export default function Animals() {
         {!loading && filteredAndSortedAnimals.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center mb-4">
-              <PawPrint className="w-9 h-9 text-muted-foreground/40" />
+              <AppIcon icon="PawPrint" className="w-9 h-9 text-muted-foreground/40" />
             </div>
             <h3 className="font-semibold text-foreground mb-1">
               {language === 'en' ? 'No animals found' : 'Satwa tidak ditemukan'}
@@ -631,7 +631,7 @@ export default function Animals() {
         return (
           <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-2.5 rounded-full bg-slate-950/90 text-white border border-emerald-500/40 shadow-2xl backdrop-blur-xl animate-fade-in">
             <div className="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-              <Volume2 className="w-4 h-4 animate-pulse text-emerald-400" />
+              <AppIcon icon="Volume2" className="w-4 h-4 animate-pulse text-emerald-400" />
             </div>
             <div className="text-xs">
               <p className="font-bold text-white leading-none">{currentName}</p>

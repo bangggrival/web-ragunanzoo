@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, MapPin, Sparkles, Tag } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import LazyImage from '@/components/ui/LazyImage';
 import { cn } from '@/lib/utils';
 
@@ -128,7 +128,7 @@ export default function ModernMediaCard({
               badgeTopRight
             ) : isFeatured ? (
               <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400 text-amber-950 text-[10px] font-extrabold tracking-wider uppercase shadow-md backdrop-blur-md pointer-events-none shrink-0">
-                <Sparkles className="w-3 h-3 text-amber-900 fill-amber-900 shrink-0" />
+                <AppIcon icon="solar:magic-stick-3-bold-duotone" className="w-3 h-3 text-amber-900 shrink-0" />
                 <span>Ikonik</span>
               </div>
             ) : null}
@@ -140,7 +140,7 @@ export default function ModernMediaCard({
           <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3 sm:left-3.5 sm:right-3.5 z-10 flex items-center justify-between gap-2 pointer-events-none">
             {metaLabel ? (
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/45 backdrop-blur-md text-white/95 text-[11px] font-medium border border-white/15 shadow-sm">
-                {metaIcon || <MapPin className="w-3 h-3 text-primary-foreground/90" />}
+                {metaIcon || <AppIcon icon="solar:map-point-bold-duotone" className="w-3 h-3 text-primary-foreground/90" />}
                 <span className="truncate max-w-[160px] sm:max-w-[200px]">{metaLabel}</span>
               </div>
             ) : <div />}
@@ -184,7 +184,7 @@ export default function ModernMediaCard({
                   key={idx}
                   className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted text-[10px] font-medium text-muted-foreground border border-border/50"
                 >
-                  <Tag className="w-2.5 h-2.5 text-muted-foreground/70" />
+                  <AppIcon name="solar:tag-linear" className="w-2.5 h-2.5 text-muted-foreground/70" />
                   <span>{tag}</span>
                 </span>
               ))}
@@ -203,7 +203,7 @@ export default function ModernMediaCard({
 
             {/* Micro Action Button Circle */}
             <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-muted/80 group-hover:bg-primary text-muted-foreground group-hover:text-primary-foreground flex items-center justify-center transition-all duration-300 shadow-2xs group-hover:scale-110 group-hover:translate-x-0.5">
-              {actionIcon || <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-45" />}
+              {actionIcon || <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-45" />}
             </div>
           </div>
         )}

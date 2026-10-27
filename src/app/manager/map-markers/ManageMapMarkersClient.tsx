@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
-import { MapPin, Save, Plus, Trash2, GripVertical, ImageOff, MousePointer2, X, LayoutTemplate } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -257,7 +257,7 @@ export default function ManageMapMarkersClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <LayoutTemplate className="w-5 h-5 text-green-500" />
+              <AppIcon icon="LayoutTemplate" className="w-5 h-5 text-green-500" />
             </div>
             Kelola Marker Peta
           </h1>
@@ -267,17 +267,17 @@ export default function ManageMapMarkersClient() {
         <div className="flex gap-3">
           {isClickToPlaceMode ? (
             <button onClick={cancelClickToPlaceMode} className="flex items-center justify-center gap-2 bg-white text-slate-600 border border-slate-200 px-5 py-2.5 rounded-xl hover:bg-slate-50 transition-all duration-300 font-bold shadow-sm">
-              <X className="w-4 h-4" />
+              <AppIcon icon="X" className="w-4 h-4" />
               Batal Mode Tandai
             </button>
           ) : (
             <button onClick={startClickToPlaceMode} className="flex items-center justify-center gap-2 bg-white text-green-600 border border-green-200 px-5 py-2.5 rounded-xl hover:bg-green-50 transition-all duration-300 font-bold shadow-sm">
-              <MousePointer2 className="w-4 h-4" />
+              <AppIcon icon="MousePointer2" className="w-4 h-4" />
               Klik untuk Tandai
             </button>
           )}
           <button onClick={() => { setNewMarker({ id: '', name: '', name_en: '', color: '#6366f1', position_x: 50, position_y: 50, description: '', description_en: '', is_active: true }); setIsCreateDialogOpen(true); }} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(99,102,241,0.5)] hover:-translate-y-0.5">
-            <Plus className="w-5 h-5" />
+            <AppIcon icon="Plus" className="w-5 h-5" />
             Tambah Zona Manual
           </button>
         </div>
@@ -286,7 +286,7 @@ export default function ManageMapMarkersClient() {
       {isClickToPlaceMode && (
         <div className="p-5 rounded-2xl bg-green-50/50 border border-green-200 flex items-center gap-4 animate-pulse">
           <div className="p-3 rounded-xl bg-green-100 border border-green-200 shadow-sm">
-            <MousePointer2 className="w-6 h-6 text-green-600" />
+            <AppIcon icon="MousePointer2" className="w-6 h-6 text-green-600" />
           </div>
           <div>
             <p className="font-bold text-green-900 text-lg">Mode Klik untuk Tandai Aktif</p>
@@ -299,7 +299,7 @@ export default function ManageMapMarkersClient() {
         <div className="lg:col-span-2">
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[2rem] shadow-sm">
             <h3 className="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-green-500" />
+              <AppIcon icon="MapPin" className="w-5 h-5 text-green-500" />
               Peta Interaktif
             </h3>
             
@@ -321,7 +321,7 @@ export default function ManageMapMarkersClient() {
                   <div className="absolute transform -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none" style={{ left: `${previewPosition.x}%`, top: `${previewPosition.y}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="p-2 rounded-full shadow-lg border-2 border-white ring-4 ring-green-500/50 bg-green-500">
-                        <Plus className="w-4 h-4 text-white" />
+                        <AppIcon icon="Plus" className="w-4 h-4 text-white" />
                       </div>
                     </div>
                   </div>
@@ -342,7 +342,7 @@ export default function ManageMapMarkersClient() {
                     >
                       <div className="flex flex-col items-center">
                         <div className={cn("w-8 h-8 rounded-full shadow-lg border-2 border-white flex items-center justify-center", selectedMarker?.id === marker.id && "ring-4 ring-offset-1")} style={{ backgroundColor: marker.color, '--tw-ring-color': marker.color } as any}>
-                          <MapPin className="w-4 h-4 text-white" />
+                          <AppIcon icon="MapPin" className="w-4 h-4 text-white" />
                         </div>
                         <div className="mt-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider text-white shadow-lg border border-white/20 backdrop-blur-sm" style={{ backgroundColor: marker.color }}>
                           {marker.name}
@@ -354,7 +354,7 @@ export default function ManageMapMarkersClient() {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center h-64 bg-slate-50 rounded-[1.5rem] border border-slate-100">
-                <ImageOff className="w-12 h-12 text-slate-300 mb-3" />
+                <AppIcon icon="ImageOff" className="w-12 h-12 text-slate-300 mb-3" />
                 <p className="font-bold text-slate-600">Peta belum diupload</p>
                 <p className="text-xs font-medium text-slate-500">Upload gambar peta terlebih dahulu di Pengaturan Website.</p>
               </div>
@@ -374,7 +374,7 @@ export default function ManageMapMarkersClient() {
                 <div key={marker.id} onClick={() => setSelectedMarker(marker)} className={cn("p-4 rounded-xl border-2 transition-all cursor-pointer", selectedMarker?.id === marker.id ? 'border-green-500 bg-green-50/50 shadow-md' : 'border-slate-100 hover:border-slate-300 bg-white hover:bg-slate-50')}>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-inner border border-white/50 shrink-0" style={{ backgroundColor: marker.color }}>
-                      <MapPin className="w-5 h-5 text-white drop-shadow-md" />
+                      <AppIcon icon="MapPin" className="w-5 h-5 text-white drop-shadow-md" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-bold text-slate-800 text-sm truncate">{marker.name}</h4>
@@ -403,7 +403,7 @@ export default function ManageMapMarkersClient() {
               <div className="flex items-center justify-between mb-6">
                 <h3 className="font-bold text-lg text-slate-800">Edit Zona</h3>
                 <button onClick={() => handleDeleteMarker(selectedMarker.id)} className="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-100 rounded-lg transition-colors">
-                  <Trash2 className="w-4 h-4" />
+                  <AppIcon icon="Trash2" className="w-4 h-4" />
                 </button>
               </div>
               
@@ -469,12 +469,12 @@ export default function ManageMapMarkersClient() {
             <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-white/50">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center border border-green-100">
-                  <Plus className="w-5 h-5 text-green-500" />
+                  <AppIcon icon="Plus" className="w-5 h-5 text-green-500" />
                 </div>
                 <h2 className="text-xl font-bold text-slate-800">Tambah Zona Baru</h2>
               </div>
               <button onClick={() => setIsCreateDialogOpen(false)} className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
-                <X className="w-5 h-5 text-slate-400" />
+                <AppIcon icon="X" className="w-5 h-5 text-slate-400" />
               </button>
             </div>
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Image, FolderOpen, Upload, X, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import GalleryPicker from './GalleryPicker';
 import { useMediaGallery } from '@/hooks/useMediaGallery';
 import { cn } from '@/lib/utils';
@@ -66,7 +66,7 @@ export default function ImageInputWithGallery({
             onClick={() => onChange('')}
             className="absolute top-2 right-2 p-1.5 bg-destructive text-white rounded-full hover:bg-destructive/90"
           >
-            <X className="w-4 h-4" />
+            <AppIcon name="solar:close-circle-bold" className="w-4 h-4" />
           </button>
         </div>
       )}
@@ -74,7 +74,7 @@ export default function ImageInputWithGallery({
       {/* Input Area */}
       <div className="flex gap-2">
         <div className="relative flex-1">
-          <Image className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <AppIcon name="solar:gallery-bold-duotone" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
             value={value}
@@ -91,15 +91,15 @@ export default function ImageInputWithGallery({
           className="flex items-center gap-2 px-3 py-2.5 border border-border rounded-lg hover:bg-muted transition-colors"
           title="Pilih dari galeri"
         >
-          <FolderOpen className="w-4 h-4" />
+          <AppIcon name="solar:folder-with-files-bold-duotone" className="w-4 h-4" />
         </button>
 
         {/* Upload Button */}
         <label className="flex items-center gap-2 px-3 py-2.5 bg-primary text-primary-foreground rounded-lg cursor-pointer hover:bg-primary/90 transition-colors">
           {uploading ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
           ) : (
-            <Upload className="w-4 h-4" />
+            <AppIcon name="solar:upload-track-bold-duotone" className="w-4 h-4" />
           )}
           <input
             type="file"

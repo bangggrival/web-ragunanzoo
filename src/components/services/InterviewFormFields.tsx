@@ -2,7 +2,7 @@ import React from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Calendar as CalendarIcon } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import AvailabilityCalendar from './AvailabilityCalendar';
 
 interface InterviewFormData {
@@ -119,7 +119,7 @@ export default function InterviewFormFields({ formData, language, onInputChange 
 
       <div className="space-y-2">
         <Label className="flex items-center gap-2">
-          <CalendarIcon className="w-4 h-4 text-muted-foreground" />
+          <AppIcon name="solar:calendar-bold-duotone" className="w-4 h-4 text-muted-foreground" />
           {txt.interviewDate} *
         </Label>
         <p className="text-xs text-muted-foreground mb-2">{txt.availabilityNote}</p>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Check, Lock, ChevronDown, ExternalLink, Settings2, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -123,7 +123,7 @@ export default function UserAccessPopover({
   if (role === 'admin') {
     return (
       <div className="flex items-center gap-1">
-        <Check className="w-3 h-3 text-primary" />
+        <AppIcon name="solar:check-read-linear" className="w-3 h-3 text-primary" />
         <span className="text-xs text-muted-foreground">Akses Penuh</span>
       </div>
     );
@@ -143,24 +143,24 @@ export default function UserAccessPopover({
         <button className="flex items-center gap-1 text-left hover:bg-muted/50 px-2 py-1 rounded-md transition-colors">
           {permissionsCount > 0 ? (
             <>
-              <Lock className="w-3 h-3 text-destructive" />
+              <AppIcon name="solar:lock-bold" className="w-3 h-3 text-destructive" />
               <span className="text-xs text-destructive font-medium">
                 {permissionsCount} dibatasi
               </span>
             </>
           ) : (
             <>
-              <Check className="w-3 h-3 text-primary" />
+              <AppIcon name="solar:check-read-linear" className="w-3 h-3 text-primary" />
               <span className="text-xs text-muted-foreground">Akses Penuh</span>
             </>
           )}
-          <ChevronDown className="w-3 h-3 text-muted-foreground" />
+          <AppIcon name="solar:alt-arrow-down-linear" className="w-3 h-3 text-muted-foreground" />
         </button>
       </PopoverTrigger>
       <PopoverContent align="start" className="w-80 p-0" sideOffset={5}>
         <div className="p-3 border-b bg-muted/30">
           <div className="flex items-center gap-2 mb-1">
-            <Settings2 className="w-4 h-4 text-primary" />
+            <AppIcon name="solar:settings-bold-duotone" className="w-4 h-4 text-primary" />
             <p className="text-sm font-medium">Akses Halaman</p>
           </div>
           <p className="text-xs text-muted-foreground">
@@ -212,9 +212,9 @@ export default function UserAccessPopover({
                     />
                   ) : (
                     permissions[page.key] ? (
-                      <Check className="w-4 h-4 text-primary shrink-0" />
+                      <AppIcon name="solar:check-read-linear" className="w-4 h-4 text-primary shrink-0" />
                     ) : (
-                      <Lock className="w-4 h-4 text-destructive/70 shrink-0" />
+                      <AppIcon name="solar:lock-bold" className="w-4 h-4 text-destructive/70 shrink-0" />
                     )
                   )}
                   <label
@@ -235,7 +235,7 @@ export default function UserAccessPopover({
                   className="p-1.5 hover:bg-muted rounded transition-colors shrink-0 opacity-50 hover:opacity-100"
                   title={`Buka ${page.label}`}
                 >
-                  <ExternalLink className="w-3.5 h-3.5 text-muted-foreground" />
+                  <AppIcon name="solar:arrow-right-up-linear" className="w-3.5 h-3.5 text-muted-foreground" />
                 </button>
               </div>
             ))}
@@ -259,7 +259,7 @@ export default function UserAccessPopover({
               className="min-w-[80px]"
             >
               {saving ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <AppIcon name="solar:spinner-linear" className="w-4 h-4 animate-spin" />
               ) : (
                 'Simpan'
               )}

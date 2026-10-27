@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
-import { Loader2, Save, Ticket, Eye, EyeOff, Link as LinkIcon, MessageCircle, Building2, Upload, X, Image as ImageIcon, Clock, LayoutTemplate } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,8 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { SiteSettings } from '@/hooks/useSiteSettings';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
-import { icons } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
 import { updateSiteSettingsAction } from '../branding/actions'; // Reusing action
 
 const TICKET_ICON_OPTIONS = [
@@ -291,14 +289,14 @@ export default function ManageFloatingButtonClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <LayoutTemplate className="w-5 h-5 text-green-500" />
+              <AppIcon icon="LayoutTemplate" className="w-5 h-5 text-green-500" />
             </div>
             Pengaturan Tombol & Kontak
           </h1>
           <p className="text-slate-500 font-medium mt-1 ml-13">Kelola widget tombol tiket, tombol Chat Us, dan kontak WhatsApp</p>
         </div>
         <button onClick={handleSave} disabled={saving} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-6 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(99,102,241,0.5)] hover:-translate-y-0.5 disabled:opacity-50">
-          {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
+          {saving ? <AppIcon icon="Loader2" className="w-5 h-5 animate-spin" /> : <AppIcon icon="Save" className="w-5 h-5" />}
           {saving ? 'Menyimpan...' : 'Simpan Perubahan'}
         </button>
       </div>
@@ -308,14 +306,14 @@ export default function ManageFloatingButtonClient() {
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm">
             <h3 className="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-100 pb-4">
               <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-                <Ticket className="w-4 h-4 text-green-500" />
+                <AppIcon icon="Ticket" className="w-4 h-4 text-green-500" />
               </div>
               Tombol Tiket Mengambang
             </h3>
 
             <div className="flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-xl mb-6">
               <div className="flex items-center gap-3">
-                {ticketEnabled ? <Eye className="w-5 h-5 text-green-500" /> : <EyeOff className="w-5 h-5 text-slate-400" />}
+                {ticketEnabled ? <AppIcon icon="Eye" className="w-5 h-5 text-green-500" /> : <AppIcon icon="EyeOff" className="w-5 h-5 text-slate-400" />}
                 <div>
                   <Label htmlFor="ticketEnabled" className="text-sm font-bold text-slate-800 cursor-pointer">Tampilkan Tombol</Label>
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{ticketEnabled ? 'Aktif di halaman Explorer' : 'Disembunyikan'}</p>
@@ -340,12 +338,12 @@ export default function ManageFloatingButtonClient() {
               <RadioGroup value={ticketIconType} onValueChange={(v) => setTicketIconType(v as 'lucide' | 'custom')} className="grid grid-cols-2 gap-3" disabled={!ticketEnabled}>
                 <Label htmlFor="icon-type-lucide" className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 cursor-pointer transition-all ${ticketIconType === 'lucide' ? 'border-green-500 bg-green-50' : 'border-slate-200 hover:border-green-200'} ${!ticketEnabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                   <RadioGroupItem value="lucide" id="icon-type-lucide" className="sr-only" />
-                  <Ticket className={`w-6 h-6 ${ticketIconType === 'lucide' ? 'text-green-600' : 'text-slate-400'}`} />
+                  <AppIcon icon="Ticket" className={`w-6 h-6 ${ticketIconType === 'lucide' ? 'text-green-600' : 'text-slate-400'}`} />
                   <span className={`text-xs font-bold ${ticketIconType === 'lucide' ? 'text-green-700' : 'text-slate-500'}`}>Icon Bawaan</span>
                 </Label>
                 <Label htmlFor="icon-type-custom" className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 cursor-pointer transition-all ${ticketIconType === 'custom' ? 'border-green-500 bg-green-50' : 'border-slate-200 hover:border-green-200'} ${!ticketEnabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                   <RadioGroupItem value="custom" id="icon-type-custom" className="sr-only" />
-                  <ImageIcon className={`w-6 h-6 ${ticketIconType === 'custom' ? 'text-green-600' : 'text-slate-400'}`} />
+                  <AppIcon icon="Image" className={`w-6 h-6 ${ticketIconType === 'custom' ? 'text-green-600' : 'text-slate-400'}`} />
                   <span className={`text-xs font-bold ${ticketIconType === 'custom' ? 'text-green-700' : 'text-slate-500'}`}>Upload Gambar</span>
                 </Label>
               </RadioGroup>
@@ -358,21 +356,17 @@ export default function ManageFloatingButtonClient() {
                   <SelectTrigger className="w-full bg-slate-50 border-slate-200 rounded-xl h-11">
                     <SelectValue>
                       <div className="flex items-center gap-2">
-                        {(() => {
-                          const IconComp = icons[ticketIcon as keyof typeof icons] as LucideIcon;
-                          return IconComp ? <IconComp className="w-4 h-4 text-slate-600" /> : null;
-                        })()}
+                        <AppIcon icon={ticketIcon} className="w-4 h-4 text-slate-600" />
                         <span className="font-bold text-slate-700">{TICKET_ICON_OPTIONS.find(o => o.value === ticketIcon)?.label || ticketIcon}</span>
                       </div>
                     </SelectValue>
                   </SelectTrigger>
                   <SelectContent className="rounded-xl border-slate-200">
                     {TICKET_ICON_OPTIONS.map((option) => {
-                      const IconComp = icons[option.value as keyof typeof icons] as LucideIcon;
                       return (
                         <SelectItem key={option.value} value={option.value} className="focus:bg-slate-100 cursor-pointer rounded-lg">
                           <div className="flex items-center gap-2 font-medium">
-                            {IconComp && <IconComp className="w-4 h-4 text-slate-500" />}
+                            <AppIcon icon={option.value} className="w-4 h-4 text-slate-500" />
                             <span>{option.label}</span>
                           </div>
                         </SelectItem>
@@ -396,17 +390,17 @@ export default function ManageFloatingButtonClient() {
                       <p className="text-[10px] font-bold text-green-600 uppercase tracking-wider mt-0.5">Berhasil diupload</p>
                     </div>
                     <button type="button" onClick={handleRemoveTicketIcon} disabled={!ticketEnabled} className="w-8 h-8 rounded-lg flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-100 transition-colors">
-                      <X className="w-4 h-4" />
+                      <AppIcon icon="X" className="w-4 h-4" />
                     </button>
                   </div>
                 ) : (
                   <button type="button" onClick={() => ticketEnabled && ticketIconInputRef.current?.click()} disabled={!ticketEnabled || uploadingTicketIcon} className={`w-full p-6 border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-3 transition-all ${ticketEnabled ? 'border-slate-300 hover:border-green-400 bg-slate-50 hover:bg-green-50/50' : 'border-slate-200 bg-slate-50 opacity-50 cursor-not-allowed'}`}>
                     {uploadingTicketIcon ? (
-                      <Loader2 className="w-8 h-8 animate-spin text-green-500" />
+                      <AppIcon icon="Loader2" className="w-8 h-8 animate-spin text-green-500" />
                     ) : (
                       <>
                         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm border border-slate-100">
-                          <Upload className="w-5 h-5 text-slate-400" />
+                          <AppIcon icon="Upload" className="w-5 h-5 text-slate-400" />
                         </div>
                         <div>
                           <p className="text-sm font-bold text-slate-700">Klik untuk upload icon</p>
@@ -453,7 +447,7 @@ export default function ManageFloatingButtonClient() {
             </div>
 
             <div className="space-y-1.5 mb-6 pt-6 border-t border-slate-100">
-              <Label htmlFor="ticketUrl" className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2"><LinkIcon className="w-3.5 h-3.5" /> URL Tiket Eksternal</Label>
+              <Label htmlFor="ticketUrl" className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2"><AppIcon icon="Link" className="w-3.5 h-3.5" /> URL Tiket Eksternal</Label>
               <Input id="ticketUrl" value={ticketUrl} onChange={e => setTicketUrl(e.target.value)} placeholder="https://ragunanzoo.agathis.fun/" type="url" disabled={!ticketEnabled} className="bg-slate-50 border-slate-200 rounded-xl focus-visible:ring-green-500" />
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1">Pengunjung akan diarahkan ke link ini saat klik tombol.</p>
             </div>
@@ -461,7 +455,7 @@ export default function ManageFloatingButtonClient() {
             <div className="pt-6 border-t border-slate-100">
               <div className="flex items-center justify-between p-4 bg-amber-50 border border-amber-100 rounded-xl mb-4">
                 <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-amber-500" />
+                  <AppIcon icon="Clock" className="w-5 h-5 text-amber-500" />
                   <div>
                     <Label className="text-sm font-bold text-amber-900 cursor-pointer">Gunakan Jadwal Operasional</Label>
                     <p className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">Batasi waktu tampil tombol</p>
@@ -489,14 +483,14 @@ export default function ManageFloatingButtonClient() {
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm">
             <h3 className="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-100 pb-4">
               <div className="w-8 h-8 rounded-lg bg-teal-50 flex items-center justify-center">
-                <Ticket className="w-4 h-4 text-teal-500" />
+                <AppIcon icon="Ticket" className="w-4 h-4 text-teal-500" />
               </div>
               Tombol Beli Tiket (Di Bawah Hero)
             </h3>
 
             <div className="flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-xl mb-6">
               <div className="flex items-center gap-3">
-                {heroTicketEnabled ? <Eye className="w-5 h-5 text-teal-500" /> : <EyeOff className="w-5 h-5 text-slate-400" />}
+                {heroTicketEnabled ? <AppIcon icon="Eye" className="w-5 h-5 text-teal-500" /> : <AppIcon icon="EyeOff" className="w-5 h-5 text-slate-400" />}
                 <div>
                   <Label htmlFor="heroTicketEnabled" className="text-sm font-bold text-slate-800 cursor-pointer">Tampilkan Tombol</Label>
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{heroTicketEnabled ? 'Aktif di bawah Hero Banner' : 'Disembunyikan'}</p>
@@ -507,7 +501,7 @@ export default function ManageFloatingButtonClient() {
 
             <div className="flex items-center justify-between p-4 bg-amber-50 border border-amber-100 rounded-xl mb-4">
               <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-amber-500" />
+                <AppIcon icon="Clock" className="w-5 h-5 text-amber-500" />
                 <div>
                   <Label className="text-sm font-bold text-amber-900 cursor-pointer">Gunakan Jadwal Operasional</Label>
                   <p className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">Batasi waktu tampil tombol</p>
@@ -535,14 +529,14 @@ export default function ManageFloatingButtonClient() {
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm">
             <h3 className="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-100 pb-4">
               <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-                <MessageCircle className="w-4 h-4 text-green-500" />
+                <AppIcon icon="MessageCircle" className="w-4 h-4 text-green-500" />
               </div>
               Tombol Chat Us (WhatsApp)
             </h3>
             
             <div className="flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-xl mb-6">
               <div className="flex items-center gap-3">
-                {chatUsEnabled ? <Eye className="w-5 h-5 text-green-500" /> : <EyeOff className="w-5 h-5 text-slate-400" />}
+                {chatUsEnabled ? <AppIcon icon="Eye" className="w-5 h-5 text-green-500" /> : <AppIcon icon="EyeOff" className="w-5 h-5 text-slate-400" />}
                 <div>
                   <Label htmlFor="chatUsEnabled" className="text-sm font-bold text-slate-800 cursor-pointer">Tampilkan Tombol Chat Us</Label>
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{chatUsEnabled ? 'Tampil di bawah tombol tiket' : 'Disembunyikan'}</p>
@@ -585,13 +579,13 @@ export default function ManageFloatingButtonClient() {
                       <img src={chatUsIconUrl} alt="Chat Icon" className="max-w-full max-h-full object-contain" />
                     </div>
                     <Button type="button" variant="ghost" size="sm" onClick={handleRemoveIcon} disabled={!chatUsEnabled} className="text-rose-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg h-8">
-                      <X className="w-4 h-4 mr-1" /> Hapus Icon
+                      <AppIcon icon="X" className="w-4 h-4 mr-1" /> Hapus Icon
                     </Button>
                   </div>
                 ) : (
                   <div className="flex-1 flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
                     <div className="w-10 h-10 bg-white rounded-lg border border-slate-100 flex items-center justify-center shadow-sm">
-                      <MessageCircle className="w-5 h-5 text-green-500" />
+                      <AppIcon icon="MessageCircle" className="w-5 h-5 text-green-500" />
                     </div>
                     <span className="text-xs font-bold text-slate-500">Icon WhatsApp Bawaan</span>
                   </div>
@@ -600,7 +594,7 @@ export default function ManageFloatingButtonClient() {
                 <div className="shrink-0">
                   <input ref={fileInputRef} type="file" accept="image/*" onChange={handleIconUpload} className="hidden" disabled={!chatUsEnabled} />
                   <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()} disabled={uploadingIcon || !chatUsEnabled} className="h-full rounded-xl border-slate-200 hover:bg-slate-50 bg-white font-bold">
-                    {uploadingIcon ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Upload className="w-4 h-4 mr-2" />}
+                    {uploadingIcon ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin mr-2" /> : <AppIcon icon="Upload" className="w-4 h-4 mr-2" />}
                     {uploadingIcon ? '...' : 'Upload'}
                   </Button>
                 </div>
@@ -611,7 +605,7 @@ export default function ManageFloatingButtonClient() {
             <div className="pt-6 border-t border-slate-100">
               <div className="flex items-center justify-between p-4 bg-amber-50 border border-amber-100 rounded-xl mb-4">
                 <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-amber-500" />
+                  <AppIcon icon="Clock" className="w-5 h-5 text-amber-500" />
                   <div>
                     <Label className="text-sm font-bold text-amber-900 cursor-pointer">Jadwal Chat Us</Label>
                     <p className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">Tampilkan sesuai jam kerja</p>
@@ -638,7 +632,7 @@ export default function ManageFloatingButtonClient() {
           <div className="bg-white/60 backdrop-blur-xl border border-white/80 p-6 rounded-[1.5rem] shadow-sm">
             <h3 className="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-100 pb-4">
               <div className="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center">
-                <Building2 className="w-4 h-4 text-orange-500" />
+                <AppIcon icon="Building2" className="w-4 h-4 text-orange-500" />
               </div>
               Kontak Sewa Tempat (Venue)
             </h3>

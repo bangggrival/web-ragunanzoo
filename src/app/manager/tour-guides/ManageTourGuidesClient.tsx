@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Users, MapPin, Calendar, Image, Plus, Pencil, Trash2, Star, Loader2, Eye, CheckCircle, XCircle, Clock, Compass } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -456,7 +456,7 @@ export default function ManageTourGuidesClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <Compass className="w-5 h-5 text-green-500" />
+              <AppIcon icon="Compass" className="w-5 h-5 text-green-500" />
             </div>
             Kelola Pemandu Wisata
           </h1>
@@ -467,19 +467,19 @@ export default function ManageTourGuidesClient() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-4 bg-slate-100 p-1 rounded-2xl border border-slate-200 h-auto">
           <TabsTrigger value="guides" className="py-2.5 rounded-xl font-bold data-[state=active]:bg-white data-[state=active]:text-green-600 data-[state=active]:shadow-sm">
-            <Users className="w-4 h-4 md:mr-2" />
+            <AppIcon icon="Users" className="w-4 h-4 md:mr-2" />
             {!isMobile && 'Pemandu'}
           </TabsTrigger>
           <TabsTrigger value="packages" className="py-2.5 rounded-xl font-bold data-[state=active]:bg-white data-[state=active]:text-green-600 data-[state=active]:shadow-sm">
-            <MapPin className="w-4 h-4 md:mr-2" />
+            <AppIcon icon="MapPin" className="w-4 h-4 md:mr-2" />
             {!isMobile && 'Paket Tur'}
           </TabsTrigger>
           <TabsTrigger value="bookings" className="py-2.5 rounded-xl font-bold data-[state=active]:bg-white data-[state=active]:text-green-600 data-[state=active]:shadow-sm">
-            <Calendar className="w-4 h-4 md:mr-2" />
+            <AppIcon icon="Calendar" className="w-4 h-4 md:mr-2" />
             {!isMobile && 'Booking'}
           </TabsTrigger>
           <TabsTrigger value="gallery" className="py-2.5 rounded-xl font-bold data-[state=active]:bg-white data-[state=active]:text-green-600 data-[state=active]:shadow-sm">
-            <Image className="w-4 h-4 md:mr-2" />
+            <AppIcon icon="Image" className="w-4 h-4 md:mr-2" />
             {!isMobile && 'Galeri'}
           </TabsTrigger>
         </TabsList>
@@ -488,10 +488,10 @@ export default function ManageTourGuidesClient() {
         <TabsContent value="guides" className="space-y-6 mt-6">
           <div className="flex justify-between items-center bg-white/60 backdrop-blur-xl border border-white/80 p-4 rounded-[1.5rem] shadow-sm">
             <h2 className="font-bold text-slate-800 flex items-center gap-2">
-              <Users className="w-5 h-5 text-green-500" /> Daftar Pemandu
+              <AppIcon icon="Users" className="w-5 h-5 text-green-500" /> Daftar Pemandu
             </h2>
             <button onClick={() => { setEditingGuide(null); setShowGuideModal(true); }} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-4 py-2 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:-translate-y-0.5 text-sm">
-              <Plus className="w-4 h-4" />
+              <AppIcon icon="Plus" className="w-4 h-4" />
               <span className="hidden sm:inline">Tambah Pemandu</span>
             </button>
           </div>
@@ -519,7 +519,7 @@ export default function ManageTourGuidesClient() {
                           </Badge>
                         </div>
                         <div className="flex items-center gap-1 text-sm text-amber-500 font-bold mb-1">
-                          <Star className="w-3.5 h-3.5 fill-current" />
+                          <AppIcon icon="Star" className="w-3.5 h-3.5 fill-current" />
                           {guide.rating || 5.0}
                         </div>
                         <p className="text-sm text-green-600 font-bold">{formatCurrency(guide.hourly_rate)} <span className="text-slate-400 font-medium">/jam</span></p>
@@ -527,11 +527,11 @@ export default function ManageTourGuidesClient() {
                     </div>
                     <div className="flex gap-2 mt-4 pt-4 border-t border-slate-50">
                       <Button size="sm" variant="outline" className="flex-1 rounded-lg border-slate-200" onClick={() => openEditGuide(guide)}>
-                        <Pencil className="w-3 h-3 mr-1" /> Edit
+                        <AppIcon icon="Pencil" className="w-3 h-3 mr-1" /> Edit
                       </Button>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button size="sm" variant="outline" className="rounded-lg border-slate-200 text-rose-500 hover:text-rose-600 hover:bg-rose-50"><Trash2 className="w-4 h-4" /></Button>
+                          <Button size="sm" variant="outline" className="rounded-lg border-slate-200 text-rose-500 hover:text-rose-600 hover:bg-rose-50"><AppIcon icon="Trash2" className="w-4 h-4" /></Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent className="rounded-[2rem]">
                           <AlertDialogHeader>
@@ -579,7 +579,7 @@ export default function ManageTourGuidesClient() {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-1 text-amber-500 font-bold">
-                          <Star className="w-4 h-4 fill-current" />
+                          <AppIcon icon="Star" className="w-4 h-4 fill-current" />
                           {guide.rating || 5.0}
                         </div>
                       </TableCell>
@@ -594,11 +594,11 @@ export default function ManageTourGuidesClient() {
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
                           <Button size="icon" variant="outline" className="w-8 h-8 rounded-lg border-slate-200 hover:bg-slate-50" onClick={() => openEditGuide(guide)}>
-                            <Pencil className="w-4 h-4 text-slate-600" />
+                            <AppIcon icon="Pencil" className="w-4 h-4 text-slate-600" />
                           </Button>
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <Button size="icon" variant="outline" className="w-8 h-8 rounded-lg border-slate-200 hover:bg-rose-50 text-rose-500 hover:border-rose-200"><Trash2 className="w-4 h-4" /></Button>
+                              <Button size="icon" variant="outline" className="w-8 h-8 rounded-lg border-slate-200 hover:bg-rose-50 text-rose-500 hover:border-rose-200"><AppIcon icon="Trash2" className="w-4 h-4" /></Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent className="rounded-[2rem]">
                               <AlertDialogHeader>
@@ -643,10 +643,10 @@ export default function ManageTourGuidesClient() {
         <TabsContent value="packages" className="space-y-6 mt-6">
           <div className="flex justify-between items-center bg-white/60 backdrop-blur-xl border border-white/80 p-4 rounded-[1.5rem] shadow-sm">
             <h2 className="font-bold text-slate-800 flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-green-500" /> Daftar Paket Tur
+              <AppIcon icon="MapPin" className="w-5 h-5 text-green-500" /> Daftar Paket Tur
             </h2>
             <button onClick={() => { resetPackageForm(); setShowPackageModal(true); }} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-4 py-2 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:-translate-y-0.5 text-sm">
-              <Plus className="w-4 h-4" />
+              <AppIcon icon="Plus" className="w-4 h-4" />
               <span className="hidden sm:inline">Tambah Paket</span>
             </button>
           </div>
@@ -656,11 +656,11 @@ export default function ManageTourGuidesClient() {
               <div key={pkg.id} className="bg-white/60 backdrop-blur-xl border border-white/80 rounded-[1.5rem] shadow-sm p-6 hover:shadow-md transition-all group flex flex-col h-full relative overflow-hidden">
                 <div className="absolute top-4 right-4 z-10 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Button variant="outline" size="icon" className="w-8 h-8 rounded-lg border-slate-200 bg-white/90 hover:bg-white text-slate-600 hover:text-green-600 shadow-sm backdrop-blur-sm" onClick={() => openEditPackage(pkg)}>
-                    <Pencil className="w-4 h-4" />
+                    <AppIcon icon="Pencil" className="w-4 h-4" />
                   </Button>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="outline" size="icon" className="w-8 h-8 rounded-lg border-slate-200 bg-white/90 hover:bg-rose-50 text-slate-600 hover:text-rose-600 hover:border-rose-200 shadow-sm backdrop-blur-sm"><Trash2 className="w-4 h-4" /></Button>
+                      <Button variant="outline" size="icon" className="w-8 h-8 rounded-lg border-slate-200 bg-white/90 hover:bg-rose-50 text-slate-600 hover:text-rose-600 hover:border-rose-200 shadow-sm backdrop-blur-sm"><AppIcon icon="Trash2" className="w-4 h-4" /></Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="rounded-[2rem]">
                       <AlertDialogHeader>
@@ -683,12 +683,12 @@ export default function ManageTourGuidesClient() {
                 
                 <div className="bg-slate-50 rounded-xl p-3 border border-slate-100 flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2 text-green-700">
-                    <Clock className="w-4 h-4 text-green-500" />
+                    <AppIcon icon="Clock" className="w-4 h-4 text-green-500" />
                     <span className="text-sm font-bold">{pkg.duration_hours} jam</span>
                   </div>
                   <div className="w-px h-4 bg-slate-200"></div>
                   <div className="flex items-center gap-2 text-green-700">
-                    <Users className="w-4 h-4 text-green-500" />
+                    <AppIcon icon="Users" className="w-4 h-4 text-green-500" />
                     <span className="text-sm font-bold">Max {pkg.max_participants}</span>
                   </div>
                 </div>
@@ -708,7 +708,7 @@ export default function ManageTourGuidesClient() {
         <TabsContent value="bookings" className="space-y-6 mt-6">
           <div className="flex justify-between items-center bg-white/60 backdrop-blur-xl border border-white/80 p-4 rounded-[1.5rem] shadow-sm">
             <h2 className="font-bold text-slate-800 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-green-500" /> Daftar Booking
+              <AppIcon icon="Calendar" className="w-5 h-5 text-green-500" /> Daftar Booking
             </h2>
           </div>
 
@@ -723,7 +723,7 @@ export default function ManageTourGuidesClient() {
                     </div>
                     <p className="font-bold text-slate-800 mb-1">{booking.customer_name}</p>
                     <div className="flex items-center gap-2 text-xs font-medium text-slate-500 mb-2">
-                      <Calendar className="w-3.5 h-3.5" />
+                      <AppIcon icon="Calendar" className="w-3.5 h-3.5" />
                       {format(new Date(booking.booking_date), 'dd MMM yyyy')} - {booking.start_time}
                     </div>
                     <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-50">
@@ -769,7 +769,7 @@ export default function ManageTourGuidesClient() {
                       <TableCell>{getStatusBadge(booking.status)}</TableCell>
                       <TableCell className="text-right">
                         <Button size="icon" variant="ghost" className="w-8 h-8 rounded-lg text-green-500 hover:bg-green-50 hover:text-green-600">
-                          <Eye className="w-4 h-4" />
+                          <AppIcon icon="Eye" className="w-4 h-4" />
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -802,10 +802,10 @@ export default function ManageTourGuidesClient() {
         <TabsContent value="gallery" className="space-y-6 mt-6">
           <div className="flex justify-between items-center bg-white/60 backdrop-blur-xl border border-white/80 p-4 rounded-[1.5rem] shadow-sm">
             <h2 className="font-bold text-slate-800 flex items-center gap-2">
-              <Image className="w-5 h-5 text-green-500" /> Galeri Tur Wisata
+              <AppIcon icon="Image" className="w-5 h-5 text-green-500" /> Galeri Tur Wisata
             </h2>
             <button onClick={() => setShowGalleryModal(true)} className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-violet-500 text-white px-4 py-2 rounded-xl hover:opacity-90 transition-all duration-300 font-bold shadow-[0_2px_15px_-3px_rgba(99,102,241,0.4)] hover:-translate-y-0.5 text-sm">
-              <Plus className="w-4 h-4" />
+              <AppIcon icon="Plus" className="w-4 h-4" />
               <span className="hidden sm:inline">Tambah Foto</span>
             </button>
           </div>
@@ -818,7 +818,7 @@ export default function ManageTourGuidesClient() {
                   <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button size="icon" variant="destructive" className="rounded-xl w-10 h-10 bg-rose-500 hover:bg-rose-600 shadow-lg"><Trash2 className="w-4 h-4" /></Button>
+                        <Button size="icon" variant="destructive" className="rounded-xl w-10 h-10 bg-rose-500 hover:bg-rose-600 shadow-lg"><AppIcon icon="Trash2" className="w-4 h-4" /></Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent className="rounded-[2rem]">
                         <AlertDialogHeader>
@@ -864,7 +864,7 @@ export default function ManageTourGuidesClient() {
           <DialogHeader className="px-6 py-5 border-b border-slate-100 bg-white/50 flex-shrink-0">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                <MapPin className="w-5 h-5 text-green-500" />
+                <AppIcon icon="MapPin" className="w-5 h-5 text-green-500" />
               </div>
               {editingPackage ? 'Edit Paket Tur' : 'Tambah Paket Tur'}
             </DialogTitle>
@@ -978,7 +978,7 @@ export default function ManageTourGuidesClient() {
           <DialogHeader className="px-6 py-5 border-b border-slate-100 bg-white/50 flex-shrink-0">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                <Calendar className="w-5 h-5 text-green-500" />
+                <AppIcon icon="Calendar" className="w-5 h-5 text-green-500" />
               </div>
               Detail Booking
             </DialogTitle>
@@ -1002,7 +1002,7 @@ export default function ManageTourGuidesClient() {
                 {/* Informasi Pelanggan */}
                 <div className="space-y-4">
                   <h3 className="font-bold text-sm text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                    <Users className="w-4 h-4 text-green-500" />
+                    <AppIcon icon="Users" className="w-4 h-4 text-green-500" />
                     Data Pelanggan
                   </h3>
                   <div className="grid grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-2xl border border-slate-100">
@@ -1026,7 +1026,7 @@ export default function ManageTourGuidesClient() {
                 {/* Informasi Booking */}
                 <div className="space-y-4">
                   <h3 className="font-bold text-sm text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-green-500" />
+                    <AppIcon icon="Clock" className="w-4 h-4 text-green-500" />
                     Detail Tur
                   </h3>
                   <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
@@ -1078,22 +1078,22 @@ export default function ManageTourGuidesClient() {
                         <SelectContent className="rounded-xl">
                           <SelectItem value="pending">
                             <span className="flex items-center gap-2 text-amber-600 font-bold">
-                              <Clock className="w-4 h-4" /> Menunggu
+                              <AppIcon icon="Clock" className="w-4 h-4" /> Menunggu
                             </span>
                           </SelectItem>
                           <SelectItem value="confirmed">
                             <span className="flex items-center gap-2 text-green-600 font-bold">
-                              <CheckCircle className="w-4 h-4" /> Dikonfirmasi
+                              <AppIcon icon="CheckCircle" className="w-4 h-4" /> Dikonfirmasi
                             </span>
                           </SelectItem>
                           <SelectItem value="completed">
                             <span className="flex items-center gap-2 text-green-600 font-bold">
-                              <Star className="w-4 h-4" /> Selesai
+                              <AppIcon icon="Star" className="w-4 h-4" /> Selesai
                             </span>
                           </SelectItem>
                           <SelectItem value="cancelled">
                             <span className="flex items-center gap-2 text-rose-600 font-bold">
-                              <XCircle className="w-4 h-4" /> Dibatalkan
+                              <AppIcon icon="XCircle" className="w-4 h-4" /> Dibatalkan
                             </span>
                           </SelectItem>
                         </SelectContent>
@@ -1130,7 +1130,7 @@ export default function ManageTourGuidesClient() {
           <DialogHeader className="px-6 py-5 border-b border-slate-100 bg-white/50 flex-shrink-0">
             <DialogTitle className="flex items-center gap-3 text-xl font-bold text-slate-800">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-                <Image className="w-5 h-5 text-green-500" />
+                <AppIcon icon="Image" className="w-5 h-5 text-green-500" />
               </div>
               Tambah Foto Galeri
             </DialogTitle>

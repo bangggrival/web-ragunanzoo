@@ -1,6 +1,6 @@
 "use client";
 
-import { Ticket, Search, Eye, CheckCircle, XCircle, Clock, Download, TicketIcon } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { TablePagination, usePagination } from '@/components/ui/TablePagination';
@@ -75,13 +75,13 @@ export default function ManageTicketsClient() {
   const getStatusBadge = (status: string | null) => {
     switch (status) {
       case 'active':
-        return { color: 'bg-green-50 text-green-600 border-green-200', icon: CheckCircle, label: 'Aktif' };
+        return { color: 'bg-green-50 text-green-600 border-green-200', icon: (props: any) => <AppIcon icon="CheckCircle" {...props} />, label: 'Aktif' };
       case 'used':
-        return { color: 'bg-slate-100 text-slate-500 border-slate-200', icon: Clock, label: 'Terpakai' };
+        return { color: 'bg-slate-100 text-slate-500 border-slate-200', icon: (props: any) => <AppIcon icon="Clock" {...props} />, label: 'Terpakai' };
       case 'expired':
-        return { color: 'bg-rose-50 text-rose-600 border-rose-200', icon: XCircle, label: 'Kadaluarsa' };
+        return { color: 'bg-rose-50 text-rose-600 border-rose-200', icon: (props: any) => <AppIcon icon="XCircle" {...props} />, label: 'Kadaluarsa' };
       default:
-        return { color: 'bg-slate-100 text-slate-500 border-slate-200', icon: Clock, label: status || 'Unknown' };
+        return { color: 'bg-slate-100 text-slate-500 border-slate-200', icon: (props: any) => <AppIcon icon="Clock" {...props} />, label: status || 'Unknown' };
     }
   };
 
@@ -151,7 +151,7 @@ export default function ManageTicketsClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <TicketIcon className="w-5 h-5 text-green-500" />
+              <AppIcon icon="TicketIcon" className="w-5 h-5 text-green-500" />
             </div>
             Tiket & Transaksi
           </h1>
@@ -161,7 +161,7 @@ export default function ManageTicketsClient() {
           onClick={exportToCSV}
           className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-5 py-2.5 rounded-xl hover:bg-slate-50 transition-colors font-bold shadow-sm"
         >
-          <Download className="w-4 h-4" />
+          <AppIcon icon="Download" className="w-4 h-4" />
           Export CSV
         </button>
       </div>
@@ -187,7 +187,7 @@ export default function ManageTicketsClient() {
 
       <div className="flex flex-col sm:flex-row gap-3 p-2 bg-white/60 backdrop-blur-xl rounded-[1.5rem] border border-white/80 shadow-sm">
         <div className="relative flex-1 ml-2">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <AppIcon icon="Search" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
             placeholder="Cari kode tiket..."
@@ -213,7 +213,7 @@ export default function ManageTicketsClient() {
         {filteredTickets.length === 0 ? (
           <div className="text-center py-20">
             <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-slate-100">
-              <Ticket className="w-10 h-10 text-slate-300" />
+              <AppIcon icon="Ticket" className="w-10 h-10 text-slate-300" />
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-2">Tidak ada tiket</h3>
             <p className="text-slate-500 max-w-md mx-auto">Tidak ada data tiket yang sesuai dengan pencarian Anda.</p>
@@ -241,7 +241,7 @@ export default function ManageTicketsClient() {
                         <td className="manager-table-td">
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200/60 shadow-sm">
-                              <Ticket className="w-4 h-4 text-slate-500" />
+                              <AppIcon icon="Ticket" className="w-4 h-4 text-slate-500" />
                             </div>
                             <div>
                               <p className="font-mono font-bold text-sm text-slate-800">{ticket.code || `TKT-${ticket.id}`}</p>
@@ -271,7 +271,7 @@ export default function ManageTicketsClient() {
                         <td className="manager-table-td manager-table-td-right">
                           <div className="manager-table-actions justify-end">
                             <button className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors">
-                              <Eye className="w-4 h-4" />
+                              <AppIcon icon="Eye" className="w-4 h-4" />
                             </button>
                           </div>
                         </td>
@@ -292,7 +292,7 @@ export default function ManageTicketsClient() {
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200/60 shadow-sm flex-shrink-0">
-                          <Ticket className="w-4 h-4 text-slate-500" />
+                          <AppIcon icon="Ticket" className="w-4 h-4 text-slate-500" />
                         </div>
                         <div className="min-w-0">
                           <p className="font-mono font-bold text-sm text-slate-800 truncate">{ticket.code || `TKT-${ticket.id}`}</p>
@@ -322,7 +322,7 @@ export default function ManageTicketsClient() {
                         <p className="font-black text-slate-800">{formatPrice(Number(ticket.total))}</p>
                       </div>
                       <button className="px-3 py-1.5 text-xs font-bold rounded-lg text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 transition-colors flex items-center gap-1.5">
-                        <Eye className="w-3.5 h-3.5" /> Detail
+                        <AppIcon icon="Eye" className="w-3.5 h-3.5" /> Detail
                       </button>
                     </div>
                   </div>

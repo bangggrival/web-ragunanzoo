@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useConfirm } from '@/hooks/useConfirm';
-import { Map, Upload, Trash2, Check, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { updateMapUrlAction } from './actions';
@@ -130,7 +130,7 @@ export default function ManageMapClient() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
-              <Map className="w-5 h-5 text-green-500" />
+              <AppIcon icon="Map" className="w-5 h-5 text-green-500" />
             </div>
             Upload Peta
           </h1>
@@ -141,7 +141,7 @@ export default function ManageMapClient() {
       <div className="bg-gradient-to-r from-green-500/10 to-teal-500/10 border border-green-500/20 rounded-[1.5rem] p-5 backdrop-blur-xl">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 bg-white/60 rounded-xl flex items-center justify-center border border-white/80 shadow-sm flex-shrink-0 mt-0.5">
-            <Map className="w-6 h-6 text-green-600" />
+            <AppIcon icon="Map" className="w-6 h-6 text-green-600" />
           </div>
           <div>
             <h3 className="font-bold text-slate-800 text-lg mb-1">Tentang Peta</h3>
@@ -170,20 +170,20 @@ export default function ManageMapClient() {
                   disabled={uploading}
                   className="flex items-center gap-1.5 px-4 py-2 bg-white/90 backdrop-blur-md text-slate-700 font-bold text-sm rounded-xl hover:bg-white transition-colors shadow-sm disabled:opacity-50"
                 >
-                  {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                  {uploading ? <AppIcon icon="Loader2" className="w-4 h-4 animate-spin" /> : <AppIcon icon="Upload" className="w-4 h-4" />}
                   Ganti
                 </button>
                 <button 
                   onClick={handleDeleteMap}
                   className="flex items-center gap-1.5 px-4 py-2 bg-rose-500/90 backdrop-blur-md text-white font-bold text-sm rounded-xl hover:bg-rose-500 transition-colors shadow-sm"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <AppIcon icon="Trash2" className="w-4 h-4" />
                   Hapus
                 </button>
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm font-bold text-green-600 bg-green-50 px-4 py-3 rounded-xl border border-green-100 w-fit">
-              <Check className="w-4 h-4" />
+              <AppIcon icon="Check" className="w-4 h-4" />
               <span>Peta aktif dan tampil di halaman Explorer</span>
             </div>
           </div>
@@ -195,7 +195,7 @@ export default function ManageMapClient() {
             className="w-full h-72 border-2 border-dashed border-slate-300 rounded-[1.5rem] flex flex-col items-center justify-center gap-4 hover:border-green-500 hover:bg-green-50/50 transition-all group disabled:opacity-50"
           >
             <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center group-hover:bg-green-100 group-hover:scale-110 transition-all duration-300">
-              {uploading ? <Loader2 className="w-8 h-8 text-green-500 animate-spin" /> : <Map className="w-8 h-8 text-slate-400 group-hover:text-green-500" />}
+              {uploading ? <AppIcon icon="Loader2" className="w-8 h-8 text-green-500 animate-spin" /> : <AppIcon icon="Map" className="w-8 h-8 text-slate-400 group-hover:text-green-500" />}
             </div>
             <div className="text-center">
               <p className="font-bold text-slate-700 text-lg">

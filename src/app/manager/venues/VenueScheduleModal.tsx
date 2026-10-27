@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { useVenueBookings, VenueBooking } from '@/hooks/useVenueBookings';
 import { format } from 'date-fns';
 import { id as idLocale } from 'date-fns/locale';
-import { Loader2, Plus, Trash2, Edit2, CalendarDays, Upload, FileText, Image as ImageIcon, Calendar as CalendarIcon, List, MessageCircle } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -198,7 +198,7 @@ export function VenueScheduleModal({ venue, isOpen, onClose }: VenueScheduleModa
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <DialogTitle className="flex items-center gap-2 text-xl font-bold">
-                <CalendarDays className="w-5 h-5 text-emerald-600" />
+                <AppIcon icon="CalendarDays" className="w-5 h-5 text-emerald-600" />
                 Kelola Sewa & Jadwal: {venue?.name}
               </DialogTitle>
               <DialogDescription className="mt-1">
@@ -218,7 +218,7 @@ export function VenueScheduleModal({ venue, isOpen, onClose }: VenueScheduleModa
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  <CalendarIcon className="w-3.5 h-3.5" />
+                  <AppIcon icon="Calendar" className="w-3.5 h-3.5" />
                   <span>Kalender</span>
                 </button>
                 <button
@@ -230,7 +230,7 @@ export function VenueScheduleModal({ venue, isOpen, onClose }: VenueScheduleModa
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  <List className="w-3.5 h-3.5" />
+                  <AppIcon icon="List" className="w-3.5 h-3.5" />
                   <span>Daftar</span>
                 </button>
               </div>
@@ -240,7 +240,7 @@ export function VenueScheduleModal({ venue, isOpen, onClose }: VenueScheduleModa
                   onClick={() => setView('form')}
                   className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow-md shadow-emerald-600/20 transition-all"
                 >
-                  <Plus className="w-4 h-4" />
+                  <AppIcon icon="Plus" className="w-4 h-4" />
                   <span>Tambah Booking</span>
                 </button>
               )}
@@ -251,7 +251,7 @@ export function VenueScheduleModal({ venue, isOpen, onClose }: VenueScheduleModa
         <div className="mt-4">
           {isLoading ? (
             <div className="py-16 flex flex-col items-center gap-3">
-              <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+              <AppIcon icon="Loader2" className="w-8 h-8 animate-spin text-emerald-600" />
               <p className="text-sm text-muted-foreground">Memuat data penyewaan...</p>
             </div>
           ) : view === 'calendar' ? (
@@ -313,7 +313,7 @@ export function VenueScheduleModal({ venue, isOpen, onClose }: VenueScheduleModa
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center gap-1 text-[11px] text-emerald-700 hover:underline bg-emerald-50 px-2 py-0.5 rounded-md"
                                 >
-                                  <FileText className="w-3 h-3" />
+                                  <AppIcon icon="FileText" className="w-3 h-3" />
                                   Bukti Transfer
                                 </a>
                               </div>
@@ -341,7 +341,7 @@ export function VenueScheduleModal({ venue, isOpen, onClose }: VenueScheduleModa
                                 onClick={() => handleEdit(booking)}
                                 className="h-8 w-8 p-0 text-blue-600 hover:bg-blue-50"
                               >
-                                <Edit2 className="w-4 h-4" />
+                                <AppIcon icon="Edit2" className="w-4 h-4" />
                               </Button>
                               <Button
                                 variant="ghost"
@@ -349,7 +349,7 @@ export function VenueScheduleModal({ venue, isOpen, onClose }: VenueScheduleModa
                                 onClick={() => handleDelete(booking)}
                                 className="h-8 w-8 p-0 text-rose-600 hover:bg-rose-50"
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <AppIcon icon="Trash2" className="w-4 h-4" />
                               </Button>
                             </div>
                           </TableCell>

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
-import { Utensils, Clock, AlertCircle, MapPin, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import Image from 'next/image';
 import { useFeedingSchedules, FeedingSchedule } from '@/hooks/useFeedingSchedules';
 
@@ -147,7 +147,7 @@ export default function FeedingTimeSchedule() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-muted-foreground">
-        <Loader2 className="w-8 h-8 animate-spin mb-4" />
+        <AppIcon name="solar:spinner-linear" className="w-8 h-8 animate-spin mb-4" />
         <p>Memuat jadwal makan satwa...</p>
       </div>
     );
@@ -163,7 +163,7 @@ export default function FeedingTimeSchedule() {
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-2xl mb-4 ring-1 ring-primary/20 shadow-sm">
-            <Utensils className="w-6 h-6 text-primary" />
+            <AppIcon name="fluent-emoji-flat:fork-and-knife-with-plate" className="w-6 h-6" />
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground mb-3">{t.title}</h2>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto">{t.subtitle}</p>
@@ -193,9 +193,9 @@ export default function FeedingTimeSchedule() {
                 <div className="flex items-center gap-3 mb-4">
                   <div className="px-3 py-1.5 bg-primary/90 text-primary-foreground text-[11px] font-bold uppercase tracking-widest rounded-full flex items-center gap-2 shadow-lg backdrop-blur-md border border-white/20">
                     {isHappeningNow ? (
-                      <AlertCircle className="w-3.5 h-3.5 animate-pulse" />
+                      <AppIcon name="solar:danger-circle-bold" className="w-3.5 h-3.5 animate-pulse" />
                     ) : (
-                      <Clock className="w-3.5 h-3.5" />
+                      <AppIcon name="solar:clock-circle-bold" className="w-3.5 h-3.5" />
                     )}
                     {isHappeningNow ? t.happeningNow : t.nextUp}
                   </div>
@@ -248,7 +248,7 @@ export default function FeedingTimeSchedule() {
                     href="/map"
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white font-bold text-xs transition-all shadow-md btn-interactive"
                   >
-                    <MapPin className="w-3.5 h-3.5 text-white/90" />
+                    <AppIcon name="solar:map-point-bold" className="w-3.5 h-3.5 text-white/90" />
                     <span>{lang === 'en' ? 'View Enclosure on Map' : 'Lihat Lokasi Kandang di Peta'}</span>
                   </Link>
                 </div>
@@ -261,7 +261,7 @@ export default function FeedingTimeSchedule() {
             <Card className="flex-1 border border-border/70 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05),0_1px_3px_0_rgba(0,0,0,0.03)] bg-card rounded-2xl md:rounded-3xl overflow-hidden flex flex-col">
               <div className="p-5 bg-muted/40 border-b border-border/70">
                 <h4 className="font-bold text-base md:text-lg flex items-center gap-2.5">
-                  <Utensils className="w-5 h-5 text-primary" />
+                  <AppIcon name="fluent-emoji-flat:fork-and-knife-with-plate" className="w-5 h-5 text-primary" />
                   {t.allSchedules}
                 </h4>
               </div>
@@ -282,7 +282,7 @@ export default function FeedingTimeSchedule() {
                           />
                         ) : (
                           <div className="w-full h-full bg-muted flex items-center justify-center">
-                            <Utensils className="w-5 h-5 text-muted-foreground" />
+                            <AppIcon name="fluent-emoji-flat:fork-and-knife-with-plate" className="w-5 h-5 text-muted-foreground" />
                           </div>
                         )}
                       </div>

@@ -1,27 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Monitor,
-  Ticket,
-  QrCode,
-  CheckCircle,
-  ArrowRight,
-  ChevronRight,
-  RotateCcw,
-  Bike,
-  Trees,
-  Footprints,
-  ReceiptText,
-  DoorOpen,
-  Plus,
-  Minus,
-  Sparkles,
-  MapPin,
-  CreditCard,
-  CheckCircle2,
-  ArrowLeft,
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { QRCodeSVG } from 'qrcode.react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTicketContent } from '@/hooks/useTicketContent';
@@ -51,15 +31,15 @@ export default function TvmFlow() {
 
   const ticketItems: TicketItem[] = [
     // Tiket Pengunjung
-    { id: 'dewasa', category: 'pengunjung', nameId: 'Tiket Dewasa', nameEn: 'Adult Ticket', price: settings?.adult_price ?? 4000, icon: <Footprints className="w-4 h-4 text-emerald-500" /> },
-    { id: 'anak', category: 'pengunjung', nameId: 'Tiket Anak', nameEn: 'Child Ticket', price: settings?.child_price ?? 3000, icon: <Footprints className="w-4 h-4 text-emerald-400" /> },
+    { id: 'dewasa', category: 'pengunjung', nameId: 'Tiket Dewasa', nameEn: 'Adult Ticket', price: settings?.adult_price ?? 4000, icon: <AppIcon name="solar:users-group-two-rounded-bold-duotone" className="w-4 h-4 text-emerald-500" /> },
+    { id: 'anak', category: 'pengunjung', nameId: 'Tiket Anak', nameEn: 'Child Ticket', price: settings?.child_price ?? 3000, icon: <AppIcon name="fluent-emoji-flat:baby" className="w-4 h-4 text-emerald-400" /> },
     
     // Tiket Wahana
-    { id: 'schmutzer', category: 'wahana', nameId: 'Pusat Primata Schmutzer', nameEn: 'Schmutzer Primate Center', price: settings?.schmutzer_weekday_price ?? 6000, icon: <Trees className="w-4 h-4 text-amber-500" /> },
-    { id: 'taman_anak', category: 'wahana', nameId: 'Taman Satwa Anak', nameEn: 'Children Zoo Park', price: 2500, icon: <Sparkles className="w-4 h-4 text-pink-500" /> },
+    { id: 'schmutzer', category: 'wahana', nameId: 'Pusat Primata Schmutzer', nameEn: 'Schmutzer Primate Center', price: settings?.schmutzer_weekday_price ?? 6000, icon: <AppIcon name="fluent-emoji-flat:monkey-face" className="w-4 h-4 text-amber-500" /> },
+    { id: 'taman_anak', category: 'wahana', nameId: 'Taman Satwa Anak', nameEn: 'Children Zoo Park', price: 2500, icon: <AppIcon name="solar:stars-minimalistic-bold" className="w-4 h-4 text-pink-500" /> },
     
     // Tiket Kendaraan
-    { id: 'sepeda', category: 'kendaraan', nameId: 'Tiket Sepeda', nameEn: 'Bicycle Pass', price: settings?.parking_bike ?? 1000, icon: <Bike className="w-4 h-4 text-sky-500" /> },
+    { id: 'sepeda', category: 'kendaraan', nameId: 'Tiket Sepeda', nameEn: 'Bicycle Pass', price: settings?.parking_bike ?? 1000, icon: <AppIcon name="fluent-emoji-flat:bicycle" className="w-4 h-4 text-sky-500" /> },
   ];
 
   const updateCart = (id: string, delta: number) => {
@@ -116,7 +96,7 @@ export default function TvmFlow() {
         <div className="relative z-10 flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Monitor className="w-5 h-5" />
+              <AppIcon name="solar:tv-bold-duotone" className="w-5 h-5" />
               <h3 className="font-extrabold text-base md:text-lg tracking-tight">
                 {isEN ? 'TVM Ticket Kiosk Guide' : 'Panduan Mesin TVM (Ticket Vending Machine)'}
               </h3>
@@ -132,7 +112,7 @@ export default function TvmFlow() {
               onClick={reset}
               className="flex-shrink-0 flex items-center gap-1 text-white/80 hover:text-white text-xs font-bold border border-white/30 px-2.5 py-1.5 rounded-full hover:bg-white/10 transition-all"
             >
-              <RotateCcw className="w-3 h-3" />
+              <AppIcon name="solar:restart-bold" className="w-3 h-3" />
               {isEN ? 'Restart' : 'Ulangi'}
             </button>
           )}
@@ -147,7 +127,7 @@ export default function TvmFlow() {
           <div className="space-y-4">
             <div className="bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800 rounded-2xl px-4 py-4 flex items-start gap-3">
               <div className="w-9 h-9 rounded-xl bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-300 flex items-center justify-center flex-shrink-0">
-                <Monitor className="w-5 h-5" />
+                <AppIcon name="solar:tv-bold-duotone" className="w-5 h-5" />
               </div>
               <div>
                 <p className="font-bold text-sm text-teal-700 dark:text-teal-300 mb-1">
@@ -166,7 +146,7 @@ export default function TvmFlow() {
               <div className="bg-card border border-border p-3 rounded-2xl text-left">
                 <div className="flex items-center gap-2 mb-1">
                   <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 flex items-center justify-center">
-                    <Footprints className="w-4 h-4" />
+                    <AppIcon name="fluent-emoji-flat:footprints" className="w-4 h-4" />
                   </div>
                   <span className="font-bold text-xs text-foreground">
                     {isEN ? 'Visitor Tickets' : 'Tiket Pengunjung'}
@@ -179,7 +159,7 @@ export default function TvmFlow() {
               <div className="bg-card border border-border p-3 rounded-2xl text-left">
                 <div className="flex items-center gap-2 mb-1">
                   <div className="w-7 h-7 rounded-lg bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300 flex items-center justify-center">
-                    <Trees className="w-4 h-4" />
+                    <AppIcon name="solar:trees-bold-duotone" className="w-4 h-4" />
                   </div>
                   <span className="font-bold text-xs text-foreground">
                     {isEN ? 'Ride Tickets' : 'Tiket Wahana'}
@@ -192,7 +172,7 @@ export default function TvmFlow() {
               <div className="bg-card border border-border p-3 rounded-2xl text-left">
                 <div className="flex items-center gap-2 mb-1">
                   <div className="w-7 h-7 rounded-lg bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300 flex items-center justify-center">
-                    <Bike className="w-4 h-4" />
+                    <AppIcon name="fluent-emoji-flat:bicycle" className="w-4 h-4" />
                   </div>
                   <span className="font-bold text-xs text-foreground">
                     {isEN ? 'Vehicle Pass' : 'Tiket Kendaraan'}
@@ -207,7 +187,7 @@ export default function TvmFlow() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-extrabold text-sm shadow-md hover:shadow-teal-300/40 dark:hover:shadow-teal-900/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
             >
               {isEN ? 'Start TVM Purchase Guide' : 'Mulai Panduan TVM'}
-              <ArrowRight className="w-4 h-4" />
+              <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -217,7 +197,7 @@ export default function TvmFlow() {
           <div className="space-y-4">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 dark:bg-teal-900 dark:text-teal-300 flex items-center justify-center flex-shrink-0">
-                <MapPin className="w-5 h-5" />
+                <AppIcon name="solar:map-point-bold-duotone" className="w-5 h-5" />
               </div>
               <div>
                 <h4 className="font-bold text-sm text-foreground">
@@ -233,7 +213,7 @@ export default function TvmFlow() {
 
             <div className="bg-muted/50 rounded-2xl p-3.5 space-y-2 text-xs">
               <p className="font-bold text-foreground flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-primary shrink-0" />
+                <AppIcon name="solar:map-point-bold-duotone" className="w-3.5 h-3.5 text-primary shrink-0" />
                 <span>{isEN ? 'TVM Locations at Ragunan:' : 'Titik Lokasi TVM:'}</span>
               </p>
               <ul className="space-y-1 text-muted-foreground pl-1">
@@ -248,7 +228,7 @@ export default function TvmFlow() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-extrabold text-sm shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
             >
               {isEN ? 'Touch Screen to Start' : 'Sentuh Layar Mesin TVM'}
-              <ArrowRight className="w-4 h-4" />
+              <AppIcon name="solar:arrow-right-linear" className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -258,7 +238,7 @@ export default function TvmFlow() {
           <div className="space-y-4">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-300 flex items-center justify-center flex-shrink-0">
-                <Monitor className="w-5 h-5" />
+                <AppIcon name="solar:tv-bold-duotone" className="w-5 h-5" />
               </div>
               <div>
                 <h4 className="font-bold text-sm text-foreground">
@@ -305,14 +285,14 @@ export default function TvmFlow() {
                             onClick={() => updateCart(item.id, -1)}
                             className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold text-sm flex items-center justify-center active:scale-95"
                           >
-                            <Minus className="w-3.5 h-3.5" />
+                            <AppIcon name="solar:minus-bold" className="w-3.5 h-3.5" />
                           </button>
                           <span className="font-extrabold text-sm w-4 text-center text-white">{cart[item.id] || 0}</span>
                           <button
                             onClick={() => updateCart(item.id, 1)}
                             className="w-7 h-7 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm flex items-center justify-center active:scale-95"
                           >
-                            <Plus className="w-3.5 h-3.5" />
+                            <AppIcon name="solar:add-bold" className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
@@ -340,14 +320,14 @@ export default function TvmFlow() {
                             onClick={() => updateCart(item.id, -1)}
                             className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold text-sm flex items-center justify-center active:scale-95"
                           >
-                            <Minus className="w-3.5 h-3.5" />
+                            <AppIcon name="solar:minus-bold" className="w-3.5 h-3.5" />
                           </button>
                           <span className="font-extrabold text-sm w-4 text-center text-white">{cart[item.id] || 0}</span>
                           <button
                             onClick={() => updateCart(item.id, 1)}
                             className="w-7 h-7 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm flex items-center justify-center active:scale-95"
                           >
-                            <Plus className="w-3.5 h-3.5" />
+                            <AppIcon name="solar:add-bold" className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
@@ -375,14 +355,14 @@ export default function TvmFlow() {
                             onClick={() => updateCart(item.id, -1)}
                             className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold text-sm flex items-center justify-center active:scale-95"
                           >
-                            <Minus className="w-3.5 h-3.5" />
+                            <AppIcon name="solar:minus-bold" className="w-3.5 h-3.5" />
                           </button>
                           <span className="font-extrabold text-sm w-4 text-center text-white">{cart[item.id] || 0}</span>
                           <button
                             onClick={() => updateCart(item.id, 1)}
                             className="w-7 h-7 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm flex items-center justify-center active:scale-95"
                           >
-                            <Plus className="w-3.5 h-3.5" />
+                            <AppIcon name="solar:add-bold" className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
@@ -404,7 +384,7 @@ export default function TvmFlow() {
                   className="px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 disabled:opacity-50 text-white font-bold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all"
                 >
                   <span>Lanjut Pembayaran</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:arrow-right-linear" className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -416,7 +396,7 @@ export default function TvmFlow() {
           <div className="space-y-4">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-300 flex items-center justify-center flex-shrink-0">
-                <QrCode className="w-5 h-5" />
+                <AppIcon name="solar:qr-code-bold-duotone" className="w-5 h-5" />
               </div>
               <div>
                 <h4 className="font-bold text-sm text-foreground">
@@ -434,7 +414,7 @@ export default function TvmFlow() {
             <div className="flex justify-center">
               <div className="relative bg-white rounded-2xl p-5 shadow-lg border border-border text-center w-64 space-y-3">
                 <div className="flex items-center justify-center gap-1.5 bg-sky-50 text-sky-700 py-1 px-3 rounded-full text-xs font-bold">
-                  <QrCode className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:qr-code-bold-duotone" className="w-3.5 h-3.5" />
                   <span>METODE PEMBAYARAN: QRIS</span>
                 </div>
                 
@@ -462,7 +442,7 @@ export default function TvmFlow() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-sm shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
             >
               <span>{isEN ? 'Simulate Payment Success' : 'Simulasi Pembayaran Berhasil'}</span>
-              <CheckCircle className="w-4 h-4" />
+              <AppIcon name="solar:check-circle-bold-duotone" className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -472,7 +452,7 @@ export default function TvmFlow() {
           <div className="space-y-4">
             <div className="text-center py-3">
               <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 flex items-center justify-center mx-auto mb-2 ring-4 ring-emerald-200 dark:ring-emerald-800 shadow-md">
-                <CheckCircle className="w-8 h-8" />
+                <AppIcon name="solar:check-circle-bold-duotone" className="w-8 h-8" />
               </div>
               <h4 className="font-extrabold text-base text-foreground">
                 {isEN ? 'Payment Successful!' : 'Pembayaran Berhasil!'}
@@ -487,7 +467,7 @@ export default function TvmFlow() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
             >
               <span>{isEN ? 'Collect Ticket Receipt' : 'Ambil Struk Tiket'}</span>
-              <ReceiptText className="w-4 h-4" />
+              <AppIcon name="solar:bill-list-bold-duotone" className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -497,7 +477,7 @@ export default function TvmFlow() {
           <div className="space-y-4">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 dark:bg-amber-900 dark:text-amber-300 flex items-center justify-center flex-shrink-0">
-                <ReceiptText className="w-5 h-5" />
+                <AppIcon name="solar:bill-list-bold-duotone" className="w-5 h-5" />
               </div>
               <div>
                 <h4 className="font-bold text-sm text-foreground">
@@ -550,7 +530,7 @@ export default function TvmFlow() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-extrabold text-sm shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
             >
               <span>{isEN ? 'Proceed to Entry Gate' : 'Lanjut ke Gate Masuk'}</span>
-              <DoorOpen className="w-4 h-4" />
+              <AppIcon name="solar:login-2-bold-duotone" className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -560,7 +540,7 @@ export default function TvmFlow() {
           <div className="space-y-4">
             <div className="text-center py-2">
               <div className="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 flex items-center justify-center mx-auto mb-3 ring-4 ring-emerald-200 dark:ring-emerald-800 shadow-lg">
-                <DoorOpen className="w-9 h-9" />
+                <AppIcon name="solar:login-2-bold-duotone" className="w-9 h-9" />
               </div>
               <h4 className="font-extrabold text-lg text-foreground">
                 {isEN ? 'You are at the Gate!' : 'Tunjukkan Struk TVM di Gate Masuk'}
@@ -574,7 +554,7 @@ export default function TvmFlow() {
 
             <div className="bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 rounded-2xl px-4 py-3 space-y-2">
               <p className="font-bold text-sm text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <AppIcon name="solar:check-circle-bold" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>Checklist Masuk TVM:</span>
               </p>
               <div className="space-y-1 text-xs text-emerald-700 dark:text-emerald-300">
@@ -585,7 +565,7 @@ export default function TvmFlow() {
 
             <div className="text-center">
               <p className="text-xs text-muted-foreground font-medium inline-flex items-center justify-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <AppIcon name="solar:stars-minimalistic-bold" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span>Selamat berkunjung di Taman Margasatwa Ragunan!</span>
               </p>
             </div>
@@ -599,7 +579,7 @@ export default function TvmFlow() {
               onClick={back}
               className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-foreground transition-colors"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <AppIcon name="solar:arrow-left-linear" className="w-3.5 h-3.5" />
               <span>{isEN ? 'Back' : 'Kembali'}</span>
             </button>
           </div>
@@ -609,3 +589,4 @@ export default function TvmFlow() {
     </div>
   );
 }
+

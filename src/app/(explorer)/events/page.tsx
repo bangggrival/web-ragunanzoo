@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Clock, MapPin, ArrowUpRight, Sparkles, Utensils, GraduationCap } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useEvents } from '@/hooks/useEvents';
 import { useState } from 'react';
 import { SkeletonEventCard } from '@/components/ui/skeleton';
@@ -52,7 +52,7 @@ export default function Events() {
     <div className="animate-fade-in">
       <AtmosphericHeader
         theme="events"
-        icon={<Calendar className="w-5 h-5 md:w-6 md:h-6 text-amber-200" />}
+        icon={<AppIcon icon="Calendar" className="w-5 h-5 md:w-6 md:h-6 text-amber-200" />}
         title={t('schedule_events')}
         description={t('dont_miss_events')}
         breadcrumbs={[
@@ -63,15 +63,15 @@ export default function Events() {
           !loading
             ? [
                 {
-                  icon: <Calendar className="w-3.5 h-3.5" />,
+                  icon: <AppIcon icon="Calendar" className="w-3.5 h-3.5" />,
                   label: `${events.length} ${language === 'en' ? 'Schedules' : 'Jadwal Agenda'}`,
                 },
                 {
-                  icon: <Utensils className="w-3.5 h-3.5" />,
+                  icon: <AppIcon icon="Utensils" className="w-3.5 h-3.5" />,
                   label: `${feedingCount} Feeding Time`,
                 },
                 {
-                  icon: <Sparkles className="w-3.5 h-3.5" />,
+                  icon: <AppIcon icon="Sparkles" className="w-3.5 h-3.5" />,
                   label: `${showCount} Edukasi & Show`,
                 },
               ]
@@ -100,7 +100,7 @@ export default function Events() {
                 : 'bg-card border border-border hover:border-amber-500/50 text-foreground'
             }`}
           >
-            <Utensils className="w-3.5 h-3.5" />
+            <AppIcon icon="Utensils" className="w-3.5 h-3.5" />
             <span>Feeding</span>
           </button>
           <button
@@ -111,7 +111,7 @@ export default function Events() {
                 : 'bg-card border border-border hover:border-primary/50 text-foreground'
             }`}
           >
-            <GraduationCap className="w-3.5 h-3.5" />
+            <AppIcon icon="GraduationCap" className="w-3.5 h-3.5" />
             <span>Edukasi</span>
           </button>
           <button
@@ -122,7 +122,7 @@ export default function Events() {
                 : 'bg-card border border-border hover:border-emerald-600/50 text-foreground'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5" />
+            <AppIcon icon="Sparkles" className="w-3.5 h-3.5" />
             <span>Show</span>
           </button>
         </div>
@@ -156,13 +156,13 @@ export default function Events() {
 
                     {/* Floating Time Pill */}
                     <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[11px] font-bold border border-white/20 flex items-center gap-1 shadow-sm">
-                      <Clock className="w-3 h-3 text-amber-400" />
+                      <AppIcon icon="Clock" className="w-3 h-3 text-amber-400" />
                       <span>{event.time || '10:30 WIB'}</span>
                     </div>
                   </div>
                 ) : (
                   <div className="w-full sm:w-28 md:w-32 flex-shrink-0 bg-primary/5 dark:bg-primary/10 rounded-xl md:rounded-2xl p-3 flex sm:flex-col items-center justify-center gap-2 sm:gap-0.5 border border-primary/15 text-center">
-                    <Clock className="w-4 h-4 text-primary sm:mb-1" />
+                    <AppIcon icon="Clock" className="w-4 h-4 text-primary sm:mb-1" />
                     <div className="flex items-baseline gap-0.5">
                       <span className="text-xl md:text-2xl font-black text-primary tracking-tight">{event.time?.split(':')[0] || '00'}</span>
                       <span className="text-sm md:text-base font-bold text-primary/70">:{event.time?.split(':')[1] || '00'}</span>
@@ -180,7 +180,7 @@ export default function Events() {
                         {getEventTypeLabel(event.type)}
                       </span>
                       <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground font-medium">
-                        <Calendar className="w-3 h-3 text-primary/70" />
+                        <AppIcon icon="Calendar" className="w-3 h-3 text-primary/70" />
                         <span>{formatDate(event.event_date)}</span>
                       </span>
                     </div>
@@ -202,14 +202,14 @@ export default function Events() {
                   <div className="flex items-center justify-between pt-2.5 mt-1 border-t border-border/50 text-xs">
                     {event.location ? (
                       <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                        <AppIcon icon="MapPin" className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                         <span className="truncate font-medium text-[11px] sm:text-xs">{event.location}</span>
                       </div>
                     ) : <div />}
 
                     <div className="flex items-center gap-1 text-[11px] font-semibold text-primary group-hover:translate-x-0.5 transition-transform">
                       <span>Detail Agenda</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:rotate-45" />
+                      <AppIcon icon="ArrowUpRight" className="w-3.5 h-3.5 transition-transform group-hover:rotate-45" />
                     </div>
                   </div>
                 </div>
@@ -220,7 +220,7 @@ export default function Events() {
 
         {!loading && filteredEvents.length === 0 && (
           <div className="text-center py-12">
-            <Calendar className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
+            <AppIcon icon="Calendar" className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
             <p className="text-muted-foreground">{t('no_events_filter')}</p>
           </div>
         )}

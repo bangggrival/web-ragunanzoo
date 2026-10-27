@@ -2,19 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  Leaf, 
-  MapPin, 
-  Share2, 
-  GraduationCap, 
-  Tag, 
-  ShieldCheck, 
-  TreePine, 
-  Sparkles, 
-  ArrowUpRight,
-  ChevronRight,
-  Sun
-} from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Plant } from '@/hooks/usePlants';
@@ -139,7 +127,7 @@ export default function PlantDetail() {
     return (
       <div className="container mx-auto px-4 py-20 text-center max-w-md">
         <div className="w-20 h-20 rounded-3xl bg-muted flex items-center justify-center mx-auto mb-4">
-          <Leaf className="w-10 h-10 text-muted-foreground/50" />
+          <AppIcon icon="Leaf" className="w-10 h-10 text-muted-foreground/50" />
         </div>
         <h2 className="text-xl font-bold text-foreground mb-1">
           {language === 'en' ? 'Plant Not Found' : 'Tumbuhan Tidak Ditemukan'}
@@ -181,7 +169,7 @@ export default function PlantDetail() {
       {/* ══════════ ATMOSPHERIC HERO HEADER ══════════ */}
       <AtmosphericHeader
         theme="flora"
-        icon={<Leaf className="w-5 h-5 md:w-6 md:h-6 text-lime-300" />}
+        icon={<AppIcon icon="Leaf" className="w-5 h-5 md:w-6 md:h-6 text-lime-300" />}
         title={plantName}
         description={plant.latin_name ? `Nama Ilmiah / Botani: ${plant.latin_name}` : undefined}
         backPath="/flora"
@@ -199,7 +187,7 @@ export default function PlantDetail() {
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/12 hover:bg-white/20 border border-white/20 text-white text-xs md:text-sm font-semibold backdrop-blur-md shadow-sm transition-all hover:scale-105 active:scale-95"
               title={language === 'en' ? 'Share this plant' : 'Bagikan informasi tumbuhan ini'}
             >
-              <Share2 className="w-4 h-4 text-lime-300" />
+              <AppIcon icon="Share2" className="w-4 h-4 text-lime-300" />
               <span>{language === 'en' ? 'Share' : 'Bagikan'}</span>
             </button>
           </div>
@@ -222,7 +210,7 @@ export default function PlantDetail() {
                 />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center text-white/30 gap-2">
-                  <Leaf className="w-20 h-20 stroke-[1.2]" />
+                  <AppIcon icon="Leaf" className="w-20 h-20 stroke-[1.2]" />
                   <span className="text-xs text-white/50">{plantName}</span>
                 </div>
               )}
@@ -250,7 +238,7 @@ export default function PlantDetail() {
               {plant.is_featured && (
                 <div className="absolute top-3 right-3">
                   <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-extrabold bg-amber-400 text-amber-950 shadow-sm backdrop-blur-md">
-                    <Sparkles className="w-3.5 h-3.5 fill-amber-950 text-amber-950" />
+                    <AppIcon icon="Sparkles" className="w-3.5 h-3.5 fill-amber-950 text-amber-950" />
                     <span>Pilihan</span>
                   </span>
                 </div>
@@ -259,13 +247,13 @@ export default function PlantDetail() {
               {/* Floating Badge: Location & Species (Bottom) */}
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-md border border-white/20">
-                  <TreePine className="w-3.5 h-3.5 text-lime-400" />
+                  <AppIcon icon="TreePine" className="w-3.5 h-3.5 text-lime-400" />
                   <span>{plant.species || 'Pohon & Tumbuhan Tropis'}</span>
                 </span>
 
                 {plant.location && (
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/20 text-white text-[11px] font-medium backdrop-blur-md">
-                    <MapPin className="w-3 h-3 text-white" />
+                    <AppIcon icon="MapPin" className="w-3 h-3 text-white" />
                     <span>{plant.location}</span>
                   </span>
                 )}
@@ -281,7 +269,7 @@ export default function PlantDetail() {
                   title="Lihat Peta Ragunan"
                 >
                   <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-                    <MapPin className="w-4 h-4" />
+                    <AppIcon icon="MapPin" className="w-4 h-4" />
                   </div>
                   <span className="text-[11px] truncate">
                     {language === 'en' ? 'Locate on Map' : 'Buka di Peta'}
@@ -295,7 +283,7 @@ export default function PlantDetail() {
                   title="Kuis Edukasi Flora"
                 >
                   <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                    <GraduationCap className="w-4 h-4" />
+                    <AppIcon icon="GraduationCap" className="w-4 h-4" />
                   </div>
                   <span className="text-[11px] truncate">
                     {language === 'en' ? 'Plant Quiz' : 'Kuis Flora'}
@@ -314,7 +302,7 @@ export default function PlantDetail() {
               <div className="p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs flex flex-col justify-between hover:border-primary/40 transition-colors">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-3.5 h-3.5" />
+                    <AppIcon icon="MapPin" className="w-3.5 h-3.5" />
                   </div>
                   <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">
                     {language === 'en' ? 'Garden Zone' : 'Titik / Zona Taman'}
@@ -329,7 +317,7 @@ export default function PlantDetail() {
                     className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
                   >
                     <span>{language === 'en' ? 'View on Map' : 'Buka di Peta'}</span>
-                    <ArrowUpRight className="w-3 h-3" />
+                    <AppIcon icon="ArrowUpRight" className="w-3 h-3" />
                   </Link>
                 </div>
               </div>
@@ -338,7 +326,7 @@ export default function PlantDetail() {
               <div className="p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs flex flex-col justify-between hover:border-emerald-500/40 transition-colors">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
-                    <Leaf className="w-3.5 h-3.5" />
+                    <AppIcon icon="Leaf" className="w-3.5 h-3.5" />
                   </div>
                   <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">
                     {language === 'en' ? 'Habitat' : 'Habitat Asal'}
@@ -358,7 +346,7 @@ export default function PlantDetail() {
               <div className="p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs flex flex-col justify-between hover:border-lime-500/40 transition-colors">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="w-7 h-7 rounded-lg bg-lime-500/10 text-lime-600 dark:text-lime-400 flex items-center justify-center flex-shrink-0">
-                    <TreePine className="w-3.5 h-3.5" />
+                    <AppIcon icon="TreePine" className="w-3.5 h-3.5" />
                   </div>
                   <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">
                     {language === 'en' ? 'Classification' : 'Klasifikasi'}
@@ -378,7 +366,7 @@ export default function PlantDetail() {
               <div className="p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs flex flex-col justify-between hover:border-teal-500/40 transition-colors">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="w-7 h-7 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center flex-shrink-0">
-                    <Sun className="w-3.5 h-3.5" />
+                    <AppIcon icon="Sun" className="w-3.5 h-3.5" />
                   </div>
                   <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">
                     {language === 'en' ? 'Ecology Function' : 'Fungsi Ekologis'}
@@ -400,7 +388,7 @@ export default function PlantDetail() {
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <h2 className="text-base md:text-lg font-bold text-foreground flex items-center gap-2">
-                    <Leaf className="w-4 h-4 text-emerald-500" />
+                    <AppIcon icon="Leaf" className="w-4 h-4 text-emerald-500" />
                     <span>{language === 'en' ? 'Botany & Ecological Insights' : 'Mengenal Flora Ini'}</span>
                   </h2>
                   <span className="text-xs text-muted-foreground font-medium">
@@ -416,7 +404,7 @@ export default function PlantDetail() {
 
               <div className="pt-4 mt-4 border-t border-border/60 flex items-center justify-between text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  <AppIcon icon="ShieldCheck" className="w-4 h-4 text-emerald-500" />
                   <span>{language === 'en' ? 'Conserved Flora of Ragunan Forest' : 'Flora Dilindungi Kawasan Hutan Ragunan'}</span>
                 </span>
                 <Link href="/flora" className="text-primary font-semibold hover:underline">
@@ -432,7 +420,7 @@ export default function PlantDetail() {
         <div className="p-5 md:p-6 rounded-3xl bg-card border border-border/80 shadow-xs mb-8">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-lime-500/15 text-lime-700 dark:text-lime-300 flex items-center justify-center flex-shrink-0">
-              <TreePine className="w-4 h-4" />
+              <AppIcon icon="TreePine" className="w-4 h-4" />
             </div>
             <div>
               <h2 className="text-base md:text-lg font-bold text-foreground">
@@ -486,7 +474,7 @@ export default function PlantDetail() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-lg md:text-xl font-bold text-foreground flex items-center gap-2">
-                  <Leaf className="w-5 h-5 text-emerald-500" />
+                  <AppIcon icon="Leaf" className="w-5 h-5 text-emerald-500" />
                   <span>{language === 'en' ? 'Explore More Botanical Treasures' : 'Jelajahi Koleksi Flora Lainnya'}</span>
                 </h2>
                 <p className="text-xs text-muted-foreground mt-0.5">
@@ -499,7 +487,7 @@ export default function PlantDetail() {
                 className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
               >
                 <span>{language === 'en' ? 'View Catalog' : 'Katalog Flora'}</span>
-                <ChevronRight className="w-3.5 h-3.5" />
+                <AppIcon icon="ChevronRight" className="w-3.5 h-3.5" />
               </Link>
             </div>
 
@@ -522,7 +510,7 @@ export default function PlantDetail() {
                     badgeText={rel.status || undefined}
                     badgeVariant="emerald"
                     metaLabel={rel.location || rel.zone || undefined}
-                    metaIcon={<MapPin className="w-3 h-3 text-white/90" />}
+                    metaIcon={<AppIcon icon="MapPin" className="w-3 h-3 text-white/90" />}
                     aspectRatio="square"
                     actionText={language === 'en' ? 'Details' : 'Lihat Detail'}
                   />

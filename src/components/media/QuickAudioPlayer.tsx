@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
-import { Volume2, VolumeX, Play, Pause, Loader2 } from 'lucide-react';
+import { AppIcon } from '@/components/ui/AppIcon';
 import { toast } from 'sonner';
 
 interface QuickAudioPlayerProps {
@@ -85,10 +85,10 @@ export default function QuickAudioPlayer({ audioUrl, label, size = 'sm' }: Quick
       title={isPlaying ? 'Jeda Audio Suara' : 'Dengarkan Suara Satwa'}
     >
       {isLoading ? (
-        <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-500" />
+        <AppIcon name="solar:spinner-linear" className="w-3.5 h-3.5 animate-spin text-amber-500" />
       ) : isPlaying ? (
         <>
-          <Pause className="w-3 h-3 text-amber-500" />
+          <AppIcon name="solar:pause-bold" className="w-3 h-3 text-amber-500" />
           {/* Animated Waveform Bars */}
           <div className="flex items-end gap-0.5 h-3">
             <span className="w-0.5 bg-amber-500 rounded-full animate-bounce h-2" style={{ animationDelay: '0ms' }} />
@@ -97,7 +97,7 @@ export default function QuickAudioPlayer({ audioUrl, label, size = 'sm' }: Quick
           </div>
         </>
       ) : (
-        <Volume2 className="w-3.5 h-3.5 text-slate-500 group-hover:text-foreground" />
+        <AppIcon name="solar:volume-loud-bold-duotone" className="w-3.5 h-3.5 text-slate-500 group-hover:text-foreground" />
       )}
       <span>{label || (isPlaying ? 'Memutar' : 'Suara')}</span>
     </button>

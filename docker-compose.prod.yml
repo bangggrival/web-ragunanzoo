@@ -1,0 +1,94 @@
+# ==============================================================================
+# Production Docker Compose - Taman Margasatwa Ragunan Web Application
+# ==============================================================================
+# Menjalankan di server:
+#   docker compose -f docker-compose.prod.yml up -d --build
+# ==============================================================================
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: ragunan-db
+    restart: always
+    networks:
+      - ragunan-internal
+    environment:
+      POSTGRES_USER: ${PGUSER:-postgres}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE:-ragunan_zoo}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/init_database.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER:-postgres} -d ${PGDATABASE:-ragunan_zoo}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
+
+  ragunan-api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: ragunan-api
+    restart: always
+    networks:
+      - ragunan-internal
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ./server/.env
+    environment:
+      - NODE_ENV=production
+      - PGHOST=postgres
+      - PGPORT=5432
+    # Bind HANYA ke loopback localhost (hanya Nginx yang bisa mengakses)
+    ports:
+      - "127.0.0.1:5005:5005"
+    volumes:
+      - ./server/uploads:/app/uploads
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
+
+  ragunan-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL}
+    container_name: ragunan-web
+    restart: always
+    networks:
+      - ragunan-internal
+    depends_on:
+      ragunan-api:
+        condition: service_started
+    # Bind HANYA ke loopback localhost (hanya Nginx yang bisa mengakses)
+    ports:
+      - "127.0.0.1:3002:3002"
+    environment:
+      - NODE_ENV=production
+      - PORT=3002
+      - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
+      - INTERNAL_BACKEND_URL=http://ragunan-api:5005
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
+
+networks:
+  ragunan-internal:
+    driver: bridge
+
+volumes:
+  postgres_data:

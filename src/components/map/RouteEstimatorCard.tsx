@@ -1,18 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { 
-  Navigation, 
-  Footprints, 
-  Clock, 
-  MapPin, 
-  Flame, 
-  Trees, 
-  ArrowRight, 
-  ChevronDown, 
-  ChevronUp, 
-  Compass
-} from 'lucide-react';
+import AppIcon from '@/components/ui/AppIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { allMapPoints } from './zoneConfig';
 
@@ -187,7 +176,7 @@ export default function RouteEstimatorCard({
       >
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold shadow-2xs">
-            <Navigation className="w-4 h-4 text-primary" />
+            <AppIcon name="solar:routing-2-bold-duotone" className="w-4 h-4 text-primary" />
           </div>
           <div>
             <h3 className="text-xs sm:text-sm font-extrabold text-foreground tracking-tight flex items-center gap-1.5">
@@ -206,7 +195,7 @@ export default function RouteEstimatorCard({
           className="p-1 text-muted-foreground hover:text-foreground rounded-lg transition-colors"
           aria-label={isExpanded ? 'Collapse' : 'Expand'}
         >
-          {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          {isExpanded ? <AppIcon name="solar:alt-arrow-up-linear" className="w-4 h-4" /> : <AppIcon name="solar:alt-arrow-down-linear" className="w-4 h-4" />}
         </button>
       </div>
 
@@ -218,7 +207,7 @@ export default function RouteEstimatorCard({
             {/* Origin */}
             <div className="space-y-1">
               <label className="text-[11px] font-bold text-muted-foreground flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <AppIcon name="solar:map-point-wave-bold-duotone" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span>{language === 'en' ? 'Starting Point (Origin)' : 'Titik Mulai (Asal)'}</span>
               </label>
               <select
@@ -235,7 +224,7 @@ export default function RouteEstimatorCard({
             {/* Destination */}
             <div className="space-y-1">
               <label className="text-[11px] font-bold text-muted-foreground flex items-center gap-1">
-                <Navigation className="w-3.5 h-3.5 text-primary" />
+                <AppIcon name="solar:routing-2-bold-duotone" className="w-3.5 h-3.5 text-primary" />
                 <span>{language === 'en' ? 'Destination (Target)' : 'Titik Tujuan (Destinasi)'}</span>
               </label>
               <select
@@ -273,7 +262,7 @@ export default function RouteEstimatorCard({
                 </div>
 
                 <div className="flex items-center gap-1 text-[11px] font-bold px-2 py-1 rounded-lg bg-primary/10 text-primary flex-shrink-0">
-                  <Compass className="w-3 h-3" />
+                  <AppIcon name="solar:compass-bold-duotone" className="w-3 h-3" />
                   <span>{routeResult.bearingLabel} ({routeResult.bearingDeg}°)</span>
                 </div>
               </div>
@@ -283,7 +272,7 @@ export default function RouteEstimatorCard({
                 {/* Distance */}
                 <div className="p-2.5 rounded-xl bg-background border border-border/70 flex items-center gap-2">
                   <div className="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
-                    <Footprints className="w-4 h-4" />
+                    <AppIcon name="solar:walking-round-bold-duotone" className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="text-[10px] text-muted-foreground block font-medium">{language === 'en' ? 'Distance' : 'Jarak'}</span>
@@ -298,7 +287,7 @@ export default function RouteEstimatorCard({
                 {/* Walking Time */}
                 <div className="p-2.5 rounded-xl bg-background border border-border/70 flex items-center gap-2">
                   <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-4 h-4" />
+                    <AppIcon name="solar:clock-circle-bold-duotone" className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="text-[10px] text-muted-foreground block font-medium">{language === 'en' ? 'Est. Time' : 'Estimasi'}</span>
@@ -311,7 +300,7 @@ export default function RouteEstimatorCard({
                 {/* Shade Level */}
                 <div className="p-2.5 rounded-xl bg-background border border-border/70 flex items-center gap-2">
                   <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
-                    <Trees className="w-4 h-4" />
+                    <AppIcon name="solar:trees-bold-duotone" className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="text-[10px] text-muted-foreground block font-medium">{language === 'en' ? 'Canopy Shade' : 'Kanopi Teduh'}</span>
@@ -324,7 +313,7 @@ export default function RouteEstimatorCard({
                 {/* Calories */}
                 <div className="p-2.5 rounded-xl bg-background border border-border/70 flex items-center gap-2">
                   <div className="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center flex-shrink-0">
-                    <Flame className="w-4 h-4" />
+                    <AppIcon name="solar:flame-bold-duotone" className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="text-[10px] text-muted-foreground block font-medium">{language === 'en' ? 'Burn' : 'Kalori'}</span>
@@ -341,9 +330,9 @@ export default function RouteEstimatorCard({
                   onClick={() => onSwitchToInteractiveGps(destinationId)}
                   className="w-full mt-2 py-2 px-3 rounded-xl bg-primary text-primary-foreground font-bold text-xs flex items-center justify-center gap-2 shadow-sm hover:bg-primary/90 active:scale-95 transition-all"
                 >
-                  <Navigation className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:routing-2-bold-duotone" className="w-3.5 h-3.5" />
                   <span>{language === 'en' ? 'Open Turn-by-Turn GPS Navigation' : 'Buka Navigasi Belokan GPS Lengkap'}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <AppIcon name="solar:arrow-right-linear" className="w-3.5 h-3.5" />
                 </button>
               )}
             </div>
